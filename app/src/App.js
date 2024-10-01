@@ -8,15 +8,14 @@ import Menubar from './components/Menubar';
 function App() {
   return (
     <Router>
-      <div style={{ display: 'flex' }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/home" element={<Home />} />
-        </Routes>
-      </div>
-    </Router>
+      <Menubar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </Router >
   );
 }
 
