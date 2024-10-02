@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import ExerciseCard from '../components/Card';
+import squatImg from "../assets/squat.jpg"
 
 function Catalog() {
     return (
@@ -30,6 +31,7 @@ function Catalog() {
                         title="Exercise 1"
                         description="description for exercise 1 description for exercise 1"
                         link='/'
+                        image={squatImg}
                     />
                 </Box>
 
