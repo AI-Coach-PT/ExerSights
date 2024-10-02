@@ -30,7 +30,7 @@ function Catalog() {
                     <ExerciseCard
                         title="Exercise 1"
                         description="description for exercise 1 description for exercise 1"
-                        link='/'
+                        link='/exercise1'
                         image={squatImg}
                     />
                 </Box>
