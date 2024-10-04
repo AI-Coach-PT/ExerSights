@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Typography, Box } from '@mui/material';
 import WebcamBox from "../../components/Webcam";
-import detectPose from '../../components/PoseDetector';
+import detectPose from '../../utils/PoseDetector';
 
 function Exercise1() {
     const webcamRef = useRef(null);
