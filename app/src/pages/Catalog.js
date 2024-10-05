@@ -30,7 +30,7 @@ function Catalog() {
                     <ExerciseCard
                         title="Squat"
                         description="Squats strengthen the legs, glutes, and core, improving flexibility and balance."
-                        link='/exercise1'
+                        link='/squat'
                         image={squatImg}
                     />
                 </Box>

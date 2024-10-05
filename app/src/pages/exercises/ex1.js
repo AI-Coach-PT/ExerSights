@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Typography, Box, Paper, TextField } from '@mui/material';
+import { Typography, Box, Paper, TextField, Button } from '@mui/material';
 import WebcamBox from "../../components/Webcam";
 import detectPose from '../../utils/PoseDetector';
 import { checkSquats } from '../../utils/Squat';
@@ -18,6 +18,10 @@ function Exercise1() {
 
     const processPoseResults = (landmarks) => {
         checkSquats(landmarks, setFeedback, setLeftKneeAngle, setRepCount);
+    };
+
+    const handleReset = () => {
+        setRepCount(0);
     };
 
     useEffect(() => {
@@ -54,7 +58,7 @@ function Exercise1() {
                 <Typography variant="h6" sx={{ marginBottom: '20px' }}>
                     {"Feedback: "}
                     <span style={{ color: 'red' }}>
-                        {feedback}
+                        {feedback ? feedback : "Please Begin Rep!"}
                     </span>
                 </Typography>
                 <Typography variant="h6" gutterBottom>
@@ -63,6 +67,15 @@ function Exercise1() {
                 <Typography variant="h6" gutterBottom sx={{ marginTop: '20px' }}>
                     Current Rep Count: {repCount}
                 </Typography>
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleReset}
+                    sx={{ marginTop: '20px' }}
+                >
+                    Reset Rep Count
+                </Button>
             </Paper>
         </Box>
     );
