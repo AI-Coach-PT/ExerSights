@@ -1,7 +1,7 @@
 import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
 
-const detectPose = (webcamRef, canvasRef) => {
+const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
     const pose = new Pose({
         locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
     });
@@ -25,6 +25,7 @@ const detectPose = (webcamRef, canvasRef) => {
 
         if (results.poseLandmarks) {
             drawBody(canvasCtx, results.poseLandmarks);
+            onResultsCallback(results.poseLandmarks);
         }
 
         canvasCtx.restore();
