@@ -1,6 +1,17 @@
 import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
 
+/**
+ * Initializes the Mediapipe Pose model and sets up real-time pose detection using a webcam feed. 
+ * It draws the pose landmarks and connections (skeleton) onto a canvas and passes the pose data 
+ * to a callback for further processing.
+ *
+ * @param {Object} webcamRef A React reference object pointing to the webcam feed (Webcam component). 
+ * @param {Object} canvasRef A React reference object pointing to the canvas element where the pose 
+ *                           landmarks and skeleton will be drawn.
+ * @param {Function} onResultsCallback A callback function that receives the detected pose landmarks.
+ *                                     It is called every time pose landmarks are detected.
+ */
 const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
     const pose = new Pose({
         locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,

@@ -4,7 +4,18 @@ import WebcamBox from "../../components/Webcam";
 import detectPose from '../../utils/PoseDetector';
 import { checkSquats } from '../../utils/Squat';
 
-function Exercise1() {
+/**
+ * A React functional component that provides a real-time squat tracking and feedback interface using 
+ * the Mediapipe Pose model and a webcam feed. The component displays the user's current knee angle, 
+ * squat count, and feedback on the squat form. It also allows the user to adjust the target knee angle 
+ * for better squat depth tracking.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} The JSX code to render the Squat tracking page, including webcam feed, feedback,
+ *                        squat count, knee angle display, and a reset button.
+ */
+function SquatPage() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
     const [targetKneeAngle, setTargetKneeAngle] = useState(70);
@@ -81,4 +92,4 @@ function Exercise1() {
     );
 }
 
-export default Exercise1;
+export default SquatPage;
