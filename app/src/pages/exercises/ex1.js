@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Typography, Box, Paper } from '@mui/material';
+import { Typography, Box, Paper, TextField } from '@mui/material';
 import WebcamBox from "../../components/Webcam";
 import detectPose from '../../utils/PoseDetector';
 import { checkSquats } from '../../utils/Squat';
@@ -7,9 +7,14 @@ import { checkSquats } from '../../utils/Squat';
 function Exercise1() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
+    const [targetKneeAngle, setTargetKneeAngle] = useState(70);
     const [feedback, setFeedback] = useState("");
     const [leftKneeAngle, setLeftKneeAngle] = useState(0);
     const [repCount, setRepCount] = useState(0);
+
+    const handleTargetKneeAngleChange = (event) => {
+        setTargetKneeAngle(event.target.value);
+    };
 
     const processPoseResults = (landmarks) => {
         checkSquats(landmarks, setFeedback, setLeftKneeAngle, setRepCount);
@@ -35,20 +40,28 @@ function Exercise1() {
             </Box>
 
             <Paper elevation={3} sx={{ padding: '20px', width: '300px', textAlign: 'left' }}>
-                <Typography variant="h6" gutterBottom>
-                    Real-time Feedback:
-                </Typography>
                 <Typography variant="h6" sx={{ marginBottom: '20px' }}>
-                    Feedback: {feedback}
+                    Real-Time Feedback Panel
+                </Typography>
+                <TextField
+                    id="outlined-number"
+                    label="Target Knee Angle °"
+                    type="number"
+                    value={targetKneeAngle}
+                    onChange={handleTargetKneeAngleChange}
+                    sx={{ marginBottom: '20px' }}
+                />
+                <Typography variant="h6" sx={{ marginBottom: '20px' }}>
+                    {"Feedback: "}
+                    <span style={{ color: 'red' }}>
+                        {feedback}
+                    </span>
                 </Typography>
                 <Typography variant="h6" gutterBottom>
                     Knee Angle: {leftKneeAngle.toFixed(0)}°
                 </Typography>
                 <Typography variant="h6" gutterBottom sx={{ marginTop: '20px' }}>
-                    Current Rep Count:
-                </Typography>
-                <Typography variant="body1">
-                    {repCount}
+                    Current Rep Count: {repCount}
                 </Typography>
             </Paper>
         </Box>

@@ -12,17 +12,23 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setLeftKneeAngle, setRe
 
     setLeftKneeAngle(leftKneeAngle);
 
-    let feedback = "";
+    let feedback = "Please Begin Rep!";
 
-    if ((leftKneeAngle < 100 && leftKneeAngle > 70 && !inSquatPosition)) {
+    if ((leftKneeAngle < 120 && leftKneeAngle > 70 && !inSquatPosition)) {
         feedback = "Go Down Lower!";
     } else if (leftKneeAngle < 70) {
+        feedback = "Excellent!"
         inSquatPosition = true;
     } else if (leftKneeAngle > 160) {
         if (inSquatPosition) {
+            feedback = "Excellent!"
             squatCount++;
             inSquatPosition = false;
             setRepCount(squatCount);
+        }
+    } else {
+        if (inSquatPosition) {
+            feedback = "Excellent!"
         }
     }
 
