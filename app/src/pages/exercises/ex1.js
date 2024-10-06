@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button } from "@mui/material";
-import WebcamBox from "../../components/Webcam";
 import PoseDetector from "../../utils/PoseDetectorNew";
 import { checkSquats } from "../../utils/Squat";
 
@@ -24,10 +23,6 @@ function Exercise1() {
         setRepCount(0);
     };
 
-    // useEffect(() => {
-    //     detectPose(webcamRef, canvasRef, processPoseResults);
-    // }, []);
-
     return (
         <Box
             sx={{ display: "flex", justifyContent: "center", padding: "20px" }}
@@ -46,7 +41,6 @@ function Exercise1() {
                     onResultCallback={processPoseResults}
                 />
             </Box>
-
             <Paper
                 elevation={3}
                 sx={{ padding: "20px", width: "300px", textAlign: "left" }}
@@ -78,7 +72,6 @@ function Exercise1() {
                 >
                     Current Rep Count: {repCount}
                 </Typography>
-
                 <Button
                     variant="contained"
                     color="primary"

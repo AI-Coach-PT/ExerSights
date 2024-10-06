@@ -5,17 +5,9 @@ import {
     DrawingUtils,
 } from "@mediapipe/tasks-vision";
 import poseLandmarkerTask from "../shared/models/pose_landmarker_full.task";
-import Webcam from "react-webcam";
+import WebcamBox from "../components/Webcam";
 
-const PoseDetector = (props) => {
-    const webcamRef = props.webcamRef;
-    const canvasRef = props.canvasRef;
-    // const processPoseResults = props.processPoseResults;
-
-    const videoConstraints = {
-        facingMode: "user",
-    };
-
+const PoseDetector = ({ webcamRef, canvasRef, onResultCallback }) => {
     useEffect(() => {
         let poseLandmarker;
 
@@ -42,7 +34,6 @@ const PoseDetector = (props) => {
 
         const detectPose = () => {
             if (webcamRef.current && webcamRef.current.video.readyState >= 2) {
-                console.log("HERE2");
                 poseLandmarker.detectForVideo(
                     webcamRef.current.video,
                     performance.now(),
@@ -60,6 +51,7 @@ const PoseDetector = (props) => {
                             canvas.width,
                             canvas.height
                         );
+
                         for (const landmark of result.landmarks) {
                             drawingUtils.drawLandmarks(landmark, {
                                 color: "black",
@@ -71,8 +63,10 @@ const PoseDetector = (props) => {
                                 { color: "black" }
                             );
                         }
-                        // props.processPoseResults(result.landmarks);
+
                         canvasCtx.restore();
+                        console.log(result.landmarks);
+                        onResultCallback(result.landmarks);
                     }
                 );
             }
@@ -82,20 +76,18 @@ const PoseDetector = (props) => {
         createPoseLandmarker();
 
         return () => {
-            if (poseLandmarker) {
-                poseLandmarker.close();
-            }
+            if (poseLandmarker) poseLandmarker.close();
+            cancelAnimationFrame(detectPose);
         };
     }, []);
 
     return (
         <div className="App" style={{ position: "relative" }}>
-            <Webcam
+            <WebcamBox
                 ref={webcamRef}
                 audio={false}
                 width={640}
                 height={480}
-                videoConstraints={videoConstraints}
                 style={{ top: 0, left: 0 }}
             />
             <canvas
