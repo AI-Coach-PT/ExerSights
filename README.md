@@ -1,1 +1,1 @@
-# ai-coach-app
+# ExerSights
