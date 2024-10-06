@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Typography, Box, Paper, TextField, Button } from "@mui/material";
-import PoseDetector from "../../utils/PoseDetectorNew";
+import PoseDetector from "../../utils/PoseDetector";
 import { checkSquats } from "../../utils/Squat";
 
 function Exercise1() {

@@ -1,118 +1,108 @@
-import { Pose } from "@mediapipe/pose";
-import { Camera } from "@mediapipe/camera_utils";
+import { useEffect, useRef } from "react";
+import {
+    FilesetResolver,
+    PoseLandmarker,
+    DrawingUtils,
+} from "@mediapipe/tasks-vision";
+import poseLandmarkerTask from "../shared/models/pose_landmarker_full.task";
+import WebcamBox from "../components/Webcam";
 
-const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
-    const pose = new Pose({
-        locateFile: (file) =>
-            `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
-    });
+const PoseDetector = ({ onResultCallback }) => {
+    const webcamRef = useRef(null);
+    const canvasRef = useRef(null);
+    useEffect(() => {
+        let poseLandmarker;
+        let animationId;
 
-    pose.setOptions({
-        modelComplexity: 1,
-        smoothLandmarks: true,
-        enableSegmentation: false,
-        minDetectionConfidence: 0.5,
-        minTrackingConfidence: 0.5,
-    });
+        const createPoseLandmarker = async () => {
+            try {
+                const vision = await FilesetResolver.forVisionTasks(
+                    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm"
+                );
+                poseLandmarker = await PoseLandmarker.createFromOptions(
+                    vision,
+                    {
+                        baseOptions: {
+                            modelAssetPath: poseLandmarkerTask,
+                        },
+                        runningMode: "VIDEO",
+                        numPoses: 1,
+                    }
+                );
+                detectPose();
+            } catch (e) {
+                console.error("ERROR:", e);
+            }
+        };
 
-    pose.onResults((results) => {
-        const canvasCtx = canvasRef.current.getContext("2d");
-        canvasCtx.save();
-        canvasCtx.clearRect(
-            0,
-            0,
-            canvasRef.current.width,
-            canvasRef.current.height
-        );
+        const detectPose = () => {
+            if (webcamRef.current && webcamRef.current.video.readyState >= 2) {
+                poseLandmarker.detectForVideo(
+                    webcamRef.current.video,
+                    performance.now(),
+                    (result) => {
+                        const canvas = canvasRef.current;
+                        const canvasCtx = canvas.getContext("2d");
+                        const drawingUtils = new DrawingUtils(canvasCtx);
 
-        canvasCtx.drawImage(
-            results.image,
-            0,
-            0,
-            canvasRef.current.width,
-            canvasRef.current.height
-        );
+                        canvasCtx.save();
+                        canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+                        canvasCtx.drawImage(
+                            webcamRef.current.video,
+                            0,
+                            0,
+                            canvas.width,
+                            canvas.height
+                        );
+                        for (const landmark of result.landmarks) {
+                            drawingUtils.drawLandmarks(landmark, {
+                                color: "black",
+                                radius: 5,
+                            });
+                            drawingUtils.drawConnectors(
+                                landmark,
+                                PoseLandmarker.POSE_CONNECTIONS,
+                                { color: "blue" }
+                            );
+                        }
+                        canvasCtx.restore();
+                        if (result.landmarks)
+                            onResultCallback(result.landmarks);
+                    }
+                );
+            }
+            animationId = requestAnimationFrame(detectPose);
+        };
 
-        if (results.poseLandmarks) {
-            drawBody(canvasCtx, results.poseLandmarks);
-            onResultsCallback(results.poseLandmarks);
-        }
+        createPoseLandmarker();
 
-        canvasCtx.restore();
-    });
+        return () => {
+            if (poseLandmarker) poseLandmarker.close();
+            if (animationId) cancelAnimationFrame(animationId);
+        };
+    }, []);
 
-    if (webcamRef.current && typeof webcamRef.current.video !== "undefined") {
-        const camera = new Camera(webcamRef.current.video, {
-            onFrame: async () => {
-                if (webcamRef.current && webcamRef.current.video) {
-                    await pose.send({ image: webcamRef.current.video });
-                }
-            },
-            width: 640,
-            height: 480,
-        });
-        camera.start();
-    }
+    return (
+        <div className="App" style={{ position: "relative" }}>
+            <WebcamBox
+                ref={webcamRef}
+                audio={false}
+                width={640}
+                height={480}
+                style={{ top: 0, left: 0 }}
+            />
+            <canvas
+                ref={canvasRef}
+                width={640}
+                height={480}
+                style={{
+                    top: 0,
+                    left: 0,
+                    zIndex: 1,
+                }}
+            />
+        </div>
+    );
 };
 
-const drawBody = (canvasCtx, landmarks) => {
-    canvasCtx.lineWidth = 5;
-    canvasCtx.strokeStyle = "blue";
-    canvasCtx.fillStyle = "red";
-
-    for (let i = 0; i < landmarks.length; i++) {
-        const x = landmarks[i].x * canvasCtx.canvas.width;
-        const y = landmarks[i].y * canvasCtx.canvas.height;
-        canvasCtx.beginPath();
-        canvasCtx.arc(x, y, 5, 0, 2 * Math.PI);
-        canvasCtx.fill();
-    }
-
-    const POSE_CONNECTIONS = [
-        [0, 1],
-        [1, 2],
-        [2, 3],
-        [3, 7],
-        [0, 4],
-        [4, 5],
-        [5, 6],
-        [6, 8],
-        [9, 10],
-        [11, 12],
-        [12, 14],
-        [14, 16],
-        [11, 13],
-        [13, 15],
-        [15, 17],
-        [11, 23],
-        [12, 24],
-        [23, 24],
-        [23, 25],
-        [24, 26],
-        [25, 27],
-        [26, 28],
-        [27, 29],
-        [28, 30],
-        [29, 31],
-        [30, 32],
-    ];
-
-    for (const connection of POSE_CONNECTIONS) {
-        const startIdx = connection[0];
-        const endIdx = connection[1];
-        const start = landmarks[startIdx];
-        const end = landmarks[endIdx];
-        canvasCtx.beginPath();
-        canvasCtx.moveTo(
-            start.x * canvasCtx.canvas.width,
-            start.y * canvasCtx.canvas.height
-        );
-        canvasCtx.lineTo(
-            end.x * canvasCtx.canvas.width,
-            end.y * canvasCtx.canvas.height
-        );
-        canvasCtx.stroke();
-    }
-};
-
-export default detectPose;
+export default PoseDetector;
