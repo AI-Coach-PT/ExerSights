@@ -5,8 +5,17 @@ import {
     DrawingUtils,
 } from "@mediapipe/tasks-vision";
 import poseLandmarkerTask from "../shared/models/pose_landmarker_full.task";
+import Webcam from "react-webcam";
 
-const useDetectPose = (webcamRef, canvasRef, onResultsCallback) => {
+const PoseDetector = (props) => {
+    const webcamRef = props.webcamRef;
+    const canvasRef = props.canvasRef;
+    // const processPoseResults = props.processPoseResults;
+
+    const videoConstraints = {
+        facingMode: "user",
+    };
+
     useEffect(() => {
         let poseLandmarker;
 
@@ -25,13 +34,13 @@ const useDetectPose = (webcamRef, canvasRef, onResultsCallback) => {
                         numPoses: 1,
                     }
                 );
-                detectAndDrawPose();
+                detectPose();
             } catch (e) {
                 console.error("ERROR:", e);
             }
         };
 
-        const detectAndDrawPose = () => {
+        const detectPose = () => {
             if (webcamRef.current && webcamRef.current.video.readyState >= 2) {
                 console.log("HERE2");
                 poseLandmarker.detectForVideo(
@@ -62,12 +71,12 @@ const useDetectPose = (webcamRef, canvasRef, onResultsCallback) => {
                                 { color: "black" }
                             );
                         }
-                        onResultsCallback(result.landmarks);
+                        // props.processPoseResults(result.landmarks);
                         canvasCtx.restore();
                     }
                 );
             }
-            requestAnimationFrame(useDetectPose);
+            requestAnimationFrame(detectPose);
         };
 
         createPoseLandmarker();
@@ -78,6 +87,29 @@ const useDetectPose = (webcamRef, canvasRef, onResultsCallback) => {
             }
         };
     }, []);
+
+    return (
+        <div className="App" style={{ position: "relative" }}>
+            <Webcam
+                ref={webcamRef}
+                audio={false}
+                width={640}
+                height={480}
+                videoConstraints={videoConstraints}
+                style={{ top: 0, left: 0 }}
+            />
+            <canvas
+                ref={canvasRef}
+                width={640}
+                height={480}
+                style={{
+                    top: 0,
+                    left: 0,
+                    zIndex: 1,
+                }}
+            />
+        </div>
+    );
 };
 
-export default useDetectPose;
+export default PoseDetector;

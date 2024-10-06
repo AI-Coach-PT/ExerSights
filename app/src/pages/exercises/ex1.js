@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button } from "@mui/material";
 import WebcamBox from "../../components/Webcam";
-import detectPose from "../../utils/PoseDetectorNew";
+import PoseDetector from "../../utils/PoseDetectorNew";
 import { checkSquats } from "../../utils/Squat";
 
 function Exercise1() {
@@ -24,9 +24,9 @@ function Exercise1() {
         setRepCount(0);
     };
 
-    useEffect(() => {
-        detectPose(webcamRef, canvasRef, processPoseResults);
-    }, []);
+    // useEffect(() => {
+    //     detectPose(webcamRef, canvasRef, processPoseResults);
+    // }, []);
 
     return (
         <Box
@@ -40,12 +40,10 @@ function Exercise1() {
                 >
                     Squats
                 </Typography>
-                <WebcamBox ref={webcamRef} />
-                <canvas
-                    ref={canvasRef}
-                    width="640"
-                    height="480"
-                    style={{ border: "2px solid black" }}
+                <PoseDetector
+                    webcamRef={webcamRef}
+                    canvasRef={canvasRef}
+                    onResultCallback={processPoseResults}
                 />
             </Box>
 
