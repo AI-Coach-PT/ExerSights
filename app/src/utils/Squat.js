@@ -12,6 +12,7 @@ export const checkSquats = (
     const leftHip = landmarks[23];
     const leftKnee = landmarks[25];
     const leftAnkle = landmarks[27];
+    console.log(landmarks);
 
     const leftKneeAngle = calculateAngle(leftHip, leftKnee, leftAnkle);
 

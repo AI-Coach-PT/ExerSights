@@ -1,4 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setLandmarks } from "./LandmarkSlice";
 import {
     FilesetResolver,
     PoseLandmarker,
@@ -8,6 +10,8 @@ import poseLandmarkerTask from "../shared/models/pose_landmarker_full.task";
 import WebcamBox from "../components/Webcam";
 
 const PoseDetector = ({ webcamRef, canvasRef, onResultCallback }) => {
+    const dispatch = useDispatch();
+    console.log(dispatch);
     useEffect(() => {
         let poseLandmarker;
 
@@ -51,7 +55,6 @@ const PoseDetector = ({ webcamRef, canvasRef, onResultCallback }) => {
                             canvas.width,
                             canvas.height
                         );
-
                         for (const landmark of result.landmarks) {
                             drawingUtils.drawLandmarks(landmark, {
                                 color: "black",
@@ -63,10 +66,9 @@ const PoseDetector = ({ webcamRef, canvasRef, onResultCallback }) => {
                                 { color: "black" }
                             );
                         }
-
                         canvasCtx.restore();
-                        console.log(result.landmarks);
-                        onResultCallback(result.landmarks);
+                        dispatch(setLandmarks(result.landmarks));
+                        onResultCallback();
                     }
                 );
             }

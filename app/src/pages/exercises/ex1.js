@@ -1,7 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Typography, Box, Paper, TextField, Button } from "@mui/material";
 import PoseDetector from "../../utils/PoseDetectorNew";
 import { checkSquats } from "../../utils/Squat";
+import { useSelector } from "react-redux";
 
 function Exercise1() {
     const webcamRef = useRef(null);
@@ -11,11 +12,13 @@ function Exercise1() {
     const [leftKneeAngle, setLeftKneeAngle] = useState(0);
     const [repCount, setRepCount] = useState(0);
 
+    const landmarks = useSelector((state) => state.landmarks.value);
+
     const handleTargetKneeAngleChange = (event) => {
         setTargetKneeAngle(event.target.value);
     };
 
-    const processPoseResults = (landmarks) => {
+    const processPoseResults = () => {
         checkSquats(landmarks, setFeedback, setLeftKneeAngle, setRepCount);
     };
 
