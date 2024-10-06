@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Typography, Box, Paper, TextField, Button } from '@mui/material';
+import { Typography, Box, Paper, TextField, Button } from "@mui/material";
 import WebcamBox from "../../components/Webcam";
-import detectPose from '../../utils/PoseDetector';
-import { checkSquats } from '../../utils/Squat';
+import detectPose from "../../utils/PoseDetectorNew";
+import { checkSquats } from "../../utils/Squat";
 
 function Exercise1() {
     const webcamRef = useRef(null);
@@ -29,9 +29,15 @@ function Exercise1() {
     }, []);
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-            <Box sx={{ marginRight: '20px' }}>
-                <Typography variant="h4" gutterBottom sx={{ marginBottom: '20px', textAlign: 'center' }}>
+        <Box
+            sx={{ display: "flex", justifyContent: "center", padding: "20px" }}
+        >
+            <Box sx={{ marginRight: "20px" }}>
+                <Typography
+                    variant="h4"
+                    gutterBottom
+                    sx={{ marginBottom: "20px", textAlign: "center" }}
+                >
                     Squats
                 </Typography>
                 <WebcamBox ref={webcamRef} />
@@ -39,12 +45,15 @@ function Exercise1() {
                     ref={canvasRef}
                     width="640"
                     height="480"
-                    style={{ border: '2px solid black' }}
+                    style={{ border: "2px solid black" }}
                 />
             </Box>
 
-            <Paper elevation={3} sx={{ padding: '20px', width: '300px', textAlign: 'left' }}>
-                <Typography variant="h6" sx={{ marginBottom: '20px' }}>
+            <Paper
+                elevation={3}
+                sx={{ padding: "20px", width: "300px", textAlign: "left" }}
+            >
+                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     Real-Time Feedback Panel
                 </Typography>
                 <TextField
@@ -53,18 +62,22 @@ function Exercise1() {
                     type="number"
                     value={targetKneeAngle}
                     onChange={handleTargetKneeAngleChange}
-                    sx={{ marginBottom: '20px' }}
+                    sx={{ marginBottom: "20px" }}
                 />
-                <Typography variant="h6" sx={{ marginBottom: '20px' }}>
+                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     {"Feedback: "}
-                    <span style={{ color: 'red' }}>
+                    <span style={{ color: "red" }}>
                         {feedback ? feedback : "Please Begin Rep!"}
                     </span>
                 </Typography>
                 <Typography variant="h6" gutterBottom>
                     Knee Angle: {leftKneeAngle.toFixed(0)}°
                 </Typography>
-                <Typography variant="h6" gutterBottom sx={{ marginTop: '20px' }}>
+                <Typography
+                    variant="h6"
+                    gutterBottom
+                    sx={{ marginTop: "20px" }}
+                >
                     Current Rep Count: {repCount}
                 </Typography>
 
@@ -72,7 +85,7 @@ function Exercise1() {
                     variant="contained"
                     color="primary"
                     onClick={handleReset}
-                    sx={{ marginTop: '20px' }}
+                    sx={{ marginTop: "20px" }}
                 >
                     Reset Rep Count
                 </Button>

@@ -1,9 +1,10 @@
-import { Pose } from '@mediapipe/pose';
-import { Camera } from '@mediapipe/camera_utils';
+import { Pose } from "@mediapipe/pose";
+import { Camera } from "@mediapipe/camera_utils";
 
 const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
     const pose = new Pose({
-        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
+        locateFile: (file) =>
+            `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
     });
 
     pose.setOptions({
@@ -15,12 +16,21 @@ const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
     });
 
     pose.onResults((results) => {
-        const canvasCtx = canvasRef.current.getContext('2d');
+        const canvasCtx = canvasRef.current.getContext("2d");
         canvasCtx.save();
-        canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        canvasCtx.clearRect(
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height
+        );
 
         canvasCtx.drawImage(
-            results.image, 0, 0, canvasRef.current.width, canvasRef.current.height
+            results.image,
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height
         );
 
         if (results.poseLandmarks) {
@@ -59,10 +69,32 @@ const drawBody = (canvasCtx, landmarks) => {
     }
 
     const POSE_CONNECTIONS = [
-        [0, 1], [1, 2], [2, 3], [3, 7], [0, 4], [4, 5], [5, 6], [6, 8], [9, 10],
-        [11, 12], [12, 14], [14, 16], [11, 13], [13, 15], [15, 17], [11, 23], [12, 24],
-        [23, 24], [23, 25], [24, 26], [25, 27], [26, 28], [27, 29], [28, 30],
-        [29, 31], [30, 32]
+        [0, 1],
+        [1, 2],
+        [2, 3],
+        [3, 7],
+        [0, 4],
+        [4, 5],
+        [5, 6],
+        [6, 8],
+        [9, 10],
+        [11, 12],
+        [12, 14],
+        [14, 16],
+        [11, 13],
+        [13, 15],
+        [15, 17],
+        [11, 23],
+        [12, 24],
+        [23, 24],
+        [23, 25],
+        [24, 26],
+        [25, 27],
+        [26, 28],
+        [27, 29],
+        [28, 30],
+        [29, 31],
+        [30, 32],
     ];
 
     for (const connection of POSE_CONNECTIONS) {
@@ -71,8 +103,14 @@ const drawBody = (canvasCtx, landmarks) => {
         const start = landmarks[startIdx];
         const end = landmarks[endIdx];
         canvasCtx.beginPath();
-        canvasCtx.moveTo(start.x * canvasCtx.canvas.width, start.y * canvasCtx.canvas.height);
-        canvasCtx.lineTo(end.x * canvasCtx.canvas.width, end.y * canvasCtx.canvas.height);
+        canvasCtx.moveTo(
+            start.x * canvasCtx.canvas.width,
+            start.y * canvasCtx.canvas.height
+        );
+        canvasCtx.lineTo(
+            end.x * canvasCtx.canvas.width,
+            end.y * canvasCtx.canvas.height
+        );
         canvasCtx.stroke();
     }
 };
