@@ -1,24 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Typography, Box, Paper, TextField, Button } from "@mui/material";
 import PoseDetector from "../../utils/PoseDetectorNew";
 import { checkSquats } from "../../utils/Squat";
-import { useSelector } from "react-redux";
 
 function Exercise1() {
-    const webcamRef = useRef(null);
-    const canvasRef = useRef(null);
     const [targetKneeAngle, setTargetKneeAngle] = useState(70);
     const [feedback, setFeedback] = useState("");
     const [leftKneeAngle, setLeftKneeAngle] = useState(0);
     const [repCount, setRepCount] = useState(0);
 
-    const landmarks = useSelector((state) => state.landmarks.value);
-
     const handleTargetKneeAngleChange = (event) => {
         setTargetKneeAngle(event.target.value);
     };
 
-    const processPoseResults = () => {
+    const processPoseResults = (landmarks) => {
+        console.log("IN PROCESS POSE");
         checkSquats(landmarks, setFeedback, setLeftKneeAngle, setRepCount);
     };
 
@@ -38,11 +34,7 @@ function Exercise1() {
                 >
                     Squats
                 </Typography>
-                <PoseDetector
-                    webcamRef={webcamRef}
-                    canvasRef={canvasRef}
-                    onResultCallback={processPoseResults}
-                />
+                <PoseDetector onResultCallback={processPoseResults} />
             </Box>
             <Paper
                 elevation={3}

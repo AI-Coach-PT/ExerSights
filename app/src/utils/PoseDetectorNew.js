@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setLandmarks } from "./LandmarkSlice";
+import { useEffect, useRef } from "react";
 import {
     FilesetResolver,
     PoseLandmarker,
@@ -9,11 +7,12 @@ import {
 import poseLandmarkerTask from "../shared/models/pose_landmarker_full.task";
 import WebcamBox from "../components/Webcam";
 
-const PoseDetector = ({ webcamRef, canvasRef, onResultCallback }) => {
-    const dispatch = useDispatch();
-    console.log(dispatch);
+const PoseDetector = ({ onResultCallback }) => {
+    const webcamRef = useRef(null);
+    const canvasRef = useRef(null);
     useEffect(() => {
         let poseLandmarker;
+        let animationId;
 
         const createPoseLandmarker = async () => {
             try {
@@ -63,23 +62,23 @@ const PoseDetector = ({ webcamRef, canvasRef, onResultCallback }) => {
                             drawingUtils.drawConnectors(
                                 landmark,
                                 PoseLandmarker.POSE_CONNECTIONS,
-                                { color: "black" }
+                                { color: "blue" }
                             );
                         }
                         canvasCtx.restore();
-                        dispatch(setLandmarks(result.landmarks));
-                        onResultCallback();
+                        if (result.landmarks)
+                            onResultCallback(result.landmarks);
                     }
                 );
             }
-            requestAnimationFrame(detectPose);
+            animationId = requestAnimationFrame(detectPose);
         };
 
         createPoseLandmarker();
 
         return () => {
             if (poseLandmarker) poseLandmarker.close();
-            cancelAnimationFrame(detectPose);
+            if (animationId) cancelAnimationFrame(animationId);
         };
     }, []);
 
