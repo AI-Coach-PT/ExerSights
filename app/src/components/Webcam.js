@@ -3,7 +3,7 @@ import Webcam from 'react-webcam';
 
 const WebcamBox = forwardRef((props, ref) => {
     return (
-        <div style={{ display: 'none' }}>
+        <div style={{ visibility: 'hidden', position: 'absolute' }}>
             <Webcam
                 ref={ref}
                 className="hidden-webcam"
