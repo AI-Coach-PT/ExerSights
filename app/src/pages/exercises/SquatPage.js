@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button } from '@mui/material';
 import WebcamBox from "../../components/Webcam";
 import detectPose from '../../utils/PoseDetector';
-import { checkSquats } from '../../utils/Squat';
+import { checkSquats, setSquatCount } from '../../utils/Squat';
 
 /**
  * A React functional component that provides a real-time squat tracking and feedback interface using 
@@ -33,6 +33,7 @@ function SquatPage() {
 
     const handleReset = () => {
         setRepCount(0);
+        setSquatCount(0);
     };
 
     useEffect(() => {

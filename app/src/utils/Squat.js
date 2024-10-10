@@ -43,3 +43,13 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setLeftKneeAngle, setRe
 
     onFeedbackUpdate(feedback);
 };
+
+/**
+ * Resets squat count to specified value and resets squat position state.
+ *
+ * @param {number} val - The value to set the squat count to.
+ */
+export const setSquatCount = (val) => {
+    squatCount = val;
+    inSquatPosition = false;
+};
