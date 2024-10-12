@@ -28,9 +28,9 @@ function Catalog() {
                     }}
                 >
                     <ExerciseCard
-                        title="Exercise 1"
-                        description="description for exercise 1 description for exercise 1"
-                        link='/exercise1'
+                        title="Squat"
+                        description="Squats strengthen the legs, glutes, and core, improving flexibility and balance."
+                        link='/squat'
                         image={squatImg}
                     />
                 </Box>

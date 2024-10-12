@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Catalog from './pages/Catalog';
 import About from './pages/About';
-import Exercise1 from './pages/exercises/ex1';
+import SquatPage from './pages/exercises/SquatPage';
 import Menubar from './components/Menubar';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/about" element={<About />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/exercise1" element={<Exercise1 />} />
+        <Route path="/squat" element={<SquatPage />} />
       </Routes>
     </Router >
   );
