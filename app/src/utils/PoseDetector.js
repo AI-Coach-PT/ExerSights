@@ -1,5 +1,13 @@
 import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
+import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
+
+const POSE_CONNECTIONS = [
+    [0, 1], [1, 2], [2, 3], [3, 7], [0, 4], [4, 5], [5, 6], [6, 8], [9, 10],
+    [11, 12], [12, 14], [14, 16], [11, 13], [13, 15], [15, 17], [11, 23], [12, 24],
+    [23, 24], [23, 25], [24, 26], [25, 27], [26, 28], [27, 29], [28, 30],
+    [29, 31], [30, 32]
+];
 
 /**
  * Initializes the Mediapipe Pose model and sets up real-time pose detection using a webcam feed. 
@@ -35,7 +43,9 @@ const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
         );
 
         if (results.poseLandmarks) {
-            drawBody(canvasCtx, results.poseLandmarks);
+            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'blue', lineWidth: 5 });
+            drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', radius: 5 });
+
             onResultsCallback(results.poseLandmarks);
         }
 
@@ -53,38 +63,6 @@ const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
             height: 480,
         });
         camera.start();
-    }
-};
-
-const drawBody = (canvasCtx, landmarks) => {
-    canvasCtx.lineWidth = 5;
-    canvasCtx.strokeStyle = "blue";
-    canvasCtx.fillStyle = "red";
-
-    for (let i = 0; i < landmarks.length; i++) {
-        const x = landmarks[i].x * canvasCtx.canvas.width;
-        const y = landmarks[i].y * canvasCtx.canvas.height;
-        canvasCtx.beginPath();
-        canvasCtx.arc(x, y, 5, 0, 2 * Math.PI);
-        canvasCtx.fill();
-    }
-
-    const POSE_CONNECTIONS = [
-        [0, 1], [1, 2], [2, 3], [3, 7], [0, 4], [4, 5], [5, 6], [6, 8], [9, 10],
-        [11, 12], [12, 14], [14, 16], [11, 13], [13, 15], [15, 17], [11, 23], [12, 24],
-        [23, 24], [23, 25], [24, 26], [25, 27], [26, 28], [27, 29], [28, 30],
-        [29, 31], [30, 32]
-    ];
-
-    for (const connection of POSE_CONNECTIONS) {
-        const startIdx = connection[0];
-        const endIdx = connection[1];
-        const start = landmarks[startIdx];
-        const end = landmarks[endIdx];
-        canvasCtx.beginPath();
-        canvasCtx.moveTo(start.x * canvasCtx.canvas.width, start.y * canvasCtx.canvas.height);
-        canvasCtx.lineTo(end.x * canvasCtx.canvas.width, end.y * canvasCtx.canvas.height);
-        canvasCtx.stroke();
     }
 };
 
