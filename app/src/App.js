@@ -5,6 +5,7 @@ import Catalog from './pages/Catalog';
 import About from './pages/About';
 import SquatPage from './pages/exercises/SquatPage';
 import Menubar from './components/Menubar';
+import BridgePage from './pages/exercises/BridgePage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/home" element={<Home />} />
         <Route path="/squat" element={<SquatPage />} />
+        <Route path="/bridge" element={<BridgePage />} />
       </Routes>
     </Router >
   );
