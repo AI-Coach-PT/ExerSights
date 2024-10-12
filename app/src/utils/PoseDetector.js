@@ -2,8 +2,7 @@ import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
 
-const POSE_CONNECTIONS = [
-    [0, 1], [1, 2], [2, 3], [3, 7], [0, 4], [4, 5], [5, 6], [6, 8], [9, 10],
+const POSE_CONNECTIONS_NON_FACE = [
     [11, 12], [12, 14], [14, 16], [11, 13], [13, 15], [15, 17], [11, 23], [12, 24],
     [23, 24], [23, 25], [24, 26], [25, 27], [26, 28], [27, 29], [28, 30],
     [29, 31], [30, 32]
@@ -43,8 +42,10 @@ const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
         );
 
         if (results.poseLandmarks) {
-            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'blue', lineWidth: 5 });
-            drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', radius: 5 });
+            const nonFaceLandmarks = results.poseLandmarks.filter((_, index) => index > 10);
+
+            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS_NON_FACE, { color: 'blue', lineWidth: 5 });
+            drawLandmarks(canvasCtx, nonFaceLandmarks, { color: 'red', radius: 2.5 });
 
             onResultsCallback(results.poseLandmarks);
         }
