@@ -21,7 +21,7 @@ function SquatPage() {
     const canvasRef = useRef(null);
     const [targetKneeAngle, setTargetKneeAngle] = useState(70);
     const [feedback, setFeedback] = useState("");
-    const [leftKneeAngle, setLeftKneeAngle] = useState(0);
+    const [currKneeAngle, setCurrKneeAngle] = useState(0);
     const [repCount, setRepCount] = useState(0);
     const [openModal, setOpenModal] = useState(false);
 
@@ -30,7 +30,7 @@ function SquatPage() {
     };
 
     const processPoseResults = (landmarks) => {
-        checkSquats(landmarks, setFeedback, setLeftKneeAngle, setRepCount, targetKneeAngle);
+        checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, targetKneeAngle);
     };
 
     const handleReset = () => {
@@ -98,7 +98,7 @@ function SquatPage() {
                     </span>
                 </Typography>
                 <Typography variant="h6" gutterBottom>
-                    Knee Angle: {leftKneeAngle.toFixed(0)}°
+                    Knee Angle: {currKneeAngle.toFixed(0)}°
                 </Typography>
                 <Typography variant="h6" gutterBottom sx={{ marginTop: '20px' }}>
                     Current Rep Count: {repCount}

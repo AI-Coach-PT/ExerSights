@@ -12,23 +12,33 @@ let inSquatPosition = false;
  * @param {Function} setLeftKneeAngle A function to update the current knee angle for display purposes.
  * @param {Function} setRepCount A function to update the squat count after a full squat is completed.
  */
-export const checkSquats = (landmarks, onFeedbackUpdate, setLeftKneeAngle, setRepCount, targetKneeAngle = 70) => {
+export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 70) => {
+    const thresholdAngle = 160;
+
     const leftHip = landmarks[23];
     const leftKnee = landmarks[25];
     const leftAnkle = landmarks[27];
 
-    const leftKneeAngle = calculateAngle(leftHip, leftKnee, leftAnkle);
+    const rightHip = landmarks[24];
+    const rightKnee = landmarks[26];
+    const rightAnkle = landmarks[28];
 
-    setLeftKneeAngle(leftKneeAngle);
+    const leftKneeAngle = calculateAngle(leftHip, leftKnee, leftAnkle);
+    const rightKneeAngle = calculateAngle(rightHip, rightKnee, rightAnkle);
+
+    setCurrKneeAngle(leftKneeAngle);
 
     let feedback = "Please Begin Rep!";
 
-    if ((leftKneeAngle < 120 && leftKneeAngle > targetKneeAngle && !inSquatPosition)) {
+    if ((
+        ((leftKneeAngle < thresholdAngle && leftKneeAngle > targetKneeAngle) ||
+            (rightKneeAngle < thresholdAngle && rightKneeAngle > targetKneeAngle)) &&
+        !inSquatPosition)) {
         feedback = "Go Down Lower!";
-    } else if (leftKneeAngle < targetKneeAngle) {
+    } else if (leftKneeAngle < targetKneeAngle || rightKneeAngle < targetKneeAngle) {
         feedback = "Excellent!"
         inSquatPosition = true;
-    } else if (leftKneeAngle > 160) {
+    } else if (leftKneeAngle > thresholdAngle || rightKneeAngle > thresholdAngle) {
         if (inSquatPosition) {
             feedback = "Excellent!"
             squatCount++;
