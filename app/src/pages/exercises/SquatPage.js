@@ -91,11 +91,14 @@ function SquatPage() {
                     Real-Time Feedback Panel
                 </Typography>
 
-                <Typography variant="h6" sx={{ marginBottom: '20px' }}>
+                <Typography variant="h6">
                     {"Feedback: "}
-                    <span style={{ color: 'red' }}>
-                        {feedback ? feedback : "Please Begin Rep!"}
-                    </span>
+                </Typography>
+                <Typography variant="h6" style={{ color: 'red' }}>
+                    {feedback ? feedback : "Please Begin Rep!"}
+                </Typography>
+                <Typography variant="h6" style={{ color: 'red', marginBottom: '20px' }}>
+                    { }
                 </Typography>
                 <Typography variant="h6" gutterBottom>
                     Knee Angle: {currKneeAngle.toFixed(0)}°
@@ -146,7 +149,7 @@ function SquatPage() {
                         sx={{ marginBottom: '20px' }}
                     />
                     <Button variant="contained" onClick={handleCloseModal}>
-                        Save
+                        Save & Close
                     </Button>
                 </Box>
             </Modal>
