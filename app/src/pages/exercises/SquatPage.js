@@ -38,9 +38,12 @@ function SquatPage() {
         setSquatCount(0);
     };
 
+    /**
+     * Opens the settings modal and stops the webcam stream to prevent 
+     * unnecessary resource usage while the user is adjusting settings.
+     */
     const handleOpenModal = () => {
         setOpenModal(true);
-        // Stop webcam stream when settings modal opens
         if (webcamRef.current && webcamRef.current.video) {
             const stream = webcamRef.current.video.srcObject;
             const tracks = stream.getTracks();
@@ -48,9 +51,12 @@ function SquatPage() {
         }
     };
 
+    /**
+     * Closes the settings modal and restarts the webcam stream and pose 
+     * detection when the user exits the modal.
+     */
     const handleCloseModal = () => {
         setOpenModal(false);
-        // Resume webcam stream when settings modal closes
         detectPose(webcamRef, canvasRef, processPoseResults);
     };
 
