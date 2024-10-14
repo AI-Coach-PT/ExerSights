@@ -12,7 +12,7 @@ let inBridgePosition = false;
  * @param {Function} setleftHipAngle A function to update the current hip angle for display purposes.
  * @param {Function} setRepCount A function to update the Bridge count after a full Bridge is completed.
  */
-export const checkBridges = (landmarks, onFeedbackUpdate, setleftHipAngle, setRepCount) => {
+export const checkBridges = (landmarks, onFeedbackUpdate, setLeftHipAngle, setLeftKneeAngle, setRepCount, targetHipAngle = 140, targetKneeAngle = 90) => {
     const leftShoulder = landmarks[11];
     const leftHip = landmarks[23];
     const leftKnee = landmarks[25];
@@ -22,31 +22,32 @@ export const checkBridges = (landmarks, onFeedbackUpdate, setleftHipAngle, setRe
     const leftHipAngle = calculateAngle(leftShoulder, leftHip, leftKnee);
     const leftKneeAngle = calculateAngle(leftHip, leftKnee, leftAnkle);
 
-    setleftHipAngle(leftHipAngle);
+    setLeftHipAngle(leftHipAngle);
+    setLeftKneeAngle(leftKneeAngle);
 
-    let feedback = "Please Begin Rep!";
+    let feedback = "";
 
-    if (leftKneeAngle > 90) {
-        feedback = "Bring Knees In\n";
+    if (leftKneeAngle > targetKneeAngle) {
+        feedback = "Bring Feet In\n Target Knee Angle " + targetKneeAngle;
     } else{
-        feedback = "Knees In Position!\n";
-    }
+        feedback = "Feet In Position!\n";
 
-    if ((leftHipAngle < 140 && !inBridgePosition)) {
-        feedback += "Raise Hips Higher";
-    } else if (leftHipAngle > 140) {
-        feedback += "Excellent!"
-        inBridgePosition = true;
-    } else if (leftHipAngle < 130) {
-        if (inBridgePosition) {
+        if ((leftHipAngle < targetHipAngle && !inBridgePosition)) {
+            feedback += "Raise Hips Higher";
+        } else if (leftHipAngle > targetHipAngle) {
             feedback += "Excellent!"
-            BridgeCount++;
-            inBridgePosition = false;
-            setRepCount(BridgeCount);
-        }
-    } else {
-        if (inBridgePosition) {
-            feedback += "Excellent!"
+            inBridgePosition = true;
+        } else if (leftHipAngle < targetHipAngle - 20) {
+            if (inBridgePosition) {
+                feedback += "Excellent!"
+                BridgeCount++;
+                inBridgePosition = false;
+                setRepCount(BridgeCount);
+            }
+        } else {
+            if (inBridgePosition) {
+                feedback += "Excellent!"
+            }
         }
     }
 

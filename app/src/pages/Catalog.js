@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, Box } from '@mui/material';
 import ExerciseCard from '../components/Card';
 import squatImg from "../assets/squat.jpg"
+import bridgeImg from "../assets/bridge.jpg"
 
 function Catalog() {
     return (
@@ -45,6 +46,7 @@ function Catalog() {
                         title="Bridge"
                         description="Bridge Desc"
                         link='/bridge'
+                        image={bridgeImg}
                     />
                 </Box>
 
