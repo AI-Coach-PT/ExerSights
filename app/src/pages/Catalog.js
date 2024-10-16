@@ -1,7 +1,8 @@
-import React from "react";
-import { Typography, Box } from "@mui/material";
-import ExerciseCard from "../components/Card";
-import squatImg from "../assets/squat.jpg";
+import React from 'react';
+import { Typography, Box } from '@mui/material';
+import ExerciseCard from '../components/Card';
+import squatImg from "../assets/squat.jpg"
+import bridgeImg from "../assets/bridge.jpg"
 import deadBugImage from "../assets/deadbug.png";
 
 function Catalog() {
@@ -40,9 +41,10 @@ function Catalog() {
                         margin: "auto",
                     }}>
                     <ExerciseCard
-                        title="Exercise 2"
-                        description="description for exercise 2 description for exercise 2"
-                        link="/"
+                        title="Bridge"
+                        description="Bridge Desc"
+                        link='/bridge'
+                        image={bridgeImg}
                     />
                 </Box>
 
