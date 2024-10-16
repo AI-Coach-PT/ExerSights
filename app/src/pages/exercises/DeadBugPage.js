@@ -4,6 +4,17 @@ import WebcamBox from "../../components/Webcam";
 import detectPose from "../../utils/PoseDetector";
 import { checkDeadBug, setDeadBugCount } from "../../utils/DeadBug";
 
+/**
+ * A React functional component that provides real-time tracking and feedback of the dead bug exercise, using
+ * the Mediapipe Pose model and a webcam feed. The component displays the user's current underarm and hip angles,
+ * repetition count, and feedback on the exercise form. It also allows the user to adjust the target 'flat' angle,
+ * the angle the user must flatten their body towards for a legitimate repetition.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} The JSX code to render the Dead Bug tracking page, including webcam feed, feedback,
+ *                        repetition count, target angle display, and a reset button.
+ */
 function DeadBugPage() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);

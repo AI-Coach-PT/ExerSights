@@ -3,6 +3,18 @@ import { calculateAngle } from "./Angles";
 let deadBugCount = 0;
 let inDeadBugPosition = false;
 
+/**
+ * Checks the user's position for the Dead Bug exercise and updates the state accordingly.
+ *
+ * @param {Array} landmarks - The body landmarks detected by the pose estimation model.
+ * @param {number} targetFlatAngle - The target angle for considering a limb as extended.
+ * @param {function} setLeftUnderarmAngle - Function to update the left underarm angle.
+ * @param {function} setRightUnderarmAngle - Function to update the right underarm angle.
+ * @param {function} setLeftHipAngle - Function to update the left hip angle.
+ * @param {function} setRightHipAngle - Function to update the right hip angle.
+ * @param {function} setFeedback - Function to update the feedback message.
+ * @param {function} setRepCount - Function to update the repetition count.
+ */
 export const checkDeadBug = (
     landmarks,
     targetFlatAngle,
@@ -65,6 +77,11 @@ export const checkDeadBug = (
     setFeedback(feedback);
 };
 
+/**
+ * Resets the Dead Bug exercise count and position state.
+ *
+ * @param {number} val - The value to set the deadBugCount to (typically 0 for reset).
+ */
 export const setDeadBugCount = (val) => {
     deadBugCount = val;
     inDeadBugPosition = false;
