@@ -24,9 +24,9 @@ function Catalog() {
                 }}>
                 <Box
                     sx={{
-                        maxWidth: "345px",
-                        margin: "auto",
-                    }}>
+                        margin: 'auto',
+                    }}
+                >
                     <ExerciseCard
                         title="Squat"
                         description="Squats strengthen the legs, glutes, and core, improving flexibility and balance."
@@ -37,9 +37,9 @@ function Catalog() {
 
                 <Box
                     sx={{
-                        maxWidth: "345px",
-                        margin: "auto",
-                    }}>
+                        margin: 'auto',
+                    }}
+                >
                     <ExerciseCard
                         title="Bridge"
                         description="Bridge Desc"
@@ -50,9 +50,9 @@ function Catalog() {
 
                 <Box
                     sx={{
-                        maxWidth: "345px",
-                        margin: "auto",
-                    }}>
+                        margin: 'auto',
+                    }}
+                >
                     <ExerciseCard
                         title="Dead Bug"
                         description="The dead bug exercise is a technique for building strength in your back and core."
@@ -63,9 +63,9 @@ function Catalog() {
 
                 <Box
                     sx={{
-                        maxWidth: "345px",
-                        margin: "auto",
-                    }}>
+                        margin: 'auto',
+                    }}
+                >
                     <ExerciseCard
                         title="Exercise 4"
                         description="description for exercise 4 description for exercise 4 "

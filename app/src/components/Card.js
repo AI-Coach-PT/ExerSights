@@ -8,11 +8,10 @@ import { Link } from 'react-router-dom';
 
 function ExerciseCard({ image, title, description, link }) {
     return (
-        <Card sx={{ minWidth: 200, maxWidth: 345, height: 250 }}>
+        <Card>
             <CardActionArea component={link ? Link : 'div'} to={link ? link : null}>
                 <CardMedia
                     component="img"
-                    height="140"
                     image={image}
                 />
                 <CardContent>
