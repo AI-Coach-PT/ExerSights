@@ -11,8 +11,9 @@ let inSquatPosition = false;
  * @param {Function} onFeedbackUpdate A callback function that receives the feedback message about the squat depth and form.
  * @param {Function} setLeftKneeAngle A function to update the current knee angle for display purposes.
  * @param {Function} setRepCount A function to update the squat count after a full squat is completed.
+ * @param {number} targetKneeAngle The angle (in degrees) a user's knee must break (go below) to count as proper repetition.
  */
-export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 70) => {
+export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
     const thresholdAngle = 160;
 
     const leftHip = landmarks[23];
@@ -49,6 +50,36 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
         if (inSquatPosition) {
             feedback = "Excellent!"
         }
+    }
+
+    onFeedbackUpdate(feedback);
+};
+
+/**
+ * Monitors and provides feedback to ensure the user is keeping their chest up during the squat.
+ * Compares the angle formed by the shoulder, hip, and knee to determine if the chest is sagging.
+ *
+ * @param {Array} landmarks An array of pose landmarks containing the coordinates of different body points.
+ * @param {Function} onFeedbackUpdate A callback function that receives the feedback message about chest posture.
+ * @param {number} targetHipAngle The minimum hip angle (in degrees) for proper chest position (with slight forward lean).
+ * Chest should not drop below this angle.
+ */
+export const checkChestUp = (landmarks, onFeedbackUpdate, targetHipAngle = 45) => {
+    const leftShoulder = landmarks[11];
+    const leftHip = landmarks[23];
+    const leftKnee = landmarks[25];
+
+    const rightShoulder = landmarks[12];
+    const rightHip = landmarks[24];
+    const rightKnee = landmarks[26];
+
+    const leftHipAngle = calculateAngle(leftShoulder, leftHip, leftKnee);
+    const rightHipAngle = calculateAngle(rightShoulder, rightHip, rightKnee);
+
+    let feedback = "";
+
+    if (leftHipAngle < targetHipAngle || rightHipAngle < targetHipAngle) {
+        feedback = "Chest up!";
     }
 
     onFeedbackUpdate(feedback);

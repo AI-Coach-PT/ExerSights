@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button, IconButton, Modal } from '@mui/material';
 import WebcamBox from "../../components/Webcam";
 import detectPose from '../../utils/PoseDetector';
-import { checkSquats, setSquatCount } from '../../utils/Squat';
+import { checkChestUp, checkSquats, setSquatCount } from '../../utils/Squat';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 /**
@@ -19,8 +19,13 @@ import SettingsIcon from '@mui/icons-material/Settings';
 function SquatPage() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
-    const [targetKneeAngle, setTargetKneeAngle] = useState(70);
+
+    const [targetKneeAngle, setTargetKneeAngle] = useState(90);
     const [feedback, setFeedback] = useState("");
+
+    const [targetHipAngle, setTargetHipAngle] = useState(45);
+    const [hipAnglefeedback, setHipAngleFeedback] = useState("");
+
     const [currKneeAngle, setCurrKneeAngle] = useState(0);
     const [repCount, setRepCount] = useState(0);
     const [openModal, setOpenModal] = useState(false);
@@ -29,8 +34,13 @@ function SquatPage() {
         setTargetKneeAngle(event.target.value);
     };
 
+    const handleTargetHipAngleChange = (event) => {
+        setTargetHipAngle(event.target.value);
+    };
+
     const processPoseResults = (landmarks) => {
         checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, targetKneeAngle);
+        checkChestUp(landmarks, setHipAngleFeedback, targetHipAngle);
     };
 
     const handleReset = () => {
@@ -101,7 +111,7 @@ function SquatPage() {
                     {feedback ? feedback : "Please Begin Rep!"}
                 </Typography>
                 <Typography variant="h6" style={{ color: 'red', marginBottom: '20px' }}>
-                    { }
+                    {hipAnglefeedback}
                 </Typography>
                 <Typography variant="h6" gutterBottom>
                     Knee Angle: {currKneeAngle.toFixed(0)}°
@@ -143,10 +153,18 @@ function SquatPage() {
                     </Typography>
                     <TextField
                         id="outlined-number"
-                        label="Target Knee Angle °"
+                        label="Target Knee Angle ° for Depth"
                         type="number"
                         value={targetKneeAngle}
                         onChange={handleTargetKneeAngleChange}
+                        sx={{ marginBottom: '20px' }}
+                    />
+                    <TextField
+                        id="outlined-number"
+                        label="Minimum Hip Angle ° (Chest Up)"
+                        type="number"
+                        value={targetHipAngle}
+                        onChange={handleTargetHipAngleChange}
                         sx={{ marginBottom: '20px' }}
                     />
                     <Button variant="contained" onClick={handleCloseModal}>
