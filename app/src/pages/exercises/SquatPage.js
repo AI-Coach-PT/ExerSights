@@ -6,9 +6,9 @@ import { checkSquats, setSquatCount } from '../../utils/Squat';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 /**
- * A React functional component that provides a real-time squat tracking and feedback interface using 
- * the Mediapipe Pose model and a webcam feed. The component displays the user's current knee angle, 
- * squat count, and feedback on the squat form. It also allows the user to adjust the target knee angle 
+ * A React functional component that provides a real-time squat tracking and feedback interface using
+ * the Mediapipe Pose model and a webcam feed. The component displays the user's current knee angle,
+ * squat count, and feedback on the squat form. It also allows the user to adjust the target knee angle
  * for better squat depth tracking.
  *
  * @component
@@ -65,9 +65,12 @@ function SquatPage() {
     }, []);
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-            <Box sx={{ marginRight: '20px' }}>
-                <Typography variant="h4" gutterBottom sx={{ marginBottom: '20px', textAlign: 'center' }}>
+        <Box sx={{ display: "flex", justifyContent: "center", padding: "20px" }}>
+            <Box sx={{ marginRight: "20px" }}>
+                <Typography
+                    variant="h4"
+                    gutterBottom
+                    sx={{ marginBottom: "20px", textAlign: "center" }}>
                     Squats
                 </Typography>
                 <WebcamBox ref={webcamRef} />
@@ -75,7 +78,7 @@ function SquatPage() {
                     ref={canvasRef}
                     width="640"
                     height="480"
-                    style={{ border: '2px solid black' }}
+                    style={{ border: "2px solid black" }}
                 />
             </Box>
 
@@ -103,16 +106,14 @@ function SquatPage() {
                 <Typography variant="h6" gutterBottom>
                     Knee Angle: {currKneeAngle.toFixed(0)}°
                 </Typography>
-                <Typography variant="h6" gutterBottom sx={{ marginTop: '20px' }}>
+                <Typography variant="h6" gutterBottom sx={{ marginTop: "20px" }}>
                     Current Rep Count: {repCount}
                 </Typography>
-
                 <Button
                     variant="contained"
                     color="primary"
                     onClick={handleReset}
-                    sx={{ marginTop: '20px' }}
-                >
+                    sx={{ marginTop: "20px" }}>
                     Reset Rep Count
                 </Button>
             </Paper>

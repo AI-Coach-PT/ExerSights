@@ -6,6 +6,7 @@ import About from './pages/About';
 import SquatPage from './pages/exercises/SquatPage';
 import Menubar from './components/Menubar';
 import BridgePage from './pages/exercises/BridgePage';
+import DeadBugPage from "./pages/exercises/DeadBugPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/squat" element={<SquatPage />} />
         <Route path="/bridge" element={<BridgePage />} />
+        <Route path="/deadbug" element={<DeadBugPage />} />
       </Routes>
     </Router >
   );
