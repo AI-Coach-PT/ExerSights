@@ -18,7 +18,7 @@ function ExerciseCard({ image, title, description, link }) {
                     <Typography gutterBottom variant="h5" component="div">
                         {title}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }} height="5vh">
                         {description}
                     </Typography>
                 </CardContent>

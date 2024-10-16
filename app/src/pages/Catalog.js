@@ -70,6 +70,7 @@ function Catalog() {
                         title="Exercise 4"
                         description="description for exercise 4 description for exercise 4 "
                         link="/"
+                        image={squatImg}
                     />
                 </Box>
             </Box>
