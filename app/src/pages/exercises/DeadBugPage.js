@@ -8,6 +8,8 @@ function DeadBugPage() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
 
+    const [targetFlatAngle, setTargetFlatAngle] = useState(140);
+
     const [leftUnderarmAngle, setLeftUnderarmAngle] = useState(0);
     const [rightUnderarmAngle, setRightUnderarmAngle] = useState(0);
     const [leftHipAngle, setLeftHipAngle] = useState(0);
@@ -16,13 +18,14 @@ function DeadBugPage() {
     const [feedback, setFeedback] = useState("");
     const [repCount, setRepCount] = useState(0);
 
-    // const handleTargetKneeAngleChange = (event) => {
-    //     setTargetKneeAngle(event.target.value);
-    // };
+    const handleTargetFlatAngleChange = (event) => {
+        setTargetFlatAngle(event.target.value);
+    };
 
     const processPoseResults = (landmarks) => {
         checkDeadBug(
             landmarks,
+            targetFlatAngle,
             setLeftUnderarmAngle,
             setRightUnderarmAngle,
             setLeftHipAngle,
@@ -62,14 +65,14 @@ function DeadBugPage() {
                 <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     Real-Time Feedback Panel
                 </Typography>
-                {/* <TextField
+                <TextField
                     id="outlined-number"
-                    label="Target Knee Angle °"
+                    label="Target 'Flat' Angle °"
                     type="number"
-                    value={targetKneeAngle}
-                    onChange={handleTargetKneeAngleChange}
+                    value={targetFlatAngle}
+                    onChange={handleTargetFlatAngleChange}
                     sx={{ marginBottom: "20px" }}
-                /> */}
+                />
                 <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     {"Feedback: "}
                     <span style={{ color: "red" }}>

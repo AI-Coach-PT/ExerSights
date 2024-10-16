@@ -5,6 +5,7 @@ let inDeadBugPosition = false;
 
 export const checkDeadBug = (
     landmarks,
+    targetFlatAngle,
     setLeftUnderarmAngle,
     setRightUnderarmAngle,
     setLeftHipAngle,
@@ -20,8 +21,6 @@ export const checkDeadBug = (
     const rightHip = landmarks[24];
     const leftKnee = landmarks[25];
     const rightKnee = landmarks[26];
-    // const leftAnkle = landmarks[27];
-    // const rightAnkle = landmarks[28];
 
     const leftUnderarmAngle = calculateAngle(leftElbow, leftShoulder, leftHip);
     const rightUnderarmAngle = calculateAngle(rightElbow, rightShoulder, rightHip);
@@ -35,12 +34,22 @@ export const checkDeadBug = (
 
     let feedback = "Extend alternate sides!";
 
-    if (leftUnderarmAngle < 140 && rightHipAngle < 140 && !inDeadBugPosition) {
+    if (
+        ((leftUnderarmAngle < targetFlatAngle && rightHipAngle < targetFlatAngle) ||
+            (rightUnderarmAngle < targetFlatAngle && leftHipAngle < targetFlatAngle)) &&
+        !inDeadBugPosition
+    ) {
         feedback = "Extend alternate sides!";
-    } else if (leftUnderarmAngle >= 140 && rightHipAngle >= 140) {
+    } else if (
+        (leftUnderarmAngle >= targetFlatAngle && rightHipAngle >= targetFlatAngle) ||
+        (rightUnderarmAngle >= targetFlatAngle && leftHipAngle >= targetFlatAngle)
+    ) {
         feedback = "Excellent!";
         inDeadBugPosition = true;
-    } else if (leftUnderarmAngle < 140 && rightHipAngle < 140) {
+    } else if (
+        (leftUnderarmAngle < targetFlatAngle && rightHipAngle < targetFlatAngle) ||
+        (rightUnderarmAngle < targetFlatAngle && leftHipAngle < targetFlatAngle)
+    ) {
         if (inDeadBugPosition) {
             feedback = "Excellent!";
             deadBugCount++;
