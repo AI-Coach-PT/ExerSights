@@ -5,6 +5,17 @@ import squatImg from "../assets/squat.jpg"
 import bridgeImg from "../assets/bridge.jpg"
 import deadBugImage from "../assets/deadbug.png";
 
+/**
+ * Catalog is a React functional component that displays a list of exercise cards. 
+ * Each card represents an exercise with a title, description, image, and link to a detailed page for that exercise.
+ *
+ * @component
+ *
+ * The cards inside the catalog are displayed in a 2-column grid. Each card is created using the `ExerciseCard` component,
+ * and they provide a title, description, image, and link to the exercise's feedback page.
+ *
+ * @returns {JSX.Element} A catalog page displaying exercises.
+ */
 function Catalog() {
     return (
         <Box sx={{ padding: "20px", textAlign: "center" }}>
