@@ -6,6 +6,17 @@ import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import { Link } from 'react-router-dom';
 
+/**
+ * ExerciseCard displays a card with an image, title, description, and an optional link for navigation.
+ * If a `link` is provided, the card is clickable and navigates to the specified route using `react-router-dom`.
+ *
+ * @component
+ * @param {string} image The URL of the image to display.
+ * @param {string} title The title of the exercise.
+ * @param {string} description A short description of the exercise.
+ * @param {string} link The URL to navigate to when the card is clicked.
+ * @returns {JSX.Element} A card displaying exercise details.
+ */
 function ExerciseCard({ image, title, description, link }) {
     return (
         <Card>

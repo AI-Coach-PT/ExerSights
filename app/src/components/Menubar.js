@@ -2,6 +2,14 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 
+/**
+ * Menubar is a component that displays a navigation bar with links for all of the main pages.
+ * The links are implemented using `react-router-dom` for client-side navigation.
+ * The navigation bar appears at the top of the page (it is not a sidebar).
+ *
+ * @component
+ * @returns {JSX.Element} A Material UI AppBar with navigation links.
+ */
 function Menubar() {
     return (
         <AppBar position="static">
