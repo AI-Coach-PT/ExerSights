@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { handleLogin } from '../utils/HandleLogin';
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -30,7 +31,7 @@ function Menubar() {
                 </Box>
 
                 <Box sx={{ flexGrow: 1 }} />
-                <Button color="inherit" component={Link} to="/home">
+                <Button color="inherit" onClick={handleLogin}>
                     Login
                 </Button>
             </Toolbar>
