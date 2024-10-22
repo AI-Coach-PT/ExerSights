@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { handleLogin, handleLogout } from "../utils/HandleLogin";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebaseConfig";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -13,7 +14,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
  * @returns {JSX.Element} A Material UI AppBar with navigation links.
  */
 function Menubar() {
-    const auth = getAuth();
     const [isAuth, setIsAuth] = useState(false);
     const [username, setUsername] = useState("");
 
