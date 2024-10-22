@@ -4,7 +4,7 @@ import ExerciseCard from '../components/Card';
 import squatImg from "../assets/squat.jpg"
 import bridgeImg from "../assets/bridge.jpg"
 import deadBugImage from "../assets/deadbug.png";
-import pushupImage from "../assets/pushup.png";
+import pushUpImage from "../assets/pushUp.png";
 
 /**
  * Catalog is a React functional component that displays a list of exercise cards. 
@@ -82,7 +82,7 @@ function Catalog() {
                         title="Push-up"
                         description="The push-up is a great exercise for building upper body strength specifically in your chest and triceps."
                         link="/pushup"
-                        image={pushupImage}
+                        image={pushUpImage}
                     />
                 </Box>
             </Box>
