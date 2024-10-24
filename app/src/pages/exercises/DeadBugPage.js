@@ -4,7 +4,7 @@ import WebcamBox from "../../components/Webcam";
 import detectPose from "../../utils/PoseDetector";
 import { checkDeadBug, setDeadBugCount } from "../../utils/DeadBug";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { loadExerciseSettings, saveExerciseSettings } from "../../utils/ExerciseSettings";
+import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 
@@ -49,19 +49,6 @@ function DeadBugPage() {
 
     const [userLoggedIn, setUserLoggedIn] = useState(false);
 
-    // update auth info as necessary
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUsername(user.displayName);
-                setUserLoggedIn(true);
-            } else {
-                console.log("Logged out.");
-                setUserLoggedIn(false);
-            }
-        });
-    }, [auth]);
-
     /**
      * Handles changes to the target flat angle input.
      *
@@ -69,6 +56,7 @@ function DeadBugPage() {
      */
     const handleTargetFlatAngleChange = (event) => {
         setTargetFlatAngle(event.target.value);
+        setTargetAngles({ targetFlatAngle: event.target.value });
     };
 
     /**
@@ -108,8 +96,6 @@ function DeadBugPage() {
             const tracks = stream.getTracks();
             tracks.forEach((track) => track.stop());
         }
-        // load settings if user logged in, and apply with setstate if exists
-        if (userLoggedIn) loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
     };
 
     /**
@@ -120,17 +106,36 @@ function DeadBugPage() {
     const handleCloseModal = () => {
         setOpenModal(false);
         detectPose(webcamRef, canvasRef, processPoseResults);
-        // only store setting when user is logged in
+        // only store setting when user is logged in, and load it immediately afterwards
         if (userLoggedIn) {
             console.log(`CURRENT targetFlatAngle = ${targetFlatAngle}`);
             // update the target angles object
-            setTargetAngles({ targetFlatAngle: targetFlatAngle });
+            // setTargetAngles({ targetFlatAngle: targetFlatAngle });
             // save settings to firebase cloud firestore under the specific user
-            saveExerciseSettings(username, "deadbug", targetAngles);
+            storeExerciseSettings(username, "deadbug", targetAngles);
+            loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
         }
     };
 
+    // update auth info as necessary
     useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("Logged in.");
+                setUsername(user.displayName);
+                setUserLoggedIn(true);
+            } else {
+                console.log("Logged out.");
+                setUsername("");
+                setUserLoggedIn(false);
+            }
+        });
+    }, [auth]);
+
+    useEffect(() => {
+        // load settings upon a signed-in user navigating to exercise page;
+        // if user does not have saved settings, this will do nothing, and default values will be used
+        if (userLoggedIn) loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
         detectPose(webcamRef, canvasRef, processPoseResults);
     }, []);
 
@@ -162,6 +167,12 @@ function DeadBugPage() {
                 </IconButton>
                 <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     Real-Time Feedback Panel
+                </Typography>
+                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+                    TARGET FLAT ANGLE: {targetFlatAngle}
+                </Typography>
+                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+                    TARGET ANGLES: {targetAngles["targetFlatAngle"]}
                 </Typography>
                 <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     {"Feedback: "}
