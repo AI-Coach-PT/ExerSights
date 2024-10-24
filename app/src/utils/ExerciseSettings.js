@@ -49,9 +49,21 @@ export const storeExerciseSettings = (username, exercise, targetAngles) => {
  */
 export const loadExerciseSettings = (username, exercise, setTargetAnglesArray) => {
     try {
-        const docRef = doc(db, "users", username, "exerciseSettings", exercise);
-        const docSnap = getDoc(docRef);
-        if (docSnap.exists()) {
+        // const docRef = doc(db, "users", username, "exerciseSettings", exercise);
+        // const docSnap = getDoc(docRef);
+        // if (docSnap.exists()) {
+        //     console.log(docSnap.data());
+        //     let settings = docSnap.data();
+        //     // iterate through array, calling the set function (index 0),
+        //     // passing the value of settings, given the respective key (index 1) into it
+        //     setTargetAnglesArray.forEach((pair) => {
+        //         pair[0](Number(settings[pair[1]]));
+        //         console.log(`pair 0 = ${pair[0]}`);
+        //         console.log(`pair 1 = ${pair[1]}`);
+        //         console.log(`settings at the pair[1] = ${settings[pair[1]]}`);
+        //     });
+        // }
+        getDoc(doc(db, "users", username, "exerciseSettings", exercise)).then((docSnap) => {
             console.log(docSnap.data());
             let settings = docSnap.data();
             // iterate through array, calling the set function (index 0),
@@ -62,7 +74,7 @@ export const loadExerciseSettings = (username, exercise, setTargetAnglesArray) =
                 console.log(`pair 1 = ${pair[1]}`);
                 console.log(`settings at the pair[1] = ${settings[pair[1]]}`);
             });
-        }
+        });
     } catch (e) {
         console.error(`Error reading document: ${e}`);
     }

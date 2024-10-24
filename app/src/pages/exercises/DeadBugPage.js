@@ -109,35 +109,32 @@ function DeadBugPage() {
         // only store setting when user is logged in, and load it immediately afterwards
         if (userLoggedIn) {
             console.log(`CURRENT targetFlatAngle = ${targetFlatAngle}`);
-            // update the target angles object
-            // setTargetAngles({ targetFlatAngle: targetFlatAngle });
             // save settings to firebase cloud firestore under the specific user
             storeExerciseSettings(username, "deadbug", targetAngles);
             loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
         }
     };
 
-    // update auth info as necessary
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 console.log("Logged in.");
                 setUsername(user.displayName);
-                setUserLoggedIn(true);
+                console.log(username);
+                // setUserLoggedIn(true);
+                await loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
             } else {
                 console.log("Logged out.");
                 setUsername("");
                 setUserLoggedIn(false);
             }
         });
-    }, [auth]);
-
-    useEffect(() => {
         // load settings upon a signed-in user navigating to exercise page;
         // if user does not have saved settings, this will do nothing, and default values will be used
-        if (userLoggedIn) loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
+        // if (userLoggedIn) loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
         detectPose(webcamRef, canvasRef, processPoseResults);
-    }, []);
+        return () => unsubscribe();
+    }, [username]);
 
     return (
         <Box sx={{ display: "flex", justifyContent: "center", padding: "20px" }}>
@@ -173,6 +170,9 @@ function DeadBugPage() {
                 </Typography>
                 <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     TARGET ANGLES: {targetAngles["targetFlatAngle"]}
+                </Typography>
+                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+                    USERNAME: {username}
                 </Typography>
                 <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     {"Feedback: "}
