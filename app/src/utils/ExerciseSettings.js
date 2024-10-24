@@ -34,6 +34,20 @@ export const saveExerciseSettings = async (username, exercise, targetAngles) => 
     }
 };
 
+/**
+ * Loads exercise settings for a user from the Firestore database and updates the state.
+ *
+ * This function retrieves the exercise settings for a specific user and exercise from Firestore.
+ * It then iterates over an array of setter functions and keys, updating the state with the retrieved values.
+ *
+ * @async
+ * @function loadExerciseSettings
+ * @param {string} username - The username of the user whose settings are being loaded.
+ * @param {string} exercise - The name of the exercise for which settings are being loaded.
+ * @param {Array.<[Function, string]>} setTargetAnglesArray - An array of pairs, where each pair consists of a state setter function and a key string. The setter function is called with the value from Firestore corresponding to the key.
+ * @returns {Promise<void>} A promise that resolves when the document is successfully read and state is updated.
+ * @throws Will log an error message to the console if there is an error reading from Firestore.
+ */
 export const loadExerciseSettings = async (username, exercise, setTargetAnglesArray) => {
     try {
         await getDoc(doc(db, "users", username, "exerciseSettings", exercise)).then((snap) => {
