@@ -62,10 +62,20 @@ function DeadBugPage() {
         });
     }, [auth]);
 
+    /**
+     * Handles changes to the target flat angle input.
+     *
+     * @param {Object} event - The event object from the input change.
+     */
     const handleTargetFlatAngleChange = (event) => {
         setTargetFlatAngle(event.target.value);
     };
 
+    /**
+     * Processes pose results from the Mediapipe model and updates state.
+     *
+     * @param {Array} landmarks - The array of pose landmarks.
+     */
     const processPoseResults = (landmarks) => {
         checkDeadBug(
             landmarks,
@@ -79,6 +89,9 @@ function DeadBugPage() {
         );
     };
 
+    /**
+     * Resets the repetition count to zero.
+     */
     const handleReset = () => {
         setRepCount(0);
         setDeadBugCount(0);
@@ -109,8 +122,8 @@ function DeadBugPage() {
         detectPose(webcamRef, canvasRef, processPoseResults);
         // only store setting when user is logged in
         if (userLoggedIn) {
-            // update the target angles object
             console.log(`CURRENT targetFlatAngle = ${targetFlatAngle}`);
+            // update the target angles object
             setTargetAngles({ targetFlatAngle: targetFlatAngle });
             // save settings to firebase cloud firestore under the specific user
             saveExerciseSettings(username, "deadbug", targetAngles);
