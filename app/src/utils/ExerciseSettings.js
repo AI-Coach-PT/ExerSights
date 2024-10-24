@@ -34,10 +34,19 @@ export const saveExerciseSettings = async (username, exercise, targetAngles) => 
     }
 };
 
-export const loadExerciseSettings = async (username, exercise, targetAngles) => {
+export const loadExerciseSettings = async (username, exercise, setTargetAnglesArray) => {
     try {
-        await getDoc(doc(db, "users", username)).then((snap) => {
+        await getDoc(doc(db, "users", username, "exerciseSettings", exercise)).then((snap) => {
             console.log(snap.data());
+            let settings = snap.data();
+            // iterate through array, calling the set function (index 0),
+            // passing the value of settings, given the respective key (index 1) into it
+            setTargetAnglesArray.forEach((pair) => {
+                pair[0](Number(settings[pair[1]]));
+                console.log(`pair 0 = ${pair[0]}`);
+                console.log(`pair 1 = ${pair[1]}`);
+                console.log(`settings at the pair[1] = ${settings[pair[1]]}`);
+            });
         });
     } catch (e) {
         console.error(`Error reading document: ${e}`);

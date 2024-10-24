@@ -25,12 +25,6 @@ function DeadBugPage() {
 
     const [targetFlatAngle, setTargetFlatAngle] = useState(140);
 
-    // let targetAngles = new Map();
-    // targetAngles.set("targetFlatAngle", targetFlatAngle);
-
-    // object containing key-value pair of the target angle label and corresponding value
-    const [targetAngles, setTargetAngles] = useState({ targetFlatAngle: targetFlatAngle });
-
     const [leftUnderarmAngle, setLeftUnderarmAngle] = useState(0);
     const [rightUnderarmAngle, setRightUnderarmAngle] = useState(0);
     const [leftHipAngle, setLeftHipAngle] = useState(0);
@@ -43,23 +37,30 @@ function DeadBugPage() {
 
     const [username, setUsername] = useState("");
 
+    // object containing key-value pair of the target angle label and corresponding value
+    // use to store angles into firebase
+    const [targetAngles, setTargetAngles] = useState({ targetFlatAngle: targetFlatAngle });
+
+    // array of arrays of useState set functions, with the key into the Promise object,
+    // returned from getDoc, to retrieve the angle value to be set;
+    // differs from the targetAngles state in that this is an array array of FUNCTIONS + KEYS,
+    // whereas targetAngles is an Object that keeps a store of target angle VALUES
+    const setTargetAnglesArray = [[setTargetFlatAngle, "targetFlatAngle"]];
+
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
+
     // update auth info as necessary
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUsername(user.displayName);
+                setUserLoggedIn(true);
             } else {
                 console.log("Logged out.");
+                setUserLoggedIn(false);
             }
         });
     }, [auth]);
-
-    // update relevant angles when targetAngle object is changed from loading settings
-    // useEffect(() => {
-    //     Object.entries(targetAngles).forEach([key, value]) => {
-
-    //     }
-    // }, [targetAngles]);
 
     const handleTargetFlatAngleChange = (event) => {
         setTargetFlatAngle(event.target.value);
@@ -94,9 +95,8 @@ function DeadBugPage() {
             const tracks = stream.getTracks();
             tracks.forEach((track) => track.stop());
         }
-        // load settings, and apply with setstate if exists
-        // another function in exercise settings util
-        loadExerciseSettings(username);
+        // load settings if user logged in, and apply with setstate if exists
+        if (userLoggedIn) loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
     };
 
     /**
@@ -107,11 +107,14 @@ function DeadBugPage() {
     const handleCloseModal = () => {
         setOpenModal(false);
         detectPose(webcamRef, canvasRef, processPoseResults);
-        // targetAngles.set("targetFlatAngle", targetFlatAngle);
-        // update the target angles object
-        setTargetAngles({ targetFlatAngle: targetFlatAngle });
-        // save settings to firebase cloud firestore under the specific user
-        saveExerciseSettings(username, "deadbug", targetAngles);
+        // only store setting when user is logged in
+        if (userLoggedIn) {
+            // update the target angles object
+            console.log(`CURRENT targetFlatAngle = ${targetFlatAngle}`);
+            setTargetAngles({ targetFlatAngle: targetFlatAngle });
+            // save settings to firebase cloud firestore under the specific user
+            saveExerciseSettings(username, "deadbug", targetAngles);
+        }
     };
 
     useEffect(() => {
