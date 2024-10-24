@@ -1,4 +1,5 @@
 import { calculateAngle } from './Angles';
+import { inFrame } from './InFrame';
 
 let squatCount = 0;
 let inSquatPosition = false;
@@ -31,25 +32,33 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
 
     let feedback = "Please Begin Rep!";
 
-    if ((
-        ((leftKneeAngle < thresholdAngle && leftKneeAngle > targetKneeAngle) ||
-            (rightKneeAngle < thresholdAngle && rightKneeAngle > targetKneeAngle)) &&
-        !inSquatPosition)) {
-        feedback = "Go Down Lower!";
-    } else if (leftKneeAngle < targetKneeAngle || rightKneeAngle < targetKneeAngle) {
-        feedback = "Excellent!"
-        inSquatPosition = true;
-    } else if (leftKneeAngle > thresholdAngle || rightKneeAngle > thresholdAngle) {
-        if (inSquatPosition) {
+    const left_in_frame = inFrame(leftHip, leftAnkle, undefined, undefined)
+    const right_in_frame = inFrame(rightHip, rightAnkle, undefined, undefined)
+
+    if(left_in_frame || right_in_frame){
+        if ((
+            ((leftKneeAngle < thresholdAngle && leftKneeAngle > targetKneeAngle) ||
+                (rightKneeAngle < thresholdAngle && rightKneeAngle > targetKneeAngle)) &&
+            !inSquatPosition)) {
+            feedback = "Go Down Lower!";
+        } else if (leftKneeAngle < targetKneeAngle || rightKneeAngle < targetKneeAngle) {
             feedback = "Excellent!"
-            squatCount++;
-            inSquatPosition = false;
-            setRepCount(squatCount);
+            inSquatPosition = true;
+        } else if (leftKneeAngle > thresholdAngle || rightKneeAngle > thresholdAngle) {
+            if (inSquatPosition) {
+                feedback = "Excellent!"
+                squatCount++;
+                inSquatPosition = false;
+                setRepCount(squatCount);
+            }
+        } else {
+            if (inSquatPosition) {
+                feedback = "Excellent!"
+            }
         }
-    } else {
-        if (inSquatPosition) {
-            feedback = "Excellent!"
-        }
+    }
+    else{
+        feedback = "Make sure limbs are visible";
     }
 
     onFeedbackUpdate(feedback);
