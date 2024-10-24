@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 /**
@@ -24,24 +24,20 @@ export const saveExerciseSettings = async (username, exercise, targetAngles) => 
         Object.entries(targetAngles).forEach(([key, value]) => {
             data["exerciseSettings"][`${exercise}`][key] = value;
         });
-        await setDoc(doc(db, "users", username), data, { merge: true }).then((res) => {
-            console.log(`Document successfully written to users/${username}!`);
+        await setDoc(doc(db, "users", username), data, { merge: false }).then((res) => {
+            console.log(`Document successfully added to users/${username}!`);
         });
     } catch (e) {
-        console.error("Error adding document: ", e);
+        console.error(`Error adding document: ${e}`);
     }
 };
 
-// const [todos, setTodos] = useState([]);
-
-// const fetchPost = async () => {
-//     await getDocs(collection(db, "todos")).then((querySnapshot) => {
-//         const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-//         setTodos(newData);
-//         console.log(todos, newData);
-//     });
-// };
-
-// useEffect(() => {
-//     fetchPost();
-// }, []);
+export const loadExerciseSettings = async (username) => {
+    try {
+        await getDoc(doc(db, "users", username)).then((snap) => {
+            console.log(snap.data());
+        });
+    } catch (e) {
+        console.error(`Error reading document: ${e}`);
+    }
+};
