@@ -4,7 +4,7 @@ import WebcamBox from "../../components/Webcam";
 import detectPose from "../../utils/PoseDetector";
 import { checkDeadBug, setDeadBugCount } from "../../utils/DeadBug";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { saveExerciseSettings } from "../../utils/ExerciseSettings";
+import { loadExerciseSettings, saveExerciseSettings } from "../../utils/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 
@@ -43,6 +43,7 @@ function DeadBugPage() {
 
     const [username, setUsername] = useState("");
 
+    // update auth info as necessary
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -51,7 +52,14 @@ function DeadBugPage() {
                 console.log("Logged out.");
             }
         });
-    }, []);
+    }, [auth]);
+
+    // update relevant angles when targetAngle object is changed from loading settings
+    // useEffect(() => {
+    //     Object.entries(targetAngles).forEach([key, value]) => {
+
+    //     }
+    // }, [targetAngles]);
 
     const handleTargetFlatAngleChange = (event) => {
         setTargetFlatAngle(event.target.value);
@@ -88,6 +96,7 @@ function DeadBugPage() {
         }
         // load settings, and apply with setstate if exists
         // another function in exercise settings util
+        loadExerciseSettings(username);
     };
 
     /**
