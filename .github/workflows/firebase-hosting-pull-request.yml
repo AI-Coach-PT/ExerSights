@@ -7,6 +7,8 @@ permissions:
   checks: write
   contents: read
   pull-requests: write
+env:
+  CI: false
 jobs:
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
