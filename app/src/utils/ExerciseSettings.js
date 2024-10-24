@@ -18,13 +18,15 @@ import { db } from "../firebaseConfig";
  */
 export const saveExerciseSettings = async (username, exercise, targetAngles) => {
     try {
+        // set up data to be written to document
         let data = {};
-        data["exerciseSettings"] = {};
-        data["exerciseSettings"][`${exercise}`] = {};
         Object.entries(targetAngles).forEach(([key, value]) => {
-            data["exerciseSettings"][`${exercise}`][key] = value;
+            data[key] = value;
         });
-        await setDoc(doc(db, "users", username), data, { merge: false }).then((res) => {
+        // overwrite existing document with new data
+        await setDoc(doc(db, "users", username, "exerciseSettings", exercise), data, {
+            merge: false,
+        }).then(() => {
             console.log(`Document successfully added to users/${username}!`);
         });
     } catch (e) {
@@ -32,7 +34,7 @@ export const saveExerciseSettings = async (username, exercise, targetAngles) => 
     }
 };
 
-export const loadExerciseSettings = async (username) => {
+export const loadExerciseSettings = async (username, exercise, targetAngles) => {
     try {
         await getDoc(doc(db, "users", username)).then((snap) => {
             console.log(snap.data());
