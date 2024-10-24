@@ -4,6 +4,9 @@ import WebcamBox from "../../components/Webcam";
 import detectPose from "../../utils/PoseDetector";
 import { checkDeadBug, setDeadBugCount } from "../../utils/DeadBug";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { saveExerciseSettings } from "../../utils/ExerciseSettings";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 /**
  * A React functional component that provides real-time tracking and feedback of the dead bug exercise, using
@@ -22,6 +25,12 @@ function DeadBugPage() {
 
     const [targetFlatAngle, setTargetFlatAngle] = useState(140);
 
+    // let targetAngles = new Map();
+    // targetAngles.set("targetFlatAngle", targetFlatAngle);
+
+    // object containing key-value pair of the target angle label and corresponding value
+    const [targetAngles, setTargetAngles] = useState({ targetFlatAngle: targetFlatAngle });
+
     const [leftUnderarmAngle, setLeftUnderarmAngle] = useState(0);
     const [rightUnderarmAngle, setRightUnderarmAngle] = useState(0);
     const [leftHipAngle, setLeftHipAngle] = useState(0);
@@ -31,6 +40,18 @@ function DeadBugPage() {
     const [repCount, setRepCount] = useState(0);
 
     const [openModal, setOpenModal] = useState(false);
+
+    const [username, setUsername] = useState("");
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUsername(user.displayName);
+            } else {
+                console.log("Logged out.");
+            }
+        });
+    }, []);
 
     const handleTargetFlatAngleChange = (event) => {
         setTargetFlatAngle(event.target.value);
@@ -65,15 +86,23 @@ function DeadBugPage() {
             const tracks = stream.getTracks();
             tracks.forEach((track) => track.stop());
         }
+        // load settings, and apply with setstate if exists
+        // another function in exercise settings util
     };
 
     /**
-     * Closes the settings modal and restarts the webcam stream and pose
-     * detection when the user exits the modal.
+     * Closes the settings modal, restarts the webcam stream and pose
+     * detection, and saves settings to Firebase Cloud Firestore when
+     * the user exits the modal.
      */
     const handleCloseModal = () => {
         setOpenModal(false);
         detectPose(webcamRef, canvasRef, processPoseResults);
+        // targetAngles.set("targetFlatAngle", targetFlatAngle);
+        // update the target angles object
+        setTargetAngles({ targetFlatAngle: targetFlatAngle });
+        // save settings to firebase cloud firestore under the specific user
+        saveExerciseSettings(username, "deadbug", targetAngles);
     };
 
     useEffect(() => {
