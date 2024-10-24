@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Typography, Box, Paper, TextField, Button, IconButton, Modal } from '@mui/material';
+import { Typography, Box, Paper, TextField, Button, IconButton, Modal } from "@mui/material";
 import WebcamBox from "../../components/Webcam";
-import detectPose from '../../utils/PoseDetector';
-import { checkChestUp, checkSquats, setSquatCount } from '../../utils/Squat';
-import SettingsIcon from '@mui/icons-material/Settings';
+import detectPose from "../../utils/PoseDetector";
+import { checkChestUp, checkSquats, setSquatCount } from "../../utils/Squat";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 /**
  * A React functional component that provides a real-time squat tracking and feedback interface using
@@ -49,7 +49,7 @@ function SquatPage() {
     };
 
     /**
-     * Opens the settings modal and stops the webcam stream to prevent 
+     * Opens the settings modal and stops the webcam stream to prevent
      * unnecessary resource usage while the user is adjusting settings.
      */
     const handleOpenModal = () => {
@@ -57,12 +57,12 @@ function SquatPage() {
         if (webcamRef.current && webcamRef.current.video) {
             const stream = webcamRef.current.video.srcObject;
             const tracks = stream.getTracks();
-            tracks.forEach(track => track.stop());
+            tracks.forEach((track) => track.stop());
         }
     };
 
     /**
-     * Closes the settings modal and restarts the webcam stream and pose 
+     * Closes the settings modal and restarts the webcam stream and pose
      * detection when the user exits the modal.
      */
     const handleCloseModal = () => {
@@ -92,25 +92,24 @@ function SquatPage() {
                 />
             </Box>
 
-            <Paper elevation={3} sx={{ padding: '20px', width: '300px', textAlign: 'left', position: 'relative' }}>
+            <Paper
+                elevation={3}
+                sx={{ padding: "20px", width: "300px", textAlign: "left", position: "relative" }}>
                 <IconButton
-                    sx={{ position: 'absolute', top: '10px', right: '10px' }}
-                    onClick={handleOpenModal}
-                >
+                    sx={{ position: "absolute", top: "10px", right: "10px" }}
+                    onClick={handleOpenModal}>
                     <SettingsIcon />
                 </IconButton>
 
-                <Typography variant="h6" sx={{ marginBottom: '20px' }}>
+                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     Real-Time Feedback Panel
                 </Typography>
 
-                <Typography variant="h6">
-                    {"Feedback: "}
-                </Typography>
-                <Typography variant="h6" style={{ color: 'red' }}>
+                <Typography variant="h6">{"Feedback: "}</Typography>
+                <Typography variant="h6" style={{ color: "red" }}>
                     {feedback ? feedback : "Please Begin Rep!"}
                 </Typography>
-                <Typography variant="h6" style={{ color: 'red', marginBottom: '20px' }}>
+                <Typography variant="h6" style={{ color: "red", marginBottom: "20px" }}>
                     {hipAnglefeedback}
                 </Typography>
                 <Typography variant="h6" gutterBottom>
@@ -128,27 +127,27 @@ function SquatPage() {
                 </Button>
             </Paper>
 
-            <Modal
-                open={openModal}
-                onClose={handleCloseModal}
-            >
+            <Modal open={openModal} onClose={handleCloseModal}>
                 <Box
                     sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
                         width: 400,
-                        bgcolor: 'background.paper',
-                        border: '2px solid black',
+                        bgcolor: "background.paper",
+                        border: "2px solid black",
                         boxShadow: 24,
                         p: 4,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ marginBottom: '20px' }}>
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}>
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                        sx={{ marginBottom: "20px" }}>
                         Adjust Target Knee Angle
                     </Typography>
                     <TextField
@@ -157,7 +156,7 @@ function SquatPage() {
                         type="number"
                         value={targetKneeAngle}
                         onChange={handleTargetKneeAngleChange}
-                        sx={{ marginBottom: '20px' }}
+                        sx={{ marginBottom: "20px" }}
                     />
                     <TextField
                         id="outlined-number"
@@ -165,7 +164,7 @@ function SquatPage() {
                         type="number"
                         value={targetHipAngle}
                         onChange={handleTargetHipAngleChange}
-                        sx={{ marginBottom: '20px' }}
+                        sx={{ marginBottom: "20px" }}
                     />
                     <Button variant="contained" onClick={handleCloseModal}>
                         Save & Close
