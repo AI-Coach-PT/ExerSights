@@ -15,25 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      # Install dependencies in the correct folder
-      - run: cd app && npm install
-
-      # Create .env file with environment variables
-      - name: Create .env file with environment variables
-        run: |
-          cd app
-          echo "REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }}" >> .env
-          echo "REACT_APP_AUTH_DOMAIN=${{ secrets.REACT_APP_AUTH_DOMAIN }}" >> .env
-          echo "REACT_APP_PROJECT_ID=${{ secrets.REACT_APP_PROJECT_ID }}" >> .env
-          echo "REACT_APP_STORAGE_BUCKET=${{ secrets.REACT_APP_STORAGE_BUCKET }}" >> .env
-          echo "REACT_APP_MESSAGING_SENDER_ID=${{ secrets.REACT_APP_MESSAGING_SENDER_ID }}" >> .env
-          echo "REACT_APP_APP_ID=${{ secrets.REACT_APP_APP_ID }}" >> .env
-
-      # Build the app in the correct folder
-      - run: cd app && npm run build
-
-      # Deploy to Firebase Hosting (preview)
+      - run: cd app && npm install  # Install dependencies in the correct folder
+      - run: cd app && npm run build  # Build the app in the correct folder
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
