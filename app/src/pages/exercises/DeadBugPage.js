@@ -22,27 +22,32 @@ import { auth } from "../../firebaseConfig";
 function DeadBugPage() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
+
     const [targetFlatAngle, setTargetFlatAngle] = useState(140);
+
     const [leftUnderarmAngle, setLeftUnderarmAngle] = useState(0);
     const [rightUnderarmAngle, setRightUnderarmAngle] = useState(0);
     const [leftHipAngle, setLeftHipAngle] = useState(0);
     const [rightHipAngle, setRightHipAngle] = useState(0);
+
     const [feedback, setFeedback] = useState("");
     const [repCount, setRepCount] = useState(0);
-    const [openModal, setOpenModal] = useState(false);
-    const [userEmail, setUsername] = useState("");
-    const [userLoggedIn, setUserLoggedIn] = useState(false);
 
-    // Object containing key-value pair of target angle label(s) and corresponding value(s);
-    // used to store angles into Firebase Cloud Firestore
+    const [openModal, setOpenModal] = useState(false);
+
+    const [username, setUsername] = useState("");
+
+    // object containing key-value pair of the target angle label and corresponding value
+    // use to store angles into firebase
     const [targetAngles, setTargetAngles] = useState({ targetFlatAngle: targetFlatAngle });
 
-    // Array of arrays of useState set functions, with the key into the Promise object,
+    // array of arrays of useState set functions, with the key into the Promise object,
     // returned from getDoc, to retrieve the angle value to be set;
     // differs from the targetAngles state in that this is an array array of FUNCTIONS + KEYS,
-    // whereas targetAngles is an Object that keeps a store of target angle VALUES;
-    // both states are used to modularize usage of the store/load functions in ExerciseSettings.js
+    // whereas targetAngles is an Object that keeps a store of target angle VALUES
     const setTargetAnglesArray = [[setTargetFlatAngle, "targetFlatAngle"]];
+
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
 
     /**
      * Handles changes to the target flat angle input.
@@ -51,6 +56,7 @@ function DeadBugPage() {
      */
     const handleTargetFlatAngleChange = (event) => {
         setTargetFlatAngle(event.target.value);
+        setTargetAngles({ targetFlatAngle: event.target.value });
     };
 
     /**
@@ -102,39 +108,33 @@ function DeadBugPage() {
         detectPose(webcamRef, canvasRef, processPoseResults);
         // only store setting when user is logged in, and load it immediately afterwards
         if (userLoggedIn) {
-            // setTargetAngles({ targetFlatAngle: targetFlatAngle });
-            console.log(targetAngles);
-            console.log(`CURENT targetFlagAngle = ${targetFlatAngle}`);
-            storeExerciseSettings(userEmail, "deadbug", targetAngles);
-            loadExerciseSettings(userEmail, "deadbug", setTargetAnglesArray);
+            console.log(`CURRENT targetFlatAngle = ${targetFlatAngle}`);
+            // save settings to firebase cloud firestore under the specific user
+            storeExerciseSettings(username, "deadbug", targetAngles);
+            loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
         }
     };
 
-    // Update the targetAngles object whenever targetFlatAngle changes
     useEffect(() => {
-        setTargetAngles({ targetFlatAngle: targetFlatAngle });
-    }, [targetFlatAngle]);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 console.log("Logged in.");
-                setUsername(user.email);
-                console.log(userEmail);
-                setUserLoggedIn(true);
-                // Load settings upon a signed-in user navigating to exercise page;
-                // if the user does not have saved settings, this will do nothing,
-                // and the last set values will be used (most likely default values)
-                loadExerciseSettings(userEmail, "deadbug", setTargetAnglesArray);
+                setUsername(user.displayName);
+                console.log(username);
+                // setUserLoggedIn(true);
+                await loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
             } else {
                 console.log("Logged out.");
                 setUsername("");
                 setUserLoggedIn(false);
             }
         });
+        // load settings upon a signed-in user navigating to exercise page;
+        // if user does not have saved settings, this will do nothing, and default values will be used
+        // if (userLoggedIn) loadExerciseSettings(username, "deadbug", setTargetAnglesArray);
         detectPose(webcamRef, canvasRef, processPoseResults);
         return () => unsubscribe();
-    }, [userEmail]);
+    }, [username]);
 
     return (
         <Box sx={{ display: "flex", justifyContent: "center", padding: "20px" }}>
@@ -164,6 +164,15 @@ function DeadBugPage() {
                 </IconButton>
                 <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     Real-Time Feedback Panel
+                </Typography>
+                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+                    TARGET FLAT ANGLE: {targetFlatAngle}
+                </Typography>
+                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+                    TARGET ANGLES: {targetAngles["targetFlatAngle"]}
+                </Typography>
+                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+                    USERNAME: {username}
                 </Typography>
                 <Typography variant="h6" sx={{ marginBottom: "20px" }}>
                     {"Feedback: "}
