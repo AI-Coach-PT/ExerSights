@@ -5,6 +5,7 @@ import squatImg from "../assets/squat.jpg"
 import bridgeImg from "../assets/bridge.jpg"
 import deadBugImage from "../assets/deadbug.png";
 import pushUpImage from "../assets/pushUp.png";
+import { catalogText } from "../assets/content.js"
 
 /**
  * Catalog is a React functional component that displays a list of exercise cards. 
@@ -41,7 +42,7 @@ function Catalog() {
                 >
                     <ExerciseCard
                         title="Squat"
-                        description="Squats strengthen the legs, glutes, and core, improving flexibility and balance."
+                        description={catalogText.squat}
                         link="/squat"
                         image={squatImg}
                     />
@@ -54,7 +55,7 @@ function Catalog() {
                 >
                     <ExerciseCard
                         title="Bridge"
-                        description="Bridge Desc"
+                        description={catalogText.bridge}
                         link='/bridge'
                         image={bridgeImg}
                     />
@@ -67,7 +68,7 @@ function Catalog() {
                 >
                     <ExerciseCard
                         title="Dead Bug"
-                        description="The dead bug exercise is a technique for building strength in your back and core."
+                        description={catalogText.deadbug}
                         link="/deadbug"
                         image={deadBugImage}
                     />
@@ -80,7 +81,7 @@ function Catalog() {
                 >
                     <ExerciseCard
                         title="Push-up"
-                        description="The push-up is a great exercise for building upper body strength specifically in your chest and triceps."
+                        description={catalogText.pushup}
                         link="/pushup"
                         image={pushUpImage}
                     />
