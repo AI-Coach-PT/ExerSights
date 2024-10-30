@@ -2,6 +2,19 @@ import React, { useState } from "react";
 import { IconButton, Modal, Box, Typography, Button } from '@mui/material';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
+/**
+ * HelpModal Component
+ *
+ * This component renders an informational modal to assist users with exercise instructions, specifically
+ * for providing guidance on camera placement. It includes an question mark icon button that, when clicked,
+ * opens a modal containing instructional image and text.
+ *
+ * @component
+ * @param {string} image - The URL of the image to display in the modal, typically depicting camera placement instructions
+ * @param {string} description - The text providing instrutions and guidance on camera placement
+ *
+ * @returns {JSX.Element} - Returns a modal component that can be triggered by a question mark icon button.
+ */
 function HelpModal({ image, description }) {
     const [openModal, setOpenModal] = useState(false);
 
