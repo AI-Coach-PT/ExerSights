@@ -52,7 +52,7 @@ export const checkDeadBug = (
 
     if (!left_in_frame && !right_in_frame) {
         feedback = "Make sure limbs are visible";
-        onFeedbackUpdate(feedback);
+        setFeedback(feedback);
         return;
     }
 
