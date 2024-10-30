@@ -102,9 +102,8 @@ function DeadBugPage() {
         detectPose(webcamRef, canvasRef, processPoseResults);
         // only store setting when user is logged in, and load it immediately afterwards
         if (userLoggedIn) {
-            // setTargetAngles({ targetFlatAngle: targetFlatAngle });
             console.log(targetAngles);
-            console.log(`CURENT targetFlagAngle = ${targetFlatAngle}`);
+            console.log(`CURRENT targetFlagAngle = ${targetFlatAngle}`);
             storeExerciseSettings(userEmail, "deadbug", targetAngles);
             loadExerciseSettings(userEmail, "deadbug", setTargetAnglesArray);
         }

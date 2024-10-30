@@ -4,6 +4,9 @@ import WebcamBox from "../../components/Webcam";
 import detectPose from "../../utils/PoseDetector";
 import { checkChestUp, checkSquats, setSquatCount } from "../../utils/Squat";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 /**
  * A React functional component that provides a real-time squat tracking and feedback interface using
@@ -19,30 +22,64 @@ import SettingsIcon from "@mui/icons-material/Settings";
 function SquatPage() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
-
     const [targetKneeAngle, setTargetKneeAngle] = useState(90);
     const [feedback, setFeedback] = useState("");
-
     const [targetHipAngle, setTargetHipAngle] = useState(45);
     const [hipAnglefeedback, setHipAngleFeedback] = useState("");
-
     const [currKneeAngle, setCurrKneeAngle] = useState(0);
     const [repCount, setRepCount] = useState(0);
     const [openModal, setOpenModal] = useState(false);
+    const [userEmail, setUsername] = useState("");
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
 
+    // Object containing key-value pair of target angle label(s) and corresponding value(s);
+    // used to store angles into Firebase Cloud Firestore
+    const [targetAngles, setTargetAngles] = useState({
+        targetKneeAngle: targetKneeAngle,
+        targetHipAngle: targetHipAngle,
+    });
+
+    // Array of arrays of useState set functions, with the key into the Promise object,
+    // returned from getDoc, to retrieve the angle value to be set;
+    // differs from the targetAngles state in that this is an array array of FUNCTIONS + KEYS,
+    // whereas targetAngles is an Object that keeps a store of target angle VALUES;
+    // both states are used to modularize usage of the store/load functions in ExerciseSettings.js
+    const setTargetAnglesArray = [
+        [setTargetKneeAngle, "targetKneeAngle"],
+        [setTargetHipAngle, "targetHipAngle"],
+    ];
+
+    /**
+     * Handles changes to the target knee angle input.
+     *
+     * @param {Object} event - The event object from the input change.
+     */
     const handleTargetKneeAngleChange = (event) => {
         setTargetKneeAngle(event.target.value);
     };
 
+    /**
+     * Handles changes to the target hip angle input.
+     *
+     * @param {Object} event - The event object from the input change.
+     */
     const handleTargetHipAngleChange = (event) => {
         setTargetHipAngle(event.target.value);
     };
 
+    /**
+     * Processes pose results from the Mediapipe model and updates state.
+     *
+     * @param {Array} landmarks - The array of pose landmarks.
+     */
     const processPoseResults = (landmarks) => {
         checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, targetKneeAngle);
         checkChestUp(landmarks, setHipAngleFeedback, targetHipAngle);
     };
 
+    /**
+     * Resets the repetition count to zero.
+     */
     const handleReset = () => {
         setRepCount(0);
         setSquatCount(0);
@@ -68,11 +105,41 @@ function SquatPage() {
     const handleCloseModal = () => {
         setOpenModal(false);
         detectPose(webcamRef, canvasRef, processPoseResults);
+        // only store setting when user is logged in, and load it immediately afterwards
+        if (userLoggedIn) {
+            console.log(targetAngles);
+            console.log(`CURRENT targetKneeAngle = ${targetKneeAngle}`);
+            console.log(`CURRENT targetHipAngle = ${targetHipAngle}`);
+            storeExerciseSettings(userEmail, "squat", targetAngles);
+            loadExerciseSettings(userEmail, "squat", setTargetAnglesArray);
+        }
     };
 
+    // Update the targetAngles object whenever targetKneeAngle and/or targetHipAngle changes
     useEffect(() => {
+        setTargetAngles({ targetKneeAngle: targetKneeAngle, targetHipAngle: targetHipAngle });
+    }, [targetKneeAngle, targetHipAngle]);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("Logged in.");
+                setUsername(user.email);
+                console.log(userEmail);
+                setUserLoggedIn(true);
+                // Load settings upon a signed-in user navigating to exercise page;
+                // if the user does not have saved settings, this will do nothing,
+                // and the last set values will be used (most likely default values)
+                loadExerciseSettings(userEmail, "squat", setTargetAnglesArray);
+            } else {
+                console.log("Logged out.");
+                setUsername("");
+                setUserLoggedIn(false);
+            }
+        });
         detectPose(webcamRef, canvasRef, processPoseResults);
-    }, []);
+        return () => unsubscribe();
+    }, [userEmail]);
 
     return (
         <Box sx={{ display: "flex", justifyContent: "center", padding: "20px" }}>
