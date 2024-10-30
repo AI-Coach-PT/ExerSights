@@ -1,9 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button, IconButton, Modal } from '@mui/material';
 import WebcamBox from "../../components/Webcam";
+import HelpModal from "../../components/HelpModal";
 import detectPose from '../../utils/PoseDetector';
 import { checkChestUp, checkSquats, setSquatCount } from '../../utils/Squat';
 import SettingsIcon from '@mui/icons-material/Settings';
+import squatImg from '../../assets/squat.jpg'
 
 /**
  * A React functional component that provides a real-time squat tracking and feedback interface using
@@ -99,6 +101,8 @@ function SquatPage() {
                 >
                     <SettingsIcon />
                 </IconButton>
+
+                <HelpModal image={squatImg} description="instructions" />
 
                 <Typography variant="h6" sx={{ marginBottom: '20px' }}>
                     Real-Time Feedback Panel
