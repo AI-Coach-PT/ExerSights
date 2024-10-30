@@ -35,30 +35,31 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
     const left_in_frame = inFrame(leftHip, leftAnkle, undefined, undefined)
     const right_in_frame = inFrame(rightHip, rightAnkle, undefined, undefined)
 
-    if(left_in_frame || right_in_frame){
-        if ((
-            ((leftKneeAngle < thresholdAngle && leftKneeAngle > targetKneeAngle) ||
-                (rightKneeAngle < thresholdAngle && rightKneeAngle > targetKneeAngle)) &&
-            !inSquatPosition)) {
-            feedback = "Go Down Lower!";
-        } else if (leftKneeAngle < targetKneeAngle || rightKneeAngle < targetKneeAngle) {
-            feedback = "Excellent!"
-            inSquatPosition = true;
-        } else if (leftKneeAngle > thresholdAngle || rightKneeAngle > thresholdAngle) {
-            if (inSquatPosition) {
-                feedback = "Excellent!"
-                squatCount++;
-                inSquatPosition = false;
-                setRepCount(squatCount);
-            }
-        } else {
-            if (inSquatPosition) {
-                feedback = "Excellent!"
-            }
-        }
-    }
-    else{
+    if (!left_in_frame && !right_in_frame) {
         feedback = "Make sure limbs are visible";
+        onFeedbackUpdate(feedback);
+        return;
+    }
+
+    if ((
+        ((leftKneeAngle < thresholdAngle && leftKneeAngle > targetKneeAngle) ||
+            (rightKneeAngle < thresholdAngle && rightKneeAngle > targetKneeAngle)) &&
+        !inSquatPosition)) {
+        feedback = "Go Down Lower!";
+    } else if (leftKneeAngle < targetKneeAngle || rightKneeAngle < targetKneeAngle) {
+        feedback = "Excellent!"
+        inSquatPosition = true;
+    } else if (leftKneeAngle > thresholdAngle || rightKneeAngle > thresholdAngle) {
+        if (inSquatPosition) {
+            feedback = "Excellent!"
+            squatCount++;
+            inSquatPosition = false;
+            setRepCount(squatCount);
+        }
+    } else {
+        if (inSquatPosition) {
+            feedback = "Excellent!"
+        }
     }
 
     onFeedbackUpdate(feedback);
