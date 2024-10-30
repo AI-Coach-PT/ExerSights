@@ -40,15 +40,17 @@ function HelpModal({ image, description }) {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        maxHeight: '90vh',
+                        overflow: 'auto',
                     }}
                 >
-                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ marginBottom: '20px' }}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ marginBottom: '4vh' }}>
                         Camera Placement Instructions
                     </Typography>
 
                     <img src={image} width={500} />
 
-                    <Typography variant="body2" height="5vh" sx={{ color: 'text.secondary', marginTop: '20px' }}>
+                    <Typography variant="body2" height="5vh" textAlign="center" width={600} sx={{ color: 'text.secondary', marginTop: '4vh', marginBottom: '4vh' }}>
                         {description}
                     </Typography>
 
