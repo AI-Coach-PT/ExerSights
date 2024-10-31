@@ -1,12 +1,15 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Catalog from './pages/Catalog';
-import About from './pages/About';
-import SquatPage from './pages/exercises/SquatPage';
-import Menubar from './components/Menubar';
-import BridgePage from './pages/exercises/BridgePage';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Catalog from "./pages/Catalog";
+import About from "./pages/About";
+import SquatPage from "./pages/exercises/SquatPage";
+import Menubar from "./components/Menubar";
+import BridgePage from "./pages/exercises/BridgePage";
 import DeadBugPage from "./pages/exercises/DeadBugPage";
+import theme from "./utils/theme";
+import { ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -17,20 +20,23 @@ import DeadBugPage from "./pages/exercises/DeadBugPage";
  * @returns {JSX.Element} The main app component with routing and navigation.
  */
 function App() {
-  return (
-    <Router>
-      <Menubar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/squat" element={<SquatPage />} />
-        <Route path="/bridge" element={<BridgePage />} />
-        <Route path="/deadbug" element={<DeadBugPage />} />
-      </Routes>
-    </Router >
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Router>
+                <Menubar />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/catalog" element={<Catalog />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/squat" element={<SquatPage />} />
+                    <Route path="/bridge" element={<BridgePage />} />
+                    <Route path="/deadbug" element={<DeadBugPage />} />
+                </Routes>
+            </Router>
+        </ThemeProvider>
+    );
 }
 
 export default App;
