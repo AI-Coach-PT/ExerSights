@@ -6,6 +6,7 @@ import {
 import poseLandmarkerTask from "../shared/models/pose_landmarker_full.task";
 
 const detectPose = (webcamRef, canvasRef, onResultCallback) => {
+    console.log('new')
     let poseLandmarker;
     let animationId;
 

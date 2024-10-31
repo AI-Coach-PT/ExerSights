@@ -1,6 +1,9 @@
 import React, { forwardRef } from 'react';
 import Webcam from 'react-webcam';
 
+const webcamStyle = (process.env.REACT_APP_MODEL === 'tasks-vision') ?
+    { visibility: 'hidden', position: 'absolute' } : { display: 'none' };
+
 /**
  * WebcamBox is a React functional component that wraps the `react-webcam` component. 
  * It hides the webcam feed by default but still allows access to the video stream through the ref.
@@ -14,7 +17,7 @@ import Webcam from 'react-webcam';
  */
 const WebcamBox = forwardRef((props, ref) => {
     return (
-        <div style={{ display: 'none' }}>
+        <div style={webcamStyle}>
             <Webcam
                 ref={ref}
                 className="hidden-webcam"
