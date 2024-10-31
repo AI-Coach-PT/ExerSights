@@ -1,10 +1,11 @@
 import React, { forwardRef } from "react";
 import Webcam from "react-webcam";
 
-const WebcamCanvas = forwardRef((props) => {
+const WebcamCanvas = forwardRef((props, ref) => {
+    const canvas = ref.canvasRef.current;
     const aspectRatio = 16 / 9;
-    const browserWidth = props.dimensions.width * 0.9;
-    const browserHeight = props.dimensions.height * 0.9;
+    const browserWidth = props.dimensions.width * 0.7;
+    const browserHeight = props.dimensions.height * 0.7;
     let newWidth, newHeight;
     if (browserWidth / browserHeight > aspectRatio) {
         newHeight = browserHeight;
@@ -15,26 +16,32 @@ const WebcamCanvas = forwardRef((props) => {
     }
 
     const videoContraints = {
-        width: newWidth, // Scale to 90% of browser width
-        height: newHeight, // Scale to 90% of browser height
-        aspectRatio: { aspectRatio },
+        width: newWidth,
+        height: newHeight,
+        aspectRatio: aspectRatio,
         facingMode: "user", // or 'environment' for rear camera on mobile
     };
     return (
         <>
-            <div style={{ display: "none" }}>
+            <div style={{ visibility: "hidden", position: "absolute" }}>
                 <Webcam
-                    ref={props.webcamRef}
+                    ref={ref.webcamRef}
                     className="hidden-webcam"
-                    disablePictureInPicture="true"
+                    disablePictureInPicture={true}
                     videoConstraints={videoContraints}
                 />
             </div>
             <canvas
-                ref={props.canvasRef}
-                width={newWidth} // Scale to 90% of browser width
-                height={newHeight} // Scale to 90% of browser height
-                style={{ border: "1px solid black" }}
+                ref={ref.canvasRef}
+                // canvas drawing size
+                width={newWidth}
+                height={newHeight}
+                style={{
+                    border: "1px solid black",
+                    // canvas display size
+                    width: `${newWidth}px`,
+                    height: `${newHeight}px`,
+                }}
             />
         </>
     );
