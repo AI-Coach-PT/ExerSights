@@ -16,11 +16,11 @@ import SettingsIcon from '@mui/icons-material/Settings';
  * @returns {JSX.Element} The JSX code to render the Squat tracking page, including webcam feed, feedback,
  *                        squat count, knee angle display, and a reset button.
  */
-function SquatPage() {
+function PushUpPage() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
 
-    const [targetElbowAngle, setTargetEblowAngle] = useState(90);
+    const [targetElbowAngle, setTargetElbowAngle] = useState(65);
     const [feedback, setFeedback] = useState("");
 
     const [currElbowAngle, setCurrElbowAngle] = useState(0);
@@ -33,10 +33,12 @@ function SquatPage() {
 
     const processPoseResults = (landmarks) => {
         checkPushup(landmarks, setFeedback, setCurrElbowAngle, setRepCount, targetElbowAngle);
+
     };
 
     const handleReset = () => {
         setPushUpCount(0);
+        setRepCount(0);
     };
 
     /**
@@ -72,7 +74,7 @@ function SquatPage() {
                     variant="h4"
                     gutterBottom
                     sx={{ marginBottom: "20px", textAlign: "center" }}>
-                    Squats
+                    PushUp
                 </Typography>
                 <WebcamBox ref={webcamRef} />
                 <canvas
@@ -101,11 +103,8 @@ function SquatPage() {
                 <Typography variant="h6" style={{ color: 'red' }}>
                     {feedback ? feedback : "Please Begin Rep!"}
                 </Typography>
-                <Typography variant="h6" style={{ color: 'red', marginBottom: '20px' }}>
-                    {hipAnglefeedback}
-                </Typography>
                 <Typography variant="h6" gutterBottom>
-                    Knee Angle: {currKneeAngle.toFixed(0)}°
+                    Elbow Angle: {currElbowAngle.toFixed(0)}°
                 </Typography>
                 <Typography variant="h6" gutterBottom sx={{ marginTop: "20px" }}>
                     Current Rep Count: {repCount}
@@ -140,22 +139,14 @@ function SquatPage() {
                     }}
                 >
                     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ marginBottom: '20px' }}>
-                        Adjust Target Knee Angle
+                        Adjust Target Elbow Angle
                     </Typography>
                     <TextField
                         id="outlined-number"
-                        label="Target Knee Angle ° for Depth"
+                        label="Target Elbow Angle ° for Pushup"
                         type="number"
-                        value={targetKneeAngle}
-                        onChange={handleTargetKneeAngleChange}
-                        sx={{ marginBottom: '20px' }}
-                    />
-                    <TextField
-                        id="outlined-number"
-                        label="Minimum Hip Angle ° (Chest Up)"
-                        type="number"
-                        value={targetHipAngle}
-                        onChange={handleTargetHipAngleChange}
+                        value={targetElbowAngle}
+                        onChange={handleTargetElbowAngleChange}
                         sx={{ marginBottom: '20px' }}
                     />
                     <Button variant="contained" onClick={handleCloseModal}>
@@ -167,4 +158,4 @@ function SquatPage() {
     );
 }
 
-export default SquatPage;
+export default PushUpPage;

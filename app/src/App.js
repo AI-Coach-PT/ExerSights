@@ -7,6 +7,7 @@ import SquatPage from './pages/exercises/SquatPage';
 import Menubar from './components/Menubar';
 import BridgePage from './pages/exercises/BridgePage';
 import DeadBugPage from "./pages/exercises/DeadBugPage";
+import PushUpPage from "./pages/exercises/PushUpPage";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -28,6 +29,7 @@ function App() {
         <Route path="/squat" element={<SquatPage />} />
         <Route path="/bridge" element={<BridgePage />} />
         <Route path="/deadbug" element={<DeadBugPage />} />
+        <Route path="/pushup" element={<PushUpPage />} />
       </Routes>
     </Router >
   );
