@@ -2,7 +2,6 @@ import React, { forwardRef } from "react";
 import Webcam from "react-webcam";
 
 const WebcamCanvas = forwardRef((props, ref) => {
-    const canvas = ref.canvasRef.current;
     const aspectRatio = 16 / 9;
     const browserWidth = props.dimensions.width * 0.7;
     const browserHeight = props.dimensions.height * 0.7;

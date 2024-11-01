@@ -2,6 +2,9 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 // Create a base theme
 let theme = createTheme({
+    palette: {
+        mode: "dark",
+    },
     typography: {
         // Define global font family
         fontFamily: "Roboto, Arial, sans-serif",
