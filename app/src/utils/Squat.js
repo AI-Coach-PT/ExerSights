@@ -65,6 +65,7 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
         }
     }
 
+    // only play feedback audio from begin -> go down lower and from lower -> excellent
     if ((feedback === "Go Down Lower!" && lastFeedback === "Please Begin Rep!")
         || (feedback === "Excellent!" && lastFeedback === "Go Down Lower!")) {
         playText(feedback);
