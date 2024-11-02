@@ -1,4 +1,5 @@
 import { calculateAngle } from "./Angles";
+import { inFrame } from './InFrame';
 
 let deadBugCount = 0;
 let inDeadBugPosition = false;
@@ -45,6 +46,15 @@ export const checkDeadBug = (
     setRightHipAngle(rightHipAngle);
 
     let feedback = "Extend alternate sides!";
+
+    const left_in_frame = inFrame(leftShoulder, leftKnee, undefined, undefined)
+    const right_in_frame = inFrame(rightShoulder, rightKnee, undefined, undefined)
+
+    if (!left_in_frame && !right_in_frame) {
+        feedback = "Make sure limbs are visible";
+        setFeedback(feedback);
+        return;
+    }
 
     if (
         ((leftUnderarmAngle < targetFlatAngle && rightHipAngle < targetFlatAngle) ||
