@@ -7,6 +7,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
+import HelpModal from "../../components/HelpModal";
+import squatHelpImg from '../../assets/squatHelp.png'
+import { instructionsTextSquat } from "../../assets/content";
 
 /**
  * A React functional component that provides a real-time squat tracking and feedback interface using
@@ -168,7 +171,9 @@ function SquatPage() {
                     <SettingsIcon />
                 </IconButton>
 
-                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+                <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
+
+                <Typography variant="h6" sx={{ marginBottom: '20px' }}>
                     Real-Time Feedback Panel
                 </Typography>
 
