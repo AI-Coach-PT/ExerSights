@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { handleLogin, handleLogout } from "../utils/HandleLogin";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import logo from "../assets/logoNoName.png";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -33,12 +34,7 @@ function Menubar() {
     const auth = getAuth();
     const [isAuth, setIsAuth] = useState(false);
     const [username, setUsername] = useState("");
-    const [showDrawerButton, setShowDrawerButton] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [browserDimesions, setBrowserDimensions] = useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
 
     const handleDrawerToggle = () => {
         setIsDrawerOpen(!isDrawerOpen);
@@ -59,50 +55,36 @@ function Menubar() {
         return () => unsubscribe();
     }, [auth]);
 
-    // responsive drawer menu
-    useEffect(() => {
-        if (browserDimesions.width <= 900) {
-            setShowDrawerButton(true);
-            console.log("IN XS");
-        } else {
-            setShowDrawerButton(false);
-            console.log("NOT IN XS");
-        }
-    }, [browserDimesions]);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setBrowserDimensions({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        };
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
     return (
-        <AppBar position="static" elevation={4}>
+        <AppBar position="static" elevation={8}>
             <Toolbar>
                 {/* Logo */}
-                <Typography
+                <Box
+                    component="img"
+                    src={logo}
+                    sx={{
+                        height: 60,
+                        width: 60,
+                        mx: "1rem",
+                    }}
+                />
+                {/* <Typography
                     variant="h1"
                     sx={{
                         fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
                         flexGrow: { xs: 1, md: 0 },
                     }}>
                     ExerSights
-                </Typography>
+                </Typography> */}
                 {/* Desktop Navigation */}
                 <Box
                     sx={{
                         display: { xs: "none", md: "flex" },
-                        flexGrow: { xs: 0, md: 1 },
                         justifyContent: "left",
+                        flexGrow: 1,
                     }}>
                     {menuItems.map((item) => (
-                        <Button key={item.text} color="inherit" component={Link} to={item.path}>
+                        <Button key={item.text} component={Link} to={item.path}>
                             {item.text}
                         </Button>
                     ))}
@@ -111,25 +93,28 @@ function Menubar() {
                 <Box sx={{ display: "flex", justifyContent: "right" }}>
                     {isAuth && (
                         <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ userSelect: "none", display: { sm: "none", md: "flex" } }}>
+                            variant="h2"
+                            sx={{ userSelect: "none", display: { xs: "none", md: "flex" } }}>
                             Welcome {username}!
                         </Typography>
                     )}
                     <Button
-                        color="inherit"
                         onClick={isAuth ? handleLogout : handleLogin}
                         sx={{ display: { xs: "none", md: "block" } }}>
                         {isAuth ? "Logout" : "Login"}
                     </Button>
                 </Box>
                 {/* Drawer Icon */}
-                {showDrawerButton && (
-                    <IconButton color="inherit" onClick={handleDrawerToggle}>
+                <Box
+                    sx={{
+                        display: { xs: "flex", md: "none" },
+                        flexGrow: 1,
+                        justifyContent: "right",
+                    }}>
+                    <IconButton onClick={handleDrawerToggle}>
                         <MenuIcon />
                     </IconButton>
-                )}
+                </Box>
                 {/* Mobile Drawer */}
                 <Drawer
                     anchor="right"
