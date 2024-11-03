@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    Button,
+    Box,
+    IconButton,
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { handleLogin, handleLogout } from "../utils/HandleLogin";
+import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 /**
@@ -27,6 +39,7 @@ function Menubar() {
         width: window.innerWidth,
         height: window.innerHeight,
     });
+
     const handleDrawerToggle = () => {
         setIsDrawerOpen(!isDrawerOpen);
     };
@@ -81,26 +94,72 @@ function Menubar() {
                     }}>
                     ExerSights
                 </Typography>
-                <Box sx={{ display: "flex", gap: 2, ml: 4 }}>
-                    <Button color="inherit" component={Link} to="/home">
-                        Home
-                    </Button>
-                    <Button color="inherit" component={Link} to="/catalog">
-                        Catalog
-                    </Button>
-
-                    {/* Drawer Icon */}
-                    {showDrawerButton && (
-                        <IconButton color="inherit" onClick={handleDrawerToggle}>
-                            <MenuIcon />
-                        </IconButton>
-                    )}
+                {/* Desktop Navigation */}
+                <Box
+                    sx={{
+                        display: { xs: "none", md: "flex" },
+                        flexGrow: { xs: 0, md: 1 },
+                        justifyContent: "left",
+                    }}>
+                    {menuItems.map((item) => (
+                        <Button key={item.text} color="inherit" component={Link} to={item.path}>
+                            {item.text}
+                        </Button>
+                    ))}
                 </Box>
-
-                <Box sx={{ flexGrow: 1 }} />
-                <Button color="inherit" onClick={isAuth ? handleLogout : handleLogin}>
-                    {isAuth ? "Logout" : "Login"}
-                </Button>
+                {/* Login/Logout Button */}
+                <Box sx={{ display: "flex", justifyContent: "right" }}>
+                    {isAuth && (
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ userSelect: "none", display: { sm: "none", md: "flex" } }}>
+                            Welcome {username}!
+                        </Typography>
+                    )}
+                    <Button
+                        color="inherit"
+                        onClick={isAuth ? handleLogout : handleLogin}
+                        sx={{ display: { xs: "none", md: "block" } }}>
+                        {isAuth ? "Logout" : "Login"}
+                    </Button>
+                </Box>
+                {/* Drawer Icon */}
+                {showDrawerButton && (
+                    <IconButton color="inherit" onClick={handleDrawerToggle}>
+                        <MenuIcon />
+                    </IconButton>
+                )}
+                {/* Mobile Drawer */}
+                <Drawer
+                    anchor="right"
+                    open={isDrawerOpen}
+                    onClose={handleDrawerToggle}
+                    sx={{
+                        display: { xs: "block", md: "none" },
+                        "& .MuiDrawer-paper": { width: 240 },
+                    }}>
+                    <List>
+                        {menuItems.map((item) => (
+                            <ListItem
+                                key={item.text}
+                                button
+                                component={Link}
+                                to={item.path}
+                                onClick={handleDrawerToggle}>
+                                <ListItemText primary={item.text} />
+                            </ListItem>
+                        ))}
+                        <ListItem
+                            button
+                            onClick={() => {
+                                isAuth ? handleLogout() : handleLogin();
+                                handleDrawerToggle();
+                            }}>
+                            <ListItemText primary={isAuth ? "Logout" : "Login"} />
+                        </ListItem>
+                    </List>
+                </Drawer>
             </Toolbar>
         </AppBar>
     );
