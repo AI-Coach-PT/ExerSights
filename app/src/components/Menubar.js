@@ -58,7 +58,7 @@ function Menubar() {
     return (
         <AppBar position="static" elevation={8}>
             <Toolbar>
-                {/* Logo */}
+                {/* logo */}
                 <Box
                     component="img"
                     src={logo}
@@ -68,15 +68,7 @@ function Menubar() {
                         mx: "1rem",
                     }}
                 />
-                {/* <Typography
-                    variant="h1"
-                    sx={{
-                        fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
-                        flexGrow: { xs: 1, md: 0 },
-                    }}>
-                    ExerSights
-                </Typography> */}
-                {/* Desktop Navigation */}
+                {/* desktop navigation */}
                 <Box
                     sx={{
                         display: { xs: "none", md: "flex" },
@@ -85,11 +77,13 @@ function Menubar() {
                     }}>
                     {menuItems.map((item) => (
                         <Button key={item.text} component={Link} to={item.path}>
-                            {item.text}
+                            <Typography variant="h6" textTransform={"none"}>
+                                {item.text}
+                            </Typography>
                         </Button>
                     ))}
                 </Box>
-                {/* Login/Logout Button */}
+                {/* login/logout button */}
                 <Box sx={{ display: "flex", justifyContent: "right" }}>
                     {isAuth && (
                         <Typography
@@ -104,7 +98,7 @@ function Menubar() {
                         {isAuth ? "Logout" : "Login"}
                     </Button>
                 </Box>
-                {/* Drawer Icon */}
+                {/* drawer icon */}
                 <Box
                     sx={{
                         display: { xs: "flex", md: "none" },
@@ -115,7 +109,7 @@ function Menubar() {
                         <MenuIcon />
                     </IconButton>
                 </Box>
-                {/* Mobile Drawer */}
+                {/* mobile drawer */}
                 <Drawer
                     anchor="right"
                     open={isDrawerOpen}
