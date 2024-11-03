@@ -152,6 +152,7 @@ function DeadBugPage() {
     }, [userEmail]);
 
     useEffect(() => {
+        detectPose(webcamRef, canvasRef, processPoseResults);
         let timeout;
         const handleResize = () => {
             clearTimeout(timeout);
