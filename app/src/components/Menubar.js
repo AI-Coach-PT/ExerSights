@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { handleLogin, handleLogout } from "../utils/HandleLogin";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -14,8 +13,23 @@ import { auth } from "../firebaseConfig";
  * @returns {JSX.Element} A Material UI AppBar with navigation links.
  */
 function Menubar() {
+    const menuItems = [
+        { text: "Home", path: "/home" },
+        { text: "Catalog", path: "/catalog" },
+        { text: "About", path: "/about" },
+    ];
+    const auth = getAuth();
     const [isAuth, setIsAuth] = useState(false);
     const [username, setUsername] = useState("");
+    const [showDrawerButton, setShowDrawerButton] = useState(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [browserDimesions, setBrowserDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+    const handleDrawerToggle = () => {
+        setIsDrawerOpen(!isDrawerOpen);
+    };
 
     // call this method whenever authentication changes
     useEffect(() => {
@@ -32,30 +46,58 @@ function Menubar() {
         return () => unsubscribe();
     }, [auth]);
 
+    // responsive drawer menu
+    useEffect(() => {
+        if (browserDimesions.width <= 900) {
+            setShowDrawerButton(true);
+            console.log("IN XS");
+        } else {
+            setShowDrawerButton(false);
+            console.log("NOT IN XS");
+        }
+    }, [browserDimesions]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setBrowserDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
-        <AppBar position="static">
+        <AppBar position="static" elevation={4}>
             <Toolbar>
-                <Typography variant="h6" component="div" sx={{ userSelect: "none" }}>
-                    AI Coach
+                {/* Logo */}
+                <Typography
+                    variant="h1"
+                    sx={{
+                        fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
+                        flexGrow: { xs: 1, md: 0 },
+                    }}>
+                    ExerSights
                 </Typography>
-                <Box sx={{ flexGrow: 1, gap: 2, ml: 4 }}>
+                <Box sx={{ display: "flex", gap: 2, ml: 4 }}>
                     <Button color="inherit" component={Link} to="/home">
                         Home
                     </Button>
                     <Button color="inherit" component={Link} to="/catalog">
                         Catalog
                     </Button>
-                    <Button color="inherit" component={Link} to="/about">
-                        About
-                    </Button>
+
+                    {/* Drawer Icon */}
+                    {showDrawerButton && (
+                        <IconButton color="inherit" onClick={handleDrawerToggle}>
+                            <MenuIcon />
+                        </IconButton>
+                    )}
                 </Box>
 
                 <Box sx={{ flexGrow: 1 }} />
-                {isAuth && (
-                    <Typography variant="h6" component="div" sx={{ mr: 4, userSelect: "none" }}>
-                        Welcome {username}!
-                    </Typography>
-                )}
                 <Button color="inherit" onClick={isAuth ? handleLogout : handleLogin}>
                     {isAuth ? "Logout" : "Login"}
                 </Button>
@@ -63,5 +105,4 @@ function Menubar() {
         </AppBar>
     );
 }
-
 export default Menubar;
