@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button, IconButton, Modal } from "@mui/material";
 // import WebcamBox from "../../components/Webcam";
-import detectPose from "../../utils/PoseDetectorTasksVision";
+import detectPose from "../../utils/PoseDetector";
 import { checkDeadBug, setDeadBugCount } from "../../utils/DeadBug";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
@@ -21,6 +21,7 @@ import WebcamCanvas from "../../components/WebcamCanvas";
  *                        repetition count, target angle display, and a reset button.
  */
 function DeadBugPage() {
+    let animationID = null;
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
     const [dimensions, setDimensions] = useState({
@@ -126,6 +127,9 @@ function DeadBugPage() {
             const tracks = stream.getTracks();
             tracks.forEach((track) => track.stop());
         } else {
+            // cancel the previous requestAnimationFrame
+            // cancelAnimationFrame(animationID);
+            // detectPose(webcamRef, canvasRef, animationID, processPoseResults);
             detectPose(webcamRef, canvasRef, processPoseResults);
         }
     }, [windowResizing]);
@@ -165,9 +169,7 @@ function DeadBugPage() {
 
             timeout = setTimeout(() => {
                 setWindowResizing(false);
-            }, 1000);
-            // console.log(`WIDTH = ${dimensions.width}`);
-            // console.log(`HEIGHT = ${dimensions.height}`);
+            }, 1500);
         };
 
         window.addEventListener("resize", handleResize);
@@ -175,70 +177,61 @@ function DeadBugPage() {
     }, []);
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                alignContent: "center",
-                padding: "10px",
-                width: "fit-content",
-                height: "fit-content",
-            }}>
-            <Typography
-                variant="h2"
-                gutterBottom
-                sx={{ marginBottom: "20px", textAlign: "center", flexBasis: "100%" }}>
+        <Box>
+            <Typography variant="h2" sx={{ textAlign: "center" }}>
                 Dead Bug
             </Typography>
-            <WebcamCanvas
-                dimensions={dimensions}
-                ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-            />
-            <Paper
-                elevation={3}
+            <Box
                 sx={{
-                    padding: "20px",
-                    textAlign: "left",
-                    position: "relative",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    width: "100%",
                     height: "fit-content",
-                    margin: "10px",
+                    padding: "2vmin",
                 }}>
-                <Typography variant="body1" sx={{ marginBottom: "20px" }}>
-                    Real-Time Feedback Panel
-                </Typography>
-                <Typography variant="body1" sx={{ marginBottom: "20px" }}>
-                    {"Feedback: "}
-                    <span style={{ color: "red" }}>
-                        {feedback ? feedback : "Please Begin Rep!"}
-                    </span>
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    Left Underarm Angle: {leftUnderarmAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    Right Underarm Angle: {rightUnderarmAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    Left Hip Angle: {leftHipAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    Right Hip Angle: {rightHipAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="body1" gutterBottom sx={{ marginTop: "20px" }}>
-                    Current Rep Count: {repCount}
-                </Typography>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleReset}
-                    sx={{ marginTop: "20px" }}>
-                    Reset Rep Count
-                </Button>
-                <IconButton sx={{ position: "relative", left: "10px" }} onClick={handleOpenModal}>
-                    <SettingsIcon />
-                </IconButton>
-            </Paper>
+                <WebcamCanvas
+                    dimensions={dimensions}
+                    ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
+                />
+                <Paper
+                    elevation={3}
+                    sx={{
+                        padding: "20px",
+                        textAlign: "left",
+                        height: "fit-content",
+                        margin: "10px",
+                    }}>
+                    <Typography variant="body1">Real-Time Feedback Panel</Typography>
+                    <Typography variant="body1">
+                        {"Feedback: "}
+                        <span style={{ color: "red" }}>
+                            {feedback ? feedback : "Please Begin Rep!"}
+                        </span>
+                    </Typography>
+                    <Typography variant="body1">
+                        Left Underarm Angle: {leftUnderarmAngle.toFixed(0)}°
+                    </Typography>
+                    <Typography variant="body1">
+                        Right Underarm Angle: {rightUnderarmAngle.toFixed(0)}°
+                    </Typography>
+                    <Typography variant="body1">
+                        Left Hip Angle: {leftHipAngle.toFixed(0)}°
+                    </Typography>
+                    <Typography variant="body1">
+                        Right Hip Angle: {rightHipAngle.toFixed(0)}°
+                    </Typography>
+                    <Typography variant="body1">Current Rep Count: {repCount}</Typography>
+                    <Button variant="contained" color="primary" onClick={handleReset}>
+                        Reset Rep Count
+                    </Button>
+                    <IconButton
+                        sx={{ position: "relative", left: "10px" }}
+                        onClick={handleOpenModal}>
+                        <SettingsIcon />
+                    </IconButton>
+                </Paper>
+            </Box>
 
             <Modal open={openModal} onClose={handleCloseModal}>
                 <Box

@@ -1,9 +1,8 @@
 import { FilesetResolver, PoseLandmarker, DrawingUtils } from "@mediapipe/tasks-vision";
 import poseLandmarkerTask from "../shared/models/pose_landmarker_lite.task";
 
-const detectPose = (webcamRef, canvasRef, onResultCallback) => {
+const detectPose = (webcamRef, canvasRef, animationID, onResultCallback) => {
     let poseLandmarker;
-    let animationId;
 
     const createPoseLandmarker = async () => {
         try {
@@ -17,13 +16,13 @@ const detectPose = (webcamRef, canvasRef, onResultCallback) => {
                 runningMode: "VIDEO",
                 numPoses: 1,
             });
-            detectPose();
+            detectAndDraw();
         } catch (e) {
             console.error("ERROR:", e);
         }
     };
 
-    const detectPose = () => {
+    const detectAndDraw = () => {
         if (webcamRef.current && webcamRef.current.video.readyState >= 2) {
             poseLandmarker.detectForVideo(webcamRef.current.video, performance.now(), (result) => {
                 const canvas = canvasRef.current;
@@ -49,14 +48,14 @@ const detectPose = (webcamRef, canvasRef, onResultCallback) => {
                 }
             });
         }
-        animationId = requestAnimationFrame(detectPose);
+        animationID = requestAnimationFrame(detectAndDraw);
     };
 
     createPoseLandmarker();
 
     return () => {
         if (poseLandmarker) poseLandmarker.close();
-        if (animationId) cancelAnimationFrame(animationId);
+        if (animationID) cancelAnimationFrame(animationID);
     };
 };
 

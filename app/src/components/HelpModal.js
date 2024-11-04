@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { IconButton, Modal, Box, Typography, Button } from '@mui/material';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import { IconButton, Modal, Box, Typography, Button } from "@mui/material";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 
 /**
  * HelpModal Component
@@ -28,42 +28,44 @@ function HelpModal({ image, description }) {
 
     return (
         <div>
-            <IconButton
-                sx={{ position: 'absolute', top: '10px', right: '40px' }}
-                onClick={handleOpenModal}
-            >
-                <QuestionMarkIcon />
+            <IconButton sx={{ position: "static" }} onClick={handleOpenModal}>
+                <QuestionMarkIcon fontSize="small" />
             </IconButton>
 
-            <Modal
-                open={openModal}
-                onClose={handleCloseModal}
-            >
+            <Modal open={openModal} onClose={handleCloseModal}>
                 <Box
                     sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
                         width: 800,
-                        bgcolor: 'background.paper',
-                        border: '2px solid black',
+                        bgcolor: "background.paper",
+                        border: "2px solid black",
                         boxShadow: 24,
                         p: 4,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        maxHeight: '90vh',
-                        overflow: 'auto',
-                    }}
-                >
-                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ marginBottom: '4vh' }}>
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        maxHeight: "90vh",
+                        overflow: "auto",
+                    }}>
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                        sx={{ marginBottom: "4vh" }}>
                         Camera Placement Instructions
                     </Typography>
 
                     <img src={image} width={500} />
 
-                    <Typography variant="body2" height="5vh" textAlign="center" width={600} sx={{ color: 'text.secondary', marginTop: '4vh', marginBottom: '4vh' }}>
+                    <Typography
+                        variant="body2"
+                        height="5vh"
+                        textAlign="center"
+                        width={600}
+                        sx={{ color: "text.secondary", marginTop: "4vh", marginBottom: "4vh" }}>
                         {description}
                     </Typography>
 
@@ -72,7 +74,7 @@ function HelpModal({ image, description }) {
                     </Button>
                 </Box>
             </Modal>
-        </div >
+        </div>
     );
 }
 
