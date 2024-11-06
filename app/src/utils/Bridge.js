@@ -1,9 +1,11 @@
 import { calculateAngle } from './Angles';
 import { inFrame } from './InFrame';
+import { playSoundCorrectRep, playText } from './Audio';
 
 
 let BridgeCount = 0;
 let inBridgePosition = false;
+let lastFeedback = "";
 
 /**
  * Checks the limbs' angles for completion of a rep
@@ -21,23 +23,24 @@ export const checkBridgesAngles = (kneeAngle, hipAngle, targetKneeAngle, targetH
     let feedback = "";
     if (kneeAngle > targetKneeAngle) {
         feedback = "Bring Feet In\n Target Knee Angle " + targetKneeAngle;
-    } else{
+    } else {
         feedback = "Feet In Position!\n";
 
         if ((hipAngle < targetHipAngle && !inBridgePosition)) {
             feedback += "Raise Hips Higher";
         } else if (hipAngle > targetHipAngle) {
-            feedback += "Excellent!"
+            feedback += "Excellent!";
             inBridgePosition = true;
         } else if (hipAngle < targetHipAngle - 20) {
             if (inBridgePosition) {
-                feedback += "Excellent!"
+                feedback += "Excellent!";
                 BridgeCount++;
+                playSoundCorrectRep();
                 inBridgePosition = false;
             }
         } else {
             if (inBridgePosition) {
-                feedback += "Excellent!"
+                feedback += "Excellent!";
             }
         }
     }
@@ -54,7 +57,7 @@ export const checkBridgesAngles = (kneeAngle, hipAngle, targetKneeAngle, targetH
  * @param {Function} setRepCount A function to update the Bridge count after a full Bridge is completed.
  */
 export const checkBridges = (landmarks, onFeedbackUpdate, setHipAngle, setKneeAngle, setRepCount, targetHipAngle = 140, targetKneeAngle = 90) => {
-    
+
     const leftShoulder = landmarks[11];
     const leftHip = landmarks[23];
     const leftKnee = landmarks[25];
@@ -64,7 +67,7 @@ export const checkBridges = (landmarks, onFeedbackUpdate, setHipAngle, setKneeAn
     const rightHip = landmarks[24];
     const rightKnee = landmarks[26];
     const rightAnkle = landmarks[28];
-    
+
 
     const leftHipAngle = calculateAngle(leftShoulder, leftHip, leftKnee);
     const leftKneeAngle = calculateAngle(leftHip, leftKnee, leftAnkle);
@@ -79,23 +82,33 @@ export const checkBridges = (landmarks, onFeedbackUpdate, setHipAngle, setKneeAn
     const left_in_frame = inFrame(leftShoulder, leftAnkle, undefined, undefined)
     const right_in_frame = inFrame(rightShoulder, rightAnkle, undefined, undefined)
 
-    if(left_in_frame){
+    if (left_in_frame) {
         setHipAngle(leftHipAngle);
         setKneeAngle(leftKneeAngle);
         feedback = checkBridgesAngles(leftKneeAngle, leftHipAngle, targetKneeAngle, targetHipAngle);
         setRepCount(BridgeCount);
     }
-    else if(right_in_frame){
+    else if (right_in_frame) {
         setHipAngle(rightHipAngle);
         setKneeAngle(rightKneeAngle);
         feedback = checkBridgesAngles(rightKneeAngle, rightHipAngle, targetKneeAngle, targetHipAngle);
         setRepCount(BridgeCount);
     }
-    else{
+    else {
         setHipAngle(0);
         setKneeAngle(0);
         feedback += "Make sure limbs are visible"
     }
+
+    // only play feedback audio if hips are not high enough
+    if (feedback.includes("Raise Hips Higher") && !lastFeedback.includes("Raise Hips Higher")) {
+        playText("Raise Hips Higher")
+    }
+    else if (feedback.includes("Excellent") && lastFeedback.includes("Raise Hips Higher")) {
+        playText("Excellent");
+    }
+
+    lastFeedback = feedback;
     onFeedbackUpdate(feedback);
 };
 

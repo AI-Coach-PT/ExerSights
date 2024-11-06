@@ -1,8 +1,10 @@
 import { calculateAngle } from "./Angles";
+import { playSoundCorrectRep, playText } from "./Audio";
 import { inFrame } from './InFrame';
 
 let deadBugCount = 0;
 let inDeadBugPosition = false;
+let lastFeedback = "";
 
 /**
  * Checks the user's position for the Dead Bug exercise and updates the state accordingly.
@@ -76,6 +78,7 @@ export const checkDeadBug = (
             feedback = "Excellent!";
             deadBugCount++;
             inDeadBugPosition = false;
+            playSoundCorrectRep();
             setRepCount(deadBugCount);
         }
     } else {
@@ -84,6 +87,12 @@ export const checkDeadBug = (
         }
     }
 
+    // only play feedback audio from begin -> extend sides -> excellent
+    if (feedback !== lastFeedback) {
+        playText(feedback);
+    }
+
+    lastFeedback = feedback;
     setFeedback(feedback);
 };
 
