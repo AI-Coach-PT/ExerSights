@@ -2,6 +2,9 @@ import React, { forwardRef } from "react";
 import Webcam from "react-webcam";
 import { Box } from "@mui/material";
 
+const webcamStyle = (process.env.REACT_APP_MODEL === 'tasks-vision') ?
+    { visibility: 'hidden', position: 'absolute' } : { display: 'none' };
+
 const WebcamCanvas = forwardRef((props, ref) => {
     const aspectRatio = 16 / 9;
     const browserWidth = props.dimensions.width * 0.7;
@@ -28,7 +31,7 @@ const WebcamCanvas = forwardRef((props, ref) => {
         //     height: { xs: 240, sm: 480, md: 720, lg: 768, xl: 1080 },
         // }}
         >
-            <div style={{ visibility: "hidden", position: "absolute" }}>
+            <div style={webcamStyle}>
                 <Webcam
                     ref={ref.webcamRef}
                     className="hidden-webcam"
