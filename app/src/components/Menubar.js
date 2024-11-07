@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    Button,
+    Box,
+    IconButton,
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { handleLogin, handleLogout } from "../utils/HandleLogin";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import MenuIcon from "@mui/icons-material/Menu";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import logo from "../assets/logoNoName.png";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -14,8 +26,19 @@ import { auth } from "../firebaseConfig";
  * @returns {JSX.Element} A Material UI AppBar with navigation links.
  */
 function Menubar() {
+    const menuItems = [
+        { text: "Home", path: "/home" },
+        { text: "Catalog", path: "/catalog" },
+        { text: "About", path: "/about" },
+    ];
+    const auth = getAuth();
     const [isAuth, setIsAuth] = useState(false);
     const [username, setUsername] = useState("");
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    const handleDrawerToggle = () => {
+        setIsDrawerOpen(!isDrawerOpen);
+    };
 
     // call this method whenever authentication changes
     useEffect(() => {
@@ -33,35 +56,91 @@ function Menubar() {
     }, [auth]);
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" elevation={8}>
             <Toolbar>
-                <Typography variant="h6" component="div" sx={{ userSelect: "none" }}>
-                    AI Coach
-                </Typography>
-                <Box sx={{ flexGrow: 1, gap: 2, ml: 4 }}>
-                    <Button color="inherit" component={Link} to="/home">
-                        Home
-                    </Button>
-                    <Button color="inherit" component={Link} to="/catalog">
-                        Catalog
-                    </Button>
-                    <Button color="inherit" component={Link} to="/about">
-                        About
+                {/* logo */}
+                <Box
+                    component="img"
+                    src={logo}
+                    sx={{
+                        height: 60,
+                        width: 60,
+                        mx: "1rem",
+                    }}
+                />
+                {/* desktop navigation */}
+                <Box
+                    sx={{
+                        display: { xs: "none", md: "flex" },
+                        justifyContent: "left",
+                        flexGrow: 1,
+                    }}>
+                    {menuItems.map((item) => (
+                        <Button key={item.text} component={Link} to={item.path}>
+                            <Typography variant="h6" textTransform={"none"}>
+                                {item.text}
+                            </Typography>
+                        </Button>
+                    ))}
+                </Box>
+                {/* login/logout button */}
+                <Box sx={{ display: "flex", justifyContent: "right" }}>
+                    {isAuth && (
+                        <Typography
+                            variant="h2"
+                            sx={{ userSelect: "none", display: { xs: "none", md: "flex" } }}>
+                            Welcome {username}!
+                        </Typography>
+                    )}
+                    <Button
+                        onClick={isAuth ? handleLogout : handleLogin}
+                        sx={{ display: { xs: "none", md: "block" } }}>
+                        {isAuth ? "Logout" : "Login"}
                     </Button>
                 </Box>
-
-                <Box sx={{ flexGrow: 1 }} />
-                {isAuth && (
-                    <Typography variant="h6" component="div" sx={{ mr: 4, userSelect: "none" }}>
-                        Welcome {username}!
-                    </Typography>
-                )}
-                <Button color="inherit" onClick={isAuth ? handleLogout : handleLogin}>
-                    {isAuth ? "Logout" : "Login"}
-                </Button>
+                {/* drawer icon */}
+                <Box
+                    sx={{
+                        display: { xs: "flex", md: "none" },
+                        flexGrow: 1,
+                        justifyContent: "right",
+                    }}>
+                    <IconButton onClick={handleDrawerToggle}>
+                        <MenuIcon />
+                    </IconButton>
+                </Box>
+                {/* mobile drawer */}
+                <Drawer
+                    anchor="right"
+                    open={isDrawerOpen}
+                    onClose={handleDrawerToggle}
+                    sx={{
+                        display: { xs: "block", md: "none" },
+                        "& .MuiDrawer-paper": { width: 240 },
+                    }}>
+                    <List>
+                        {menuItems.map((item) => (
+                            <ListItem
+                                key={item.text}
+                                button
+                                component={Link}
+                                to={item.path}
+                                onClick={handleDrawerToggle}>
+                                <ListItemText primary={item.text} />
+                            </ListItem>
+                        ))}
+                        <ListItem
+                            button
+                            onClick={() => {
+                                isAuth ? handleLogout() : handleLogin();
+                                handleDrawerToggle();
+                            }}>
+                            <ListItemText primary={isAuth ? "Logout" : "Login"} />
+                        </ListItem>
+                    </List>
+                </Drawer>
             </Toolbar>
         </AppBar>
     );
 }
-
 export default Menubar;

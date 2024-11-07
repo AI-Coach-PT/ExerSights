@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button, IconButton, Modal } from "@mui/material";
-import WebcamBox from "../../components/Webcam";
+// import WebcamBox from "../../components/Webcam";
 import detectPose from "../../utils/PoseDetector";
 import { checkDeadBug, setDeadBugCount } from "../../utils/DeadBug";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
+import WebcamCanvas from "../../components/WebcamCanvas";
 
 /**
  * A React functional component that provides real-time tracking and feedback of the dead bug exercise, using
@@ -20,8 +21,14 @@ import { auth } from "../../firebaseConfig";
  *                        repetition count, target angle display, and a reset button.
  */
 function DeadBugPage() {
+    let animationID = null;
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
+    const [dimensions, setDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+    const [windowResizing, setWindowResizing] = useState(false);
     const [targetFlatAngle, setTargetFlatAngle] = useState(140);
     const [leftUnderarmAngle, setLeftUnderarmAngle] = useState(0);
     const [rightUnderarmAngle, setRightUnderarmAngle] = useState(0);
@@ -115,6 +122,19 @@ function DeadBugPage() {
     }, [targetFlatAngle]);
 
     useEffect(() => {
+        if (windowResizing && webcamRef.current && webcamRef.current.video) {
+            const stream = webcamRef.current.video.srcObject;
+            const tracks = stream.getTracks();
+            tracks.forEach((track) => track.stop());
+        } else {
+            // cancel the previous requestAnimationFrame
+            // cancelAnimationFrame(animationID);
+            // detectPose(webcamRef, canvasRef, animationID, processPoseResults);
+            detectPose(webcamRef, canvasRef, processPoseResults);
+        }
+    }, [windowResizing]);
+
+    useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 console.log("Logged in.");
@@ -135,64 +155,83 @@ function DeadBugPage() {
         return () => unsubscribe();
     }, [userEmail]);
 
-    return (
-        <Box sx={{ display: "flex", justifyContent: "center", padding: "20px" }}>
-            <Box sx={{ marginRight: "20px" }}>
-                <Typography
-                    variant="h4"
-                    gutterBottom
-                    sx={{ marginBottom: "20px", textAlign: "center" }}>
-                    Dead Bug
-                </Typography>
-                <WebcamBox ref={webcamRef} />
-                <canvas
-                    ref={canvasRef}
-                    width="640"
-                    height="480"
-                    style={{ border: "2px solid black" }}
-                />
-            </Box>
+    useEffect(() => {
+        detectPose(webcamRef, canvasRef, processPoseResults);
+        let timeout;
+        const handleResize = () => {
+            clearTimeout(timeout);
+            setWindowResizing(true);
 
-            <Paper
-                elevation={3}
-                sx={{ padding: "20px", width: "300px", textAlign: "left", position: "relative" }}>
-                <IconButton
-                    sx={{ position: "absolute", top: "10px", right: "10px" }}
-                    onClick={handleOpenModal}>
-                    <SettingsIcon />
-                </IconButton>
-                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
-                    Real-Time Feedback Panel
-                </Typography>
-                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
-                    {"Feedback: "}
-                    <span style={{ color: "red" }}>
-                        {feedback ? feedback : "Please Begin Rep!"}
-                    </span>
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    Left Underarm Angle: {leftUnderarmAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    Right Underarm Angle: {rightUnderarmAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    Left Hip Angle: {leftHipAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    Right Hip Angle: {rightHipAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="h6" gutterBottom sx={{ marginTop: "20px" }}>
-                    Current Rep Count: {repCount}
-                </Typography>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleReset}
-                    sx={{ marginTop: "20px" }}>
-                    Reset Rep Count
-                </Button>
-            </Paper>
+            setDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+
+            timeout = setTimeout(() => {
+                setWindowResizing(false);
+            }, 1500);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return (
+        <Box>
+            <Typography variant="h2" sx={{ textAlign: "center" }}>
+                Dead Bug
+            </Typography>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    width: "100%",
+                    height: "fit-content",
+                    padding: "2vmin",
+                }}>
+                <WebcamCanvas
+                    dimensions={dimensions}
+                    ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
+                />
+                <Paper
+                    elevation={3}
+                    sx={{
+                        padding: "20px",
+                        textAlign: "left",
+                        height: "fit-content",
+                        margin: "10px",
+                    }}>
+                    <Typography variant="body1">Real-Time Feedback Panel</Typography>
+                    <Typography variant="body1">
+                        {"Feedback: "}
+                        <span style={{ color: "red" }}>
+                            {feedback ? feedback : "Please Begin Rep!"}
+                        </span>
+                    </Typography>
+                    <Typography variant="body1">
+                        Left Underarm Angle: {leftUnderarmAngle.toFixed(0)}°
+                    </Typography>
+                    <Typography variant="body1">
+                        Right Underarm Angle: {rightUnderarmAngle.toFixed(0)}°
+                    </Typography>
+                    <Typography variant="body1">
+                        Left Hip Angle: {leftHipAngle.toFixed(0)}°
+                    </Typography>
+                    <Typography variant="body1">
+                        Right Hip Angle: {rightHipAngle.toFixed(0)}°
+                    </Typography>
+                    <Typography variant="body1">Current Rep Count: {repCount}</Typography>
+                    <Button variant="contained" color="primary" onClick={handleReset}>
+                        Reset Rep Count
+                    </Button>
+                    <IconButton
+                        sx={{ position: "relative", left: "10px" }}
+                        onClick={handleOpenModal}>
+                        <SettingsIcon />
+                    </IconButton>
+                </Paper>
+            </Box>
 
             <Modal open={openModal} onClose={handleCloseModal}>
                 <Box
@@ -212,7 +251,7 @@ function DeadBugPage() {
                     }}>
                     <Typography
                         id="modal-modal-title"
-                        variant="h6"
+                        variant="body1"
                         component="h2"
                         sx={{ marginBottom: "20px" }}>
                         Adjust Target Flat Angle
