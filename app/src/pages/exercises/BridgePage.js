@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button, Modal, IconButton } from "@mui/material";
-import WebcamBox from "../../components/Webcam";
 import detectPose from "../../utils/PoseDetector";
 import { checkBridges, setBridgeCount } from "../../utils/Bridge";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
+import WebcamCanvas from "../../components/WebcamCanvas";
 
 /**
  * A React functional component that provides a real-time Bridge tracking and feedback interface using
@@ -22,6 +22,11 @@ import { auth } from "../../firebaseConfig";
 function BridgePage() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
+    const [dimensions, setDimensions] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+    const [windowResizing, setWindowResizing] = useState(false);
     const [targetHipAngle, setTargetHipAngle] = useState(140);
     const [targetKneeAngle, setTargetKneeAngle] = useState(90);
     const [feedback, setFeedback] = useState("");
@@ -128,6 +133,19 @@ function BridgePage() {
     }, [targetHipAngle, targetKneeAngle]);
 
     useEffect(() => {
+        if (windowResizing && webcamRef.current && webcamRef.current.video) {
+            const stream = webcamRef.current.video.srcObject;
+            const tracks = stream.getTracks();
+            tracks.forEach((track) => track.stop());
+        } else {
+            // cancel the previous requestAnimationFrame
+            // cancelAnimationFrame(animationID);
+            // detectPose(webcamRef, canvasRef, animationID, processPoseResults);
+            detectPose(webcamRef, canvasRef, processPoseResults);
+        }
+    }, [windowResizing]);
+
+    useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 console.log("Logged in.");
@@ -148,59 +166,73 @@ function BridgePage() {
         return () => unsubscribe();
     }, [userEmail]);
 
+    useEffect(() => {
+        detectPose(webcamRef, canvasRef, processPoseResults);
+        let timeout;
+        const handleResize = () => {
+            clearTimeout(timeout);
+            setWindowResizing(true);
+
+            setDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+
+            timeout = setTimeout(() => {
+                setWindowResizing(false);
+            }, 1500);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
-        <Box sx={{ display: "flex", justifyContent: "center", padding: "20px" }}>
-            <Box sx={{ marginRight: "20px" }}>
-                <Typography
-                    variant="h4"
-                    gutterBottom
-                    sx={{ marginBottom: "20px", textAlign: "center" }}>
-                    Bridges
-                </Typography>
-                <WebcamBox ref={webcamRef} />
-                <canvas
-                    ref={canvasRef}
-                    width="640"
-                    height="480"
-                    style={{ border: "2px solid black" }}
+        <Box>
+            <Typography variant="h2" sx={{ textAlign: "center" }}>
+                Bridge
+            </Typography>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    width: "100%",
+                    height: "fit-content",
+                    padding: "2vmin",
+                }}>
+                <WebcamCanvas
+                    dimensions={dimensions}
+                    ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
                 />
+                <Paper
+                    elevation={3}
+                    sx={{
+                        padding: "20px",
+                        textAlign: "left",
+                        height: "fit-content",
+                        margin: "10px",
+                    }}>
+                    <Typography variant="body1">Real-Time Feedback Panel</Typography>
+                    <Typography variant="body1">
+                        {"Feedback: "}
+                        <span style={{ color: "red" }}>
+                            {feedback ? feedback : "Please Begin Rep!"}
+                        </span>
+                    </Typography>
+                    <Typography variant="body1">Hip Angle: {leftHipAngle.toFixed(0)}°</Typography>
+                    <Typography variant="body1">Knee Angle: {leftKneeAngle.toFixed(0)}°</Typography>
+                    <Typography variant="body1">Current Rep Count: {repCount}</Typography>
+                    <Button variant="contained" color="primary" onClick={handleReset}>
+                        Reset Rep Count
+                    </Button>
+                    <IconButton
+                        sx={{ position: "relative", left: "10px" }}
+                        onClick={handleOpenModal}>
+                        <SettingsIcon />
+                    </IconButton>
+                </Paper>
             </Box>
-
-            <Paper
-                elevation={3}
-                sx={{ padding: "20px", width: "300px", textAlign: "left", position: "relative" }}>
-                <IconButton
-                    sx={{ position: "absolute", top: "10px", right: "10px" }}
-                    onClick={handleOpenModal}>
-                    <SettingsIcon />
-                </IconButton>
-                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
-                    Real-Time Feedback Panel
-                </Typography>
-                <Typography variant="h6" sx={{ marginBottom: "20px" }}>
-                    {"Feedback: "}
-                    <span style={{ color: "red" }}>
-                        {feedback ? feedback : "Please Begin Rep!"}
-                    </span>
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    Hip Angle: {leftHipAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    Knee Angle: {leftKneeAngle.toFixed(0)}°
-                </Typography>
-                <Typography variant="h6" gutterBottom sx={{ marginTop: "20px" }}>
-                    Current Rep Count: {repCount}
-                </Typography>
-
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleReset}
-                    sx={{ marginTop: "20px" }}>
-                    Reset Rep Count
-                </Button>
-            </Paper>
 
             <Modal open={openModal} onClose={handleCloseModal}>
                 <Box

@@ -1,12 +1,15 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Catalog from './pages/Catalog';
-import About from './pages/About';
-import SquatPage from './pages/exercises/SquatPage';
-import Menubar from './components/Menubar';
-import BridgePage from './pages/exercises/BridgePage';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Catalog from "./pages/Catalog";
+import About from "./pages/About";
+import SquatPage from "./pages/exercises/SquatPage";
+import Menubar from "./components/Menubar";
+import BridgePage from "./pages/exercises/BridgePage";
 import DeadBugPage from "./pages/exercises/DeadBugPage";
+import theme from "./theme";
+import { ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
 import PushUpPage from "./pages/exercises/PushUpPage";
 
 /**
@@ -18,21 +21,24 @@ import PushUpPage from "./pages/exercises/PushUpPage";
  * @returns {JSX.Element} The main app component with routing and navigation.
  */
 function App() {
-  return (
-    <Router>
-      <Menubar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/squat" element={<SquatPage />} />
-        <Route path="/bridge" element={<BridgePage />} />
-        <Route path="/deadbug" element={<DeadBugPage />} />
-        <Route path="/pushup" element={<PushUpPage />} />
-      </Routes>
-    </Router >
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Router>
+                <Menubar />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/catalog" element={<Catalog />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/squat" element={<SquatPage />} />
+                    <Route path="/bridge" element={<BridgePage />} />
+                    <Route path="/deadbug" element={<DeadBugPage />} />
+                    <Route path="/pushup" element={<PushUpPage />} />
+                </Routes>
+            </Router>
+        </ThemeProvider>
+    );
 }
 
 export default App;
