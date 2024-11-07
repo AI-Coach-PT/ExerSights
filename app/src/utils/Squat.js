@@ -1,4 +1,5 @@
 import { calculateAngle } from './Angles';
+import { inFrame } from './InFrame';
 
 let squatCount = 0;
 let inSquatPosition = false;
@@ -30,6 +31,15 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
     setCurrKneeAngle(leftKneeAngle);
 
     let feedback = "Please Begin Rep!";
+
+    const left_in_frame = inFrame(leftHip, leftAnkle, undefined, undefined)
+    const right_in_frame = inFrame(rightHip, rightAnkle, undefined, undefined)
+
+    if (!left_in_frame && !right_in_frame) {
+        feedback = "Make sure limbs are visible";
+        onFeedbackUpdate(feedback);
+        return;
+    }
 
     if ((
         ((leftKneeAngle < thresholdAngle && leftKneeAngle > targetKneeAngle) ||

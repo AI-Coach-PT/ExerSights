@@ -4,6 +4,9 @@ import WebcamBox from "../../components/Webcam";
 import detectPose from "../../utils/PoseDetector";
 import { checkDeadBug, setDeadBugCount } from "../../utils/DeadBug";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 /**
  * A React functional component that provides real-time tracking and feedback of the dead bug exercise, using
@@ -19,23 +22,42 @@ import SettingsIcon from "@mui/icons-material/Settings";
 function DeadBugPage() {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
-
     const [targetFlatAngle, setTargetFlatAngle] = useState(140);
-
     const [leftUnderarmAngle, setLeftUnderarmAngle] = useState(0);
     const [rightUnderarmAngle, setRightUnderarmAngle] = useState(0);
     const [leftHipAngle, setLeftHipAngle] = useState(0);
     const [rightHipAngle, setRightHipAngle] = useState(0);
-
     const [feedback, setFeedback] = useState("");
     const [repCount, setRepCount] = useState(0);
-
     const [openModal, setOpenModal] = useState(false);
+    const [userEmail, setUsername] = useState("");
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
 
+    // Object containing key-value pair of target angle label(s) and corresponding value(s);
+    // used to store angles into Firebase Cloud Firestore
+    const [targetAngles, setTargetAngles] = useState({ targetFlatAngle: targetFlatAngle });
+
+    // Array of arrays of useState set functions, with the key into the Promise object,
+    // returned from getDoc, to retrieve the angle value to be set;
+    // differs from the targetAngles state in that this is an array array of FUNCTIONS + KEYS,
+    // whereas targetAngles is an Object that keeps a store of target angle VALUES;
+    // both states are used to modularize usage of the store/load functions in ExerciseSettings.js
+    const setTargetAnglesArray = [[setTargetFlatAngle, "targetFlatAngle"]];
+
+    /**
+     * Handles changes to the target flat angle input.
+     *
+     * @param {Object} event - The event object from the input change.
+     */
     const handleTargetFlatAngleChange = (event) => {
         setTargetFlatAngle(event.target.value);
     };
 
+    /**
+     * Processes pose results from the Mediapipe model and updates state.
+     *
+     * @param {Array} landmarks - The array of pose landmarks.
+     */
     const processPoseResults = (landmarks) => {
         checkDeadBug(
             landmarks,
@@ -49,6 +71,9 @@ function DeadBugPage() {
         );
     };
 
+    /**
+     * Resets the repetition count to zero.
+     */
     const handleReset = () => {
         setRepCount(0);
         setDeadBugCount(0);
@@ -68,17 +93,47 @@ function DeadBugPage() {
     };
 
     /**
-     * Closes the settings modal and restarts the webcam stream and pose
-     * detection when the user exits the modal.
+     * Closes the settings modal, restarts the webcam stream and pose
+     * detection, and saves settings to Firebase Cloud Firestore when
+     * the user exits the modal.
      */
     const handleCloseModal = () => {
         setOpenModal(false);
         detectPose(webcamRef, canvasRef, processPoseResults);
+        // only store setting when user is logged in, and load it immediately afterwards
+        if (userLoggedIn) {
+            console.log(targetAngles);
+            console.log(`CURRENT targetFlagAngle = ${targetFlatAngle}`);
+            storeExerciseSettings(userEmail, "deadbug", targetAngles);
+            loadExerciseSettings(userEmail, "deadbug", setTargetAnglesArray);
+        }
     };
 
+    // Update the targetAngles object whenever targetFlatAngle changes
     useEffect(() => {
+        setTargetAngles({ targetFlatAngle: targetFlatAngle });
+    }, [targetFlatAngle]);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("Logged in.");
+                setUsername(user.email);
+                console.log(userEmail);
+                setUserLoggedIn(true);
+                // Load settings upon a signed-in user navigating to exercise page;
+                // if the user does not have saved settings, this will do nothing,
+                // and the last set values will be used (most likely default values)
+                loadExerciseSettings(userEmail, "deadbug", setTargetAnglesArray);
+            } else {
+                console.log("Logged out.");
+                setUsername("");
+                setUserLoggedIn(false);
+            }
+        });
         detectPose(webcamRef, canvasRef, processPoseResults);
-    }, []);
+        return () => unsubscribe();
+    }, [userEmail]);
 
     return (
         <Box sx={{ display: "flex", justifyContent: "center", padding: "20px" }}>
