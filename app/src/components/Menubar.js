@@ -16,6 +16,7 @@ import { handleLogin, handleLogout } from "../utils/HandleLogin";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import logo from "../assets/logoNoName.png";
+import name from "../assets/productNameWhite.png";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -59,21 +60,32 @@ function Menubar() {
         <AppBar position="static" elevation={8}>
             <Toolbar>
                 {/* logo */}
-                <Box
-                    component="img"
-                    src={logo}
-                    sx={{
-                        height: 60,
-                        width: 60,
-                        mx: "1rem",
-                    }}
-                />
+                <Box sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
+                    <Box
+                        component="img"
+                        src={logo}
+                        sx={{
+                            height: 60,
+                            width: 60,
+                        }}
+                    />
+                    <Box
+                        component="img"
+                        src={name}
+                        sx={{
+                            height: 30,
+                            width: "fit-content",
+                            ml: "1vw",
+                        }}
+                    />
+                </Box>
                 {/* desktop navigation */}
                 <Box
                     sx={{
                         display: { xs: "none", md: "flex" },
-                        justifyContent: "left",
+                        justifyContent: "center",
                         flexGrow: 1,
+                        flexBasis: "0%",
                     }}>
                     {menuItems.map((item) => (
                         <Button key={item.text} component={Link} to={item.path}>
@@ -84,10 +96,17 @@ function Menubar() {
                     ))}
                 </Box>
                 {/* login/logout button */}
-                <Box sx={{ display: "flex", justifyContent: "right" }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexGrow: 1,
+                        flexBasis: "0%",
+                        justifyContent: "right",
+                        alignItems: "center",
+                    }}>
                     {isAuth && (
                         <Typography
-                            variant="h2"
+                            variant="body1"
                             sx={{ userSelect: "none", display: { xs: "none", md: "flex" } }}>
                             Welcome {username}!
                         </Typography>
@@ -126,7 +145,7 @@ function Menubar() {
                                 component={Link}
                                 to={item.path}
                                 onClick={handleDrawerToggle}>
-                                <ListItemText primary={item.text} />
+                                <ListItemText primary={item.text} sx={{ color: "white" }} />
                             </ListItem>
                         ))}
                         <ListItem
