@@ -1,8 +1,10 @@
 import { calculateAngle } from './Angles';
+import { playSoundCorrectRep, playText } from './Audio';
 import { inFrame } from './InFrame';
 
 let squatCount = 0;
 let inSquatPosition = false;
+let lastFeedback = "";
 
 /**
  * Monitors and tracks squat repetitions by analyzing the knee angle from pose landmarks.
@@ -37,23 +39,24 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
 
     if (!left_in_frame && !right_in_frame) {
         feedback = "Make sure limbs are visible";
+        lastFeedback = feedback;
         onFeedbackUpdate(feedback);
         return;
     }
 
-    if ((
-        ((leftKneeAngle < thresholdAngle && leftKneeAngle > targetKneeAngle) ||
-            (rightKneeAngle < thresholdAngle && rightKneeAngle > targetKneeAngle)) &&
-        !inSquatPosition)) {
+    if (((leftKneeAngle < thresholdAngle && leftKneeAngle > targetKneeAngle) ||
+        (rightKneeAngle < thresholdAngle && rightKneeAngle > targetKneeAngle)) &&
+        !inSquatPosition) {
         feedback = "Go Down Lower!";
     } else if (leftKneeAngle < targetKneeAngle || rightKneeAngle < targetKneeAngle) {
         feedback = "Excellent!"
         inSquatPosition = true;
-    } else if (leftKneeAngle > thresholdAngle || rightKneeAngle > thresholdAngle) {
+    } else if (leftKneeAngle > thresholdAngle && rightKneeAngle > thresholdAngle) {
         if (inSquatPosition) {
             feedback = "Excellent!"
             squatCount++;
             inSquatPosition = false;
+            playSoundCorrectRep();
             setRepCount(squatCount);
         }
     } else {
@@ -62,6 +65,13 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
         }
     }
 
+    // only play feedback audio from begin -> go down lower and from lower -> excellent
+    if ((feedback === "Go Down Lower!" && lastFeedback === "Please Begin Rep!")
+        || (feedback === "Excellent!" && lastFeedback === "Go Down Lower!")) {
+        playText(feedback);
+    }
+
+    lastFeedback = feedback;
     onFeedbackUpdate(feedback);
 };
 
