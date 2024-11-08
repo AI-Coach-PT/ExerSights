@@ -1,5 +1,6 @@
 import React from "react";
-import { Typography, Box, Grid2 } from "@mui/material";
+import { Typography, Box } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import ExerciseCard from "../components/ExerciseCard.js";
 import squatImg from "../assets/squat.jpg";
 import bridgeImg from "../assets/bridge.jpg";
@@ -21,77 +22,37 @@ import { catalogText } from "../assets/content.js";
 function Catalog() {
     return (
         <Box sx={{ padding: "20px", textAlign: "center" }}>
-            <Typography variant="h4" gutterBottom sx={{ marginBottom: "40px" }}>
+            <Typography variant="h1" gutterBottom>
                 Catalog
             </Typography>
 
-            <Grid2 container spacing={2}>
+            <Grid container spacing={2} sx={{ justifyContent: "center" }}>
                 <ExerciseCard
                     title="Squat"
                     description={catalogText.squat}
                     link="/squat"
                     image={squatImg}
                 />
-            </Grid2>
 
-            <Box
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(2, 1fr)",
-                    gap: 8,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    maxWidth: "720px",
-                    margin: "0 auto",
-                }}>
-                <Box
-                    sx={{
-                        margin: "auto",
-                    }}>
-                    <ExerciseCard
-                        title="Squat"
-                        description={catalogText.squat}
-                        link="/squat"
-                        image={squatImg}
-                    />
-                </Box>
-
-                <Box
-                    sx={{
-                        margin: "auto",
-                    }}>
-                    <ExerciseCard
-                        title="Bridge"
-                        description={catalogText.bridge}
-                        link="/bridge"
-                        image={bridgeImg}
-                    />
-                </Box>
-
-                <Box
-                    sx={{
-                        margin: "auto",
-                    }}>
-                    <ExerciseCard
-                        title="Dead Bug"
-                        description={catalogText.deadbug}
-                        link="/deadbug"
-                        image={deadBugImage}
-                    />
-                </Box>
-
-                <Box
-                    sx={{
-                        margin: "auto",
-                    }}>
-                    <ExerciseCard
-                        title="Push-up"
-                        description={catalogText.pushup}
-                        link="/pushup"
-                        image={pushUpImage}
-                    />
-                </Box>
-            </Box>
+                <ExerciseCard
+                    title="Bridge"
+                    description={catalogText.bridge}
+                    link="/bridge"
+                    image={bridgeImg}
+                />
+                <ExerciseCard
+                    title="Dead Bug"
+                    description={catalogText.deadbug}
+                    link="/deadbug"
+                    image={deadBugImage}
+                />
+                <ExerciseCard
+                    title="Push-up"
+                    description={catalogText.pushup}
+                    link="/pushup"
+                    image={pushUpImage}
+                />
+            </Grid>
         </Box>
     );
 }
