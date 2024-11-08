@@ -1,14 +1,14 @@
-import React from 'react';
-import { Typography, Box } from '@mui/material';
-import ExerciseCard from '../components/Card';
-import squatImg from "../assets/squat.jpg"
-import bridgeImg from "../assets/bridge.jpg"
+import React from "react";
+import { Typography, Box, Grid2 } from "@mui/material";
+import ExerciseCard from "../components/ExerciseCard.js";
+import squatImg from "../assets/squat.jpg";
+import bridgeImg from "../assets/bridge.jpg";
 import deadBugImage from "../assets/deadbug.png";
 import pushUpImage from "../assets/pushUp.png";
-import { catalogText } from "../assets/content.js"
+import { catalogText } from "../assets/content.js";
 
 /**
- * Catalog is a React functional component that displays a list of exercise cards. 
+ * Catalog is a React functional component that displays a list of exercise cards.
  * Each card represents an exercise with a title, description, image, and link to a detailed page for that exercise.
  *
  * @component
@@ -25,6 +25,15 @@ function Catalog() {
                 Catalog
             </Typography>
 
+            <Grid2 container spacing={2}>
+                <ExerciseCard
+                    title="Squat"
+                    description={catalogText.squat}
+                    link="/squat"
+                    image={squatImg}
+                />
+            </Grid2>
+
             <Box
                 sx={{
                     display: "grid",
@@ -37,9 +46,8 @@ function Catalog() {
                 }}>
                 <Box
                     sx={{
-                        margin: 'auto',
-                    }}
-                >
+                        margin: "auto",
+                    }}>
                     <ExerciseCard
                         title="Squat"
                         description={catalogText.squat}
@@ -50,22 +58,20 @@ function Catalog() {
 
                 <Box
                     sx={{
-                        margin: 'auto',
-                    }}
-                >
+                        margin: "auto",
+                    }}>
                     <ExerciseCard
                         title="Bridge"
                         description={catalogText.bridge}
-                        link='/bridge'
+                        link="/bridge"
                         image={bridgeImg}
                     />
                 </Box>
 
                 <Box
                     sx={{
-                        margin: 'auto',
-                    }}
-                >
+                        margin: "auto",
+                    }}>
                     <ExerciseCard
                         title="Dead Bug"
                         description={catalogText.deadbug}
@@ -76,9 +82,8 @@ function Catalog() {
 
                 <Box
                     sx={{
-                        margin: 'auto',
-                    }}
-                >
+                        margin: "auto",
+                    }}>
                     <ExerciseCard
                         title="Push-up"
                         description={catalogText.pushup}
