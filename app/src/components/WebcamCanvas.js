@@ -2,14 +2,39 @@ import React, { forwardRef } from "react";
 import Webcam from "react-webcam";
 import { Box } from "@mui/material";
 
-const webcamStyle = (process.env.REACT_APP_MODEL === 'tasks-vision') ?
-    { visibility: 'hidden', position: 'absolute' } : { display: 'none' };
+// Webcam style based on environment variable
+const webcamStyle =
+    process.env.REACT_APP_MODEL === "tasks-vision"
+        ? { visibility: "hidden", position: "absolute" }
+        : { display: "none" };
 
+/**
+ * WebcamCanvas component provides a webcam interface with responsive dimensions
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {Object} props.dimensions - Browser dimensions
+ * @param {number} props.dimensions.width - Browser window width
+ * @param {number} props.dimensions.height - Browser window height
+ * @param {React.Ref} ref - Forwarded ref for accessing webcam methods
+ *
+ * @example
+ * // Usage
+ * <WebcamCanvas
+ *   dimensions={{ width: window.innerWidth, height: window.innerHeight }}
+ *   ref={webcamRef}
+ * />
+ */
 const WebcamCanvas = forwardRef((props, ref) => {
+    // Standard 16:9 aspect ratio for video
     const aspectRatio = 16 / 9;
+
+    // Calculate 70% of browser dimensions
     const browserWidth = props.dimensions.width * 0.7;
     const browserHeight = props.dimensions.height * 0.7;
     let newWidth, newHeight;
+
+    // Calculate responsive dimensions while maintaining aspect ratio
     if (browserWidth / browserHeight > aspectRatio) {
         newHeight = browserHeight;
         newWidth = newHeight * aspectRatio;
@@ -18,6 +43,10 @@ const WebcamCanvas = forwardRef((props, ref) => {
         newHeight = newWidth / aspectRatio;
     }
 
+    /**
+     * Video constraints for webcam
+     * @type {Object}
+     */
     const videoContraints = {
         width: newWidth,
         height: newHeight,
