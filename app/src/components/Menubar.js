@@ -89,7 +89,10 @@ function Menubar() {
                     }}>
                     {menuItems.map((item) => (
                         <Button key={item.text} component={Link} to={item.path}>
-                            <Typography variant="h6" textTransform={"none"}>
+                            <Typography
+                                variant="button"
+                                // textTransform={"none"}
+                                sx={{ color: "white" }}>
                                 {item.text}
                             </Typography>
                         </Button>
@@ -107,13 +110,16 @@ function Menubar() {
                     {isAuth && (
                         <Typography
                             variant="body1"
-                            sx={{ userSelect: "none", display: { xs: "none", md: "flex" } }}>
+                            sx={{
+                                userSelect: "none",
+                                display: { xs: "none", md: "flex" },
+                            }}>
                             Welcome {username}!
                         </Typography>
                     )}
                     <Button
                         onClick={isAuth ? handleLogout : handleLogin}
-                        sx={{ display: { xs: "none", md: "block" } }}>
+                        sx={{ display: { xs: "none", md: "block" }, color: "white", ml: "1vw" }}>
                         {isAuth ? "Logout" : "Login"}
                     </Button>
                 </Box>
@@ -135,14 +141,14 @@ function Menubar() {
                     onClose={handleDrawerToggle}
                     sx={{
                         display: { xs: "block", md: "none" },
-                        // "& .MuiDrawer-paper": { width: 240 },
+                        "& .MuiDrawer-paper": { width: "25vw" },
                     }}>
                     <List>
                         {menuItems.map((item) => (
                             <ListItem
-                                key={item.text}
                                 button
                                 component={Link}
+                                key={item.text}
                                 to={item.path}
                                 onClick={handleDrawerToggle}>
                                 <ListItemText primary={item.text} sx={{ color: "white" }} />
@@ -154,7 +160,10 @@ function Menubar() {
                                 isAuth ? handleLogout() : handleLogin();
                                 handleDrawerToggle();
                             }}>
-                            <ListItemText primary={isAuth ? "Logout" : "Login"} />
+                            <ListItemText
+                                primary={isAuth ? "Logout" : "Login"}
+                                sx={{ color: "white" }}
+                            />
                         </ListItem>
                     </List>
                 </Drawer>
