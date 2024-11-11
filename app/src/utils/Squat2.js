@@ -1,0 +1,142 @@
+import { calculateAngle } from './Angles';
+import { playSoundCorrectRep, playText } from './Audio';
+import { inFrame } from './InFrame';
+
+const squatStates = Object.freeze({
+    STANDING: { feedback: "Please Begin Rep!", audio: false },
+    DESCENDING: { feedback: "Go Down Lower!", audio: true },
+    SQUATTING: { feedback: "Excellent!", audio: true },
+    FINISHED: { feedback: "Excellent!", audio: false },
+})
+
+const transitions = {
+    STANDING: {
+        descending: "DESCENDING",
+    },
+    DESCENDING: {
+        hitTarget: "SQUATTING",
+        finishing: "STANDING",
+    },
+    SQUATTING: {
+        finishing: "FINISHED",
+    },
+    FINISHED: {
+        descending: "DESCENDING",
+    },
+};
+
+const thresholdAngle = 160;
+let squatCount = 0;
+let currState = squatStates.STANDING;
+
+/**
+ * Determines the type of transition based on knee angle.
+ *
+ * @param {number} leftKneeAngle The current left knee angle.
+ * @param {number} rightKneeAngle The current right knee angle.
+ * @param {number} targetKneeAngle The target knee angle for a squat.
+ * @param {number} thresholdAngle The threshold knee angle for standing.
+ * @returns {string|null} The type of transition ("descending", "hitTarget", "finishing") or null if no transition applies.
+ */
+const getTransitionType = (leftKneeAngle, rightKneeAngle, targetKneeAngle, thresholdAngle) => {
+    if (leftKneeAngle < thresholdAngle && rightKneeAngle < thresholdAngle)
+        return "descending";
+    if (leftKneeAngle < targetKneeAngle && rightKneeAngle < targetKneeAngle)
+        return "hitTarget";
+    if (leftKneeAngle > thresholdAngle || rightKneeAngle > thresholdAngle)
+        return "finishing";
+    return null;
+};
+
+/**
+ * Monitors and tracks squat repetitions by analyzing the knee angle from pose landmarks.
+ * Provides real-time feedback based on the depth of the squat.
+ *
+ * @param {Array} landmarks An array of pose landmarks containing the coordinates of different body points.
+ * @param {Function} onFeedbackUpdate A callback function that receives the feedback message about the squat depth and form.
+ * @param {Function} setLeftKneeAngle A function to update the current knee angle for display purposes.
+ * @param {Function} setRepCount A function to update the squat count after a full squat is completed.
+ * @param {number} targetKneeAngle The angle (in degrees) a user's knee must break (go below) to count as proper repetition.
+ */
+export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
+    const leftHip = landmarks[23];
+    const leftKnee = landmarks[25];
+    const leftAnkle = landmarks[27];
+
+    const rightHip = landmarks[24];
+    const rightKnee = landmarks[26];
+    const rightAnkle = landmarks[28];
+
+    const leftKneeAngle = calculateAngle(leftHip, leftKnee, leftAnkle);
+    const rightKneeAngle = calculateAngle(rightHip, rightKnee, rightAnkle);
+
+    setCurrKneeAngle(leftKneeAngle);
+
+    const left_in_frame = inFrame(leftHip, leftAnkle, undefined, undefined);
+    const right_in_frame = inFrame(rightHip, rightAnkle, undefined, undefined);
+
+    if (!left_in_frame && !right_in_frame) {
+        let feedback = "Make sure limbs are visible";
+        onFeedbackUpdate(feedback);
+        return;
+    }
+
+    const transitionType = getTransitionType(leftKneeAngle, rightKneeAngle, targetKneeAngle, thresholdAngle);
+
+    // Perform the state transition if applicable
+    if (transitionType && transitions[currState] && transitions[currState][transitionType]) {
+        currState = transitions[currState][transitionType];
+
+        // Special logic for FINISHED state
+        if (currState === "FINISHED") {
+            squatCount++;
+            setRepCount(squatCount);
+            playSoundCorrectRep();
+        }
+
+        if (squatStates[currState].audio) {
+            playText(squatStates[currState].feedback);
+        }
+    }
+
+    onFeedbackUpdate(currState.feedback);
+};
+
+/**
+ * Monitors and provides feedback to ensure the user is keeping their chest up during the squat.
+ * Compares the angle formed by the shoulder, hip, and knee to determine if the chest is sagging.
+ *
+ * @param {Array} landmarks An array of pose landmarks containing the coordinates of different body points.
+ * @param {Function} onFeedbackUpdate A callback function that receives the feedback message about chest posture.
+ * @param {number} targetHipAngle The minimum hip angle (in degrees) for proper chest position (with slight forward lean).
+ * Chest should not drop below this angle.
+ */
+export const checkChestUp = (landmarks, onFeedbackUpdate, targetHipAngle = 45) => {
+    const leftShoulder = landmarks[11];
+    const leftHip = landmarks[23];
+    const leftKnee = landmarks[25];
+
+    const rightShoulder = landmarks[12];
+    const rightHip = landmarks[24];
+    const rightKnee = landmarks[26];
+
+    const leftHipAngle = calculateAngle(leftShoulder, leftHip, leftKnee);
+    const rightHipAngle = calculateAngle(rightShoulder, rightHip, rightKnee);
+
+    let feedback = "";
+
+    if (leftHipAngle < targetHipAngle || rightHipAngle < targetHipAngle) {
+        feedback = "Chest up!";
+    }
+
+    onFeedbackUpdate(feedback);
+};
+
+/**
+ * Resets squat count to specified value and resets squat position state.
+ *
+ * @param {number} val - The value to set the squat count to.
+ */
+export const setSquatCount = (val) => {
+    squatCount = val;
+};
