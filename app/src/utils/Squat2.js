@@ -1,6 +1,6 @@
 import { calculateAngle } from './Angles';
 import { playSoundCorrectRep, playText } from './Audio';
-import { inFrame } from './InFrame';
+import { visibilityCheck } from './InFrame';
 
 /** FSM list of 4 states and 3 types of transitions
  * States = Standing, descending, squatting, finished
@@ -29,9 +29,24 @@ const transitions = {
     },
 };
 
+const jointInfo = {
+    joints: {
+        leftHip: 23,
+        leftKnee: 25,
+        leftAnkle: 27,
+        rightHip: 24,
+        rightKnee: 26,
+        rightAnkle: 28
+    },
+    jointAngles: {
+        leftKneeAngle: [23, 25, 27],
+        rightKneeAngle: [24, 26, 28]
+    }
+}
+
 const thresholdAngle = 160;
 let squatCount = 0;
-let currState = squatStates.STANDING;
+let currState = "STANDING";
 
 /**
  * Determines the type of transition based on knee angle.
@@ -42,11 +57,14 @@ let currState = squatStates.STANDING;
  * @param {number} thresholdAngle The threshold knee angle for standing.
  * @returns {string|null} The type of transition ("descending", "hitTarget", "finishing") or null if no transition applies.
  */
-const getTransitionType = (leftKneeAngle, rightKneeAngle, targetKneeAngle, thresholdAngle) => {
-    if (leftKneeAngle < thresholdAngle && rightKneeAngle < thresholdAngle)
-        return "descending";
+const getTransitionType = (jointAngles, targetKneeAngle, thresholdAngle) => {
+    const leftKneeAngle = jointAngles["leftKneeAngle"];
+    const rightKneeAngle = jointAngles["rightKneeAngle"];
+
     if (leftKneeAngle < targetKneeAngle && rightKneeAngle < targetKneeAngle)
         return "hitTarget";
+    if (leftKneeAngle < thresholdAngle && rightKneeAngle < thresholdAngle)
+        return "descending";
     if (leftKneeAngle > thresholdAngle || rightKneeAngle > thresholdAngle)
         return "finishing";
     return null;
@@ -63,35 +81,39 @@ const getTransitionType = (leftKneeAngle, rightKneeAngle, targetKneeAngle, thres
  * @param {number} targetKneeAngle The angle (in degrees) a user's knee must break (go below) to count as proper repetition.
  */
 export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
-    const leftHip = landmarks[23];
-    const leftKnee = landmarks[25];
-    const leftAnkle = landmarks[27];
+    const jointAngles = {};
 
-    const rightHip = landmarks[24];
-    const rightKnee = landmarks[26];
-    const rightAnkle = landmarks[28];
+    // Dynamically calculate angles for all joints defined in jointInfo.jointAngles
+    for (const [jointName, jointIndices] of Object.entries(jointInfo.jointAngles)) {
+        jointAngles[jointName] = calculateAngle(
+            landmarks[jointIndices[0]],
+            landmarks[jointIndices[1]],
+            landmarks[jointIndices[2]]
+        );
+    }
 
-    const leftKneeAngle = calculateAngle(leftHip, leftKnee, leftAnkle);
-    const rightKneeAngle = calculateAngle(rightHip, rightKnee, rightAnkle);
+    setCurrKneeAngle(jointAngles["leftKneeAngle"]);
 
-    setCurrKneeAngle(leftKneeAngle);
+    // Check joints/limbs visibility
+    let jointLandmarks = [];
+    for (const jointName in jointInfo["joints"]) {
+        const jointIndex = jointInfo["joints"][jointName];
+        jointLandmarks.push(landmarks[jointIndex]);
+    }
 
-    const left_in_frame = inFrame(leftHip, leftAnkle, undefined, undefined);
-    const right_in_frame = inFrame(rightHip, rightAnkle, undefined, undefined);
-
-    if (!left_in_frame && !right_in_frame) {
+    if (!visibilityCheck(jointLandmarks)) {
         let feedback = "Make sure limbs are visible";
         onFeedbackUpdate(feedback);
         return;
     }
 
-    const transitionType = getTransitionType(leftKneeAngle, rightKneeAngle, targetKneeAngle, thresholdAngle);
+    // Determine transition
+    const transitionType = getTransitionType(jointAngles, targetKneeAngle, thresholdAngle);
 
     // Perform the state transition if applicable
     if (transitionType && transitions[currState] && transitions[currState][transitionType]) {
         currState = transitions[currState][transitionType];
 
-        // Special logic for FINISHED state
         if (squatStates[currState].countRep) {
             squatCount++;
             setRepCount(squatCount);
@@ -103,7 +125,7 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
         }
     }
 
-    onFeedbackUpdate(currState.feedback);
+    onFeedbackUpdate(squatStates[currState].feedback);
 };
 
 /**
