@@ -44,7 +44,11 @@ const jointInfo = {
     }
 }
 
-const thresholdAngle = 160;
+const targets = {
+    thresholdKneeAngle: 160,
+    targetKneeAngle: 90,
+}
+
 let squatCount = 0;
 let currState = "STANDING";
 
@@ -57,9 +61,12 @@ let currState = "STANDING";
  * @param {number} thresholdAngle The threshold knee angle for standing.
  * @returns {string|null} The type of transition ("descending", "hitTarget", "finishing") or null if no transition applies.
  */
-const getTransitionType = (jointAngles, targetKneeAngle, thresholdAngle) => {
+const getTransitionType = (jointAngles) => {
     const leftKneeAngle = jointAngles["leftKneeAngle"];
     const rightKneeAngle = jointAngles["rightKneeAngle"];
+
+    const targetKneeAngle = targets["targetKneeAngle"];
+    const thresholdAngle = targets["thresholdKneeAngle"];
 
     if (leftKneeAngle < targetKneeAngle && rightKneeAngle < targetKneeAngle)
         return "hitTarget";
@@ -70,17 +77,17 @@ const getTransitionType = (jointAngles, targetKneeAngle, thresholdAngle) => {
     return null;
 };
 
-/**
- * Monitors and tracks squat repetitions by analyzing the knee angle from pose landmarks.
- * Provides real-time feedback based on the depth of the squat.
- *
- * @param {Array} landmarks An array of pose landmarks containing the coordinates of different body points.
- * @param {Function} onFeedbackUpdate A callback function that receives the feedback message about the squat depth and form.
- * @param {Function} setCurrKneeAngle A function to update the current knee angle for display purposes.
- * @param {Function} setRepCount A function to update the squat count after a full squat is completed.
- * @param {number} targetKneeAngle The angle (in degrees) a user's knee must break (go below) to count as proper repetition.
- */
 export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
+    targets["targetKneeAngle"] = targetKneeAngle;
+
+    const jointAngles = genCheck(landmarks, onFeedbackUpdate, setRepCount);
+
+    if (jointAngles && jointAngles["leftKneeAngle"]) {
+        setCurrKneeAngle(jointAngles["leftKneeAngle"]);
+    }
+}
+
+export const genCheck = (landmarks, onFeedbackUpdate, setRepCount) => {
     const jointAngles = {};
 
     // Dynamically calculate angles for all joints defined in jointInfo.jointAngles
@@ -92,8 +99,6 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
         );
     }
 
-    setCurrKneeAngle(jointAngles["leftKneeAngle"]);
-
     // Check joints/limbs visibility
     let jointLandmarks = [];
     for (const jointName in jointInfo["joints"]) {
@@ -104,11 +109,11 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
     if (!visibilityCheck(jointLandmarks)) {
         let feedback = "Make sure limbs are visible";
         onFeedbackUpdate(feedback);
-        return;
+        return jointAngles;
     }
 
     // Determine transition
-    const transitionType = getTransitionType(jointAngles, targetKneeAngle, thresholdAngle);
+    const transitionType = getTransitionType(jointAngles);
 
     // Perform the state transition if applicable
     if (transitionType && transitions[currState] && transitions[currState][transitionType]) {
@@ -126,6 +131,7 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
     }
 
     onFeedbackUpdate(squatStates[currState].feedback);
+    return jointAngles;
 };
 
 /**
