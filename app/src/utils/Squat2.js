@@ -2,11 +2,15 @@ import { calculateAngle } from './Angles';
 import { playSoundCorrectRep, playText } from './Audio';
 import { inFrame } from './InFrame';
 
+/** FSM list of 4 states and 3 types of transitions
+ * States = Standing, descending, squatting, finished
+ * Transitions = descending, hitTarget, finishing
+ */
 const squatStates = Object.freeze({
-    STANDING: { feedback: "Please Begin Rep!", audio: false },
-    DESCENDING: { feedback: "Go Down Lower!", audio: true },
-    SQUATTING: { feedback: "Excellent!", audio: true },
-    FINISHED: { feedback: "Excellent!", audio: false },
+    STANDING: { feedback: "Please Begin Rep!", audio: false, countRep: false },
+    DESCENDING: { feedback: "Go Down Lower!", audio: true, countRep: false },
+    SQUATTING: { feedback: "Excellent!", audio: true, countRep: false },
+    FINISHED: { feedback: "Excellent!", audio: false, countRep: true },
 })
 
 const transitions = {
@@ -54,7 +58,7 @@ const getTransitionType = (leftKneeAngle, rightKneeAngle, targetKneeAngle, thres
  *
  * @param {Array} landmarks An array of pose landmarks containing the coordinates of different body points.
  * @param {Function} onFeedbackUpdate A callback function that receives the feedback message about the squat depth and form.
- * @param {Function} setLeftKneeAngle A function to update the current knee angle for display purposes.
+ * @param {Function} setCurrKneeAngle A function to update the current knee angle for display purposes.
  * @param {Function} setRepCount A function to update the squat count after a full squat is completed.
  * @param {number} targetKneeAngle The angle (in degrees) a user's knee must break (go below) to count as proper repetition.
  */
@@ -88,7 +92,7 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
         currState = transitions[currState][transitionType];
 
         // Special logic for FINISHED state
-        if (currState === "FINISHED") {
+        if (squatStates[currState].countRep) {
             squatCount++;
             setRepCount(squatCount);
             playSoundCorrectRep();
