@@ -6,7 +6,7 @@ let repCount = 0;
 
 /**
  * Generalized method to evaluate exercise state transitions based on joint angles and visibility.
- * Updates feedback and repetition count.
+ * Updates feedback, repetition count, and allows for custom logic (e.g., updating joint angles).
  *
  * @param {Object} exerInfo - Information about the exercise, including states, transitions, and joint definitions.
  * @param {Function} getTransitionType - Function to determine the type of state transition based on joint angles.
@@ -14,9 +14,18 @@ let repCount = 0;
  * @param {Object} landmarks - The landmarks of the body to calculate joint angles.
  * @param {Function} onFeedbackUpdate - Callback function to update feedback messages.
  * @param {Function} setRepCount - Callback function to update the repetition count.
+ * @param {Object} [angleHandlers={}] - Optional front-end handlers to update specific angles on the front-end pages, keyed by angle name.
  * @returns {Object} - An object containing joint angles and the updated exercise state.
  */
-export const genCheck = (exerInfo, getTransitionType, currState, landmarks, onFeedbackUpdate, setRepCount) => {
+export const genCheck = (
+    exerInfo,
+    getTransitionType,
+    currState,
+    landmarks,
+    onFeedbackUpdate,
+    setRepCount,
+    angleHandlers = {}
+) => {
     if (currState === undefined) {
         currState = Object.keys(exerInfo.states)[0];
     }
@@ -42,7 +51,7 @@ export const genCheck = (exerInfo, getTransitionType, currState, landmarks, onFe
     if (!exerInfo.disableVisibilityCheck && !visibilityCheck(jointLandmarks)) {
         let feedback = "Make sure limbs are visible";
         onFeedbackUpdate(feedback);
-        return { jointAngles, currState };
+        return currState;
     }
 
     // Determine transition
@@ -63,8 +72,15 @@ export const genCheck = (exerInfo, getTransitionType, currState, landmarks, onFe
         }
     }
 
+    // Handle angle updates for front-end
+    for (const [angleName, updateFunc] of Object.entries(angleHandlers)) {
+        if (jointAngles[angleName] !== undefined) {
+            updateFunc(jointAngles[angleName]);
+        }
+    }
+
     onFeedbackUpdate(exerInfo.states[currState].feedback);
-    return { jointAngles, currState };
+    return currState;
 };
 
 /**

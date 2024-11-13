@@ -86,19 +86,18 @@ let currState;
  * @param {number} [targetKneeAngle=90] - The target knee angle to be used for evaluation.
  */
 export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
-    if (currState === undefined) {
-        currState = Object.keys(squatInfo.states)[0];
-    }
-
     squatInfo.targets["targetKneeAngle"] = targetKneeAngle;
 
-    const { jointAngles, currState: updatedState } = genCheck(squatInfo, getTransitionType, currState, landmarks, onFeedbackUpdate, setRepCount);
-    currState = updatedState;
-
-    if (jointAngles && jointAngles["leftKneeAngle"]) {
-        setCurrKneeAngle(jointAngles["leftKneeAngle"]);
-    }
-}
+    currState = genCheck(
+        squatInfo,
+        getTransitionType,
+        currState,
+        landmarks,
+        onFeedbackUpdate,
+        setRepCount,
+        { leftKneeAngle: setCurrKneeAngle }
+    );
+};
 
 /** 
  * FSM for checking if chest is upright during squat
@@ -170,12 +169,14 @@ let currStateChest;
  * @param {number} [targetHipAngle=45] - The target hip angle to be used for evaluation.
  */
 export const checkChestUp = (landmarks, onFeedbackUpdate, targetHipAngle = 45) => {
-    if (currState === undefined) {
-        currStateChest = Object.keys(chestInfo.states)[0];
-    }
-
     chestInfo.targets["targetHipAngle"] = targetHipAngle;
 
-    const { jointAngles, currState: updatedState } = genCheck(chestInfo, getTransitionTypeChest, currStateChest, landmarks, onFeedbackUpdate, () => { });
-    currStateChest = updatedState;
+    currStateChest = genCheck(
+        chestInfo,
+        getTransitionTypeChest,
+        currStateChest,
+        landmarks,
+        onFeedbackUpdate,
+        () => { },
+    );
 };
