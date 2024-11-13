@@ -41,14 +41,22 @@ export const genCheck = (
         );
     }
 
-    // Check joints/limbs visibility
-    let jointLandmarks = [];
-    for (const jointName in exerInfo.jointInfo["joints"]) {
-        const jointIndex = exerInfo.jointInfo["joints"][jointName];
-        jointLandmarks.push(landmarks[jointIndex]);
+    // Populate left side joints
+    let leftJointLandmarks = [];
+    for (const jointName in exerInfo.jointInfo.joints.left) {
+        const jointIndex = exerInfo.jointInfo.joints.left[jointName];
+        leftJointLandmarks.push(landmarks[jointIndex]);
     }
 
-    if (!exerInfo.disableVisibilityCheck && !visibilityCheck(jointLandmarks)) {
+    // Populate right side joints
+    let rightJointLandmarks = [];
+    for (const jointName in exerInfo.jointInfo.joints.right) {
+        const jointIndex = exerInfo.jointInfo.joints.right[jointName];
+        rightJointLandmarks.push(landmarks[jointIndex]);
+    }
+
+    // Check joints/limbs visibility
+    if (!exerInfo.disableVisibilityCheck && !visibilityCheck(leftJointLandmarks) && !visibilityCheck(rightJointLandmarks)) {
         let feedback = "Make sure limbs are visible";
         onFeedbackUpdate(feedback);
         return currState;

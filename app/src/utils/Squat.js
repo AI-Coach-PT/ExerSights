@@ -32,12 +32,16 @@ const squatInfo = {
 
     jointInfo: {
         joints: {
-            leftHip: 23,
-            leftKnee: 25,
-            leftAnkle: 27,
-            rightHip: 24,
-            rightKnee: 26,
-            rightAnkle: 28
+            left: {
+                leftHip: 23,
+                leftKnee: 25,
+                leftAnkle: 27
+            },
+            right: {
+                rightHip: 24,
+                rightKnee: 26,
+                rightAnkle: 28
+            }
         },
         jointAngles: {
             leftKneeAngle: [23, 25, 27],
@@ -64,9 +68,9 @@ const getTransitionType = (jointAngles) => {
     const targetKneeAngle = squatInfo.targets["targetKneeAngle"];
     const thresholdAngle = squatInfo.targets["thresholdKneeAngle"];
 
-    if (leftKneeAngle < targetKneeAngle && rightKneeAngle < targetKneeAngle)
+    if (leftKneeAngle < targetKneeAngle || rightKneeAngle < targetKneeAngle)
         return "hitTarget";
-    if (leftKneeAngle < thresholdAngle && rightKneeAngle < thresholdAngle)
+    if (leftKneeAngle < thresholdAngle || rightKneeAngle < thresholdAngle)
         return "descending";
     if (leftKneeAngle > thresholdAngle || rightKneeAngle > thresholdAngle)
         return "finishing";
