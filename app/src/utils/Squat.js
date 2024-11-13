@@ -1,8 +1,10 @@
 import { genCheck } from './GenFeedback';
 
-/** FSM list of 4 states, 3 types of transitions, joint information, target value information
+/** 
+ * FSM list of 4 states, 3 types of transitions, joint information, target value information
  * States = Standing, descending, squatting, finished
  * Transitions = descending, hitTarget, finishing
+ * Accesses leftKneeAngle and rightKneeAngle
  */
 const squatInfo = {
     states: {
@@ -50,13 +52,10 @@ const squatInfo = {
 }
 
 /**
- * Determines the type of transition based on knee angle.
+ * Determines the type of transition based on squat depth (knee angles).
  *
- * @param {number} leftKneeAngle The current left knee angle.
- * @param {number} rightKneeAngle The current right knee angle.
- * @param {number} targetKneeAngle The target knee angle for a squat.
- * @param {number} thresholdAngle The threshold knee angle for standing.
- * @returns {string|null} The type of transition ("descending", "hitTarget", "finishing") or null if no transition applies.
+ * @param {object} jointAngles Object containing calculated angles for relevant joints.
+ * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
  */
 const getTransitionType = (jointAngles) => {
     const leftKneeAngle = jointAngles["leftKneeAngle"];
@@ -75,6 +74,17 @@ const getTransitionType = (jointAngles) => {
 };
 
 let currState;
+
+/**
+ * Checks and updates the squat posture state, tracks knee angle, and counts repetitions.
+ * Leverages generalized feedback checking method.
+ *
+ * @param {Object} landmarks - The landmarks of the body to evaluate posture.
+ * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
+ * @param {Function} setCurrKneeAngle - Function to update the current knee angle.
+ * @param {Function} setRepCount - Function to update the repetition count.
+ * @param {number} [targetKneeAngle=90] - The target knee angle to be used for evaluation.
+ */
 export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
     if (currState === undefined) {
         currState = Object.keys(squatInfo.states)[0];
@@ -90,6 +100,12 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
     }
 }
 
+/** 
+ * FSM for checking if chest is upright during squat
+ * States: UPRIGHT, LEANING_FORWARD
+ * Transitions: upright, leaningTooFar
+ * Accesses leftHipAngle and rightHipAngle
+ */
 const chestInfo = {
     states: {
         UPRIGHT: { feedback: "", audio: false, countRep: false },
@@ -145,6 +161,14 @@ const getTransitionTypeChest = (jointAngles) => {
 
 let currStateChest;
 
+/**
+ * Checks and updates the chest posture state based on the provided landmarks and target hip angle.
+ * Leverages generalized feedback checking method.
+ *
+ * @param {Object} landmarks - The landmarks of the body to evaluate posture.
+ * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
+ * @param {number} [targetHipAngle=45] - The target hip angle to be used for evaluation.
+ */
 export const checkChestUp = (landmarks, onFeedbackUpdate, targetHipAngle = 45) => {
     if (currState === undefined) {
         currStateChest = Object.keys(chestInfo.states)[0];

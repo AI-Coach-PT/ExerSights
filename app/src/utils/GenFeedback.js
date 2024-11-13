@@ -4,6 +4,18 @@ import { calculateAngle } from './Angles';
 
 let repCount = 0;
 
+/**
+ * Generalized method to evaluate exercise state transitions based on joint angles and visibility.
+ * Updates feedback and repetition count.
+ *
+ * @param {Object} exerInfo - Information about the exercise, including states, transitions, and joint definitions.
+ * @param {Function} getTransitionType - Function to determine the type of state transition based on joint angles.
+ * @param {string} currState - The current state of the exercise.
+ * @param {Object} landmarks - The landmarks of the body to calculate joint angles.
+ * @param {Function} onFeedbackUpdate - Callback function to update feedback messages.
+ * @param {Function} setRepCount - Callback function to update the repetition count.
+ * @returns {Object} - An object containing joint angles and the updated exercise state.
+ */
 export const genCheck = (exerInfo, getTransitionType, currState, landmarks, onFeedbackUpdate, setRepCount) => {
     if (currState === undefined) {
         currState = Object.keys(exerInfo.states)[0];
@@ -56,9 +68,9 @@ export const genCheck = (exerInfo, getTransitionType, currState, landmarks, onFe
 };
 
 /**
- * Resets squat count to specified value and resets squat position state.
+ * Resets rep count to specified value.
  *
- * @param {number} val - The value to set the squat count to.
+ * @param {number} val - The value to set the rep count to.
  */
 export const resetRepCount = (val) => {
     repCount = val;
