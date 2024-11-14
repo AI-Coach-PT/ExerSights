@@ -61,7 +61,7 @@ const squatInfo = {
  * @param {object} jointAngles Object containing calculated angles for relevant joints.
  * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
  */
-const getTransitionType = (jointAngles) => {
+const getTransitionType = (jointAngles, closerSide) => {
     const leftKneeAngle = jointAngles["leftKneeAngle"];
     const rightKneeAngle = jointAngles["rightKneeAngle"];
 
@@ -99,7 +99,7 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
         landmarks,
         onFeedbackUpdate,
         setRepCount,
-        { leftKneeAngle: setCurrKneeAngle }
+        { KneeAngle: setCurrKneeAngle }
     );
 };
 
@@ -152,7 +152,7 @@ const chestInfo = {
  * @param {object} jointAngles Object containing calculated angles for relevant joints.
  * @returns {string|null} The type of transition ("leaningTooFar", "upright") or null if no transition applies.
  */
-const getTransitionTypeChest = (jointAngles) => {
+const getTransitionTypeChest = (jointAngles, closerSide) => {
     const leftHipAngle = jointAngles["leftHipAngle"];
     const rightHipAngle = jointAngles["rightHipAngle"];
     const targetHipAngle = chestInfo.targets["targetHipAngle"];

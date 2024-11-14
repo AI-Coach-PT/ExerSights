@@ -62,8 +62,11 @@ export const genCheck = (
         return currState;
     }
 
+    // Determine which side is closer to camera, left or right
+    const closerSide = getCloserSide(leftJointLandmarks, rightJointLandmarks);
+
     // Determine transition
-    const transitionType = getTransitionType(jointAngles);
+    const transitionType = getTransitionType(jointAngles, closerSide);
 
     // Perform the state transition if applicable
     if (transitionType && exerInfo.transitions[currState] && exerInfo.transitions[currState][transitionType]) {
@@ -82,14 +85,39 @@ export const genCheck = (
 
     // Handle angle updates for front-end
     for (const [angleName, updateFunc] of Object.entries(angleHandlers)) {
-        if (jointAngles[angleName] !== undefined) {
-            updateFunc(jointAngles[angleName]);
+        const fullAngleName = `${closerSide}${angleName}`;
+        if (jointAngles[fullAngleName] !== undefined) {
+            updateFunc(jointAngles[fullAngleName]);
         }
     }
 
     onFeedbackUpdate(exerInfo.states[currState].feedback);
     return currState;
 };
+
+/**
+ * Determines which side (left or right) is closer to the camera based on average z-values.
+ *
+ * @param {Array} leftLandmarks - An array of landmarks for the left side.
+ * @param {Array} rightLandmarks - An array of landmarks for the right side.
+ * @returns {string} "left" if the left side is closer, "right" otherwise.
+ */
+function getCloserSide(leftLandmarks = [], rightLandmarks = []) {
+    let leftTotalZ = 0;
+    for (const landmark of leftLandmarks) {
+        leftTotalZ += landmark.z;
+    }
+
+    let rightTotalZ = 0;
+    for (const landmark of rightLandmarks) {
+        rightTotalZ += landmark.z;
+    }
+
+    const avgLeftZ = leftTotalZ / leftLandmarks.length;
+    const avgRightZ = rightTotalZ / rightLandmarks.length;
+
+    return avgLeftZ < avgRightZ ? "left" : "right";
+}
 
 /**
  * Resets rep count to specified value.
