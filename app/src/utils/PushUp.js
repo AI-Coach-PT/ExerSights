@@ -1,97 +1,130 @@
-import { calculateAngle } from './Angles';
-import { playSoundCorrectRep, playText } from './Audio';
+import { genCheck } from './GenFeedback';
 
-let pushUpCount = 0;
-let inPushUpPosition = false;
-let closerArm = null;
-let lastFeedback = "";
+const pushUpInfo = {
+    states: {
+        INIT: { feedback: "Please Begin Rep!", audio: false, countRep: false },
+        DESCENDING: { feedback: "Go Down Lower!", audio: true, countRep: false },
+        HOLD: { feedback: "Excellent!", audio: true, countRep: false },
+        FINISHED: { feedback: "Excellent!", audio: false, countRep: true },
+    },
 
-export const checkPushup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, targetElbowAngle = 65) => {
-    const thresholdAngle = 150;
-    var currentAngle = 150;
+    transitions: {
+        INIT: {
+            descending: "DESCENDING",
+        },
+        DESCENDING: {
+            hitTarget: "HOLD",
+            finishing: "INIT",
+        },
+        HOLD: {
+            finishing: "FINISHED",
+        },
+        FINISHED: {
+            descending: "DESCENDING",
+        },
+    },
 
-    if (!closerArm || !inPushUpPosition) {
+    jointInfo: {
+        joints: {
+            left: {
+                leftShoulder: 11,
+                leftElbow: 13,
+                leftHand: 15
+            },
+            right: {
+                rightShoulder: 12,
+                rightElbow: 14,
+                rightHand: 16
+            }
+        },
+        jointAngles: {
+            leftElbowAngle: [11, 13, 15],
+            rightElbowAngle: [12, 14, 16],
+        },
+    },
+
+    targets: {
+        thresholdElbowAngle: 150,
+        targetElbowAngle: 65,
+    },
+};
+
+let currState;
+let closerArm;
+
+/**
+ * Determines the type of transition based on push-up posture and arm movement.
+ *
+ * @param {object} jointAngles Object containing calculated angles for relevant joints.
+ * @param {object} landmarks The body landmarks for determining the closer arm.
+ * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
+ */
+const getTransitionType = (jointAngles, landmarks) => {
+    const { leftElbowAngle, rightElbowAngle } = jointAngles;
+
+    const targetElbowAngle = pushUpInfo.targets["targetElbowAngle"];
+    const thresholdElbowAngle = pushUpInfo.targets["thresholdElbowAngle"];
+
+    if (!closerArm) {
         closerArm = getCloserArm(landmarks);
     }
 
+    const currentAngle = closerArm === "Left Arm" ? leftElbowAngle : rightElbowAngle;
 
-    //left arm
-    const leftShoulder = landmarks[11];
-    const leftElbow = landmarks[13];
-    const leftHand = landmarks[15];
+    if (currentAngle < targetElbowAngle) return "hitTarget";
+    if (currentAngle < thresholdElbowAngle) return "descending";
+    if (currentAngle > thresholdElbowAngle) return "finishing";
 
-    //right arm
-    const rightShoulder = landmarks[12];
-    const rightElbow = landmarks[14];
-    const rightHand = landmarks[16];
-
-
-    const leftElbowAngle = calculateAngle(leftShoulder, leftElbow, leftHand);
-    const rightElbowAngle = calculateAngle(rightShoulder, rightElbow, rightHand);
-
-
-    let feedback = "Please Begin Rep!";
-
-    if (closerArm === "Left Arm") {
-        currentAngle = leftElbowAngle;
-    } else {
-        currentAngle = rightElbowAngle;
-    }
-
-    setCurrElbowAngle(currentAngle);
-
-    if (currentAngle < thresholdAngle && currentAngle > targetElbowAngle && !inPushUpPosition) {
-        feedback = "Go Down Lower!";
-    } else if (currentAngle < targetElbowAngle) {
-        feedback = "Excellent!"
-        inPushUpPosition = true;
-    } else if (currentAngle > thresholdAngle) {
-        if (inPushUpPosition) {
-            feedback = "Excellent!"
-            pushUpCount++;
-            inPushUpPosition = false;
-            playSoundCorrectRep();
-            setRepCount(pushUpCount);
-        }
-    } else {
-        if (inPushUpPosition) {
-            feedback = "Excellent!"
-        }
-    }
-
-    // only play feedback audio from begin -> go down lower and from lower -> excellent
-    if ((feedback === "Go Down Lower!" && lastFeedback === "Please Begin Rep!")
-        || (feedback === "Excellent!" && lastFeedback === "Go Down Lower!")) {
-        playText(feedback);
-    }
-
-    lastFeedback = feedback;
-    onFeedbackUpdate(feedback);
+    return null;
 };
 
 /**
- * Resets PushUp count to specified value and resets PushUp position state.
+ * Checks and updates the push-up posture state, tracks elbow angle, and counts repetitions.
+ * Leverages generalized feedback checking method.
  *
- * @param {number} val - The value to set the squat count to.
+ * @param {Object} landmarks - The landmarks of the body to evaluate posture.
+ * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
+ * @param {Function} setCurrElbowAngle - Function to update the current elbow angle.
+ * @param {Function} setRepCount - Function to update the repetition count.
+ * @param {number} [targetElbowAngle=65] - The target elbow angle to be used for evaluation.
  */
-export const setPushUpCount = (val) => {
-    pushUpCount = val;
-    inPushUpPosition = false;
+export const checkPushup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, targetElbowAngle = 65) => {
+    pushUpInfo.targets["targetElbowAngle"] = targetElbowAngle;
+
+    const angleHandlers = closerArm === "Left Arm"
+        ? { leftElbowAngle: setCurrElbowAngle }
+        : { rightElbowAngle: setCurrElbowAngle };
+
+    currState = genCheck(
+        pushUpInfo,
+        (angles) => getTransitionType(angles, landmarks),
+        currState,
+        landmarks,
+        onFeedbackUpdate,
+        setRepCount,
+        angleHandlers
+    );
 };
 
+/**
+ * Identifies which arm is closer based on the z-values of the landmarks.
+ *
+ * @param {object} landmarks The body landmarks containing 3D positional data.
+ * @returns {string} The closer arm ("Left Arm" or "Right Arm").
+ */
 function getCloserArm(landmarks) {
     if (!landmarks) return null;
 
     // Extract z-values for left arm landmarks
-    const leftWristZ = landmarks[11].z;
+    const leftWristZ = landmarks[15].z;
     const leftElbowZ = landmarks[13].z;
-    const leftShoulderZ = landmarks[15].z;
+    const leftShoulderZ = landmarks[11].z;
     const leftArmAvgZ = (leftWristZ + leftElbowZ + leftShoulderZ) / 3;
 
     // Extract z-values for right arm landmarks
-    const rightWristZ = landmarks[12].z;
+    const rightWristZ = landmarks[16].z;
     const rightElbowZ = landmarks[14].z;
-    const rightShoulderZ = landmarks[16].z;
+    const rightShoulderZ = landmarks[12].z;
     const rightArmAvgZ = (rightWristZ + rightElbowZ + rightShoulderZ) / 3;
 
     // Determine which arm is closer based on average z-value
