@@ -62,8 +62,7 @@ const squatInfo = {
  * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
  */
 const getTransitionType = (jointAngles, closerSide) => {
-    const leftKneeAngle = jointAngles["leftKneeAngle"];
-    const rightKneeAngle = jointAngles["rightKneeAngle"];
+    const { leftKneeAngle, rightKneeAngle } = jointAngles;
 
     const targetKneeAngle = squatInfo.targets["targetKneeAngle"];
     const thresholdAngle = squatInfo.targets["thresholdKneeAngle"];

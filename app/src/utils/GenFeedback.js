@@ -86,6 +86,12 @@ export const genCheck = (
     // Handle angle updates for front-end
     for (const [angleName, updateFunc] of Object.entries(angleHandlers)) {
         const fullAngleName = `${closerSide}${angleName}`;
+
+        // rare case if specific angle side is already passed
+        if (angleName.includes("left") || angleName.includes("right")) {
+            fullAngleName = `${angleName}`;
+        }
+
         if (jointAngles[fullAngleName] !== undefined) {
             updateFunc(jointAngles[fullAngleName]);
         }
