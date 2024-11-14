@@ -1,22 +1,94 @@
-import { calculateAngle } from "./Angles";
-import { playSoundCorrectRep, playText } from "./Audio";
-import { inFrame } from './InFrame';
+import { genCheck } from "./GenFeedback";
 
-let deadBugCount = 0;
-let inDeadBugPosition = false;
-let lastFeedback = "";
+const deadBugInfo = {
+    states: {
+        INIT: { feedback: "Please Begin Rep!", audio: false, countRep: false },
+        EXTENDING: { feedback: "Extend alternate sides!", audio: true, countRep: false },
+        HOLD: { feedback: "Excellent!", audio: true, countRep: true },
+    },
+
+    transitions: {
+        INIT: {
+            extending: "EXTENDING",
+        },
+        EXTENDING: {
+            hitTarget: "HOLD",
+        },
+        HOLD: {
+            extending: "EXTENDING",
+        }
+    },
+
+    jointInfo: {
+        joints: {
+            left: {
+                leftShoulder: 11,
+                leftElbow: 13,
+                leftHip: 23,
+                leftKnee: 25
+            },
+            right: {
+                rightShoulder: 12,
+                rightElbow: 14,
+                rightHip: 24,
+                rightKnee: 26
+            }
+        },
+        jointAngles: {
+            leftUnderarmAngle: [13, 11, 23],
+            rightUnderarmAngle: [14, 12, 24],
+            leftHipAngle: [11, 23, 25],
+            rightHipAngle: [12, 24, 26],
+        },
+    },
+
+    targets: {
+        targetFlatAngle: 140,
+    },
+};
+
+let currState;
 
 /**
- * Checks the user's position for the Dead Bug exercise and updates the state accordingly.
+ * Determines the type of transition based on Dead Bug posture.
  *
- * @param {Array} landmarks - The body landmarks detected by the pose estimation model.
- * @param {number} targetFlatAngle - The target angle for considering a limb as extended.
- * @param {function} setLeftUnderarmAngle - Function to update the left underarm angle.
- * @param {function} setRightUnderarmAngle - Function to update the right underarm angle.
- * @param {function} setLeftHipAngle - Function to update the left hip angle.
- * @param {function} setRightHipAngle - Function to update the right hip angle.
- * @param {function} setFeedback - Function to update the feedback message.
- * @param {function} setRepCount - Function to update the repetition count.
+ * @param {object} jointAngles - Object containing calculated angles for relevant joints.
+ * @returns {string|null} The type of transition ("extending", "hitTarget", "lowering") or null if no transition applies.
+ */
+const getTransitionType = (jointAngles, closer) => {
+    const { leftUnderarmAngle, rightUnderarmAngle, leftHipAngle, rightHipAngle } = jointAngles;
+
+    const targetFlatAngle = deadBugInfo.targets["targetFlatAngle"];
+
+    if (
+        (leftUnderarmAngle < targetFlatAngle && rightHipAngle < targetFlatAngle) ||
+        (rightUnderarmAngle < targetFlatAngle && leftHipAngle < targetFlatAngle)
+    ) {
+        return "extending";
+    }
+
+    if (
+        (leftUnderarmAngle >= targetFlatAngle && rightHipAngle >= targetFlatAngle) ||
+        (rightUnderarmAngle >= targetFlatAngle && leftHipAngle >= targetFlatAngle)
+    ) {
+        return "hitTarget";
+    }
+
+    return null;
+};
+
+/**
+ * Monitors and tracks Dead Bug repetitions by analyzing limb angles from pose landmarks.
+ * Provides real-time feedback based on posture and movement.
+ *
+ * @param {Object} landmarks - The landmarks of the body to evaluate posture.
+ * @param {number} targetFlatAngle - The target angle for extension.
+ * @param {Function} setLeftUnderarmAngle - Function to update the left underarm angle.
+ * @param {Function} setRightUnderarmAngle - Function to update the right underarm angle.
+ * @param {Function} setLeftHipAngle - Function to update the left hip angle.
+ * @param {Function} setRightHipAngle - Function to update the right hip angle.
+ * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
+ * @param {Function} setRepCount - Function to update the repetition count.
  */
 export const checkDeadBug = (
     landmarks,
@@ -25,83 +97,23 @@ export const checkDeadBug = (
     setRightUnderarmAngle,
     setLeftHipAngle,
     setRightHipAngle,
-    setFeedback,
-    setRepCount
+    onFeedbackUpdate,
+    setRepCount,
 ) => {
-    const leftShoulder = landmarks[11];
-    const rightShoulder = landmarks[12];
-    const leftElbow = landmarks[13];
-    const rightElbow = landmarks[14];
-    const leftHip = landmarks[23];
-    const rightHip = landmarks[24];
-    const leftKnee = landmarks[25];
-    const rightKnee = landmarks[26];
+    deadBugInfo.targets["targetFlatAngle"] = targetFlatAngle;
 
-    const leftUnderarmAngle = calculateAngle(leftElbow, leftShoulder, leftHip);
-    const rightUnderarmAngle = calculateAngle(rightElbow, rightShoulder, rightHip);
-    const leftHipAngle = calculateAngle(leftShoulder, leftHip, leftKnee);
-    const rightHipAngle = calculateAngle(rightShoulder, rightHip, rightKnee);
-
-    setLeftUnderarmAngle(leftUnderarmAngle);
-    setRightUnderarmAngle(rightUnderarmAngle);
-    setLeftHipAngle(leftHipAngle);
-    setRightHipAngle(rightHipAngle);
-
-    let feedback = "Extend alternate sides!";
-
-    const left_in_frame = inFrame(leftShoulder, leftKnee, undefined, undefined)
-    const right_in_frame = inFrame(rightShoulder, rightKnee, undefined, undefined)
-
-    if (!left_in_frame && !right_in_frame) {
-        feedback = "Make sure limbs are visible";
-        setFeedback(feedback);
-        return;
-    }
-
-    if (
-        ((leftUnderarmAngle < targetFlatAngle && rightHipAngle < targetFlatAngle) ||
-            (rightUnderarmAngle < targetFlatAngle && leftHipAngle < targetFlatAngle)) &&
-        !inDeadBugPosition
-    ) {
-        feedback = "Extend alternate sides!";
-    } else if (
-        (leftUnderarmAngle >= targetFlatAngle && rightHipAngle >= targetFlatAngle) ||
-        (rightUnderarmAngle >= targetFlatAngle && leftHipAngle >= targetFlatAngle)
-    ) {
-        feedback = "Excellent!";
-        inDeadBugPosition = true;
-    } else if (
-        (leftUnderarmAngle < targetFlatAngle && rightHipAngle < targetFlatAngle) ||
-        (rightUnderarmAngle < targetFlatAngle && leftHipAngle < targetFlatAngle)
-    ) {
-        if (inDeadBugPosition) {
-            feedback = "Excellent!";
-            deadBugCount++;
-            inDeadBugPosition = false;
-            playSoundCorrectRep();
-            setRepCount(deadBugCount);
+    currState = genCheck(
+        deadBugInfo,
+        getTransitionType,
+        currState,
+        landmarks,
+        onFeedbackUpdate,
+        setRepCount,
+        {
+            leftUnderarmAngle: setLeftUnderarmAngle,
+            rightUnderarmAngle: setRightUnderarmAngle,
+            leftHipAngle: setLeftHipAngle,
+            rightHipAngle: setRightHipAngle,
         }
-    } else {
-        if (inDeadBugPosition) {
-            feedback = "Excellent!";
-        }
-    }
-
-    // only play feedback audio from begin -> extend sides -> excellent
-    if (feedback !== lastFeedback) {
-        playText(feedback);
-    }
-
-    lastFeedback = feedback;
-    setFeedback(feedback);
-};
-
-/**
- * Resets the Dead Bug exercise count and position state.
- *
- * @param {number} val - The value to set the deadBugCount to (typically 0 for reset).
- */
-export const setDeadBugCount = (val) => {
-    deadBugCount = val;
-    inDeadBugPosition = false;
+    );
 };

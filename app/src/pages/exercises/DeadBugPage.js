@@ -2,12 +2,13 @@ import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button, IconButton, Modal } from "@mui/material";
 // import WebcamBox from "../../components/Webcam";
 import detectPose from "../../utils/PoseDetector";
-import { checkDeadBug, setDeadBugCount } from "../../utils/DeadBug";
+import { checkDeadBug } from "../../utils/DeadBug";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import WebcamCanvas from "../../components/WebcamCanvas";
+import { resetRepCount } from "../../utils/GenFeedback";
 
 /**
  * A React functional component that provides real-time tracking and feedback of the dead bug exercise, using
@@ -83,7 +84,7 @@ function DeadBugPage() {
      */
     const handleReset = () => {
         setRepCount(0);
-        setDeadBugCount(0);
+        resetRepCount(0);
     };
 
     /**
