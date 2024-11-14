@@ -50,26 +50,20 @@ const pushUpInfo = {
 };
 
 let currState;
-let closerArm;
 
 /**
  * Determines the type of transition based on push-up posture and arm movement.
  *
  * @param {object} jointAngles Object containing calculated angles for relevant joints.
- * @param {object} landmarks The body landmarks for determining the closer arm.
  * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
  */
-const getTransitionType = (jointAngles, landmarks) => {
+const getTransitionType = (jointAngles, closerSide) => {
     const { leftElbowAngle, rightElbowAngle } = jointAngles;
 
     const targetElbowAngle = pushUpInfo.targets["targetElbowAngle"];
     const thresholdElbowAngle = pushUpInfo.targets["thresholdElbowAngle"];
 
-    if (!closerArm) {
-        closerArm = getCloserArm(landmarks);
-    }
-
-    const currentAngle = closerArm === "Left Arm" ? leftElbowAngle : rightElbowAngle;
+    const currentAngle = closerSide === "left" ? leftElbowAngle : rightElbowAngle;
 
     if (currentAngle < targetElbowAngle) return "hitTarget";
     if (currentAngle < thresholdElbowAngle) return "descending";
@@ -91,42 +85,13 @@ const getTransitionType = (jointAngles, landmarks) => {
 export const checkPushup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, targetElbowAngle = 65) => {
     pushUpInfo.targets["targetElbowAngle"] = targetElbowAngle;
 
-    const angleHandlers = closerArm === "Left Arm"
-        ? { leftElbowAngle: setCurrElbowAngle }
-        : { rightElbowAngle: setCurrElbowAngle };
-
     currState = genCheck(
         pushUpInfo,
-        (angles) => getTransitionType(angles, landmarks),
+        getTransitionType,
         currState,
         landmarks,
         onFeedbackUpdate,
         setRepCount,
-        angleHandlers
+        { ElbowAngle: setCurrElbowAngle }
     );
 };
-
-/**
- * Identifies which arm is closer based on the z-values of the landmarks.
- *
- * @param {object} landmarks The body landmarks containing 3D positional data.
- * @returns {string} The closer arm ("Left Arm" or "Right Arm").
- */
-function getCloserArm(landmarks) {
-    if (!landmarks) return null;
-
-    // Extract z-values for left arm landmarks
-    const leftWristZ = landmarks[15].z;
-    const leftElbowZ = landmarks[13].z;
-    const leftShoulderZ = landmarks[11].z;
-    const leftArmAvgZ = (leftWristZ + leftElbowZ + leftShoulderZ) / 3;
-
-    // Extract z-values for right arm landmarks
-    const rightWristZ = landmarks[16].z;
-    const rightElbowZ = landmarks[14].z;
-    const rightShoulderZ = landmarks[12].z;
-    const rightArmAvgZ = (rightWristZ + rightElbowZ + rightShoulderZ) / 3;
-
-    // Determine which arm is closer based on average z-value
-    return leftArmAvgZ < rightArmAvgZ ? "Left Arm" : "Right Arm";
-}
