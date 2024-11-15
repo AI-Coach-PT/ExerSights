@@ -90,11 +90,11 @@ function DeadBugPage() {
    */
   const handleOpenModal = () => {
     setOpenModal(true);
-    if (webcamRef.current && webcamRef.current.video) {
-      const stream = webcamRef.current.video.srcObject;
-      const tracks = stream.getTracks();
-      tracks.forEach((track) => track.stop());
-    }
+    // if (webcamRef.current && webcamRef.current.video) {
+    //   const stream = webcamRef.current.video.srcObject;
+    //   const tracks = stream.getTracks();
+    //   tracks.forEach((track) => track.stop());
+    // }
   };
 
   /**
