@@ -183,6 +183,12 @@ function SquatPage() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    const getBorderColor = () => {
+        if (feedback.includes("Excellent")) return "green"; // Customize based on positive feedback text
+        if (feedback.includes("visible")) return "red";    // Customize based on negative feedback text
+        return "yellow"; // Default color if no feedback or neutral
+    };
+
     return (
         <Box>
             <Typography variant="h2" sx={{ textAlign: "center" }}>
@@ -197,10 +203,20 @@ function SquatPage() {
                     height: "fit-content",
                     padding: "2vmin",
                 }}>
-                <WebcamCanvas
-                    dimensions={dimensions}
-                    ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-                />
+
+            <Box
+                    sx={{
+                        border: `4px solid ${getBorderColor()}`, // Dynamic border color
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                        padding: "5px",
+                    }}
+                >
+                    <WebcamCanvas
+                        dimensions={dimensions}
+                        ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
+                    />
+            </Box>
                 <Paper
                     elevation={3}
                     sx={{
