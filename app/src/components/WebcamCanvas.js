@@ -26,8 +26,15 @@ const webcamStyle =
  * />
  */
 const WebcamCanvas = forwardRef((props, ref) => {
+
+    //const { width, height } = props.dimensions;
     // Standard 16:9 aspect ratio for video
-    const aspectRatio = 16 / 9;
+    const videoElement = ref?.webcamRef?.current?.video;
+    const videoWidth = videoElement?.videoWidth;
+    const videoHeight = videoElement?.videoHeight;
+
+    const aspectRatio = videoWidth / videoHeight;
+
 
     // Calculate 70% of browser dimensions
     const browserWidth = props.dimensions.width * 0.7;
@@ -48,17 +55,33 @@ const WebcamCanvas = forwardRef((props, ref) => {
      * @type {Object}
      */
     const videoContraints = {
-        width: newWidth,
-        height: newHeight,
-        aspectRatio: aspectRatio,
+        // width: newWidth,
+        // height: newHeight,
+        //aspectRatio: aspectRatio,
         facingMode: "user", // or 'environment' for rear camera on mobile
     };
     return (
         <Box
-        // sx={{
-        //     width: { xs: 320, sm: 640, md: 1280, lg: 1366, xl: 1920 },
-        //     height: { xs: 240, sm: 480, md: 720, lg: 768, xl: 1080 },
-        // }}
+            // sx={{
+            //     // Dynamically calculate 70% sizes at each breakpoint
+            //     // Fixed pixel values at each breakpoint
+            //     width: {
+            //         xs: 320 * 0.7, // Extra-small screens
+            //         sm: 640 * 0.7, 
+            //         md: 1280 * 0.7, 
+            //         lg: 1440 * 0.7, 
+            //         xl: 1920 * 0.7, // Extra-large screens
+            //     },
+            //     height: {
+            //         xs: 240 * 0.7, // Extra-small screens
+            //         sm: 480 * 0.7, 
+            //         md: 800 * 0.7, 
+            //         lg: 900 * 0.7, 
+            //         xl: 1200 * 0.7, // Extra-large screens
+            //     },
+            //     maxWidth: "100%", // Stop box from  exceeding screen width
+            //     maxHeight: "100%", // Stop box from  exceeding screen height
+            // }}
         >
             <div style={webcamStyle}>
                 <Webcam
@@ -73,14 +96,12 @@ const WebcamCanvas = forwardRef((props, ref) => {
                 // canvas drawing size
                 width={newWidth}
                 height={newHeight}
-                // width="100%"
-                // height="100%"
                 style={{
                     // canvas display size
-                    width: `${newWidth}px`,
-                    height: `${newHeight}px`,
-                    // width: "100%",
-                    // height: "100%",
+                    // width: `${newWidth}px`,
+                    // height: `${newHeight}px`,
+                    width: "100%",
+                    height: "100%",
                 }}
             />
         </Box>
