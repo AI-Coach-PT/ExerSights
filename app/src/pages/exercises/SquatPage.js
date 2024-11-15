@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button, IconButton, Modal } from "@mui/material";
 import detectPose from "../../utils/PoseDetector";
-import { checkChestUp, checkSquats, setSquatCount } from "../../utils/Squat";
+import { checkChestUp, checkSquats } from "../../utils/Squat";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
@@ -10,6 +10,7 @@ import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
 import WebcamCanvas from "../../components/WebcamCanvas";
+import { resetRepCount } from "../../utils/GenFeedback";
 
 /**
  * A React functional component that provides a real-time squat tracking and feedback interface using
@@ -90,7 +91,7 @@ function SquatPage() {
      */
     const handleReset = () => {
         setRepCount(0);
-        setSquatCount(0);
+        resetRepCount(0);
     };
 
     /**
