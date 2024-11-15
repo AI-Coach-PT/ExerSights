@@ -119,49 +119,50 @@ function DeadBugPage() {
     setTargetAngles({ targetFlatAngle: targetFlatAngle });
   }, [targetFlatAngle]);
 
-  //   useEffect(() => {
-  //     if (windowResizing && webcamRef.current && webcamRef.current.video) {
-  //       const stream = webcamRef.current.video.srcObject;
-  //       const tracks = stream.getTracks();
-  //       tracks.forEach((track) => track.stop());
-  //     } else {
-  //       // cancel the previous requestAnimationFrame
-  //       // cancelAnimationFrame(animationID);
-  //       // detectPose(webcamRef, canvasRef, animationID, processPoseResults);
-  //       detectPose(webcamRef, canvasRef, processPoseResults);
-  //     }
-  //   }, [windowResizing]);
+  // useEffect(() => {
+  // if (windowResizing && webcamRef.current && webcamRef.current.video) {
+  // const stream = webcamRef.current.video.srcObject;
+  // const tracks = stream.getTracks();
+  // tracks.forEach((track) => track.stop());
+  // } else {
+  // cancel the previous requestAnimationFrame
+  // cancelAnimationFrame(animationID);
+  // detectPose(webcamRef, canvasRef, animationID, processPoseResults);
+  // detectPose(webcamRef, canvasRef, processPoseResults);
+  // }
+  // }, [windowResizing]);
 
-  //   useEffect(() => {
-  //     const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //       if (user) {
-  //         console.log("Logged in.");
-  //         setUsername(user.email);
-  //         console.log(userEmail);
-  //         setUserLoggedIn(true);
-  //         // Load settings upon a signed-in user navigating to exercise page;
-  //         // if the user does not have saved settings, this will do nothing,
-  //         // and the last set values will be used (most likely default values)
-  //         loadExerciseSettings(userEmail, "deadbug", setTargetAnglesArray);
-  //       } else {
-  //         console.log("Logged out.");
-  //         setUsername("");
-  //         setUserLoggedIn(false);
-  //       }
-  //     });
-  //     detectPose(webcamRef, canvasRef, processPoseResults);
-  //     return () => unsubscribe();
-  //   }, [userEmail]);
-
-  //   const [stopDetection, setStopDetection] = useState(false);
-  const stopDetection = useRef(false);
-  const handleStopDetection = () => {
-    // setStopDetection((prevState) => !prevState);
-    stopDetection.current = !stopDetection.current;
-    console.log(`stopDetection.current = ${stopDetection.current}`);
-  };
   useEffect(() => {
-    const poseLandmarker = detectPose(webcamRef, canvasRef, processPoseResults, stopDetection);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("Logged in.");
+        setUsername(user.email);
+        console.log(userEmail);
+        setUserLoggedIn(true);
+        // Load settings upon a signed-in user navigating to exercise page;
+        // if the user does not have saved settings, this will do nothing,
+        // and the last set values will be used (most likely default values)
+        loadExerciseSettings(userEmail, "deadbug", setTargetAnglesArray);
+      } else {
+        console.log("Logged out.");
+        setUsername("");
+        setUserLoggedIn(false);
+      }
+    });
+    // detectPose(webcamRef, canvasRef, processPoseResults);
+    return () => unsubscribe();
+  }, [userEmail]);
+
+  // const [stopDetection, setStopDetection] = useState(false);
+  // const stopDetection = useRef(false);
+  // const handleStopDetection = () => {
+  //   // setStopDetection((prevState) => !prevState);
+  //   stopDetection.current = !stopDetection.current;
+  //   console.log(`stopDetection.current = ${stopDetection.current}`);
+  // };
+  useEffect(() => {
+    // detectPose(webcamRef, canvasRef, processPoseResults, stopDetection);
+    detectPose(webcamRef, canvasRef, processPoseResults);
     // let timeout;
     // const handleResize = () => {
     //   clearTimeout(timeout);
@@ -179,7 +180,7 @@ function DeadBugPage() {
 
     // window.addEventListener("resize", handleResize);
     return () => {
-      //   window.removeEventListener("resize", handleResize);
+      // window.removeEventListener("resize", handleResize);
       //   poseLandmarker.close();
     };
   }, []);
@@ -227,9 +228,9 @@ function DeadBugPage() {
           <Button variant="contained" color="primary" onClick={handleReset}>
             Reset Rep Count
           </Button>
-          <Button variant="contained" color="primary" onClick={handleStopDetection}>
+          {/* <Button variant="contained" color="primary" onClick={handleStopDetection}>
             {stopDetection.current ? "Start Detection" : "Stop Detection"}
-          </Button>
+          </Button> */}
           <IconButton sx={{ position: "relative", left: "10px" }} onClick={handleOpenModal}>
             <SettingsIcon />
           </IconButton>

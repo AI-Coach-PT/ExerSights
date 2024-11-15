@@ -23,260 +23,269 @@ import WebcamCanvas from "../../components/WebcamCanvas";
  *                        squat count, knee angle display, and a reset button.
  */
 function SquatPage() {
-    const webcamRef = useRef(null);
-    const canvasRef = useRef(null);
-    const [dimensions, setDimensions] = useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
+  const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  const [windowResizing, setWindowResizing] = useState(false);
+  const [targetKneeAngle, setTargetKneeAngle] = useState(90);
+  const [feedback, setFeedback] = useState("");
+  const [targetHipAngle, setTargetHipAngle] = useState(45);
+  const [hipAnglefeedback, setHipAngleFeedback] = useState("");
+  const [currKneeAngle, setCurrKneeAngle] = useState(0);
+  const [repCount, setRepCount] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
+  const [userEmail, setUsername] = useState("");
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  // Object containing key-value pair of target angle label(s) and corresponding value(s);
+  // used to store angles into Firebase Cloud Firestore
+  const [targetAngles, setTargetAngles] = useState({
+    targetKneeAngle: targetKneeAngle,
+    targetHipAngle: targetHipAngle,
+  });
+
+  // Array of arrays of useState set functions, with the key into the Promise object,
+  // returned from getDoc, to retrieve the angle value to be set;
+  // differs from the targetAngles state in that this is an array array of FUNCTIONS + KEYS,
+  // whereas targetAngles is an Object that keeps a store of target angle VALUES;
+  // both states are used to modularize usage of the store/load functions in ExerciseSettings.js
+  const setTargetAnglesArray = [
+    [setTargetKneeAngle, "targetKneeAngle"],
+    [setTargetHipAngle, "targetHipAngle"],
+  ];
+
+  /**
+   * Handles changes to the target knee angle input.
+   *
+   * @param {Object} event - The event object from the input change.
+   */
+  const handleTargetKneeAngleChange = (event) => {
+    setTargetKneeAngle(event.target.value);
+  };
+
+  /**
+   * Handles changes to the target hip angle input.
+   *
+   * @param {Object} event - The event object from the input change.
+   */
+  const handleTargetHipAngleChange = (event) => {
+    setTargetHipAngle(event.target.value);
+  };
+
+  /**
+   * Processes pose results from the Mediapipe model and updates state.
+   *
+   * @param {Array} landmarks - The array of pose landmarks.
+   */
+  const processPoseResults = (landmarks) => {
+    checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, targetKneeAngle);
+    checkChestUp(landmarks, setHipAngleFeedback, targetHipAngle);
+  };
+
+  /**
+   * Resets the repetition count to zero.
+   */
+  const handleReset = () => {
+    setRepCount(0);
+    setSquatCount(0);
+  };
+
+  /**
+   * Opens the settings modal and stops the webcam stream to prevent
+   * unnecessary resource usage while the user is adjusting settings.
+   */
+  const handleOpenModal = () => {
+    setOpenModal(true);
+    // if (webcamRef.current && webcamRef.current.video) {
+    //     const stream = webcamRef.current.video.srcObject;
+    //     const tracks = stream.getTracks();
+    //     tracks.forEach((track) => track.stop());
+    // }
+  };
+
+  /**
+   * Closes the settings modal and restarts the webcam stream and pose
+   * detection when the user exits the modal.
+   */
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    // detectPose(webcamRef, canvasRef, processPoseResults);
+    // only store setting when user is logged in, and load it immediately afterwards
+    if (userLoggedIn) {
+      console.log(targetAngles);
+      console.log(`CURRENT targetKneeAngle = ${targetKneeAngle}`);
+      console.log(`CURRENT targetHipAngle = ${targetHipAngle}`);
+      storeExerciseSettings(userEmail, "squat", targetAngles);
+      loadExerciseSettings(userEmail, "squat", setTargetAnglesArray);
+    }
+  };
+
+  // Update the targetAngles object whenever targetKneeAngle and/or targetHipAngle changes
+  useEffect(() => {
+    setTargetAngles({ targetKneeAngle: targetKneeAngle, targetHipAngle: targetHipAngle });
+  }, [targetKneeAngle, targetHipAngle]);
+
+  // useEffect(() => {
+  //     if (windowResizing && webcamRef.current && webcamRef.current.video) {
+  //         const stream = webcamRef.current.video.srcObject;
+  //         const tracks = stream.getTracks();
+  //         tracks.forEach((track) => track.stop());
+  //     } else {
+  //         // cancel the previous requestAnimationFrame
+  //         // cancelAnimationFrame(animationID);
+  //         // detectPose(webcamRef, canvasRef, animationID, processPoseResults);
+  //         detectPose(webcamRef, canvasRef, processPoseResults);
+  //     }
+  // }, [windowResizing]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("Logged in.");
+        setUsername(user.email);
+        console.log(userEmail);
+        setUserLoggedIn(true);
+        // Load settings upon a signed-in user navigating to exercise page;
+        // if the user does not have saved settings, this will do nothing,
+        // and the last set values will be used (most likely default values)
+        loadExerciseSettings(userEmail, "squat", setTargetAnglesArray);
+      } else {
+        console.log("Logged out.");
+        setUsername("");
+        setUserLoggedIn(false);
+      }
     });
-    const [windowResizing, setWindowResizing] = useState(false);
-    const [targetKneeAngle, setTargetKneeAngle] = useState(90);
-    const [feedback, setFeedback] = useState("");
-    const [targetHipAngle, setTargetHipAngle] = useState(45);
-    const [hipAnglefeedback, setHipAngleFeedback] = useState("");
-    const [currKneeAngle, setCurrKneeAngle] = useState(0);
-    const [repCount, setRepCount] = useState(0);
-    const [openModal, setOpenModal] = useState(false);
-    const [userEmail, setUsername] = useState("");
-    const [userLoggedIn, setUserLoggedIn] = useState(false);
+    // detectPose(webcamRef, canvasRef, processPoseResults);
+    return () => unsubscribe();
+  }, [userEmail]);
 
-    // Object containing key-value pair of target angle label(s) and corresponding value(s);
-    // used to store angles into Firebase Cloud Firestore
-    const [targetAngles, setTargetAngles] = useState({
-        targetKneeAngle: targetKneeAngle,
-        targetHipAngle: targetHipAngle,
-    });
+  //   const stopDetection = useRef(false);
+  //   const handleStopDetection = () => {
+  //     // setStopDetection((prevState) => !prevState);
+  //     stopDetection.current = !stopDetection.current;
+  //     console.log(`stopDetection.current = ${stopDetection.current}`);
+  //   };
+  useEffect(() => {
+    // detectPose(webcamRef, canvasRef, processPoseResults, stopDetection);
+    detectPose(webcamRef, canvasRef, processPoseResults);
+    // let timeout;
+    // const handleResize = () => {
+    //   clearTimeout(timeout);
+    //   setWindowResizing(true);
 
-    // Array of arrays of useState set functions, with the key into the Promise object,
-    // returned from getDoc, to retrieve the angle value to be set;
-    // differs from the targetAngles state in that this is an array array of FUNCTIONS + KEYS,
-    // whereas targetAngles is an Object that keeps a store of target angle VALUES;
-    // both states are used to modularize usage of the store/load functions in ExerciseSettings.js
-    const setTargetAnglesArray = [
-        [setTargetKneeAngle, "targetKneeAngle"],
-        [setTargetHipAngle, "targetHipAngle"],
-    ];
+    //   setDimensions({
+    //     width: window.innerWidth,
+    //     height: window.innerHeight,
+    //   });
 
-    /**
-     * Handles changes to the target knee angle input.
-     *
-     * @param {Object} event - The event object from the input change.
-     */
-    const handleTargetKneeAngleChange = (event) => {
-        setTargetKneeAngle(event.target.value);
+    //   timeout = setTimeout(() => {
+    //     setWindowResizing(false);
+    //   }, 1500);
+    // };
+
+    // window.addEventListener("resize", handleResize);
+    return () => {
+      // window.removeEventListener("resize", handleResize)
     };
+  }, []);
 
-    /**
-     * Handles changes to the target hip angle input.
-     *
-     * @param {Object} event - The event object from the input change.
-     */
-    const handleTargetHipAngleChange = (event) => {
-        setTargetHipAngle(event.target.value);
-    };
+  return (
+    <Box>
+      <Typography variant="h2" sx={{ textAlign: "center" }}>
+        Squat
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          width: "100%",
+          height: "fit-content",
+          padding: "2vmin",
+        }}>
+        <WebcamCanvas
+          dimensions={dimensions}
+          ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
+        />
+        <Paper
+          elevation={3}
+          sx={{
+            padding: "20px",
+            textAlign: "left",
+            height: "fit-content",
+            margin: "10px",
+          }}>
+          <Box sx={{ display: "flex", justifyContent: "right", alignItems: "center" }}>
+            <Typography variant="body1">Real-Time Feedback Panel</Typography>
+            <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
+            <IconButton sx={{ position: "static" }} onClick={handleOpenModal}>
+              <SettingsIcon />
+            </IconButton>
+          </Box>
+          <Typography variant="body1">{"Feedback: "}</Typography>
+          <Typography variant="body1" style={{ color: "red" }}>
+            {feedback ? feedback : "Please Begin Rep!"}
+          </Typography>
+          <Typography variant="body1" style={{ color: "red" }}>
+            {hipAnglefeedback}
+          </Typography>
+          <Typography variant="body1">Knee Angle: {currKneeAngle.toFixed(0)}°</Typography>
+          <Typography variant="body1">Current Rep Count: {repCount}</Typography>
+          <Button variant="contained" color="primary" onClick={handleReset}>
+            Reset Rep Count
+          </Button>
+        </Paper>
+      </Box>
 
-    /**
-     * Processes pose results from the Mediapipe model and updates state.
-     *
-     * @param {Array} landmarks - The array of pose landmarks.
-     */
-    const processPoseResults = (landmarks) => {
-        checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, targetKneeAngle);
-        checkChestUp(landmarks, setHipAngleFeedback, targetHipAngle);
-    };
-
-    /**
-     * Resets the repetition count to zero.
-     */
-    const handleReset = () => {
-        setRepCount(0);
-        setSquatCount(0);
-    };
-
-    /**
-     * Opens the settings modal and stops the webcam stream to prevent
-     * unnecessary resource usage while the user is adjusting settings.
-     */
-    const handleOpenModal = () => {
-        setOpenModal(true);
-        if (webcamRef.current && webcamRef.current.video) {
-            const stream = webcamRef.current.video.srcObject;
-            const tracks = stream.getTracks();
-            tracks.forEach((track) => track.stop());
-        }
-    };
-
-    /**
-     * Closes the settings modal and restarts the webcam stream and pose
-     * detection when the user exits the modal.
-     */
-    const handleCloseModal = () => {
-        setOpenModal(false);
-        detectPose(webcamRef, canvasRef, processPoseResults);
-        // only store setting when user is logged in, and load it immediately afterwards
-        if (userLoggedIn) {
-            console.log(targetAngles);
-            console.log(`CURRENT targetKneeAngle = ${targetKneeAngle}`);
-            console.log(`CURRENT targetHipAngle = ${targetHipAngle}`);
-            storeExerciseSettings(userEmail, "squat", targetAngles);
-            loadExerciseSettings(userEmail, "squat", setTargetAnglesArray);
-        }
-    };
-
-    // Update the targetAngles object whenever targetKneeAngle and/or targetHipAngle changes
-    useEffect(() => {
-        setTargetAngles({ targetKneeAngle: targetKneeAngle, targetHipAngle: targetHipAngle });
-    }, [targetKneeAngle, targetHipAngle]);
-
-    useEffect(() => {
-        if (windowResizing && webcamRef.current && webcamRef.current.video) {
-            const stream = webcamRef.current.video.srcObject;
-            const tracks = stream.getTracks();
-            tracks.forEach((track) => track.stop());
-        } else {
-            // cancel the previous requestAnimationFrame
-            // cancelAnimationFrame(animationID);
-            // detectPose(webcamRef, canvasRef, animationID, processPoseResults);
-            detectPose(webcamRef, canvasRef, processPoseResults);
-        }
-    }, [windowResizing]);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log("Logged in.");
-                setUsername(user.email);
-                console.log(userEmail);
-                setUserLoggedIn(true);
-                // Load settings upon a signed-in user navigating to exercise page;
-                // if the user does not have saved settings, this will do nothing,
-                // and the last set values will be used (most likely default values)
-                loadExerciseSettings(userEmail, "squat", setTargetAnglesArray);
-            } else {
-                console.log("Logged out.");
-                setUsername("");
-                setUserLoggedIn(false);
-            }
-        });
-        detectPose(webcamRef, canvasRef, processPoseResults);
-        return () => unsubscribe();
-    }, [userEmail]);
-
-    useEffect(() => {
-        detectPose(webcamRef, canvasRef, processPoseResults);
-        let timeout;
-        const handleResize = () => {
-            clearTimeout(timeout);
-            setWindowResizing(true);
-
-            setDimensions({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-
-            timeout = setTimeout(() => {
-                setWindowResizing(false);
-            }, 1500);
-        };
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    return (
-        <Box>
-            <Typography variant="h2" sx={{ textAlign: "center" }}>
-                Squat
-            </Typography>
-            <Box
-                sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                    width: "100%",
-                    height: "fit-content",
-                    padding: "2vmin",
-                }}>
-                <WebcamCanvas
-                    dimensions={dimensions}
-                    ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-                />
-                <Paper
-                    elevation={3}
-                    sx={{
-                        padding: "20px",
-                        textAlign: "left",
-                        height: "fit-content",
-                        margin: "10px",
-                    }}>
-                    <Box sx={{ display: "flex", justifyContent: "right", alignItems: "center" }}>
-                        <Typography variant="body1">Real-Time Feedback Panel</Typography>
-                        <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
-                        <IconButton sx={{ position: "static" }} onClick={handleOpenModal}>
-                            <SettingsIcon />
-                        </IconButton>
-                    </Box>
-                    <Typography variant="body1">{"Feedback: "}</Typography>
-                    <Typography variant="body1" style={{ color: "red" }}>
-                        {feedback ? feedback : "Please Begin Rep!"}
-                    </Typography>
-                    <Typography variant="body1" style={{ color: "red" }}>
-                        {hipAnglefeedback}
-                    </Typography>
-                    <Typography variant="body1">Knee Angle: {currKneeAngle.toFixed(0)}°</Typography>
-                    <Typography variant="body1">Current Rep Count: {repCount}</Typography>
-                    <Button variant="contained" color="primary" onClick={handleReset}>
-                        Reset Rep Count
-                    </Button>
-                </Paper>
-            </Box>
-
-            <Modal open={openModal} onClose={handleCloseModal}>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 400,
-                        bgcolor: "background.paper",
-                        border: "2px solid black",
-                        boxShadow: 24,
-                        p: 4,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                    }}>
-                    <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                        sx={{ marginBottom: "20px" }}>
-                        Adjust Target Knee Angle
-                    </Typography>
-                    <TextField
-                        id="outlined-number"
-                        label="Target Knee Angle ° for Depth"
-                        type="number"
-                        value={targetKneeAngle}
-                        onChange={handleTargetKneeAngleChange}
-                        sx={{ marginBottom: "20px" }}
-                    />
-                    <TextField
-                        id="outlined-number"
-                        label="Minimum Hip Angle ° (Chest Up)"
-                        type="number"
-                        value={targetHipAngle}
-                        onChange={handleTargetHipAngleChange}
-                        sx={{ marginBottom: "20px" }}
-                    />
-                    <Button variant="contained" onClick={handleCloseModal}>
-                        Save & Close
-                    </Button>
-                </Box>
-            </Modal>
+      <Modal open={openModal} onClose={handleCloseModal}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid black",
+            boxShadow: 24,
+            p: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ marginBottom: "20px" }}>
+            Adjust Target Knee Angle
+          </Typography>
+          <TextField
+            id="outlined-number"
+            label="Target Knee Angle ° for Depth"
+            type="number"
+            value={targetKneeAngle}
+            onChange={handleTargetKneeAngleChange}
+            sx={{ marginBottom: "20px" }}
+          />
+          <TextField
+            id="outlined-number"
+            label="Minimum Hip Angle ° (Chest Up)"
+            type="number"
+            value={targetHipAngle}
+            onChange={handleTargetHipAngleChange}
+            sx={{ marginBottom: "20px" }}
+          />
+          <Button variant="contained" onClick={handleCloseModal}>
+            Save & Close
+          </Button>
         </Box>
-    );
+      </Modal>
+    </Box>
+  );
 }
 
 export default SquatPage;

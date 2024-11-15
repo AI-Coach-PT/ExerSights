@@ -24,7 +24,8 @@ async function createPoseLandmarker() {
   return poseLandmarker;
 }
 
-const detectPose = async (webcamRef, canvasRef, onResultCallback, stopDetection) => {
+// const detectPose = async (webcamRef, canvasRef, onResultCallback, stopDetection) => {
+const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
   poseLandmarker = await createPoseLandmarker();
   let animationID;
 
@@ -47,7 +48,7 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback, stopDetection)
   // };
 
   const detectAndDraw = () => {
-    console.log(`stopDetection in detectAndDraw = ${stopDetection.current}`);
+    // console.log(`stopDetection in detectAndDraw = ${stopDetection.current}`);
     if (webcamRef.current && webcamRef.current.video.readyState >= 2) {
       poseLandmarker.detectForVideo(webcamRef.current.video, performance.now(), (result) => {
         const canvas = canvasRef.current;
@@ -74,10 +75,10 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback, stopDetection)
         }
       });
     }
-    if (!stopDetection.current) {
-      console.log("continuing animation!");
-      animationID = requestAnimationFrame(detectAndDraw);
-    }
+    // if (!stopDetection.current) {
+    // console.log("continuing animation!");
+    animationID = requestAnimationFrame(detectAndDraw);
+    // }
   };
 
   // createPoseLandmarker();
