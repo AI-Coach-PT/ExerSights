@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Typography, Box, Paper, TextField, Button, Modal, IconButton } from "@mui/material";
 import detectPose from "../../utils/PoseDetector";
-import { checkBridges, setBridgeCount } from "../../utils/Bridge";
+import { checkBridges } from "../../utils/Bridge";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../../utils/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import WebcamCanvas from "../../components/WebcamCanvas";
+import { resetRepCount } from "../../utils/GenFeedback";
 
 /**
  * A React functional component that provides a real-time Bridge tracking and feedback interface using

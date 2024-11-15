@@ -1,123 +1,104 @@
-import { calculateAngle } from './Angles';
-import { inFrame } from './InFrame';
-import { playSoundCorrectRep, playText } from './Audio';
+import { genCheck } from './GenFeedback';
 
+const bridgeInfo = {
+    states: {
+        ADJUST_FEET: { feedback: "Bend Knees", audio: true, countRep: false },
+        RAISING_HIPS: { feedback: "Raise Hips", audio: true, countRep: false },
+        FINISHED: { feedback: "Excellent!", audio: false, countRep: true },
+    },
 
-let BridgeCount = 0;
-let inBridgePosition = false;
-let lastFeedback = "";
+    transitions: {
+        ADJUST_FEET: {
+            hipsRaising: "RAISING_HIPS",
+        },
+        RAISING_HIPS: {
+            hitTarget: "FINISHED",
+            adjusting: "ADJUST_FEET",
+        },
+        FINISHED: {
+            hipsRaising: "RAISING_HIPS",
+        }
+    },
+
+    jointInfo: {
+        joints: {
+            left: {
+                leftShoulder: 11,
+                leftHip: 23,
+                leftKnee: 25,
+                leftAnkle: 27
+            },
+            right: {
+                rightShoulder: 12,
+                rightHip: 24,
+                rightKnee: 26,
+                rightAnkle: 28
+            }
+        },
+        jointAngles: {
+            leftHipAngle: [11, 23, 25],
+            leftKneeAngle: [23, 25, 27],
+            rightHipAngle: [12, 24, 26],
+            rightKneeAngle: [24, 26, 28],
+        },
+    },
+
+    targets: {
+        targetHipAngle: 140,
+        targetKneeAngle: 90,
+    },
+};
+
+let currState;
 
 /**
- * Checks the limbs' angles for completion of a rep
+ * Determines the type of transition based on bridge posture.
  *
- * @param {number} kneeAngle
- * @param {number} hipAngle
- * @param {number} targetKneeAngle
- * @param {number} targetHipAngle
- * 
- * 
- * @returns {string} feedback
- * 
+ * @param {object} jointAngles Object containing calculated angles for relevant joints.
+ * @returns {string|null} The type of transition ("adjusting", "hipsRaising", "hitTarget", "loweringHips") or null if no transition applies.
  */
-export const checkBridgesAngles = (kneeAngle, hipAngle, targetKneeAngle, targetHipAngle) => {
-    let feedback = "";
-    if (kneeAngle > targetKneeAngle) {
-        feedback = "Bring Feet In\n Target Knee Angle " + targetKneeAngle;
-    } else {
-        feedback = "Feet In Position!\n";
+const getTransitionType = (jointAngles, closerSide) => {
+    const { leftHipAngle, leftKneeAngle, rightHipAngle, rightKneeAngle } = jointAngles;
 
-        if ((hipAngle < targetHipAngle && !inBridgePosition)) {
-            feedback += "Raise Hips Higher";
-        } else if (hipAngle > targetHipAngle) {
-            feedback += "Excellent!";
-            inBridgePosition = true;
-        } else if (hipAngle < targetHipAngle - 20) {
-            if (inBridgePosition) {
-                feedback += "Excellent!";
-                BridgeCount++;
-                playSoundCorrectRep();
-                inBridgePosition = false;
-            }
-        } else {
-            if (inBridgePosition) {
-                feedback += "Excellent!";
-            }
-        }
-    }
-    return feedback;
+    const targetHipAngle = bridgeInfo.targets["targetHipAngle"];
+    const targetKneeAngle = bridgeInfo.targets["targetKneeAngle"];
+
+    const kneeAngle = closerSide === "left" ? leftKneeAngle : rightKneeAngle;
+    const hipAngle = closerSide === "left" ? leftHipAngle : rightHipAngle;
+
+    if (kneeAngle > targetKneeAngle) return "adjusting";
+    if (hipAngle < targetHipAngle) return "hipsRaising";
+    if (hipAngle >= targetHipAngle) return "hitTarget";
+
+    return null;
 };
 
 /**
- * Monitors and tracks Bridge repetitions by analyzing the hip angle from pose landmarks.
- * Provides real-time feedback based on the depth of the Bridge.
+ * Monitors and tracks Bridge repetitions by analyzing the hip and knee angles from pose landmarks.
+ * Provides real-time feedback based on the Bridge posture.
  *
- * @param {Array} landmarks An array of pose landmarks containing the coordinates of different body points.
- * @param {Function} onFeedbackUpdate A callback function that receives the feedback message about the Bridge depth and form.
- * @param {Function} setleftHipAngle A function to update the current hip angle for display purposes.
- * @param {Function} setRepCount A function to update the Bridge count after a full Bridge is completed.
+ * @param {Object} landmarks - The landmarks of the body to evaluate posture.
+ * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
+ * @param {Function} setHipAngle - Function to update the current hip angle.
+ * @param {Function} setKneeAngle - Function to update the current knee angle.
+ * @param {Function} setRepCount - Function to update the repetition count.
+ * @param {number} [targetHipAngle=140] - The target hip angle to be used for evaluation.
+ * @param {number} [targetKneeAngle=90] - The target knee angle to be used for evaluation.
  */
 export const checkBridges = (landmarks, onFeedbackUpdate, setHipAngle, setKneeAngle, setRepCount, targetHipAngle = 140, targetKneeAngle = 90) => {
+    bridgeInfo.targets["targetHipAngle"] = targetHipAngle;
+    bridgeInfo.targets["targetKneeAngle"] = targetKneeAngle;
 
-    const leftShoulder = landmarks[11];
-    const leftHip = landmarks[23];
-    const leftKnee = landmarks[25];
-    const leftAnkle = landmarks[27];
-
-    const rightShoulder = landmarks[12];
-    const rightHip = landmarks[24];
-    const rightKnee = landmarks[26];
-    const rightAnkle = landmarks[28];
-
-
-    const leftHipAngle = calculateAngle(leftShoulder, leftHip, leftKnee);
-    const leftKneeAngle = calculateAngle(leftHip, leftKnee, leftAnkle);
-
-    const rightHipAngle = calculateAngle(rightShoulder, rightHip, rightKnee);
-    const rightKneeAngle = calculateAngle(rightHip, rightKnee, rightAnkle);
-
-
-
-    let feedback = "";
-
-    const left_in_frame = inFrame(leftShoulder, leftAnkle, undefined, undefined)
-    const right_in_frame = inFrame(rightShoulder, rightAnkle, undefined, undefined)
-
-    if (left_in_frame) {
-        setHipAngle(leftHipAngle);
-        setKneeAngle(leftKneeAngle);
-        feedback = checkBridgesAngles(leftKneeAngle, leftHipAngle, targetKneeAngle, targetHipAngle);
-        setRepCount(BridgeCount);
-    }
-    else if (right_in_frame) {
-        setHipAngle(rightHipAngle);
-        setKneeAngle(rightKneeAngle);
-        feedback = checkBridgesAngles(rightKneeAngle, rightHipAngle, targetKneeAngle, targetHipAngle);
-        setRepCount(BridgeCount);
-    }
-    else {
-        setHipAngle(0);
-        setKneeAngle(0);
-        feedback += "Make sure limbs are visible"
-    }
-
-    // only play feedback audio if hips are not high enough
-    if (feedback.includes("Raise Hips Higher") && !lastFeedback.includes("Raise Hips Higher")) {
-        playText("Raise Hips Higher")
-    }
-    else if (feedback.includes("Excellent") && lastFeedback.includes("Raise Hips Higher")) {
-        playText("Excellent");
-    }
-
-    lastFeedback = feedback;
-    onFeedbackUpdate(feedback);
-};
-
-/**
- * Resets Bridge count to specified value and resets Bridge position state.
- *
- * @param {number} val - The value to set the Bridge count to.
- */
-export const setBridgeCount = (val) => {
-    BridgeCount = val;
-    inBridgePosition = false;
+    currState = genCheck(
+        bridgeInfo,
+        getTransitionType,
+        currState,
+        landmarks,
+        onFeedbackUpdate,
+        setRepCount,
+        {
+            HipAngle: setHipAngle,
+            KneeAngle: setKneeAngle,
+        }
+    );
 };

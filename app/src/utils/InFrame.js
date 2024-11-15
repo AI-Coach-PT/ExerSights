@@ -47,3 +47,23 @@ export const inFrame = (top = null, bottom = null, left = null, right = null) =>
 
     return in_frame;
 };
+
+/**
+ * Determines if all required landmarks are visible
+ *
+ * @param {Array} landmarks An array of landmark objects (joints) to check for visibility
+ * Each landmark object has a `visibility` property
+ * 
+ * @param {number} visibility_threshold The minimum visibility required for a landmark to be considered "visible" (default is 0.5)
+ *
+ * @returns {visibilityCheck} true if all landmarks are visible, false otherwise 
+ */
+export const visibilityCheck = (landmarks = [], visibility_threshold = 0.5) => {
+    if (!Array.isArray(landmarks) || landmarks.length === 0) {
+        return false;
+    }
+
+    const allVisible = landmarks.every(landmark => landmark && landmark.visibility > visibility_threshold);
+
+    return allVisible ? true : false;
+}
