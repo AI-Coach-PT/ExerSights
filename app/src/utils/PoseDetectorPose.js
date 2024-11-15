@@ -8,6 +8,8 @@ const POSE_CONNECTIONS_NON_FACE = [
     [29, 31], [30, 32]
 ];
 
+let pose;
+
 /**
  * Initializes the Mediapipe Pose model and sets up real-time pose detection using a webcam feed. 
  * It draws the pose landmarks and connections (skeleton) onto a canvas and passes the pose data 
@@ -20,17 +22,19 @@ const POSE_CONNECTIONS_NON_FACE = [
  *                                     It is called every time pose landmarks are detected.
  */
 const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
-    const pose = new Pose({
-        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
-    });
+    if (!pose) {
+        pose = new Pose({
+            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
+        });
 
-    pose.setOptions({
-        modelComplexity: 1,
-        smoothLandmarks: true,
-        enableSegmentation: false,
-        minDetectionConfidence: 0.5,
-        minTrackingConfidence: 0.5,
-    });
+        pose.setOptions({
+            modelComplexity: 1,
+            smoothLandmarks: true,
+            enableSegmentation: false,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5,
+        });
+    }
 
     pose.onResults((results) => {
         const canvasCtx = canvasRef.current.getContext('2d');
