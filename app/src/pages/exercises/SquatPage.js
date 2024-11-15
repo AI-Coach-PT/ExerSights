@@ -91,7 +91,7 @@ function SquatPage() {
    */
   const handleReset = () => {
     setRepCount(0);
-    setSquatCount(0);
+    resetRepCount(0);
   };
 
   /**

@@ -95,7 +95,7 @@ function BridgePage() {
    */
   const handleReset = () => {
     setRepCount(0);
-    setBridgeCount(0);
+    resetRepCount(0);
   };
 
   /**

@@ -82,7 +82,7 @@ function DeadBugPage() {
    */
   const handleReset = () => {
     setRepCount(0);
-    setDeadBugCount(0);
+    resetRepCount(0);
   };
 
   /**
