@@ -14,6 +14,7 @@ let repCount = 0;
  * @param {Object} landmarks - The landmarks of the body to calculate joint angles.
  * @param {Function} onFeedbackUpdate - Callback function to update feedback messages.
  * @param {Function} setRepCount - Callback function to update the repetition count.
+ * @param {Function} setLimbsVisible - Function to update the limb visibilty.
  * @param {Object} [angleHandlers={}] - Optional front-end handlers to update specific angles on the front-end pages, keyed by angle name.
  * @returns {Object} - An object containing joint angles and the updated exercise state.
  */
@@ -24,6 +25,7 @@ export const genCheck = (
     landmarks,
     onFeedbackUpdate,
     setRepCount,
+    setLimbsVisible,
     angleHandlers = {}
 ) => {
     if (currState === undefined) {
@@ -59,8 +61,11 @@ export const genCheck = (
     if (!exerInfo.disableVisibilityCheck && !visibilityCheck(leftJointLandmarks) && !visibilityCheck(rightJointLandmarks)) {
         let feedback = "Make sure limbs are visible";
         onFeedbackUpdate(feedback);
+        setLimbsVisible(0);
         return currState;
     }
+
+    setLimbsVisible(1);
 
     // Determine which side is closer to camera, left or right
     const closerSide = getCloserSide(leftJointLandmarks, rightJointLandmarks);

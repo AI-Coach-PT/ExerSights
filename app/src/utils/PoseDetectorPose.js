@@ -21,7 +21,7 @@ let pose;
  * @param {Function} onResultsCallback A callback function that receives the detected pose landmarks.
  *                                     It is called every time pose landmarks are detected.
  */
-const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
+const detectPose = (webcamRef, canvasRef, limbsVisibleRef, onResultsCallback) => {
     if (!pose) {
         pose = new Pose({
             locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
@@ -47,9 +47,11 @@ const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
 
         if (results.poseLandmarks) {
             const nonFaceLandmarks = results.poseLandmarks.filter((_, index) => index > 10);
-
-            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS_NON_FACE, { color: 'blue', lineWidth: 5 });
-            drawLandmarks(canvasCtx, nonFaceLandmarks, { color: 'red', radius: 2.5 });
+            
+            if(limbsVisibleRef.current){
+                drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS_NON_FACE, { color: 'blue', lineWidth: 5 });
+                drawLandmarks(canvasCtx, nonFaceLandmarks, { color: 'red', radius: 2.5 });
+            }
 
             onResultsCallback(results.poseLandmarks);
         }

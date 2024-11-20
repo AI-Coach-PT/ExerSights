@@ -82,10 +82,11 @@ const getTransitionType = (jointAngles, closerSide) => {
  * @param {Function} setHipAngle - Function to update the current hip angle.
  * @param {Function} setKneeAngle - Function to update the current knee angle.
  * @param {Function} setRepCount - Function to update the repetition count.
+ * @param {Function} setLimbsVisible - Function to update the limb visibilty.
  * @param {number} [targetHipAngle=140] - The target hip angle to be used for evaluation.
  * @param {number} [targetKneeAngle=90] - The target knee angle to be used for evaluation.
  */
-export const checkBridges = (landmarks, onFeedbackUpdate, setHipAngle, setKneeAngle, setRepCount, targetHipAngle = 140, targetKneeAngle = 90) => {
+export const checkBridges = (landmarks, onFeedbackUpdate, setHipAngle, setKneeAngle, setRepCount, setLimbsVisible, targetHipAngle = 140, targetKneeAngle = 90) => {
     bridgeInfo.targets["targetHipAngle"] = targetHipAngle;
     bridgeInfo.targets["targetKneeAngle"] = targetKneeAngle;
 
@@ -96,6 +97,7 @@ export const checkBridges = (landmarks, onFeedbackUpdate, setHipAngle, setKneeAn
         landmarks,
         onFeedbackUpdate,
         setRepCount,
+        setLimbsVisible,
         {
             HipAngle: setHipAngle,
             KneeAngle: setKneeAngle,

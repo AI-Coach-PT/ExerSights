@@ -38,6 +38,11 @@ function BridgePage() {
   const [userEmail, setUsername] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
+  const limbsVisibleRef = useRef(true);  // Ref for limbs visibility 
+  const setLimbsVisible = (visible) => { 
+      limbsVisibleRef.current = visible; 
+  }; 
+
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
   const [targetAngles, setTargetAngles] = useState({
@@ -85,6 +90,7 @@ function BridgePage() {
       setLeftHipAngle,
       setLeftKneeAngle,
       setRepCount,
+      setLimbsVisible,
       targetHipAngle,
       targetKneeAngle
     );
@@ -175,7 +181,7 @@ function BridgePage() {
   //   };
   useEffect(() => {
     // detectPose(webcamRef, canvasRef, processPoseResults, stopDetection);
-    detectPose(webcamRef, canvasRef, processPoseResults);
+    detectPose(webcamRef, canvasRef, limbsVisibleRef, processPoseResults);
     // let timeout;
     // const handleResize = () => {
     //   clearTimeout(timeout);
