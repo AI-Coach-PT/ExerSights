@@ -18,6 +18,7 @@ let pose;
  * @param {Object} webcamRef A React reference object pointing to the webcam feed (Webcam component). 
  * @param {Object} canvasRef A React reference object pointing to the canvas element where the pose 
  *                           landmarks and skeleton will be drawn.
+ * @param {Object} limbsVisibleRef A React reference object pointing to the limb visiblity boolean 
  * @param {Function} onResultsCallback A callback function that receives the detected pose landmarks.
  *                                     It is called every time pose landmarks are detected.
  */

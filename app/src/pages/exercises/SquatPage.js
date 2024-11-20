@@ -41,6 +41,10 @@ function SquatPage() {
   const [userEmail, setUsername] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
+  const limbsVisibleRef = useRef(true);  // Ref for limbs visibility 
+  const setLimbsVisible = (visible) => { 
+      limbsVisibleRef.current = visible; 
+  }; 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
   const [targetAngles, setTargetAngles] = useState({
@@ -82,7 +86,7 @@ function SquatPage() {
    * @param {Array} landmarks - The array of pose landmarks.
    */
   const processPoseResults = (landmarks) => {
-    checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, targetKneeAngle);
+    checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, setLimbsVisible, targetKneeAngle);
     checkChestUp(landmarks, setHipAngleFeedback, targetHipAngle);
   };
 
@@ -171,7 +175,7 @@ function SquatPage() {
   //   };
   useEffect(() => {
     // detectPose(webcamRef, canvasRef, processPoseResults, stopDetection);
-    detectPose(webcamRef, canvasRef, processPoseResults);
+    detectPose(webcamRef, canvasRef, limbsVisibleRef, processPoseResults);
     // let timeout;
     // const handleResize = () => {
     //   clearTimeout(timeout);

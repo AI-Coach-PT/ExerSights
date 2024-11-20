@@ -80,9 +80,10 @@ const getTransitionType = (jointAngles, closerSide) => {
  * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
  * @param {Function} setCurrElbowAngle - Function to update the current elbow angle.
  * @param {Function} setRepCount - Function to update the repetition count.
+ * @param {Function} setLimbsVisible - Function to update the limb visibilty.
  * @param {number} [targetElbowAngle=65] - The target elbow angle to be used for evaluation.
  */
-export const checkPushup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, targetElbowAngle = 65) => {
+export const checkPushup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, setLimbsVisible, targetElbowAngle = 65) => {
     pushUpInfo.targets["targetElbowAngle"] = targetElbowAngle;
 
     currState = genCheck(
@@ -92,6 +93,7 @@ export const checkPushup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setR
         landmarks,
         onFeedbackUpdate,
         setRepCount,
+        setLimbsVisible,
         { ElbowAngle: setCurrElbowAngle }
     );
 };

@@ -61,11 +61,15 @@ export const genCheck = (
     if (!exerInfo.disableVisibilityCheck && !visibilityCheck(leftJointLandmarks) && !visibilityCheck(rightJointLandmarks)) {
         let feedback = "Make sure limbs are visible";
         onFeedbackUpdate(feedback);
-        setLimbsVisible(0);
+        if(setLimbsVisible !== undefined){
+            setLimbsVisible(0);
+        }
         return currState;
     }
 
-    setLimbsVisible(1);
+    if(setLimbsVisible !== undefined){
+        setLimbsVisible(1);
+    }
 
     // Determine which side is closer to camera, left or right
     const closerSide = getCloserSide(leftJointLandmarks, rightJointLandmarks);

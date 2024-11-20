@@ -89,6 +89,7 @@ const getTransitionType = (jointAngles, closer) => {
  * @param {Function} setRightHipAngle - Function to update the right hip angle.
  * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
  * @param {Function} setRepCount - Function to update the repetition count.
+ * @param {Function} setLimbsVisible - Function to update the limb visibilty.
  */
 export const checkDeadBug = (
     landmarks,
@@ -99,6 +100,7 @@ export const checkDeadBug = (
     setRightHipAngle,
     onFeedbackUpdate,
     setRepCount,
+    setLimbsVisible,
 ) => {
     deadBugInfo.targets["targetFlatAngle"] = targetFlatAngle;
 
@@ -109,6 +111,7 @@ export const checkDeadBug = (
         landmarks,
         onFeedbackUpdate,
         setRepCount,
+        setLimbsVisible,
         {
             leftUnderarmAngle: setLeftUnderarmAngle,
             rightUnderarmAngle: setRightUnderarmAngle,

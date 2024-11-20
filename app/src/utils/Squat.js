@@ -86,9 +86,10 @@ let currState;
  * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
  * @param {Function} setCurrKneeAngle - Function to update the current knee angle.
  * @param {Function} setRepCount - Function to update the repetition count.
+ * @param {Function} setLimbsVisible - Function to update the limb visibilty.
  * @param {number} [targetKneeAngle=90] - The target knee angle to be used for evaluation.
  */
-export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
+export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, setLimbsVisible, targetKneeAngle = 90) => {
     squatInfo.targets["targetKneeAngle"] = targetKneeAngle;
 
     currState = genCheck(
@@ -98,6 +99,7 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
         landmarks,
         onFeedbackUpdate,
         setRepCount,
+        setLimbsVisible,
         { KneeAngle: setCurrKneeAngle }
     );
 };
@@ -181,5 +183,6 @@ export const checkChestUp = (landmarks, onFeedbackUpdate, targetHipAngle = 45) =
         landmarks,
         onFeedbackUpdate,
         () => { },
+        
     );
 };
