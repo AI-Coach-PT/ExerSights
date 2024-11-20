@@ -25,7 +25,7 @@ async function createPoseLandmarker() {
 }
 
 // const detectPose = async (webcamRef, canvasRef, onResultCallback, stopDetection) => {
-const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
+const detectPose = async (webcamRef, canvasRef, limbsVisibleRef, onResultCallback) => {
   poseLandmarker = await createPoseLandmarker();
   let animationID;
 
@@ -58,15 +58,17 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
         canvasCtx.save();
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         canvasCtx.drawImage(webcamRef.current.video, 0, 0, canvas.width, canvas.height);
-        for (const landmark of result.landmarks) {
-          drawingUtils.drawLandmarks(landmark, {
-            color: "red",
-            radius: 2.5,
-          });
-          drawingUtils.drawConnectors(landmark, PoseLandmarker.POSE_CONNECTIONS, {
-            color: "blue",
-            lineWidth: 5,
-          });
+        if(limbsVisibleRef.current){
+          for (const landmark of result.landmarks) {
+            drawingUtils.drawLandmarks(landmark, {
+              color: "red",
+              radius: 2.5,
+            });
+            drawingUtils.drawConnectors(landmark, PoseLandmarker.POSE_CONNECTIONS, {
+              color: "blue",
+              lineWidth: 5,
+            });
+          }
         }
         canvasCtx.restore();
 
