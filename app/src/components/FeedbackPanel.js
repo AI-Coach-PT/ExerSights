@@ -1,6 +1,22 @@
 import React from "react";
 import { Typography, Box, Paper, Button } from "@mui/material";
 
+/**
+ * A React functional component for rendering a feedback panel that displays real-time 
+ * feedback, exercise-specific angle values, and repetition count. It also includes options 
+ * for resetting the count and dynamically inserting modal components for help and settings.
+ *
+ * @component
+ *
+ * @param {Array} feedbackList - An array of feedback messages to be displayed.
+ * @param {Array} valuesList - An array of objects containing labels and values for angles or other metrics.
+ * @param {number} repCount - The current repetition count for the exercise.
+ * @param {Function} handleReset - Callback function to reset the repetition count.
+ * @param {React.Element} HelpModal - A HelpModal component instance for providing instructions or help.
+ * @param {React.Element} SettingsModal - A SettingsModal component instance for adjusting exercise settings.
+ *
+ * @returns {JSX.Element} The rendered FeedbackPanel component.
+ */
 function FeedbackPanel({
     feedbackList,
     valuesList,

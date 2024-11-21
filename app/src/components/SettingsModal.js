@@ -5,6 +5,19 @@ import { loadExerciseSettings, storeExerciseSettings } from "../utils/ExerciseSe
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 
+/**
+ * A React functional component for displaying and managing a modal that allows users to adjust 
+ * exercise-specific settings, such as target angles. The settings are dynamically rendered 
+ * based on the provided configuration and stored for authenticated users.
+ *
+ * @component
+ *
+ * @param {string} exerciseName - The name of the exercise for which the settings apply.
+ * @param {Object} targetAngles - An object containing the current target angle values for the exercise.
+ * @param {Array} setTargetAnglesArray - An array of [setStateFunction, key] pairs for dynamically updating the target angles.
+ *
+ * @returns {JSX.Element} The rendered SettingsModal component.
+ */
 function SettingsModal({ exerciseName, targetAngles, setTargetAnglesArray }) {
     const [openModal, setOpenModal] = useState(false);
 
