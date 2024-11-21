@@ -8,7 +8,7 @@ import { instructionsTextSquat } from "../../assets/content";
 import WebcamCanvas from "../../components/WebcamCanvas";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
-
+import FeedbackPanel from "../../components/FeedbackPanel";
 /**
  * A React functional component that provides a real-time squat tracking and feedback interface using
  * the Mediapipe Pose model and a webcam feed. The component displays the user's current knee angle,
@@ -30,7 +30,7 @@ function SquatPage() {
   const [targetKneeAngle, setTargetKneeAngle] = useState(90);
   const [feedback, setFeedback] = useState("");
   const [targetHipAngle, setTargetHipAngle] = useState(45);
-  const [hipAnglefeedback, setHipAngleFeedback] = useState("");
+  const [hipAngleFeedback, setHipAngleFeedback] = useState("");
   const [currKneeAngle, setCurrKneeAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
 
@@ -98,32 +98,26 @@ function SquatPage() {
           dimensions={dimensions}
           ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
         />
-        <Paper
-          elevation={3}
-          sx={{
-            padding: "20px",
-            textAlign: "left",
-            height: "fit-content",
-            margin: "10px",
-          }}>
-          <Box sx={{ display: "flex", justifyContent: "right", alignItems: "center" }}>
-            <Typography variant="body1">Real-Time Feedback Panel</Typography>
-            <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
-            <SettingsModal exerciseName="squat" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
-          </Box>
-          <Typography variant="body1">{"Feedback: "}</Typography>
-          <Typography variant="body1" style={{ color: "red" }}>
-            {feedback ? feedback : "Please Begin Rep!"}
-          </Typography>
-          <Typography variant="body1" style={{ color: "red" }}>
-            {hipAnglefeedback}
-          </Typography>
-          <Typography variant="body1">Knee Angle: {currKneeAngle.toFixed(0)}°</Typography>
-          <Typography variant="body1">Current Rep Count: {repCount}</Typography>
-          <Button variant="contained" color="primary" onClick={handleReset}>
-            Reset Rep Count
-          </Button>
-        </Paper>
+        <FeedbackPanel
+          feedbackList={[feedback, hipAngleFeedback]}
+          valuesList={[
+            { label: "Knee Angle", value: currKneeAngle },
+          ]}
+          repCount={repCount}
+          handleReset={handleReset}
+          HelpModal={
+            <HelpModal
+              image={squatHelpImg}
+              description={instructionsTextSquat}
+            />}
+          SettingsModal={
+            <SettingsModal
+              exerciseName="squat"
+              targetAngles={targetAngles}
+              setTargetAnglesArray={setTargetAnglesArray}
+            />
+          }
+        />
       </Box>
     </Box>
   );
