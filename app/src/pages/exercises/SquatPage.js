@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Typography, Box, Paper, Button } from "@mui/material";
 import detectPose from "../../utils/PoseDetector";
 import { checkChestUp, checkSquats } from "../../utils/Squat";
 import HelpModal from "../../components/HelpModal";
@@ -9,6 +8,8 @@ import WebcamCanvas from "../../components/WebcamCanvas";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
+import ExerciseBox from "../../components/ExerciseBox";
+
 /**
  * A React functional component that provides a real-time squat tracking and feedback interface using
  * the Mediapipe Pose model and a webcam feed. The component displays the user's current knee angle,
@@ -80,46 +81,32 @@ function SquatPage() {
     return () => { };
   }, []);
 
+  const webcamCanvas = (
+    <WebcamCanvas
+      dimensions={dimensions}
+      ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
+    />
+  );
+
+  const feedbackPanel = (
+    <FeedbackPanel
+      feedbackList={[feedback, hipAngleFeedback]}
+      valuesList={[
+        { label: "Knee Angle", value: currKneeAngle },
+      ]}
+      repCount={repCount}
+      handleReset={handleReset}
+      HelpModal={
+        <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
+      }
+      SettingsModal={
+        <SettingsModal exerciseName="squat" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
+      }
+    />
+  )
+
   return (
-    <Box>
-      <Typography variant="h2" sx={{ textAlign: "center" }}>
-        Squat
-      </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          width: "100%",
-          height: "fit-content",
-          padding: "2vmin",
-        }}>
-        <WebcamCanvas
-          dimensions={dimensions}
-          ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-        />
-        <FeedbackPanel
-          feedbackList={[feedback, hipAngleFeedback]}
-          valuesList={[
-            { label: "Knee Angle", value: currKneeAngle },
-          ]}
-          repCount={repCount}
-          handleReset={handleReset}
-          HelpModal={
-            <HelpModal
-              image={squatHelpImg}
-              description={instructionsTextSquat}
-            />}
-          SettingsModal={
-            <SettingsModal
-              exerciseName="squat"
-              targetAngles={targetAngles}
-              setTargetAnglesArray={setTargetAnglesArray}
-            />
-          }
-        />
-      </Box>
-    </Box>
+    <ExerciseBox title="Squat" webcamCanvas={webcamCanvas} feedbackPanel={feedbackPanel} />
   );
 }
 
