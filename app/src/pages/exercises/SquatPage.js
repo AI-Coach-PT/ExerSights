@@ -79,7 +79,7 @@ function SquatPage() {
     detectPose(webcamRef, canvasRef, processPoseResults);
 
     return () => { };
-  }, []);
+  }, [targetAngles]);
 
   const webcamCanvas = (
     <WebcamCanvas
