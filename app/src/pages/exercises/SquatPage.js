@@ -24,7 +24,7 @@ import ExerciseBox from "../../components/ExerciseBox";
 function SquatPage() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [dimensions, setDimensions] = useState({
+  const [dimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
