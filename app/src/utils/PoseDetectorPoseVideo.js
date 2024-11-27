@@ -26,6 +26,7 @@ const startPoseDetection = (videoElement, canvasRef, onResultsCallback) => {
 
     pose.onResults((results) => {
         if (!results.poseLandmarks) return;
+        if (!canvasRef.current) return;
 
         const canvasElement = canvasRef.current;
         canvasElement.width = videoElement.videoWidth;
