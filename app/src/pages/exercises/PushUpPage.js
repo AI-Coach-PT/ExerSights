@@ -1,10 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
-import detectPose from "../../utils/PoseDetector";
+import React, { useEffect, useState } from "react";
 import { checkPushup } from "../../utils/PushUp";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
-import WebcamCanvas from "../../components/WebcamCanvas";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -22,12 +20,6 @@ import ExerciseBox from "../../components/ExerciseBox";
  *                        squat count, knee angle display, and a reset button.
  */
 function PushUpPage() {
-  const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [dimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
   const [targetElbowAngle, setTargetElbowAngle] = useState(65);
   const [feedback, setFeedback] = useState("");
   const [currElbowAngle, setCurrElbowAngle] = useState(0);
@@ -60,19 +52,6 @@ function PushUpPage() {
     setTargetAngles({ targetElbowAngle: targetElbowAngle });
   }, [targetElbowAngle]);
 
-  useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults);
-
-    return () => { };
-  }, [targetAngles]);
-
-  const webcamCanvas = (
-    <WebcamCanvas
-      dimensions={dimensions}
-      ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-    />
-  );
-
   const feedbackPanel = (
     <FeedbackPanel
       feedbackList={[feedback]}
@@ -91,7 +70,12 @@ function PushUpPage() {
   )
 
   return (
-    <ExerciseBox title="Pushup" webcamCanvas={webcamCanvas} feedbackPanel={feedbackPanel} />
+    <ExerciseBox
+      title="Pushup"
+      feedbackPanel={feedbackPanel}
+      processPoseResults={processPoseResults}
+      targetAngles={targetAngles}
+    />
   );
 }
 

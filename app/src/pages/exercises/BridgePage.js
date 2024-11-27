@@ -1,10 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
-import detectPose from "../../utils/PoseDetector";
+import React, { useEffect, useState } from "react";
 import { checkBridges } from "../../utils/Bridge";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
-import WebcamCanvas from "../../components/WebcamCanvas";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -22,12 +20,6 @@ import ExerciseBox from "../../components/ExerciseBox";
  *                        Bridge count, Hip angle display, and a reset button.
  */
 function BridgePage() {
-  const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [dimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
   const [targetHipAngle, setTargetHipAngle] = useState(140);
   const [targetKneeAngle, setTargetKneeAngle] = useState(90);
   const [feedback, setFeedback] = useState("");
@@ -82,19 +74,6 @@ function BridgePage() {
     setTargetAngles({ targetHipAngle: targetHipAngle, targetKneeAngle: targetKneeAngle });
   }, [targetHipAngle, targetKneeAngle]);
 
-  useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults);
-
-    return () => { };
-  }, [targetAngles]);
-
-  const webcamCanvas = (
-    <WebcamCanvas
-      dimensions={dimensions}
-      ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-    />
-  );
-
   const feedbackPanel = (
     <FeedbackPanel
       feedbackList={[feedback]}
@@ -114,7 +93,12 @@ function BridgePage() {
   )
 
   return (
-    <ExerciseBox title="Bridge" webcamCanvas={webcamCanvas} feedbackPanel={feedbackPanel} />
+    <ExerciseBox
+      title="Bridge"
+      feedbackPanel={feedbackPanel}
+      processPoseResults={processPoseResults}
+      targetAngles={targetAngles}
+    />
   );
 }
 
