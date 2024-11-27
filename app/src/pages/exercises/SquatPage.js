@@ -1,10 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
-import detectPose from "../../utils/PoseDetector";
+import React, { useEffect, useState } from "react";
 import { checkChestUp, checkSquats } from "../../utils/Squat";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
-import WebcamCanvas from "../../components/WebcamCanvas";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -22,12 +20,6 @@ import ExerciseBox from "../../components/ExerciseBox";
  *                        squat count, knee angle display, and a reset button.
  */
 function SquatPage() {
-  const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [dimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
   const [targetKneeAngle, setTargetKneeAngle] = useState(90);
   const [feedback, setFeedback] = useState("");
   const [targetHipAngle, setTargetHipAngle] = useState(45);
@@ -75,19 +67,6 @@ function SquatPage() {
     setTargetAngles({ targetKneeAngle: targetKneeAngle, targetHipAngle: targetHipAngle });
   }, [targetKneeAngle, targetHipAngle]);
 
-  useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults);
-
-    return () => { };
-  }, [targetAngles]);
-
-  const webcamCanvas = (
-    <WebcamCanvas
-      dimensions={dimensions}
-      ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-    />
-  );
-
   const feedbackPanel = (
     <FeedbackPanel
       feedbackList={[feedback, hipAngleFeedback]}
@@ -108,9 +87,9 @@ function SquatPage() {
   return (
     <ExerciseBox
       title="Squat"
-      webcamCanvas={webcamCanvas}
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
+      targetAngles={targetAngles}
     />
   );
 }
