@@ -10,9 +10,6 @@ import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
 import ExerciseBox from "../../components/ExerciseBox";
 
-import startPoseDetection from "../../utils/PoseDetectorPoseVideo";
-import VideoCanvas from "../../components/VideoCanvas";
-
 /**
  * A React functional component that provides a real-time squat tracking and feedback interface using
  * the Mediapipe Pose model and a webcam feed. The component displays the user's current knee angle,
@@ -27,10 +24,6 @@ import VideoCanvas from "../../components/VideoCanvas";
 function SquatPage() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const videoRef = useRef(null);
-  const videoCanvasRef = useRef(null);
-  const [useVideo, setUseVideo] = useState(false);
-
   const [dimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -88,30 +81,7 @@ function SquatPage() {
     return () => { };
   }, [targetAngles]);
 
-  const handleVideoUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const videoURL = URL.createObjectURL(file);
-      const videoElement = videoRef.current;
-
-      videoElement.src = videoURL;
-      videoElement.onloadeddata = () => {
-        videoElement.pause(); // Pause initially until user plays it
-      };
-    }
-  };
-
-  const handlePlay = () => {
-    const videoElement = videoRef.current;
-    startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
-  };
-
-  const webcamCanvas = useVideo ? (
-    <VideoCanvas
-      handlePlay={handlePlay}
-      ref={{ videoRef: videoRef, canvasRef: videoCanvasRef }}
-    />
-  ) : (
+  const webcamCanvas = (
     <WebcamCanvas
       dimensions={dimensions}
       ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
@@ -136,15 +106,12 @@ function SquatPage() {
   )
 
   return (
-    <div>
-      <ExerciseBox title="Squat" webcamCanvas={webcamCanvas} feedbackPanel={feedbackPanel} />
-      <input
-        type="file"
-        accept="video/*"
-        onChange={handleVideoUpload}
-        style={{ marginBottom: "20px" }}
-      />
-    </div>
+    <ExerciseBox
+      title="Squat"
+      webcamCanvas={webcamCanvas}
+      feedbackPanel={feedbackPanel}
+      processPoseResults={processPoseResults}
+    />
   );
 }
 

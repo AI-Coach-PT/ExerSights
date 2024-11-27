@@ -1,5 +1,7 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
+import React, { useState, useRef } from "react";
+import { Button, Box, Typography } from "@mui/material";
+import VideoCanvas from "./VideoCanvas";
+import startPoseDetection from "../utils/PoseDetectorPoseVideo";
 
 /**
  * A reusable layout component for exercise tracking pages.
@@ -11,7 +13,35 @@ import { Box, Typography } from "@mui/material";
  *
  * @returns {JSX.Element} The JSX code for the ExerciseBox layout.
  */
-function ExerciseBox({ title, webcamCanvas, feedbackPanel }) {
+function ExerciseBox({ title, webcamCanvas, feedbackPanel, processPoseResults }) {
+    const videoRef = useRef(null);
+    const videoCanvasRef = useRef(null);
+    const [useVideo, setUseVideo] = useState(false);
+
+    const handleVideoUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const videoURL = URL.createObjectURL(file);
+            const videoElement = videoRef.current;
+
+            videoElement.src = videoURL;
+            videoElement.onloadeddata = () => {
+                videoElement.pause(); // Pause initially until user plays it
+            };
+
+            setUseVideo(true);
+        }
+    };
+
+    const handlePlay = () => {
+        const videoElement = videoRef.current;
+        startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
+    };
+
+    const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
+        handleVideoUpload: handleVideoUpload, // Spread in the extra props
+    });
+
     return (
         <Box>
             <Typography variant="h2" sx={{ textAlign: "center" }}>
@@ -27,8 +57,17 @@ function ExerciseBox({ title, webcamCanvas, feedbackPanel }) {
                     padding: "2vmin",
                 }}
             >
-                {webcamCanvas}
-                {feedbackPanel}
+                <Box sx={{ display: useVideo ? "none" : "" }}>
+                    {webcamCanvas}
+                </Box>
+                <Box sx={{ display: useVideo ? "" : "none" }}>
+                    <VideoCanvas
+                        handlePlay={handlePlay}
+                        ref={{ videoRef: videoRef, canvasRef: videoCanvasRef }}
+                    />
+                </Box>
+
+                {enhancedFeedbackPanel}
             </Box>
         </Box>
     );
