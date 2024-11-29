@@ -3,7 +3,8 @@
         "squat": "Squats strengthen the legs, glutes, and core, improving flexibility and balance.",
         "pushup": "The push-up exercise builds upper body strength specifically in your chest and triceps.",
         "deadbug": "The dead bug exercise is a technique for building strength in your back and core.",
-        "bridge": "The bridge exercise strengthens core muscles and improves spinal stability."
+        "bridge": "The bridge exercise strengthens core muscles and improves spinal stability.",
+        "pullup": "The pull-up exercise builds upper body strength in the back, shoulders, and biceps."
     },
     "instructions": {
         "squat": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
