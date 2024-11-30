@@ -6,6 +6,7 @@ import squatImg from "../assets/squat.jpg";
 import bridgeImg from "../assets/bridge.jpg";
 import deadBugImage from "../assets/deadbug.png";
 import pushUpImage from "../assets/pushUp.png";
+import pushUpGameImage from "../assets/pushupGame.jpg";
 import { catalogText } from "../assets/content.js";
 
 /**
@@ -52,6 +53,13 @@ function Catalog() {
                     link="/pushup"
                     image={pushUpImage}
                 />
+
+                <ExerciseCard
+                    title="Two Player Push-up Game"
+                    description={catalogText.pushupGame}
+                    link="/pushupGame"
+                    image={pushUpGameImage}
+                />  
             </Grid>
         </Box>
     );
