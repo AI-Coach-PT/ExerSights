@@ -21,47 +21,53 @@ import { catalogText } from "../assets/content.js";
  * @returns {JSX.Element} A catalog page displaying exercises.
  */
 function Catalog() {
-    return (
-        <Box sx={{ padding: "20px", textAlign: "center" }}>
-            <Typography variant="h1" gutterBottom>
-                Catalog
-            </Typography>
+  return (
+    <Box sx={{ padding: "20px", textAlign: "center" }}>
+      <Typography variant="h1" gutterBottom>
+        Catalog
+      </Typography>
 
-            <Grid container spacing={2} sx={{ justifyContent: "center" }}>
-                <ExerciseCard
-                    title="Squat"
-                    description={catalogText.squat}
-                    link="/squat"
-                    image={squatImg}
-                />
+      <Grid container spacing={2} sx={{ justifyContent: "center" }}>
+        <ExerciseCard
+          title="Squat"
+          description={catalogText.squat}
+          link="/squat"
+          image={squatImg}
+        />
 
-                <ExerciseCard
-                    title="Bridge"
-                    description={catalogText.bridge}
-                    link="/bridge"
-                    image={bridgeImg}
-                />
-                <ExerciseCard
-                    title="Dead Bug"
-                    description={catalogText.deadbug}
-                    link="/deadbug"
-                    image={deadBugImage}
-                />
-                <ExerciseCard
-                    title="Push-up"
-                    description={catalogText.pushup}
-                    link="/pushup"
-                    image={pushUpImage}
-                />
-                <ExerciseCard
-                    title="Pull-up"
-                    description={catalogText.pullup}
-                    link="/pullup"
-                    image={pullUpImage}
-                />
-            </Grid>
-        </Box>
-    );
+        <ExerciseCard
+          title="Bridge"
+          description={catalogText.bridge}
+          link="/bridge"
+          image={bridgeImg}
+        />
+        <ExerciseCard
+          title="Dead Bug"
+          description={catalogText.deadbug}
+          link="/deadbug"
+          image={deadBugImage}
+        />
+        <ExerciseCard
+          title="Push-up"
+          description={catalogText.pushup}
+          link="/pushup"
+          image={pushUpImage}
+        />
+        <ExerciseCard
+          title="Pull-up"
+          description={catalogText.pullup}
+          link="/pullup"
+          image={pullUpImage}
+        />
+        <ExerciseCard
+          title="Lateral External Rotation"
+          description={catalogText.pullup}
+          link="/latExtRotation"
+          image={pullUpImage}
+        />
+      </Grid>
+    </Box>
+  );
 }
 
 export default Catalog;
