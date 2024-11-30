@@ -7,6 +7,7 @@ import bridgeImg from "../assets/bridge.jpg";
 import deadBugImage from "../assets/deadbug.png";
 import pushUpImage from "../assets/pushUp.png";
 import pullUpImage from "../assets/pullUp.png";
+import latExtRotationImg from "../assets/latExtRotation.jpg";
 import { catalogText } from "../assets/content.js";
 
 /**
@@ -61,9 +62,9 @@ function Catalog() {
         />
         <ExerciseCard
           title="Lateral External Rotation"
-          description={catalogText.pullup}
+          description={catalogText.latExtRotation}
           link="/latExtRotation"
-          image={pullUpImage}
+          image={latExtRotationImg}
         />
       </Grid>
     </Box>

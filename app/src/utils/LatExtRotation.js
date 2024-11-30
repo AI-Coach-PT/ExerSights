@@ -81,14 +81,13 @@ const getTransitionType = (jointData, closerSide) => {
 };
 
 /**
- * Checks and updates the pull-up posture state, tracks elbow angle, and counts repetitions.
- * Leverages generalized feedback checking method.
+ * Checks lateral external rotation based on given landmarks and updates feedback.
  *
- * @param {Object} landmarks - The landmarks of the body to evaluate posture.
- * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
- * @param {Function} setCurrSideAngle - Function to update the current elbow angle.
+ * @param {Array} landmarks - An array of landmarks used for calculating angles.
+ * @param {Function} onFeedbackUpdate - Callback function to update feedback based on the current state.
+ * @param {Function} setCurrSideAngle - Function to set the current side angle.
  * @param {Function} setRepCount - Function to update the repetition count.
- * @param {number} [targetSideAngle=20] - The target elbow angle to be used for evaluation.
+ * @param {number} [targetSideAngle=140] - The target angle for side rotation. Defaults to 140 if not specified.
  */
 export const checkLatExtRotation = (
   landmarks,
