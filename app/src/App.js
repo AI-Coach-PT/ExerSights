@@ -7,10 +7,12 @@ import SquatPage from "./pages/exercises/SquatPage";
 import Menubar from "./components/Menubar";
 import BridgePage from "./pages/exercises/BridgePage";
 import DeadBugPage from "./pages/exercises/DeadBugPage";
+import PushUpPage from "./pages/exercises/PushUpPage";
+import PushUpGamePage from "./pages/exercises/PushUpGamePage";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import PushUpPage from "./pages/exercises/PushUpPage";
+
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -35,6 +37,7 @@ function App() {
                     <Route path="/bridge" element={<BridgePage />} />
                     <Route path="/deadbug" element={<DeadBugPage />} />
                     <Route path="/pushup" element={<PushUpPage />} />
+                    <Route path="/pushupGame" element={<PushUpGamePage />} />
                 </Routes>
             </Router>
         </ThemeProvider>
