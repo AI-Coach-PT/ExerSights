@@ -12,6 +12,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import PushUpPage from "./pages/exercises/PushUpPage";
 import PullUpPage from "./pages/exercises/PullUpPage";
+import LatExtRotationPage from "./pages/exercises/LatExtRotationPage";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -22,25 +23,26 @@ import PullUpPage from "./pages/exercises/PullUpPage";
  * @returns {JSX.Element} The main app component with routing and navigation.
  */
 function App() {
-    return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Router>
-                <Menubar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/catalog" element={<Catalog />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/squat" element={<SquatPage />} />
-                    <Route path="/bridge" element={<BridgePage />} />
-                    <Route path="/deadbug" element={<DeadBugPage />} />
-                    <Route path="/pushup" element={<PushUpPage />} />
-                    <Route path="/pullup" element={<PullUpPage />} />
-                </Routes>
-            </Router>
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Menubar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/squat" element={<SquatPage />} />
+          <Route path="/bridge" element={<BridgePage />} />
+          <Route path="/deadbug" element={<DeadBugPage />} />
+          <Route path="/pushup" element={<PushUpPage />} />
+          <Route path="/pullup" element={<PullUpPage />} />
+          <Route path="/latExtRotation" element={<LatExtRotationPage />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
+  );
 }
 
 export default App;
