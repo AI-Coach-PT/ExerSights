@@ -5,7 +5,8 @@ const pullUpInfo = {
         INIT: { feedback: "Get in Pull Up Position!", audio: false, countRep: false },
         ASCENDING: { feedback: "Pull Chin Above Bar!", audio: true, countRep: false },
         UP: { feedback: "Excellent!", audio: true, countRep: true },
-        DESCENDING: { feedback: "Fully lock out arms!", audio: false, countRep: false }
+        DESCENDING: { feedback: "Fully lock out arms!", audio: true, countRep: false },
+        KIP: { feedback: "Don't use legs!", audio: true, countRep: false },
     },
 
     transitions: {
@@ -13,13 +14,18 @@ const pullUpInfo = {
             chinBelow: "ASCENDING"
         },
         ASCENDING: {
-            chinAbove: "UP"
+            chinAbove: "UP",
+            kneeBend: "KIP"
         },
         UP: {
-            chinBelow: "DESCENDING",
+            chinBelow: "DESCENDING"
         },
         DESCENDING: {
             lockedOut: "ASCENDING"
+        },
+        KIP: {
+            kneeBend: "KIP",
+            lockedOut: "INIT"
         }
     },
 
@@ -41,6 +47,8 @@ const pullUpInfo = {
         jointAngles: {
             leftElbowAngle: [11, 13, 15],
             rightElbowAngle: [12, 14, 16],
+            leftKneeAngle: [23, 25, 27],
+            rightKneeAngle: [24, 26, 28]
         },
         jointPos: {
             leftWristPos: 15,
@@ -52,6 +60,7 @@ const pullUpInfo = {
 
     targets: {
         thresholdElbowAngle: 150,
+        thresholdKneeAngle: 120
     },
 };
 
@@ -64,16 +73,19 @@ let currState;
  * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
  */
 const getTransitionType = (jointData, closerSide) => {
-    const { leftElbowAngle, rightElbowAngle, leftWristPos, rightWristPos, leftMouthPos, rightMouthPos } = jointData;
+    const { leftElbowAngle, rightElbowAngle, leftWristPos, rightWristPos, leftMouthPos, rightMouthPos, leftKneeAngle, rightKneeAngle } = jointData;
 
     const thresholdElbowAngle = pullUpInfo.targets["thresholdElbowAngle"];
+    const thresholdKneeAngle = pullUpInfo.targets["thresholdKneeAngle"];
 
     const elbowAngle = closerSide === "left" ? leftElbowAngle : rightElbowAngle;
     const wristPos = closerSide === "left" ? leftWristPos : rightWristPos;
     const mouthPos = closerSide === "left" ? leftMouthPos : rightMouthPos;
+    const kneeAngle = closerSide === "left" ? leftKneeAngle : rightKneeAngle;
 
-    if (elbowAngle > thresholdElbowAngle) return "lockedOut";
-    if (mouthPos.y < wristPos.y) return "chinAbove";
+    if ((currState === "KIP" || currState === "ASCENDING") && kneeAngle < thresholdKneeAngle) return "kneeBend";
+    if ((currState === "KIP" || currState === "DESCENDING") && elbowAngle > thresholdElbowAngle) return "lockedOut";
+    if (currState === "ASCENDING" && mouthPos.y < wristPos.y) return "chinAbove";
     if (mouthPos.y >= wristPos.y) return "chinBelow";
 
     return null;
