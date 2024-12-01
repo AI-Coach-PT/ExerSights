@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box, Card, CardContent, Button, CardMedia } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/catalog.png";
 import { disclaimerText } from "../assets/content"
 
 function Home() {
@@ -38,7 +38,7 @@ function Home() {
 
             <Card
                 sx={{
-                    maxWidth: 400,
+                    maxWidth: 600,
                     margin: "0 auto",
                     boxShadow: 3,
                     cursor: "pointer",
