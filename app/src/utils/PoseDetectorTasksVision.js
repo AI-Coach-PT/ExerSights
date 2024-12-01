@@ -1,6 +1,7 @@
 import { FilesetResolver, PoseLandmarker, DrawingUtils } from "@mediapipe/tasks-vision";
 import poseLandmarkerTask from "../shared/models/pose_landmarker_lite.task";
 
+
 let poseLandmarker;
 
 async function createPoseLandmarker() {
@@ -14,7 +15,7 @@ async function createPoseLandmarker() {
           modelAssetPath: poseLandmarkerTask,
         },
         runningMode: "VIDEO",
-        numPoses: 1,
+        numPoses: 2,
       });
       // detectPose();
     } catch (e) {
@@ -58,16 +59,43 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
         canvasCtx.save();
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         canvasCtx.drawImage(webcamRef.current.video, 0, 0, canvas.width, canvas.height);
-        for (const landmark of result.landmarks) {
-          drawingUtils.drawLandmarks(landmark, {
-            color: "red",
-            radius: 2.5,
-          });
-          drawingUtils.drawConnectors(landmark, PoseLandmarker.POSE_CONNECTIONS, {
-            color: "blue",
-            lineWidth: 5,
-          });
+        
+        for (let i = 0; i < result.landmarks.length; i++) {
+          const pose = result.landmarks[i];
+          if (i === 0) {
+            // First pose: red dots and blue lines
+            drawingUtils.drawLandmarks(pose, {
+              color: "red",
+              radius: 2.5,
+            });
+            drawingUtils.drawConnectors(pose, PoseLandmarker.POSE_CONNECTIONS, {
+              color: "blue",
+              lineWidth: 5,
+            });
+          } else if (i === 1) {
+            // Second pose: purple dots and orange lines
+            drawingUtils.drawLandmarks(pose, {
+              color: "purple",
+              radius: 2.5,
+            });
+            drawingUtils.drawConnectors(pose, PoseLandmarker.POSE_CONNECTIONS, {
+              color: "orange",
+              lineWidth: 5,
+            });
+          } else {
+            // Optional: Styling for other poses, if needed
+            drawingUtils.drawLandmarks(pose, {
+              color: "gray",
+              radius: 2.5,
+            });
+            drawingUtils.drawConnectors(pose, PoseLandmarker.POSE_CONNECTIONS, {
+              color: "black",
+              lineWidth: 5,
+            });
+          }
         }
+
+        
         canvasCtx.restore();
 
         if (result.landmarks[0]) {
