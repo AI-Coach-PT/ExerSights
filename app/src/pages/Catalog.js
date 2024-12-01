@@ -6,6 +6,7 @@ import squatImg from "../assets/squat.jpg";
 import bridgeImg from "../assets/bridge.jpg";
 import deadBugImage from "../assets/deadbug.png";
 import pushUpImage from "../assets/pushUp.png";
+import pullUpImage from "../assets/pullUp.png";
 import { catalogText } from "../assets/content.js";
 
 /**
@@ -51,6 +52,12 @@ function Catalog() {
                     description={catalogText.pushup}
                     link="/pushup"
                     image={pushUpImage}
+                />
+                <ExerciseCard
+                    title="Pull-up"
+                    description={catalogText.pullup}
+                    link="/pullup"
+                    image={pullUpImage}
                 />
             </Grid>
         </Box>

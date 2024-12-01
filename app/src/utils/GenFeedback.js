@@ -30,15 +30,28 @@ export const genCheck = (
         currState = Object.keys(exerInfo.states)[0];
     }
 
-    const jointAngles = {};
+    const jointData = {};
 
     // Dynamically calculate angles for all joints defined in jointInfo.jointAngles
-    for (const [jointName, jointIndices] of Object.entries(exerInfo.jointInfo.jointAngles)) {
-        jointAngles[jointName] = calculateAngle(
-            landmarks[jointIndices[0]],
-            landmarks[jointIndices[1]],
-            landmarks[jointIndices[2]]
-        );
+    if (exerInfo.jointInfo.jointAngles) {
+        for (const [jointName, jointIndices] of Object.entries(exerInfo.jointInfo.jointAngles)) {
+            jointData[jointName] = calculateAngle(
+                landmarks[jointIndices[0]],
+                landmarks[jointIndices[1]],
+                landmarks[jointIndices[2]]
+            );
+        }
+    }
+
+    // Dynamically pass positions for all joints defined in jointInfo.jointPositions
+    if (exerInfo.jointInfo.jointPos) {
+        for (const [jointName, jointIndex] of Object.entries(exerInfo.jointInfo.jointPos)) {
+            jointData[jointName] = {
+                x: landmarks[jointIndex].x,
+                y: landmarks[jointIndex].y,
+                z: landmarks[jointIndex].z
+            };
+        }
     }
 
     // Populate left side joints
@@ -66,7 +79,7 @@ export const genCheck = (
     const closerSide = getCloserSide(leftJointLandmarks, rightJointLandmarks);
 
     // Determine transition
-    const transitionType = getTransitionType(jointAngles, closerSide);
+    const transitionType = getTransitionType(jointData, closerSide);
 
     // Perform the state transition if applicable
     if (transitionType && exerInfo.transitions[currState] && exerInfo.transitions[currState][transitionType]) {
@@ -92,8 +105,8 @@ export const genCheck = (
             fullAngleName = `${angleName}`;
         }
 
-        if (jointAngles[fullAngleName] !== undefined) {
-            updateFunc(jointAngles[fullAngleName]);
+        if (jointData[fullAngleName] !== undefined) {
+            updateFunc(jointData[fullAngleName]);
         }
     }
 

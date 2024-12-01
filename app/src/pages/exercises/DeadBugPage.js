@@ -1,10 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
-import detectPose from "../../utils/PoseDetector";
+import React, { useEffect, useState } from "react";
 import { checkDeadBug } from "../../utils/DeadBug";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
-import WebcamCanvas from "../../components/WebcamCanvas";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -22,12 +20,6 @@ import ExerciseBox from "../../components/ExerciseBox";
  *                        repetition count, target angle display, and a reset button.
  */
 function DeadBugPage() {
-  const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [dimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
   const [targetFlatAngle, setTargetFlatAngle] = useState(140);
   const [leftUnderarmAngle, setLeftUnderarmAngle] = useState(0);
   const [rightUnderarmAngle, setRightUnderarmAngle] = useState(0);
@@ -78,19 +70,6 @@ function DeadBugPage() {
     setTargetAngles({ targetFlatAngle: targetFlatAngle });
   }, [targetFlatAngle]);
 
-  useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults);
-
-    return () => { };
-  }, [targetAngles]);
-
-  const webcamCanvas = (
-    <WebcamCanvas
-      dimensions={dimensions}
-      ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-    />
-  );
-
   const feedbackPanel = (
     <FeedbackPanel
       feedbackList={[feedback]}
@@ -112,7 +91,12 @@ function DeadBugPage() {
   )
 
   return (
-    <ExerciseBox title="DeadBug" webcamCanvas={webcamCanvas} feedbackPanel={feedbackPanel} />
+    <ExerciseBox
+      title="DeadBug"
+      feedbackPanel={feedbackPanel}
+      processPoseResults={processPoseResults}
+      targetAngles={targetAngles}
+    />
   );
 }
 

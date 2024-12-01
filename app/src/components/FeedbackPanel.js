@@ -24,6 +24,7 @@ function FeedbackPanel({
     handleReset,
     HelpModal,
     SettingsModal,
+    handleVideoUpload
 }) {
     return (
         <Paper
@@ -59,8 +60,23 @@ function FeedbackPanel({
                 </Typography>
             ))}
             <Typography variant="body1">Current Rep Count: {repCount}</Typography>
+
             <Button variant="contained" color="primary" onClick={handleReset}>
                 Reset Rep Count
+            </Button>
+
+            <Button
+                variant="contained"
+                component="label"
+                sx={{ marginTop: "1vh", maxWidth: "55%", display: "block" }}
+            >
+                Upload Video
+                <input
+                    type="file"
+                    accept="video/*"
+                    onChange={handleVideoUpload}
+                    hidden
+                />
             </Button>
         </Paper>
     );
