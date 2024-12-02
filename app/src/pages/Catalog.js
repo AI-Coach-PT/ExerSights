@@ -7,6 +7,7 @@ import bridgeImg from "../assets/bridge.jpg";
 import deadBugImage from "../assets/deadbug.png";
 import pushUpImage from "../assets/pushUp.png";
 import pullUpImage from "../assets/pullUp.png";
+import muscleUpImage from "../assets/muscleUp.png";
 import latExtRotationImg from "../assets/latExtRotation.jpg";
 import { catalogText } from "../assets/content.js";
 
@@ -59,6 +60,12 @@ function Catalog() {
           description={catalogText.pullup}
           link="/pullup"
           image={pullUpImage}
+        />
+        <ExerciseCard
+          title="Muscle-up"
+          description={catalogText.muscleup}
+          link="/muscleup"
+          image={muscleUpImage}
         />
         <ExerciseCard
           title="Lateral External Rotation"

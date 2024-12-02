@@ -1,31 +1,31 @@
 import { genCheck } from './GenFeedback';
 
-const pullUpInfo = {
+const muscleUpInfo = {
     states: {
-        INIT: { feedback: "Get in Pull Up Position!", audio: false, countRep: false },
-        ASCENDING: { feedback: "Pull Chin Above Bar!", audio: true, countRep: false },
-        UP: { feedback: "Excellent!", audio: true, countRep: true },
-        DESCENDING: { feedback: "Fully lock out arms!", audio: true, countRep: false },
-        KIP: { feedback: "Don't use legs!", audio: true, countRep: false },
+        INIT: { feedback: "Get in position!", audio: false, countRep: false },
+        PULLUP: { feedback: "Pull chin above bar!", audio: true, countRep: false },
+        TRANSITION: { feedback: "Transition to dip position!", audio: true, countRep: false },
+        DIP: { feedback: "Push up!", audio: true, countRep: false },
+        FINISH: { feedback: "Excellent!", audio: true, countRep: true },
     },
 
     transitions: {
         INIT: {
-            chinBelow: "ASCENDING"
+            chinBelowBar: "PULLUP"
         },
-        ASCENDING: {
-            chinAbove: "UP",
-            kneeBend: "KIP"
+        PULLUP: {
+            chinAboveBar: "TRANSITION"
         },
-        UP: {
-            chinBelow: "DESCENDING"
+        TRANSITION: {
+            elbowAboveBar: "DIP",
+            chinBelowBar: "PULLUP"
         },
-        DESCENDING: {
-            lockedOut: "ASCENDING"
+        DIP: {
+            lockedOut: "FINISH",
+            chinBelowBar: "PULLUP"
         },
-        KIP: {
-            kneeBend: "KIP",
-            lockedOut: "INIT"
+        FINISH: {
+            chinBelowBar: "PULLUP"
         }
     },
 
@@ -47,10 +47,10 @@ const pullUpInfo = {
         jointAngles: {
             leftElbowAngle: [11, 13, 15],
             rightElbowAngle: [12, 14, 16],
-            leftKneeAngle: [23, 25, 27],
-            rightKneeAngle: [24, 26, 28]
         },
         jointPos: {
+            leftElbowPos: 13,
+            rightElbowPos: 14,
             leftWristPos: 15,
             rightWristPos: 16,
             leftMouthPos: 9,
@@ -59,8 +59,7 @@ const pullUpInfo = {
     },
 
     targets: {
-        thresholdElbowAngle: 150,
-        thresholdKneeAngle: 120
+        thresholdElbowAngle: 170,
     },
 };
 
@@ -73,20 +72,19 @@ let currState;
  * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
  */
 const getTransitionType = (jointData, closerSide) => {
-    const { leftElbowAngle, rightElbowAngle, leftWristPos, rightWristPos, leftMouthPos, rightMouthPos, leftKneeAngle, rightKneeAngle } = jointData;
+    const { leftElbowAngle, rightElbowAngle, leftElbowPos, rightElbowPos, leftWristPos, rightWristPos, leftMouthPos, rightMouthPos } = jointData;
 
-    const thresholdElbowAngle = pullUpInfo.targets["thresholdElbowAngle"];
-    const thresholdKneeAngle = pullUpInfo.targets["thresholdKneeAngle"];
+    const thresholdElbowAngle = muscleUpInfo.targets["thresholdElbowAngle"];
 
     const elbowAngle = closerSide === "left" ? leftElbowAngle : rightElbowAngle;
+    const elbowPos = closerSide === "left" ? leftElbowPos : rightElbowPos;
     const wristPos = closerSide === "left" ? leftWristPos : rightWristPos;
     const mouthPos = closerSide === "left" ? leftMouthPos : rightMouthPos;
-    const kneeAngle = closerSide === "left" ? leftKneeAngle : rightKneeAngle;
 
-    if ((currState === "KIP" || currState === "ASCENDING") && kneeAngle < thresholdKneeAngle) return "kneeBend";
-    if ((currState === "KIP" || currState === "DESCENDING") && elbowAngle > thresholdElbowAngle) return "lockedOut";
-    if (currState === "ASCENDING" && mouthPos.y < wristPos.y) return "chinAbove";
-    if (mouthPos.y >= wristPos.y) return "chinBelow";
+    if (currState === "DIP" && elbowAngle > thresholdElbowAngle) return "lockedOut";
+    if (currState === "PULLUP" && mouthPos.y < wristPos.y) return "chinAboveBar";
+    if (currState === "TRANSITION" && elbowPos.y < wristPos.y) return "elbowAboveBar";
+    if (mouthPos.y >= wristPos.y) return "chinBelowBar";
 
     return null;
 };
@@ -99,13 +97,13 @@ const getTransitionType = (jointData, closerSide) => {
  * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
  * @param {Function} setCurrElbowAngle - Function to update the current elbow angle.
  * @param {Function} setRepCount - Function to update the repetition count.
- * @param {number} [targetElbowLockOutAngle=150] - The target elbow angle to be used for evaluation.
+ * @param {number} [targetElbowLockOutAngle=170] - The target elbow angle to be used for evaluation.
  */
-export const checkPullup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle = 150) => {
-    pullUpInfo.targets["thresholdElbowAngle"] = targetElbowLockOutAngle;
+export const checkMuscleUp = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle = 170) => {
+    muscleUpInfo.targets["thresholdElbowAngle"] = targetElbowLockOutAngle;
 
     currState = genCheck(
-        pullUpInfo,
+        muscleUpInfo,
         getTransitionType,
         currState,
         landmarks,
