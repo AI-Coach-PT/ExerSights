@@ -32,6 +32,7 @@ function ExerciseBoxWithDualFeedback({ title, webcamCanvas, leftFeedbackPanel, r
             >
                 {/* Left Feedback Panel */}
                 <Box
+                
                     sx={{
                         flex: "1 1 20%", // Adjust size for responsiveness
                         maxWidth: "25%",
