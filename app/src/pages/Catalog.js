@@ -36,7 +36,6 @@ function Catalog() {
           link="/squat"
           image={squatImg}
         />
-
         <ExerciseCard
           title="Bridge"
           description={catalogText.bridge}
