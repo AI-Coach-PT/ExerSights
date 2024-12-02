@@ -34,18 +34,17 @@ function ExerciseCard({ image, title, description, link }) {
       display="flex"
       justifyContent="center"
       alignItems="center">
-      <Card sx={{ width: "100%", height: "100%" }}>
-        <CardActionArea
-          component={link ? Link : "div"}
-          to={link ? link : null}
-          variant="outlined"
-          sx={{
-            cursor: "pointer",
-            transition: "transform 0.3s",
-            "&:hover": {
-              transform: "scale(1.05)",
-            },
-          }}>
+      <Card
+        sx={{
+          width: "100%",
+          height: "100%",
+          cursor: "pointer",
+          transition: "transform 0.3s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}>
+        <CardActionArea component={link ? Link : "div"} to={link ? link : null} variant="outlined">
           <CardMedia component="img" image={image} />
           <CardContent>
             <Typography variant="h5" component="div">
