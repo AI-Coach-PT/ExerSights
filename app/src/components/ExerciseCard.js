@@ -28,30 +28,36 @@ import Grid from "@mui/material/Grid2";
  * />
  */
 function ExerciseCard({ image, title, description, link }) {
-    return (
-        <Grid
-            size={{ xs: 12, sm: 6, md: 4, xl: 3 }}
-            display="flex"
-            justifyContent="center"
-            alignItems="center">
-            <Card sx={{ width: "100%", height: "100%" }}>
-                <CardActionArea
-                    component={link ? Link : "div"}
-                    to={link ? link : null}
-                    variant="outlined">
-                    <CardMedia component="img" image={image} />
-                    <CardContent>
-                        <Typography variant="h5" component="div">
-                            {title}
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: "text.secondary" }} height="5vh">
-                            {description}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </Grid>
-    );
+  return (
+    <Grid
+      size={{ xs: 12, sm: 6, md: 4, xl: 3 }}
+      display="flex"
+      justifyContent="center"
+      alignItems="center">
+      <Card
+        sx={{
+          width: "100%",
+          height: "100%",
+          cursor: "pointer",
+          transition: "transform 0.3s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}>
+        <CardActionArea component={link ? Link : "div"} to={link ? link : null} variant="outlined">
+          <CardMedia component="img" image={image} />
+          <CardContent>
+            <Typography variant="h5" component="div">
+              {title}
+            </Typography>
+            <Typography variant="body2" sx={{ color: "text.secondary" }} height="5vh">
+              {description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Grid>
+  );
 }
 
 export default ExerciseCard;

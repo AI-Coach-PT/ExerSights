@@ -2,13 +2,13 @@ import React from "react";
 import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import ExerciseCard from "../components/ExerciseCard.js";
-import squatImg from "../assets/squat.jpg";
-import bridgeImg from "../assets/bridge.jpg";
-import deadBugImage from "../assets/deadbug.png";
+import squatImg from "../assets/squat.png";
+import bridgeImg from "../assets/bridge.png";
+import deadBugImage from "../assets/deadBug.png";
 import pushUpImage from "../assets/pushUp.png";
 import pullUpImage from "../assets/pullUp.png";
 import muscleUpImage from "../assets/muscleUp.png";
-import latExtRotationImg from "../assets/latExtRotation.jpg";
+import latExtRotationImg from "../assets/latExtRotation.png";
 import { catalogText } from "../assets/content.js";
 
 /**
@@ -24,19 +24,18 @@ import { catalogText } from "../assets/content.js";
  */
 function Catalog() {
   return (
-    <Box sx={{ padding: "20px", textAlign: "center" }}>
+    <Box sx={{ textAlign: "center", m: "20px" }}>
       <Typography variant="h1" gutterBottom>
         Catalog
       </Typography>
 
-      <Grid container spacing={2} sx={{ justifyContent: "center" }}>
+      <Grid container spacing={2} sx={{ justifyContent: "center", mx: "30px" }}>
         <ExerciseCard
           title="Squat"
           description={catalogText.squat}
           link="/squat"
           image={squatImg}
         />
-
         <ExerciseCard
           title="Bridge"
           description={catalogText.bridge}
