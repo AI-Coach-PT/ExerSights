@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { checkPushup } from "../../utils/PushUp";
+import { checkLatExtRotation } from "../../utils/LatExtRotation";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
@@ -9,26 +9,26 @@ import FeedbackPanel from "../../components/FeedbackPanel";
 import ExerciseBox from "../../components/ExerciseBox";
 
 /**
- * A React functional component that provides a real-time squat tracking and feedback interface using
- * the Mediapipe Pose model and a webcam feed. The component displays the user's current knee angle,
- * squat count, and feedback on the squat form. It also allows the user to adjust the target knee angle
- * for better squat depth tracking.
+ * A React functional component that provides a real-time lateral external rotation tracking and feedback interface.
+ * The component utilizes pose estimation to track the user's side angle during the exercise and provides feedback
+ * on form. It displays the current side angle, repetition count, and allows users to adjust the target side angle
+ * for improved tracking of lateral external rotation.
  *
  * @component
  *
- * @returns {JSX.Element} The JSX code to render the Squat tracking page, including webcam feed, feedback,
- *                        squat count, knee angle display, and a reset button.
+ * @returns {JSX.Element} The JSX code to render the Lateral External Rotation tracking page, including feedback display,
+ *                        repetition count, side angle display, and a reset button.
  */
-function PushUpPage() {
-  const [targetElbowAngle, setTargetElbowAngle] = useState(65);
+function LatExtRotationPage() {
+  const [targetSideAngle, setTargetSideAngle] = useState(140);
   const [feedback, setFeedback] = useState("");
-  const [currElbowAngle, setCurrElbowAngle] = useState(0);
+  const [currSideAngle, setCurrSideAngle] = useState(90);
   const [repCount, setRepCount] = useState(0);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
   const [targetAngles, setTargetAngles] = useState({
-    targetElbowAngle: targetElbowAngle,
+    targetSideAngle: targetSideAngle,
   });
 
   // Array of arrays of useState set functions, with the key into the Promise object,
@@ -36,10 +36,10 @@ function PushUpPage() {
   // differs from the targetAngles state in that this is an array array of FUNCTIONS + KEYS,
   // whereas targetAngles is an Object that keeps a store of target angle VALUES;
   // both states are used to modularize usage of the store/load functions in ExerciseSettings.js
-  const setTargetAnglesArray = [[setTargetElbowAngle, "targetElbowAngle"]];
+  const setTargetAnglesArray = [[setTargetSideAngle, "targetSideAngle"]];
 
   const processPoseResults = (landmarks) => {
-    checkPushup(landmarks, setFeedback, setCurrElbowAngle, setRepCount, targetElbowAngle);
+    checkLatExtRotation(landmarks, setFeedback, setCurrSideAngle, setRepCount, targetSideAngle);
   };
 
   const handleReset = () => {
@@ -49,29 +49,29 @@ function PushUpPage() {
 
   // Update the targetAngles object whenever targetKneeAngle and/or targetHipAngle changes
   useEffect(() => {
-    setTargetAngles({ targetElbowAngle: targetElbowAngle });
-  }, [targetElbowAngle]);
+    setTargetAngles({ targetSideAngle: targetSideAngle });
+  }, [targetSideAngle]);
 
   const feedbackPanel = (
     <FeedbackPanel
       feedbackList={[feedback]}
-      valuesList={[
-        { label: "Elbow Angle", value: currElbowAngle },
-      ]}
+      valuesList={[{ label: "Side Angle", value: currSideAngle }]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={
-        <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
-      }
+      HelpModal={<HelpModal image={squatHelpImg} description={instructionsTextSquat} />}
       SettingsModal={
-        <SettingsModal exerciseName="pushup" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
+        <SettingsModal
+          exerciseName="latExtRotation"
+          targetAngles={targetAngles}
+          setTargetAnglesArray={setTargetAnglesArray}
+        />
       }
     />
-  )
+  );
 
   return (
     <ExerciseBox
-      title="Pushup"
+      title="Lateral External Rotation"
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
@@ -79,4 +79,4 @@ function PushUpPage() {
   );
 }
 
-export default PushUpPage;
+export default LatExtRotationPage;

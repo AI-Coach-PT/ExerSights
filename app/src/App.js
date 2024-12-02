@@ -11,6 +11,9 @@ import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import PushUpPage from "./pages/exercises/PushUpPage";
+import PullUpPage from "./pages/exercises/PullUpPage";
+import LatExtRotationPage from "./pages/exercises/LatExtRotationPage";
+import MuscleUpPage from "./pages/exercises/MuscleUpPage";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -35,6 +38,9 @@ function App() {
                     <Route path="/bridge" element={<BridgePage />} />
                     <Route path="/deadbug" element={<DeadBugPage />} />
                     <Route path="/pushup" element={<PushUpPage />} />
+                    <Route path="/pullup" element={<PullUpPage />} />
+                    <Route path="/muscleup" element={<MuscleUpPage />} />
+                    <Route path="/latExtRotation" element={<LatExtRotationPage />} />
                 </Routes>
             </Router>
         </ThemeProvider>

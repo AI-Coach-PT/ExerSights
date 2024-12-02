@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { checkChestUp, checkSquats } from "../../utils/Squat";
+import { checkPullup } from "../../utils/PullUp";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
@@ -19,19 +19,16 @@ import ExerciseBox from "../../components/ExerciseBox";
  * @returns {JSX.Element} The JSX code to render the Squat tracking page, including webcam feed, feedback,
  *                        squat count, knee angle display, and a reset button.
  */
-function SquatPage() {
-  const [targetKneeAngle, setTargetKneeAngle] = useState(90);
+function PullUpPage() {
+  const [targetElbowLockOutAngle, setTargetElbowLockOutAngle] = useState(150);
   const [feedback, setFeedback] = useState("");
-  const [targetHipAngle, setTargetHipAngle] = useState(45);
-  const [hipAngleFeedback, setHipAngleFeedback] = useState("");
-  const [currKneeAngle, setCurrKneeAngle] = useState(0);
+  const [currElbowAngle, setCurrElbowAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
   const [targetAngles, setTargetAngles] = useState({
-    targetKneeAngle: targetKneeAngle,
-    targetHipAngle: targetHipAngle,
+    targetElbowLockOutAngle: targetElbowLockOutAngle,
   });
 
   // Array of arrays of useState set functions, with the key into the Promise object,
@@ -39,39 +36,27 @@ function SquatPage() {
   // differs from the targetAngles state in that this is an array array of FUNCTIONS + KEYS,
   // whereas targetAngles is an Object that keeps a store of target angle VALUES;
   // both states are used to modularize usage of the store/load functions in ExerciseSettings.js
-  const setTargetAnglesArray = [
-    [setTargetKneeAngle, "targetKneeAngle"],
-    [setTargetHipAngle, "targetHipAngle"],
-  ];
+  const setTargetAnglesArray = [[setTargetElbowLockOutAngle, "targetElbowLockOutAngle"]];
 
-  /**
-   * Processes pose results from the Mediapipe model and updates state.
-   *
-   * @param {Array} landmarks - The array of pose landmarks.
-   */
   const processPoseResults = (landmarks) => {
-    checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, targetKneeAngle);
-    checkChestUp(landmarks, setHipAngleFeedback, targetHipAngle);
+    checkPullup(landmarks, setFeedback, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle);
   };
 
-  /**
-   * Resets the repetition count to zero.
-   */
   const handleReset = () => {
-    setRepCount(0);
     resetRepCount(0);
+    setRepCount(0);
   };
 
   // Update the targetAngles object whenever targetKneeAngle and/or targetHipAngle changes
   useEffect(() => {
-    setTargetAngles({ targetKneeAngle: targetKneeAngle, targetHipAngle: targetHipAngle });
-  }, [targetKneeAngle, targetHipAngle]);
+    setTargetAngles({ targetElbowLockOutAngle: targetElbowLockOutAngle });
+  }, [targetElbowLockOutAngle]);
 
   const feedbackPanel = (
     <FeedbackPanel
-      feedbackList={[feedback, hipAngleFeedback]}
+      feedbackList={[feedback]}
       valuesList={[
-        { label: "Knee Angle", value: currKneeAngle },
+        { label: "Elbow Angle", value: currElbowAngle },
       ]}
       repCount={repCount}
       handleReset={handleReset}
@@ -79,14 +64,14 @@ function SquatPage() {
         <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
       }
       SettingsModal={
-        <SettingsModal exerciseName="squat" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
+        <SettingsModal exerciseName="pullup" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
       }
     />
   )
 
   return (
     <ExerciseBox
-      title="Squat"
+      title="Pullup"
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
@@ -94,4 +79,4 @@ function SquatPage() {
   );
 }
 
-export default SquatPage;
+export default PullUpPage;
