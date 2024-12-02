@@ -3,6 +3,18 @@ import poseLandmarkerTask from "../shared/models/pose_landmarker_lite.task";
 
 
 let poseLandmarker;
+let enableTwoPoses = false;
+
+
+export function setEnableTwoPoses(enable) {
+  enableTwoPoses = enable;
+  if (poseLandmarker) {
+    // Dispose of the existing PoseLandmarker
+    poseLandmarker.close();
+    poseLandmarker = null; // Clear the reference
+  }
+  createPoseLandmarker(); // Create a new instance
+}
 
 async function createPoseLandmarker() {
   if (!poseLandmarker) {
@@ -15,7 +27,7 @@ async function createPoseLandmarker() {
           modelAssetPath: poseLandmarkerTask,
         },
         runningMode: "VIDEO",
-        numPoses: 2,
+        numPoses: enableTwoPoses ? 2 : 1,
       });
       // detectPose();
     } catch (e) {
@@ -49,6 +61,7 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
   // };
 
   const detectAndDraw = () => {
+
     // console.log(`stopDetection in detectAndDraw = ${stopDetection.current}`);
     if (webcamRef.current && webcamRef.current.video.readyState >= 2) {
       poseLandmarker.detectForVideo(webcamRef.current.video, performance.now(), (result) => {
@@ -59,9 +72,11 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
         canvasCtx.save();
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         canvasCtx.drawImage(webcamRef.current.video, 0, 0, canvas.width, canvas.height);
+
+        const sortedLandmarks = result.landmarks.sort((a, b) => a[0].x - b[0].x);
         
-        for (let i = 0; i < result.landmarks.length; i++) {
-          const pose = result.landmarks[i];
+        for (let i = 0; i < sortedLandmarks.length; i++) {
+          const pose = sortedLandmarks[i];
           if (i === 0) {
             // First pose: red dots and blue lines
             drawingUtils.drawLandmarks(pose, {
@@ -82,24 +97,16 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
               color: "orange",
               lineWidth: 5,
             });
-          } else {
-            // Optional: Styling for other poses, if needed
-            drawingUtils.drawLandmarks(pose, {
-              color: "gray",
-              radius: 2.5,
-            });
-            drawingUtils.drawConnectors(pose, PoseLandmarker.POSE_CONNECTIONS, {
-              color: "black",
-              lineWidth: 5,
-            });
-          }
+          } 
         }
 
         
         canvasCtx.restore();
-
-        if (result.landmarks[0]) {
+        
+        if (!enableTwoPoses && result.landmarks[0]) {
           onResultCallback(result.landmarks[0]);
+        } else if(result.landmarks[0] && result.landmarks[1]) {
+          onResultCallback(result.landmarks[0], result.landmarks[1]);
         }
       });
     }
@@ -114,5 +121,7 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
 
   return poseLandmarker;
 };
+
+
 
 export default detectPose;
