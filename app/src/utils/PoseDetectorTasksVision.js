@@ -51,6 +51,7 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
     // console.log(`stopDetection in detectAndDraw = ${stopDetection.current}`);
     if (webcamRef.current && webcamRef.current.video.readyState >= 2) {
       poseLandmarker.detectForVideo(webcamRef.current.video, performance.now(), (result) => {
+        console.log(`${performance.now()}`);
         const canvas = canvasRef.current;
         const canvasCtx = canvas.getContext("2d");
         const drawingUtils = new DrawingUtils(canvasCtx);
