@@ -1,28 +1,15 @@
-filenames=['pose1',
-           'pose2',
-           'pose3',
-           'pose4',
-           'pose5',
-           'pose6',
-           'pose7',
-           'pose8',
-           'pose9',
-           'pose10',
-           'tasksVision1',
-           'tasksVision2',
-           'tasksVision3',
-           'tasksVision4',
-           'tasksVision5',
-           'tasksVision6',
-           'tasksVision7',
-           'tasksVision8',
-           'tasksVision9',
-           'tasksVision10',
-           'test']
+import os
+
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+script_name = os.path.basename(__file__)
+
+# List all .txt files in the directory except the script itself
+filenames = sorted([f for f in os.listdir(script_dir) if f.endswith('.txt') and f != script_name])
 
 def parse_and_measure(filename):
     # Open the file in read mode
-    with open(f'{filename}.txt', 'r') as file:
+    with open(f'./{filename}', 'r') as file:
         # Read all lines from the file
         lines = file.readlines()
 
@@ -37,7 +24,7 @@ def parse_and_measure(filename):
                 number = int(parts[1])  # Extract the number
                 numbers.append(number)
             except ValueError:
-                continue  # Skip lines that don't contain valid numbers
+                continue                # Skip lines that don't contain valid numbers
 
     # Calculate differences between adjacent elements
     differences = [numbers[i + 1] - numbers[i] for i in range(len(numbers) - 1)]
@@ -49,8 +36,7 @@ def parse_and_measure(filename):
         average_difference = 0
 
     # Output results
-    # print("Differences:", differences)
-    print(f"{filename}:{average_difference} milliseconds")
+    print(f"{filename:20}: {average_difference:15} milliseconds")
 
 if __name__=="__main__":
     for filename in filenames:
