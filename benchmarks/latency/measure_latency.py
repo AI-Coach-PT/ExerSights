@@ -1,4 +1,6 @@
 import os
+import sys
+
 
 # Get the directory of the current script
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -9,7 +11,7 @@ filenames = sorted([f for f in os.listdir(script_dir) if f.endswith('.txt') and 
 
 def parse_and_measure(filename):
     # Open the file in read mode
-    with open(f'./{filename}', 'r') as file:
+    with open(f'{sys.argv[1]}/{filename}', 'r') as file:
         # Read all lines from the file
         lines = file.readlines()
 
@@ -36,8 +38,12 @@ def parse_and_measure(filename):
         average_difference = 0
 
     # Output results
-    print(f"{filename:20}: {average_difference:15} milliseconds")
+    print(f"{filename:20} | {average_difference:<30}")
 
 if __name__=="__main__":
-    for filename in filenames:
-        parse_and_measure(filename)
+    try:
+        print(f"{'Filename':20} | {'Avg Latency (ms)'}")
+        for filename in sorted([f for f in os.listdir(sys.argv[1]) if f.endswith('.txt')]):
+            parse_and_measure(filename)
+    except Exception as e:
+        print(f"ERROR: {e}")
