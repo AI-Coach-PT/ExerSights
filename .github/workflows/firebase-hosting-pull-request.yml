@@ -29,6 +29,7 @@ jobs:
           echo "REACT_APP_STORAGE_BUCKET=${{ secrets.REACT_APP_STORAGE_BUCKET }}" >> .env
           echo "REACT_APP_MESSAGING_SENDER_ID=${{ secrets.REACT_APP_MESSAGING_SENDER_ID }}" >> .env
           echo "REACT_APP_APP_ID=${{ secrets.REACT_APP_APP_ID }}" >> .env
+          echo "REACT_APP_MODEL=${{ secrets.REACT_APP_MODEL }}" >> .env
 
       # Build the app in the correct folder
       - run: cd app && npm run build
