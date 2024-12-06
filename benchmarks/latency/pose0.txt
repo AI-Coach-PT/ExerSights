@@ -1,11 +1,3 @@
-17:43:33.791 I0000 00:00:1733438613.792000       1 gl_context_webgl.cc:151] Successfully created a WebGL context with major version 3 and handle 3 <anonymous code>:1:145535
-17:43:33.792 I0000 00:00:1733438613.792000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0)) <anonymous code>:1:145535
-17:43:33.792 W0000 00:00:1733438613.793000       1 gl_context.cc:1000] OpenGL error checking is disabled <anonymous code>:1:145535
-17:43:34.853 86892 PoseDetectorPose.js:54
-17:43:34.917 86956 PoseDetectorPose.js:54
-17:43:34.929 WebGL warning: drawArraysInstanced: Tex image TEXTURE_2D level 0 is incurring lazy initialization.
-17:43:34.929 WebGL warning: drawArraysInstanced: Drawing without vertex attrib 0 array enabled forces the browser to do expensive emulation work when running on desktop OpenGL platforms, for example on Mac. It is preferable to always draw with vertex attrib 0 array enabled, by using bindAttribLocation to bind some always-used attribute to location 0.
-17:43:34.936 WebGL warning: drawArraysInstanced: Tex image TEXTURE_2D level 0 is incurring lazy initialization.
 17:43:34.980 87018 PoseDetectorPose.js:54
 17:43:35.105 87144 PoseDetectorPose.js:54
 17:43:35.122 87161 PoseDetectorPose.js:54
