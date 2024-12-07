@@ -1,0 +1,768 @@
+react refresh:6 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+react-dom.development.js:86 Warning: Received NaN for the `height` attribute. If this is expected, cast the value to a string.
+    at canvas
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67501:81)
+    at _c (http://localhost:3000/static/js/bundle.js:1782:30)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67501:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67501:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67501:81)
+    at ExerciseBox (http://localhost:3000/static/js/bundle.js:358:3)
+    at SquatPage (http://localhost:3000/static/js/bundle.js:3608:96)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:112960:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:113694:5)
+    at Router (http://localhost:3000/static/js/bundle.js:113628:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:111529:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:65937:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:66626:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:65599:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66716:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:62887:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:62840:3)
+    at App
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+validateProperty$1 @ react-dom.development.js:3736
+warnUnknownProperties @ react-dom.development.js:3803
+validateProperties$2 @ react-dom.development.js:3827
+validatePropertiesInDevelopment @ react-dom.development.js:9541
+setInitialProperties @ react-dom.development.js:9830
+finalizeInitialChildren @ react-dom.development.js:10950
+completeWork @ react-dom.development.js:22232
+completeUnitOfWork @ react-dom.development.js:26635
+performUnitOfWork @ react-dom.development.js:26607
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+react-dom.development.js:86 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
+    at p
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62031:87)
+    at p
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62031:87)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67501:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Paper (http://localhost:3000/static/js/bundle.js:58379:96)
+    at FeedbackPanel (http://localhost:3000/static/js/bundle.js:721:3)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67501:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67501:81)
+    at ExerciseBox (http://localhost:3000/static/js/bundle.js:358:3)
+    at SquatPage (http://localhost:3000/static/js/bundle.js:3608:96)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:112960:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:113694:5)
+    at Router (http://localhost:3000/static/js/bundle.js:113628:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:111529:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:65937:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:66626:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:65599:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66716:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:62887:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:62840:3)
+    at App
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+validateDOMNesting @ react-dom.development.js:10849
+createInstance @ react-dom.development.js:10930
+completeWork @ react-dom.development.js:22226
+completeUnitOfWork @ react-dom.development.js:26635
+performUnitOfWork @ react-dom.development.js:26607
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+deprecations.ts:9 ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+warnOnce @ deprecations.ts:9
+logDeprecation @ deprecations.ts:13
+logV6DeprecationWarnings @ deprecations.ts:26
+(anonymous) @ index.tsx:816
+commitHookEffectListMount @ react-dom.development.js:23189
+commitPassiveMountOnFiber @ react-dom.development.js:24965
+commitPassiveMountEffects_complete @ react-dom.development.js:24930
+commitPassiveMountEffects_begin @ react-dom.development.js:24917
+commitPassiveMountEffects @ react-dom.development.js:24905
+flushPassiveEffectsImpl @ react-dom.development.js:27078
+flushPassiveEffects @ react-dom.development.js:27023
+(anonymous) @ react-dom.development.js:26808
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+deprecations.ts:9 ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+warnOnce @ deprecations.ts:9
+logDeprecation @ deprecations.ts:13
+logV6DeprecationWarnings @ deprecations.ts:37
+(anonymous) @ index.tsx:816
+commitHookEffectListMount @ react-dom.development.js:23189
+commitPassiveMountOnFiber @ react-dom.development.js:24965
+commitPassiveMountEffects_complete @ react-dom.development.js:24930
+commitPassiveMountEffects_begin @ react-dom.development.js:24917
+commitPassiveMountEffects @ react-dom.development.js:24905
+flushPassiveEffectsImpl @ react-dom.development.js:27078
+flushPassiveEffects @ react-dom.development.js:27023
+(anonymous) @ react-dom.development.js:26808
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+pose_solution_simd_wasm_bin.js:9 I0000 00:00:1733589720.540000       1 gl_context_webgl.cc:151] Successfully created a WebGL context with major version 3 and handle 3
+put_char @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+doWritev @ pose_solution_simd_wasm_bin.js:9
+_fd_write @ pose_solution_simd_wasm_bin.js:9
+$func8240 @ pose_solution_simd_wasm_bin.wasm:0x51510e
+$func8250 @ pose_solution_simd_wasm_bin.wasm:0x51587f
+$func8251 @ pose_solution_simd_wasm_bin.wasm:0x51592a
+$func7869 @ pose_solution_simd_wasm_bin.wasm:0x4e9bc2
+$func7868 @ pose_solution_simd_wasm_bin.wasm:0x4e9ba1
+$func7866 @ pose_solution_simd_wasm_bin.wasm:0x4e984d
+$func7847 @ pose_solution_simd_wasm_bin.wasm:0x4e8464
+$func7846 @ pose_solution_simd_wasm_bin.wasm:0x4e76e4
+$func7070 @ pose_solution_simd_wasm_bin.wasm:0x4a68f1
+$func6557 @ pose_solution_simd_wasm_bin.wasm:0x469140
+$func6352 @ pose_solution_simd_wasm_bin.wasm:0x4544e7
+$func251 @ pose_solution_simd_wasm_bin.wasm:0x1d898
+$func221 @ pose_solution_simd_wasm_bin.wasm:0x19049
+(anonymous) @ pose_solution_simd_wasm_bin.js:9
+(anonymous) @ pose.js:82
+ua @ pose.js:14
+next @ pose.js:15
+b @ pose.js:15
+Promise.then
+g @ pose.js:15
+Promise.then
+g @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:79
+(anonymous) @ pose.js:95
+ua @ pose.js:14
+next @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:95
+onFrame @ PoseDetectorPose.js:80
+Q @ camera_utils.js:22
+(anonymous) @ camera_utils.js:22
+requestAnimationFrame
+P @ camera_utils.js:22
+Q @ camera_utils.js:22
+(anonymous) @ camera_utils.js:22
+requestAnimationFrame
+P @ camera_utils.js:22
+O.a.video.onloadedmetadata @ camera_utils.js:22
+pose_solution_simd_wasm_bin.js:9 I0000 00:00:1733589720.554000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+doWritev @ pose_solution_simd_wasm_bin.js:9
+_fd_write @ pose_solution_simd_wasm_bin.js:9
+$func8240 @ pose_solution_simd_wasm_bin.wasm:0x51510e
+$func8250 @ pose_solution_simd_wasm_bin.wasm:0x51587f
+$func8251 @ pose_solution_simd_wasm_bin.wasm:0x51592a
+$func7869 @ pose_solution_simd_wasm_bin.wasm:0x4e9bc2
+$func7868 @ pose_solution_simd_wasm_bin.wasm:0x4e9ba1
+$func7866 @ pose_solution_simd_wasm_bin.wasm:0x4e984d
+$func7847 @ pose_solution_simd_wasm_bin.wasm:0x4e8464
+$func7846 @ pose_solution_simd_wasm_bin.wasm:0x4e76e4
+$func7015 @ pose_solution_simd_wasm_bin.wasm:0x4a4c16
+$func6943 @ pose_solution_simd_wasm_bin.wasm:0x4a2623
+$func6942 @ pose_solution_simd_wasm_bin.wasm:0x4a24f1
+$func7070 @ pose_solution_simd_wasm_bin.wasm:0x4a69a4
+$func6557 @ pose_solution_simd_wasm_bin.wasm:0x469140
+$func6352 @ pose_solution_simd_wasm_bin.wasm:0x4544e7
+$func251 @ pose_solution_simd_wasm_bin.wasm:0x1d898
+$func221 @ pose_solution_simd_wasm_bin.wasm:0x19049
+(anonymous) @ pose_solution_simd_wasm_bin.js:9
+(anonymous) @ pose.js:82
+ua @ pose.js:14
+next @ pose.js:15
+b @ pose.js:15
+Promise.then
+g @ pose.js:15
+Promise.then
+g @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:79
+(anonymous) @ pose.js:95
+ua @ pose.js:14
+next @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:95
+onFrame @ PoseDetectorPose.js:80
+Q @ camera_utils.js:22
+(anonymous) @ camera_utils.js:22
+requestAnimationFrame
+P @ camera_utils.js:22
+Q @ camera_utils.js:22
+(anonymous) @ camera_utils.js:22
+requestAnimationFrame
+P @ camera_utils.js:22
+O.a.video.onloadedmetadata @ camera_utils.js:22
+pose_solution_simd_wasm_bin.js:9 W0000 00:00:1733589720.554000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+doWritev @ pose_solution_simd_wasm_bin.js:9
+_fd_write @ pose_solution_simd_wasm_bin.js:9
+$func8240 @ pose_solution_simd_wasm_bin.wasm:0x51510e
+$func8250 @ pose_solution_simd_wasm_bin.wasm:0x51587f
+$func8251 @ pose_solution_simd_wasm_bin.wasm:0x51592a
+$func7869 @ pose_solution_simd_wasm_bin.wasm:0x4e9bc2
+$func7868 @ pose_solution_simd_wasm_bin.wasm:0x4e9ba1
+$func7866 @ pose_solution_simd_wasm_bin.wasm:0x4e984d
+$func7847 @ pose_solution_simd_wasm_bin.wasm:0x4e8464
+$func7846 @ pose_solution_simd_wasm_bin.wasm:0x4e76e4
+$func6943 @ pose_solution_simd_wasm_bin.wasm:0x4a2687
+$func6942 @ pose_solution_simd_wasm_bin.wasm:0x4a24f1
+$func7070 @ pose_solution_simd_wasm_bin.wasm:0x4a69a4
+$func6557 @ pose_solution_simd_wasm_bin.wasm:0x469140
+$func6352 @ pose_solution_simd_wasm_bin.wasm:0x4544e7
+$func251 @ pose_solution_simd_wasm_bin.wasm:0x1d898
+$func221 @ pose_solution_simd_wasm_bin.wasm:0x19049
+(anonymous) @ pose_solution_simd_wasm_bin.js:9
+(anonymous) @ pose.js:82
+ua @ pose.js:14
+next @ pose.js:15
+b @ pose.js:15
+Promise.then
+g @ pose.js:15
+Promise.then
+g @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:79
+(anonymous) @ pose.js:95
+ua @ pose.js:14
+next @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:95
+onFrame @ PoseDetectorPose.js:80
+Q @ camera_utils.js:22
+(anonymous) @ camera_utils.js:22
+requestAnimationFrame
+P @ camera_utils.js:22
+Q @ camera_utils.js:22
+(anonymous) @ camera_utils.js:22
+requestAnimationFrame
+P @ camera_utils.js:22
+O.a.video.onloadedmetadata @ camera_utils.js:22
+PoseDetectorPose.js:54 1769.3999999761581
+PoseDetectorPose.js:54 1782
+PoseDetectorPose.js:54 1796.6999999284744
+PoseDetectorPose.js:54 1829.3999999761581
+PoseDetectorPose.js:54 1863.3999999761581
+PoseDetectorPose.js:54 1896.8999999761581
+PoseDetectorPose.js:54 1930.8999999761581
+PoseDetectorPose.js:54 1966.0999999046326
+PoseDetectorPose.js:54 2000.1999999284744
+PoseDetectorPose.js:54 2030.7999999523163
+PoseDetectorPose.js:54 2065.899999976158
+PoseDetectorPose.js:54 2099.0999999046326
+PoseDetectorPose.js:54 2133.5
+PoseDetectorPose.js:54 2163.5
+PoseDetectorPose.js:54 2199
+PoseDetectorPose.js:54 2231.7999999523163
+PoseDetectorPose.js:54 2268.399999976158
+PoseDetectorPose.js:54 2298.0999999046326
+PoseDetectorPose.js:54 2331.5
+PoseDetectorPose.js:54 2364.1999999284744
+PoseDetectorPose.js:54 2399.399999976158
+PoseDetectorPose.js:54 2432.5
+PoseDetectorPose.js:54 2466.399999976158
+PoseDetectorPose.js:54 2498.7999999523163
+PoseDetectorPose.js:54 2533.399999976158
+PoseDetectorPose.js:54 2564.1999999284744
+PoseDetectorPose.js:54 2599.5
+PoseDetectorPose.js:54 2632.399999976158
+PoseDetectorPose.js:54 2666.6999999284744
+PoseDetectorPose.js:54 2698.1999999284744
+PoseDetectorPose.js:54 2733.0999999046326
+PoseDetectorPose.js:54 2771.7999999523163
+PoseDetectorPose.js:54 2805.1999999284744
+PoseDetectorPose.js:54 2836.399999976158
+PoseDetectorPose.js:54 2864.2999999523163
+PoseDetectorPose.js:54 2901.7999999523163
+PoseDetectorPose.js:54 2933.6999999284744
+PoseDetectorPose.js:54 2966.1999999284744
+PoseDetectorPose.js:54 3000.899999976158
+PoseDetectorPose.js:54 3034.399999976158
+PoseDetectorPose.js:54 3068.399999976158
+PoseDetectorPose.js:54 3102.1999999284744
+PoseDetectorPose.js:54 3135.1999999284744
+PoseDetectorPose.js:54 3168.899999976158
+PoseDetectorPose.js:54 3203
+PoseDetectorPose.js:54 3237.1999999284744
+PoseDetectorPose.js:54 3274.0999999046326
+PoseDetectorPose.js:54 3308.399999976158
+PoseDetectorPose.js:54 3336.5999999046326
+PoseDetectorPose.js:54 3368.399999976158
+PoseDetectorPose.js:54 3402.6999999284744
+PoseDetectorPose.js:54 3434.5999999046326
+PoseDetectorPose.js:54 3468.6999999284744
+PoseDetectorPose.js:54 3494
+PoseDetectorPose.js:54 3536
+PoseDetectorPose.js:54 3567.0999999046326
+PoseDetectorPose.js:54 3598.0999999046326
+PoseDetectorPose.js:54 3629.399999976158
+PoseDetectorPose.js:54 3663.5
+PoseDetectorPose.js:54 3696.1999999284744
+PoseDetectorPose.js:54 3733
+PoseDetectorPose.js:54 3771.5999999046326
+PoseDetectorPose.js:54 3803.7999999523163
+PoseDetectorPose.js:54 3836.899999976158
+PoseDetectorPose.js:54 3873.7999999523163
+PoseDetectorPose.js:54 3907.0999999046326
+PoseDetectorPose.js:54 3941.5
+PoseDetectorPose.js:54 3971.5999999046326
+PoseDetectorPose.js:54 4003
+PoseDetectorPose.js:54 4031
+PoseDetectorPose.js:54 4068.5
+PoseDetectorPose.js:54 4099.799999952316
+PoseDetectorPose.js:54 4134.899999976158
+PoseDetectorPose.js:54 4166.399999976158
+PoseDetectorPose.js:54 4201.099999904633
+PoseDetectorPose.js:54 4234.199999928474
+PoseDetectorPose.js:54 4267.699999928474
+PoseDetectorPose.js:54 4300.899999976158
+PoseDetectorPose.js:54 4336.099999904633
+PoseDetectorPose.js:54 4369.599999904633
+PoseDetectorPose.js:54 4407.299999952316
+PoseDetectorPose.js:54 4437.899999976158
+PoseDetectorPose.js:54 4469.599999904633
+PoseDetectorPose.js:54 4502.299999952316
+PoseDetectorPose.js:54 4539.699999928474
+PoseDetectorPose.js:54 4571
+PoseDetectorPose.js:54 4600.5
+PoseDetectorPose.js:54 4629.299999952316
+PoseDetectorPose.js:54 4671.199999928474
+PoseDetectorPose.js:54 4704.5
+PoseDetectorPose.js:54 4738.599999904633
+PoseDetectorPose.js:54 4773
+PoseDetectorPose.js:54 4811.799999952316
+PoseDetectorPose.js:54 4838.899999976158
+PoseDetectorPose.js:54 4873.199999928474
+PoseDetectorPose.js:54 4908.5
+PoseDetectorPose.js:54 4941.599999904633
+PoseDetectorPose.js:54 4974.399999976158
+PoseDetectorPose.js:54 5010.799999952316
+PoseDetectorPose.js:54 5043.099999904633
+PoseDetectorPose.js:54 5080.099999904633
+PoseDetectorPose.js:54 5114.599999904633
+PoseDetectorPose.js:54 5149
+PoseDetectorPose.js:54 5176
+PoseDetectorPose.js:54 5212.199999928474
+PoseDetectorPose.js:54 5234.599999904633
+PoseDetectorPose.js:54 5267.299999952316
+PoseDetectorPose.js:54 5300.599999904633
+PoseDetectorPose.js:54 5335.299999952316
+PoseDetectorPose.js:54 5368
+PoseDetectorPose.js:54 5403
+PoseDetectorPose.js:54 5436.399999976158
+PoseDetectorPose.js:54 5471.299999952316
+PoseDetectorPose.js:54 5504.899999976158
+PoseDetectorPose.js:54 5538
+PoseDetectorPose.js:54 5569.5
+PoseDetectorPose.js:54 5607.799999952316
+PoseDetectorPose.js:54 5638.199999928474
+PoseDetectorPose.js:54 5675.099999904633
+PoseDetectorPose.js:54 5708.5
+PoseDetectorPose.js:54 5743.299999952316
+PoseDetectorPose.js:54 5772.599999904633
+PoseDetectorPose.js:54 5806.899999976158
+PoseDetectorPose.js:54 5839.299999952316
+PoseDetectorPose.js:54 5874.299999952316
+PoseDetectorPose.js:54 5907.699999928474
+PoseDetectorPose.js:54 5942.5
+PoseDetectorPose.js:54 5966.699999928474
+PoseDetectorPose.js:54 6003.299999952316
+PoseDetectorPose.js:54 6037.299999952316
+PoseDetectorPose.js:54 6069.899999976158
+PoseDetectorPose.js:54 6100.899999976158
+PoseDetectorPose.js:54 6135.799999952316
+PoseDetectorPose.js:54 6167.599999904633
+PoseDetectorPose.js:54 6203.099999904633
+PoseDetectorPose.js:54 6236.199999928474
+PoseDetectorPose.js:54 6273.699999928474
+PoseDetectorPose.js:54 6309.5
+PoseDetectorPose.js:54 6336.5
+PoseDetectorPose.js:54 6368.399999976158
+PoseDetectorPose.js:54 6402.399999976158
+PoseDetectorPose.js:54 6434.5
+PoseDetectorPose.js:54 6469.099999904633
+PoseDetectorPose.js:54 6501.399999976158
+PoseDetectorPose.js:54 6536.099999904633
+PoseDetectorPose.js:54 6569.199999928474
+PoseDetectorPose.js:54 6604.5
+PoseDetectorPose.js:54 6637.5
+PoseDetectorPose.js:54 6677.799999952316
+PoseDetectorPose.js:54 6702.599999904633
+PoseDetectorPose.js:54 6735.199999928474
+PoseDetectorPose.js:54 6769.199999928474
+PoseDetectorPose.js:54 6805.599999904633
+PoseDetectorPose.js:54 6843
+PoseDetectorPose.js:54 6880.199999928474
+PoseDetectorPose.js:54 6907.599999904633
+PoseDetectorPose.js:54 6942.899999976158
+PoseDetectorPose.js:54 6975.699999928474
+PoseDetectorPose.js:54 7022.399999976158
+PoseDetectorPose.js:54 7039.199999928474
+PoseDetectorPose.js:54 7071.599999904633
+PoseDetectorPose.js:54 7104.5
+PoseDetectorPose.js:54 7137.199999928474
+PoseDetectorPose.js:54 7171.399999976158
+PoseDetectorPose.js:54 7204.199999928474
+PoseDetectorPose.js:54 7238.099999904633
+PoseDetectorPose.js:54 7271.599999904633
+PoseDetectorPose.js:54 7304.099999904633
+PoseDetectorPose.js:54 7336.599999904633
+PoseDetectorPose.js:54 7371.199999928474
+PoseDetectorPose.js:54 7404.5
+PoseDetectorPose.js:54 7437.899999976158
+PoseDetectorPose.js:54 7472.799999952316
+PoseDetectorPose.js:54 7508.299999952316
+PoseDetectorPose.js:54 7549.199999928474
+PoseDetectorPose.js:54 7584.099999904633
+PoseDetectorPose.js:54 7608.899999976158
+PoseDetectorPose.js:54 7644.099999904633
+PoseDetectorPose.js:54 7678.299999952316
+PoseDetectorPose.js:54 7713.299999952316
+PoseDetectorPose.js:54 7737.899999976158
+PoseDetectorPose.js:54 7777.399999976158
+PoseDetectorPose.js:54 7800.299999952316
+PoseDetectorPose.js:54 7841
+PoseDetectorPose.js:54 7874.299999952316
+PoseDetectorPose.js:54 7907.599999904633
+PoseDetectorPose.js:54 7933.099999904633
+PoseDetectorPose.js:54 7968.699999928474
+PoseDetectorPose.js:54 8001.5
+PoseDetectorPose.js:54 8041.599999904633
+PoseDetectorPose.js:54 8071.599999904633
+PoseDetectorPose.js:54 8103.899999976158
+PoseDetectorPose.js:54 8136.299999952316
+PoseDetectorPose.js:54 8175.899999976158
+PoseDetectorPose.js:54 8204.699999928474
+PoseDetectorPose.js:54 8240.599999904633
+PoseDetectorPose.js:54 8276.199999928474
+PoseDetectorPose.js:54 8302.299999952316
+PoseDetectorPose.js:54 8335.399999976158
+PoseDetectorPose.js:54 8372.299999952316
+PoseDetectorPose.js:54 8410
+PoseDetectorPose.js:54 8436.599999904633
+PoseDetectorPose.js:54 8469.099999904633
+PoseDetectorPose.js:54 8504.399999976158
+PoseDetectorPose.js:54 8536.799999952316
+PoseDetectorPose.js:54 8575.399999976158
+PoseDetectorPose.js:54 8608.899999976158
+PoseDetectorPose.js:54 8637.599999904633
+PoseDetectorPose.js:54 8668.399999976158
+PoseDetectorPose.js:54 8704.199999928474
+PoseDetectorPose.js:54 8742.899999976158
+PoseDetectorPose.js:54 8773.299999952316
+PoseDetectorPose.js:54 8804.799999952316
+PoseDetectorPose.js:54 8840.599999904633
+PoseDetectorPose.js:54 8872.5
+PoseDetectorPose.js:54 8912.099999904633
+PoseDetectorPose.js:54 8939.699999928474
+PoseDetectorPose.js:54 8975
+PoseDetectorPose.js:54 9006.199999928474
+PoseDetectorPose.js:54 9044.699999928474
+PoseDetectorPose.js:54 9072.699999928474
+PoseDetectorPose.js:54 9106.099999904633
+PoseDetectorPose.js:54 9139.199999928474
+PoseDetectorPose.js:54 9174.199999928474
+PoseDetectorPose.js:54 9206.699999928474
+PoseDetectorPose.js:54 9242
+PoseDetectorPose.js:54 9276
+PoseDetectorPose.js:54 9305.199999928474
+PoseDetectorPose.js:54 9337.699999928474
+PoseDetectorPose.js:54 9372.299999952316
+PoseDetectorPose.js:54 9404.299999952316
+PoseDetectorPose.js:54 9438.699999928474
+PoseDetectorPose.js:54 9472.899999976158
+PoseDetectorPose.js:54 9510.799999952316
+PoseDetectorPose.js:54 9534.799999952316
+PoseDetectorPose.js:54 9566.699999928474
+PoseDetectorPose.js:54 9600.299999952316
+PoseDetectorPose.js:54 9640.399999976158
+PoseDetectorPose.js:54 9671.299999952316
+PoseDetectorPose.js:54 9700.299999952316
+PoseDetectorPose.js:54 9738.599999904633
+PoseDetectorPose.js:54 9769.699999928474
+PoseDetectorPose.js:54 9805.599999904633
+PoseDetectorPose.js:54 9842.899999976158
+PoseDetectorPose.js:54 9867.299999952316
+PoseDetectorPose.js:54 9903.199999928474
+PoseDetectorPose.js:54 9938.299999952316
+PoseDetectorPose.js:54 9969.399999976158
+PoseDetectorPose.js:54 10007.199999928474
+PoseDetectorPose.js:54 10038.099999904633
+PoseDetectorPose.js:54 10072.399999976158
+PoseDetectorPose.js:54 10105.899999976158
+PoseDetectorPose.js:54 10140.599999904633
+PoseDetectorPose.js:54 10177
+PoseDetectorPose.js:54 10206.799999952316
+PoseDetectorPose.js:54 10239.899999976158
+PoseDetectorPose.js:54 10269.699999928474
+PoseDetectorPose.js:54 10308.099999904633
+PoseDetectorPose.js:54 10343.399999976158
+PoseDetectorPose.js:54 10379.699999928474
+PoseDetectorPose.js:54 10405.199999928474
+PoseDetectorPose.js:54 10433.899999976158
+PoseDetectorPose.js:54 10467.199999928474
+PoseDetectorPose.js:54 10508.5
+PoseDetectorPose.js:54 10535
+PoseDetectorPose.js:54 10576.699999928474
+PoseDetectorPose.js:54 10611.399999976158
+PoseDetectorPose.js:54 10647.599999904633
+PoseDetectorPose.js:54 10677.099999904633
+PoseDetectorPose.js:54 10713.599999904633
+PoseDetectorPose.js:54 10740.399999976158
+PoseDetectorPose.js:54 10774
+PoseDetectorPose.js:54 10805.699999928474
+PoseDetectorPose.js:54 10840.599999904633
+PoseDetectorPose.js:54 10873.899999976158
+PoseDetectorPose.js:54 10907.299999952316
+PoseDetectorPose.js:54 10942.099999904633
+PoseDetectorPose.js:54 10972.899999976158
+PoseDetectorPose.js:54 11002.199999928474
+PoseDetectorPose.js:54 11042.299999952316
+PoseDetectorPose.js:54 11068.399999976158
+PoseDetectorPose.js:54 11110
+PoseDetectorPose.js:54 11142.299999952316
+PoseDetectorPose.js:54 11173.799999952316
+PoseDetectorPose.js:54 11204.699999928474
+PoseDetectorPose.js:54 11240
+PoseDetectorPose.js:54 11273.399999976158
+PoseDetectorPose.js:54 11310.699999928474
+PoseDetectorPose.js:54 11338.799999952316
+PoseDetectorPose.js:54 11373.399999976158
+PoseDetectorPose.js:54 11406.799999952316
+PoseDetectorPose.js:54 11443.199999928474
+PoseDetectorPose.js:54 11471.5
+PoseDetectorPose.js:54 11505
+PoseDetectorPose.js:54 11544.299999952316
+PoseDetectorPose.js:54 11572.899999976158
+PoseDetectorPose.js:54 11610.699999928474
+PoseDetectorPose.js:54 11642
+PoseDetectorPose.js:54 11673.099999904633
+PoseDetectorPose.js:54 11709.599999904633
+PoseDetectorPose.js:54 11738.699999928474
+PoseDetectorPose.js:54 11774.799999952316
+PoseDetectorPose.js:54 11806.5
+PoseDetectorPose.js:54 11842.699999928474
+PoseDetectorPose.js:54 11875.099999904633
+PoseDetectorPose.js:54 11905.299999952316
+PoseDetectorPose.js:54 11937.599999904633
+PoseDetectorPose.js:54 11972.099999904633
+PoseDetectorPose.js:54 12005.299999952316
+PoseDetectorPose.js:54 12040.799999952316
+PoseDetectorPose.js:54 12074.199999928474
+PoseDetectorPose.js:54 12109.5
+PoseDetectorPose.js:54 12142.399999976158
+PoseDetectorPose.js:54 12171.899999976158
+PoseDetectorPose.js:54 12204.5
+PoseDetectorPose.js:54 12239.699999928474
+PoseDetectorPose.js:54 12275.399999976158
+PoseDetectorPose.js:54 12308.399999976158
+PoseDetectorPose.js:54 12339.699999928474
+PoseDetectorPose.js:54 12371.599999904633
+PoseDetectorPose.js:54 12407.699999928474
+PoseDetectorPose.js:54 12440.899999976158
+PoseDetectorPose.js:54 12474
+PoseDetectorPose.js:54 12508.599999904633
+PoseDetectorPose.js:54 12536.399999976158
+PoseDetectorPose.js:54 12570.699999928474
+PoseDetectorPose.js:54 12603.099999904633
+PoseDetectorPose.js:54 12639.099999904633
+PoseDetectorPose.js:54 12671.699999928474
+PoseDetectorPose.js:54 12719.799999952316
+PoseDetectorPose.js:54 12735.799999952316
+PoseDetectorPose.js:54 12770.599999904633
+PoseDetectorPose.js:54 12805.799999952316
+PoseDetectorPose.js:54 12841.699999928474
+PoseDetectorPose.js:54 12872.099999904633
+PoseDetectorPose.js:54 12904.799999952316
+PoseDetectorPose.js:54 12938.299999952316
+PoseDetectorPose.js:54 12972
+PoseDetectorPose.js:54 13007.799999952316
+PoseDetectorPose.js:54 13038.5
+PoseDetectorPose.js:54 13073.699999928474
+PoseDetectorPose.js:54 13107.299999952316
+PoseDetectorPose.js:54 13141.299999952316
+PoseDetectorPose.js:54 13174.5
+PoseDetectorPose.js:54 13206
+PoseDetectorPose.js:54 13238.599999904633
+PoseDetectorPose.js:54 13273.599999904633
+PoseDetectorPose.js:54 13307.5
+PoseDetectorPose.js:54 13340.399999976158
+PoseDetectorPose.js:54 13372.599999904633
+PoseDetectorPose.js:54 13408.099999904633
+PoseDetectorPose.js:54 13440.099999904633
+PoseDetectorPose.js:54 13472.399999976158
+PoseDetectorPose.js:54 13507
+PoseDetectorPose.js:54 13541.299999952316
+PoseDetectorPose.js:54 13575.899999976158
+PoseDetectorPose.js:54 13604.699999928474
+PoseDetectorPose.js:54 13636.099999904633
+PoseDetectorPose.js:54 13669.399999976158
+PoseDetectorPose.js:54 13702.899999976158
+PoseDetectorPose.js:54 13736.899999976158
+PoseDetectorPose.js:54 13772.399999976158
+PoseDetectorPose.js:54 13809.5
+PoseDetectorPose.js:54 13838.899999976158
+PoseDetectorPose.js:54 13872.899999976158
+PoseDetectorPose.js:54 13907.5
+PoseDetectorPose.js:54 13938.599999904633
+ 13972.599999904633
+ 14006.5
+ 14042.399999976158
+ 14071.199999928474
+ 14104.299999952316
+ 14137.5
+ 14171.299999952316
+ 14205.699999928474
+ 14240.899999976158
+ 14275
+ 14304.399999976158
+ 14338
+ 14371.099999904633
+ 14405.399999976158
+ 14438.699999928474
+ 14473.399999976158
+ 14509.399999976158
+ 14539.899999976158
+ 14571.599999904633
+ 14606.199999928474
+ 14639.799999952316
+ 14676.099999904633
+ 14705.199999928474
+ 14738.899999976158
+ 14772.099999904633
+ 14806.199999928474
+ 14842.399999976158
+ 14872.699999928474
+ 14904
+ 14940.699999928474
+ 14972
+ 15006.299999952316
+ 15041.599999904633
+ 15071.799999952316
+ 15105.299999952316
+ 15139.699999928474
+ 15176.399999976158
+ 15204
+ 15237.899999976158
+ 15271.899999976158
+ 15306.299999952316
+ 15341.899999976158
+ 15371.599999904633
+ 15405.699999928474
+ 15438.699999928474
+ 15474.199999928474
+ 15507.5
+ 15540
+ 15574.899999976158
+ 15604.699999928474
+ 15637.899999976158
+ 15671.699999928474
+ 15705.399999976158
+ 15743.199999928474
+ 15771
+ 15805.099999904633
+ 15839.199999928474
+ 15881.199999928474
+ 15912.899999976158
+ 15942.5
+ 15975.899999976158
+ 16010.099999904633
+ 16042.799999952316
+ 16077.199999928474
+ 16111.199999928474
+ 16147.799999952316
+ 16179
+ 16206.199999928474
+ 16239.099999904633
+ 16275.099999904633
+ 16305.5
+ 16338.699999928474
+ 16372.899999976158
+ 16409.199999928474
+ 16438.699999928474
+ 16476.099999904633
+ 16509.199999928474
+ 16543.399999976158
+ 16578
+ 16614.899999976158
+ 16646.699999928474
+ 16680
+ 16713.799999952316
+ 16752.799999952316
+ 16781.799999952316
+ 16813.5
+ 16846.699999928474
+ 16880.599999904633
+ 16914.899999976158
+ 16940.899999976158
+ 16982.899999976158
+ 17015.5
+ 17040.699999928474
+ 17081.399999976158
+ 17115.599999904633
+ 17149.099999904633
+ 17182.399999976158
+ 17215.799999952316
+ 17247.599999904633
+ 17289.299999952316
+ 17312.399999976158
+ 17344
+ 17387.899999976158
+ 17421.799999952316
+ 17446.599999904633
+ 17480.5
+ 17518.699999928474
+ 17550.899999976158
+ 17585
+ 17613.199999928474
+ 17646.299999952316
+ 17684.199999928474
+ 17713.699999928474
+ 17746.899999976158
+ 17781.5
+ 17817.399999976158
+ 17847
+ 17880.5
+ 17914
+ 17948.199999928474
+ 17985.099999904633
+ 18013.399999976158
+ 18046.399999976158
+ 18080.399999976158
+ 18113.5
