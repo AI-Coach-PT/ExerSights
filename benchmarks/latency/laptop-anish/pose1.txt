@@ -1,0 +1,579 @@
+react refresh:6 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
+react-dom.development.js:86 Warning: Received NaN for the `height` attribute. If this is expected, cast the value to a string.
+    at canvas
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67763:81)
+    at _c (http://localhost:3000/static/js/bundle.js:1782:30)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67763:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67763:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67763:81)
+    at ExerciseBox (http://localhost:3000/static/js/bundle.js:358:3)
+    at SquatPage (http://localhost:3000/static/js/bundle.js:3608:96)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:113221:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:113923:5)
+    at Router (http://localhost:3000/static/js/bundle.js:113857:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:111798:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66200:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:66888:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:65862:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66978:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63129:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63082:3)
+    at App
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+validateProperty$1 @ react-dom.development.js:3736
+warnUnknownProperties @ react-dom.development.js:3803
+validateProperties$2 @ react-dom.development.js:3827
+validatePropertiesInDevelopment @ react-dom.development.js:9541
+setInitialProperties @ react-dom.development.js:9830
+finalizeInitialChildren @ react-dom.development.js:10950
+completeWork @ react-dom.development.js:22232
+completeUnitOfWork @ react-dom.development.js:26635
+performUnitOfWork @ react-dom.development.js:26607
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performSyncWorkOnRoot @ react-dom.development.js:26124
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+react-dom.development.js:86 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
+    at p
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62043:87)
+    at p
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62043:87)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67763:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Paper (http://localhost:3000/static/js/bundle.js:58391:96)
+    at FeedbackPanel (http://localhost:3000/static/js/bundle.js:721:3)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67763:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6752:66
+    at Box (http://localhost:3000/static/js/bundle.js:67763:81)
+    at ExerciseBox (http://localhost:3000/static/js/bundle.js:358:3)
+    at SquatPage (http://localhost:3000/static/js/bundle.js:3608:96)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:113221:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:113923:5)
+    at Router (http://localhost:3000/static/js/bundle.js:113857:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:111798:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66200:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:66888:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:65862:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66978:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63129:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63082:3)
+    at App
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+validateDOMNesting @ react-dom.development.js:10849
+createInstance @ react-dom.development.js:10930
+completeWork @ react-dom.development.js:22226
+completeUnitOfWork @ react-dom.development.js:26635
+performUnitOfWork @ react-dom.development.js:26607
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performSyncWorkOnRoot @ react-dom.development.js:26124
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+pose_solution_simd_wasm_bin.js:9 I0000 00:00:1733531302.906000       1 gl_context_webgl.cc:151] Successfully created a WebGL context with major version 3 and handle 3
+put_char @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+doWritev @ pose_solution_simd_wasm_bin.js:9
+_fd_write @ pose_solution_simd_wasm_bin.js:9
+$func8240 @ pose_solution_simd_wasm_bin.wasm:0x51510e
+$func8250 @ pose_solution_simd_wasm_bin.wasm:0x51587f
+$func8251 @ pose_solution_simd_wasm_bin.wasm:0x51592a
+$func7869 @ pose_solution_simd_wasm_bin.wasm:0x4e9bc2
+$func7868 @ pose_solution_simd_wasm_bin.wasm:0x4e9ba1
+$func7866 @ pose_solution_simd_wasm_bin.wasm:0x4e984d
+$func7847 @ pose_solution_simd_wasm_bin.wasm:0x4e8464
+$func7846 @ pose_solution_simd_wasm_bin.wasm:0x4e76e4
+$func7070 @ pose_solution_simd_wasm_bin.wasm:0x4a68f1
+$func6557 @ pose_solution_simd_wasm_bin.wasm:0x469140
+$func6352 @ pose_solution_simd_wasm_bin.wasm:0x4544e7
+$func251 @ pose_solution_simd_wasm_bin.wasm:0x1d898
+$func221 @ pose_solution_simd_wasm_bin.wasm:0x19049
+(anonymous) @ pose_solution_simd_wasm_bin.js:9
+(anonymous) @ pose.js:82
+ua @ pose.js:14
+next @ pose.js:15
+b @ pose.js:15
+Promise.then
+g @ pose.js:15
+Promise.then
+g @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:79
+(anonymous) @ pose.js:95
+ua @ pose.js:14
+next @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:95
+onFrame @ PoseDetectorPose.js:80
+Q @ camera_utils.js:22
+(anonymous) @ camera_utils.js:22
+requestAnimationFrame
+P @ camera_utils.js:22
+O.a.video.onloadedmetadata @ camera_utils.js:22
+pose_solution_simd_wasm_bin.js:9 I0000 00:00:1733531302.909000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+doWritev @ pose_solution_simd_wasm_bin.js:9
+_fd_write @ pose_solution_simd_wasm_bin.js:9
+$func8240 @ pose_solution_simd_wasm_bin.wasm:0x51510e
+$func8250 @ pose_solution_simd_wasm_bin.wasm:0x51587f
+$func8251 @ pose_solution_simd_wasm_bin.wasm:0x51592a
+$func7869 @ pose_solution_simd_wasm_bin.wasm:0x4e9bc2
+$func7868 @ pose_solution_simd_wasm_bin.wasm:0x4e9ba1
+$func7866 @ pose_solution_simd_wasm_bin.wasm:0x4e984d
+$func7847 @ pose_solution_simd_wasm_bin.wasm:0x4e8464
+$func7846 @ pose_solution_simd_wasm_bin.wasm:0x4e76e4
+$func7015 @ pose_solution_simd_wasm_bin.wasm:0x4a4c16
+$func6943 @ pose_solution_simd_wasm_bin.wasm:0x4a2623
+$func6942 @ pose_solution_simd_wasm_bin.wasm:0x4a24f1
+$func7070 @ pose_solution_simd_wasm_bin.wasm:0x4a69a4
+$func6557 @ pose_solution_simd_wasm_bin.wasm:0x469140
+$func6352 @ pose_solution_simd_wasm_bin.wasm:0x4544e7
+$func251 @ pose_solution_simd_wasm_bin.wasm:0x1d898
+$func221 @ pose_solution_simd_wasm_bin.wasm:0x19049
+(anonymous) @ pose_solution_simd_wasm_bin.js:9
+(anonymous) @ pose.js:82
+ua @ pose.js:14
+next @ pose.js:15
+b @ pose.js:15
+Promise.then
+g @ pose.js:15
+Promise.then
+g @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:79
+(anonymous) @ pose.js:95
+ua @ pose.js:14
+next @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:95
+onFrame @ PoseDetectorPose.js:80
+Q @ camera_utils.js:22
+(anonymous) @ camera_utils.js:22
+requestAnimationFrame
+P @ camera_utils.js:22
+O.a.video.onloadedmetadata @ camera_utils.js:22
+pose_solution_simd_wasm_bin.js:9 W0000 00:00:1733531302.910000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+write @ pose_solution_simd_wasm_bin.js:9
+doWritev @ pose_solution_simd_wasm_bin.js:9
+_fd_write @ pose_solution_simd_wasm_bin.js:9
+$func8240 @ pose_solution_simd_wasm_bin.wasm:0x51510e
+$func8250 @ pose_solution_simd_wasm_bin.wasm:0x51587f
+$func8251 @ pose_solution_simd_wasm_bin.wasm:0x51592a
+$func7869 @ pose_solution_simd_wasm_bin.wasm:0x4e9bc2
+$func7868 @ pose_solution_simd_wasm_bin.wasm:0x4e9ba1
+$func7866 @ pose_solution_simd_wasm_bin.wasm:0x4e984d
+$func7847 @ pose_solution_simd_wasm_bin.wasm:0x4e8464
+$func7846 @ pose_solution_simd_wasm_bin.wasm:0x4e76e4
+$func6943 @ pose_solution_simd_wasm_bin.wasm:0x4a2687
+$func6942 @ pose_solution_simd_wasm_bin.wasm:0x4a24f1
+$func7070 @ pose_solution_simd_wasm_bin.wasm:0x4a69a4
+$func6557 @ pose_solution_simd_wasm_bin.wasm:0x469140
+$func6352 @ pose_solution_simd_wasm_bin.wasm:0x4544e7
+$func251 @ pose_solution_simd_wasm_bin.wasm:0x1d898
+$func221 @ pose_solution_simd_wasm_bin.wasm:0x19049
+(anonymous) @ pose_solution_simd_wasm_bin.js:9
+(anonymous) @ pose.js:82
+ua @ pose.js:14
+next @ pose.js:15
+b @ pose.js:15
+Promise.then
+g @ pose.js:15
+Promise.then
+g @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:79
+(anonymous) @ pose.js:95
+ua @ pose.js:14
+next @ pose.js:15
+(anonymous) @ pose.js:15
+wa @ pose.js:15
+E @ pose.js:16
+__webpack_modules__../node_modules/@mediapipe/pose/pose.js.x.send @ pose.js:95
+onFrame @ PoseDetectorPose.js:80
+Q @ camera_utils.js:22
+(anonymous) @ camera_utils.js:22
+requestAnimationFrame
+P @ camera_utils.js:22
+O.a.video.onloadedmetadata @ camera_utils.js:22
+PoseDetectorPose.js:54 2823.5
+PoseDetectorPose.js:54 2862
+PoseDetectorPose.js:54 2904.2999999523163
+PoseDetectorPose.js:54 2948
+PoseDetectorPose.js:54 2980.5
+PoseDetectorPose.js:54 3014.7000000476837
+PoseDetectorPose.js:54 3024.0999999046326
+PoseDetectorPose.js:54 3059.0999999046326
+PoseDetectorPose.js:54 3092.4000000953674
+PoseDetectorPose.js:54 3129.2000000476837
+PoseDetectorPose.js:54 3143.5
+PoseDetectorPose.js:54 3179.7000000476837
+PoseDetectorPose.js:54 3227.5
+PoseDetectorPose.js:54 3258.2999999523163
+PoseDetectorPose.js:54 3294.2000000476837
+PoseDetectorPose.js:54 3325.2000000476837
+PoseDetectorPose.js:54 3360
+PoseDetectorPose.js:54 3392.2999999523163
+PoseDetectorPose.js:54 3425.7000000476837
+PoseDetectorPose.js:54 3460
+PoseDetectorPose.js:54 3492.5999999046326
+PoseDetectorPose.js:54 3508
+PoseDetectorPose.js:54 3542.2000000476837
+PoseDetectorPose.js:54 3593.4000000953674
+PoseDetectorPose.js:54 3625.4000000953674
+PoseDetectorPose.js:54 3658.2999999523163
+PoseDetectorPose.js:54 3693
+PoseDetectorPose.js:54 3725.5
+PoseDetectorPose.js:54 3759.0999999046326
+PoseDetectorPose.js:54 3791.4000000953674
+PoseDetectorPose.js:54 3826.0999999046326
+PoseDetectorPose.js:54 3858.2999999523163
+PoseDetectorPose.js:54 3894.4000000953674
+PoseDetectorPose.js:54 3924.9000000953674
+PoseDetectorPose.js:54 3959.5999999046326
+PoseDetectorPose.js:54 3991.7999999523163
+PoseDetectorPose.js:54 4028.2999999523163
+PoseDetectorPose.js:54 4058.4000000953674
+PoseDetectorPose.js:54 4092.5
+PoseDetectorPose.js:54 4124.799999952316
+PoseDetectorPose.js:54 4162.5
+PoseDetectorPose.js:54 4182.5
+PoseDetectorPose.js:54 4225.799999952316
+PoseDetectorPose.js:54 4258.400000095367
+PoseDetectorPose.js:54 4309.200000047684
+PoseDetectorPose.js:54 4341.900000095367
+PoseDetectorPose.js:54 4358.299999952316
+PoseDetectorPose.js:54 4392.200000047684
+PoseDetectorPose.js:54 4425.5
+PoseDetectorPose.js:54 4460.5
+PoseDetectorPose.js:54 4493.099999904633
+PoseDetectorPose.js:54 4526.900000095367
+PoseDetectorPose.js:54 4563.900000095367
+PoseDetectorPose.js:54 4593.799999952316
+PoseDetectorPose.js:54 4625.599999904633
+PoseDetectorPose.js:54 4675.400000095367
+PoseDetectorPose.js:54 4709.400000095367
+PoseDetectorPose.js:54 4725.200000047684
+PoseDetectorPose.js:54 4758.700000047684
+PoseDetectorPose.js:54 4793.5
+PoseDetectorPose.js:54 4831.900000095367
+PoseDetectorPose.js:54 4863.799999952316
+PoseDetectorPose.js:54 4898.299999952316
+PoseDetectorPose.js:54 4930.299999952316
+PoseDetectorPose.js:54 4965.799999952316
+PoseDetectorPose.js:54 5013.700000047684
+PoseDetectorPose.js:54 5047.099999904633
+PoseDetectorPose.js:54 5080.599999904633
+PoseDetectorPose.js:54 5115.599999904633
+PoseDetectorPose.js:54 5131.799999952316
+PoseDetectorPose.js:54 5163.299999952316
+PoseDetectorPose.js:54 5196.900000095367
+PoseDetectorPose.js:54 5230.400000095367
+PoseDetectorPose.js:54 5265.099999904633
+PoseDetectorPose.js:54 5297
+PoseDetectorPose.js:54 5331
+PoseDetectorPose.js:54 5381
+PoseDetectorPose.js:54 5414
+PoseDetectorPose.js:54 5447.400000095367
+PoseDetectorPose.js:54 5482.200000047684
+PoseDetectorPose.js:54 5499
+PoseDetectorPose.js:54 5530.200000047684
+PoseDetectorPose.js:54 5564.200000047684
+PoseDetectorPose.js:54 5597.599999904633
+PoseDetectorPose.js:54 5634.700000047684
+PoseDetectorPose.js:54 5667
+PoseDetectorPose.js:54 5703.400000095367
+PoseDetectorPose.js:54 5748.099999904633
+PoseDetectorPose.js:54 5794
+PoseDetectorPose.js:54 5812.700000047684
+PoseDetectorPose.js:54 5853.5
+PoseDetectorPose.js:54 5875.299999952316
+PoseDetectorPose.js:54 5919.700000047684
+PoseDetectorPose.js:54 5940.400000095367
+PoseDetectorPose.js:54 5965.099999904633
+PoseDetectorPose.js:54 6005.799999952316
+PoseDetectorPose.js:54 6030.700000047684
+PoseDetectorPose.js:54 6081
+PoseDetectorPose.js:54 6113.5
+PoseDetectorPose.js:54 6147.5
+PoseDetectorPose.js:54 6186.299999952316
+PoseDetectorPose.js:54 6203.700000047684
+PoseDetectorPose.js:54 6249
+PoseDetectorPose.js:54 6267.299999952316
+PoseDetectorPose.js:54 6315.700000047684
+PoseDetectorPose.js:54 6334.400000095367
+PoseDetectorPose.js:54 6387.299999952316
+PoseDetectorPose.js:54 6405.799999952316
+PoseDetectorPose.js:54 6451.200000047684
+PoseDetectorPose.js:54 6493.099999904633
+PoseDetectorPose.js:54 6511.200000047684
+PoseDetectorPose.js:54 6547.799999952316
+PoseDetectorPose.js:54 6582.099999904633
+PoseDetectorPose.js:54 6614.900000095367
+PoseDetectorPose.js:54 6653.400000095367
+PoseDetectorPose.js:54 6671.900000095367
+PoseDetectorPose.js:54 6718.799999952316
+PoseDetectorPose.js:54 6745
+PoseDetectorPose.js:54 6763
+PoseDetectorPose.js:54 6817.299999952316
+PoseDetectorPose.js:54 6848
+PoseDetectorPose.js:54 6882.099999904633
+PoseDetectorPose.js:54 6917.099999904633
+PoseDetectorPose.js:54 6948.299999952316
+PoseDetectorPose.js:54 6984.700000047684
+PoseDetectorPose.js:54 7022.200000047684
+PoseDetectorPose.js:54 7040.599999904633
+PoseDetectorPose.js:54 7089.799999952316
+PoseDetectorPose.js:54 7108.299999952316
+PoseDetectorPose.js:54 7147.799999952316
+PoseDetectorPose.js:54 7180.5
+PoseDetectorPose.js:54 7214.299999952316
+PoseDetectorPose.js:54 7247.200000047684
+PoseDetectorPose.js:54 7293.400000095367
+PoseDetectorPose.js:54 7312.400000095367
+PoseDetectorPose.js:54 7347.599999904633
+PoseDetectorPose.js:54 7385
+PoseDetectorPose.js:54 7408.5
+PoseDetectorPose.js:54 7448.200000047684
+PoseDetectorPose.js:54 7480.200000047684
+PoseDetectorPose.js:54 7530.799999952316
+PoseDetectorPose.js:54 7551.299999952316
+PoseDetectorPose.js:54 7604.900000095367
+PoseDetectorPose.js:54 7622.900000095367
+PoseDetectorPose.js:54 7667.200000047684
+PoseDetectorPose.js:54 7684.299999952316
+PoseDetectorPose.js:54 7718.599999904633
+PoseDetectorPose.js:54 7747.799999952316
+PoseDetectorPose.js:54 7785.599999904633
+PoseDetectorPose.js:54 7802.900000095367
+PoseDetectorPose.js:54 7847.400000095367
+PoseDetectorPose.js:54 7903.5
+PoseDetectorPose.js:54 7925.099999904633
+PoseDetectorPose.js:54 7947
+PoseDetectorPose.js:54 7980.900000095367
+PoseDetectorPose.js:54 8016.5
+PoseDetectorPose.js:54 8051.200000047684
+PoseDetectorPose.js:54 8081
+PoseDetectorPose.js:54 8116.900000095367
+PoseDetectorPose.js:54 8148
+PoseDetectorPose.js:54 8184.799999952316
+PoseDetectorPose.js:54 8230.599999904633
+PoseDetectorPose.js:54 8268.400000095367
+PoseDetectorPose.js:54 8286.799999952316
+PoseDetectorPose.js:54 8336.099999904633
+PoseDetectorPose.js:54 8353.200000047684
+PoseDetectorPose.js:54 8380.099999904633
+PoseDetectorPose.js:54 8419.299999952316
+PoseDetectorPose.js:54 8447.5
+PoseDetectorPose.js:54 8480.099999904633
+PoseDetectorPose.js:54 8513.099999904633
+PoseDetectorPose.js:54 8546.799999952316
+PoseDetectorPose.js:54 8603.900000095367
+PoseDetectorPose.js:54 8622.200000047684
+PoseDetectorPose.js:54 8664.599999904633
+PoseDetectorPose.js:54 8705.400000095367
+PoseDetectorPose.js:54 8724.099999904633
+PoseDetectorPose.js:54 8747.799999952316
+PoseDetectorPose.js:54 8805.400000095367
+PoseDetectorPose.js:54 8823.099999904633
+PoseDetectorPose.js:54 8848.5
+PoseDetectorPose.js:54 8883.799999952316
+PoseDetectorPose.js:54 8931.700000047684
+PoseDetectorPose.js:54 8971.599999904633
+PoseDetectorPose.js:54 8989.900000095367
+PoseDetectorPose.js:54 9032
+PoseDetectorPose.js:54 9064.400000095367
+PoseDetectorPose.js:54 9098.900000095367
+PoseDetectorPose.js:54 9119.400000095367
+PoseDetectorPose.js:54 9149.099999904633
+PoseDetectorPose.js:54 9181.299999952316
+PoseDetectorPose.js:54 9214.400000095367
+PoseDetectorPose.js:54 9247.099999904633
+PoseDetectorPose.js:54 9297.900000095367
+PoseDetectorPose.js:54 9331.5
+PoseDetectorPose.js:54 9363.799999952316
+PoseDetectorPose.js:54 9406.200000047684
+PoseDetectorPose.js:54 9424
+PoseDetectorPose.js:54 9464.099999904633
+PoseDetectorPose.js:54 9503.5
+PoseDetectorPose.js:54 9520.5
+PoseDetectorPose.js:54 9564.799999952316
+PoseDetectorPose.js:54 9581.200000047684
+PoseDetectorPose.js:54 9616.400000095367
+PoseDetectorPose.js:54 9669.900000095367
+PoseDetectorPose.js:54 9697.099999904633
+PoseDetectorPose.js:54 9730.5
+PoseDetectorPose.js:54 9764.299999952316
+PoseDetectorPose.js:54 9806.799999952316
+PoseDetectorPose.js:54 9824.700000047684
+PoseDetectorPose.js:54 9863.900000095367
+PoseDetectorPose.js:54 9903.799999952316
+PoseDetectorPose.js:54 9921
+PoseDetectorPose.js:54 9947
+PoseDetectorPose.js:54 10001.799999952316
+PoseDetectorPose.js:54 10030.799999952316
+PoseDetectorPose.js:54 10064.900000095367
+PoseDetectorPose.js:54 10096.900000095367
+PoseDetectorPose.js:54 10134.900000095367
+PoseDetectorPose.js:54 10164.400000095367
+PoseDetectorPose.js:54 10204
+PoseDetectorPose.js:54 10224.599999904633
+PoseDetectorPose.js:54 10264.5
+PoseDetectorPose.js:54 10303.700000047684
+PoseDetectorPose.js:54 10322.099999904633
+PoseDetectorPose.js:54 10364
+PoseDetectorPose.js:54 10402.200000047684
+PoseDetectorPose.js:54 10431.200000047684
+PoseDetectorPose.js:54 10464.299999952316
+PoseDetectorPose.js:54 10504.5
+PoseDetectorPose.js:54 10531.900000095367
+PoseDetectorPose.js:54 10564
+PoseDetectorPose.js:54 10603.799999952316
+PoseDetectorPose.js:54 10621.099999904633
+PoseDetectorPose.js:54 10664
+PoseDetectorPose.js:54 10700.700000047684
+PoseDetectorPose.js:54 10730.700000047684
+PoseDetectorPose.js:54 10766
+PoseDetectorPose.js:54 10796.900000095367
+PoseDetectorPose.js:54 10832.900000095367
+PoseDetectorPose.js:54 10863.700000047684
+PoseDetectorPose.js:54 10903.700000047684
+PoseDetectorPose.js:54 10931.400000095367
+PoseDetectorPose.js:54 10964.5
+PoseDetectorPose.js:54 10996.599999904633
+PoseDetectorPose.js:54 11035.299999952316
+PoseDetectorPose.js:54 11083.200000047684
+PoseDetectorPose.js:54 11100.299999952316
+PoseDetectorPose.js:54 11130.400000095367
+PoseDetectorPose.js:54 11165.5
+PoseDetectorPose.js:54 11198.099999904633
+PoseDetectorPose.js:54 11231.5
+PoseDetectorPose.js:54 11264.200000047684
+PoseDetectorPose.js:54 11306.599999904633
+PoseDetectorPose.js:54 11329.799999952316
+PoseDetectorPose.js:54 11367.299999952316
+PoseDetectorPose.js:54 11403.5
+PoseDetectorPose.js:54 11451
+PoseDetectorPose.js:54 11483.700000047684
+PoseDetectorPose.js:54 11501.900000095367
+PoseDetectorPose.js:54 11535.599999904633
+PoseDetectorPose.js:54 11564.400000095367
+PoseDetectorPose.js:54 11600.900000095367
+PoseDetectorPose.js:54 11631.299999952316
+PoseDetectorPose.js:54 11664.400000095367
+PoseDetectorPose.js:54 11703.299999952316
+PoseDetectorPose.js:54 11730.599999904633
+PoseDetectorPose.js:54 11764.299999952316
+PoseDetectorPose.js:54 11815.599999904633
+PoseDetectorPose.js:54 11847.400000095367
+PoseDetectorPose.js:54 11887.5
+PoseDetectorPose.js:54 11907.400000095367
+PoseDetectorPose.js:54 11930
+PoseDetectorPose.js:54 11966.900000095367
+PoseDetectorPose.js:54 11998.5
+PoseDetectorPose.js:54 12042.200000047684
+PoseDetectorPose.js:54 12061.299999952316
+PoseDetectorPose.js:54 12098.299999952316
+PoseDetectorPose.js:54 12148.700000047684
+PoseDetectorPose.js:54 12180.700000047684
+PoseDetectorPose.js:54 12215.200000047684
+PoseDetectorPose.js:54 12261.599999904633
+PoseDetectorPose.js:54 12287.5
+PoseDetectorPose.js:54 12307.700000047684
+PoseDetectorPose.js:54 12348.400000095367
+PoseDetectorPose.js:54 12364
+PoseDetectorPose.js:54 12397.200000047684
+PoseDetectorPose.js:54 12432.299999952316
+PoseDetectorPose.js:54 12464.099999904633
+PoseDetectorPose.js:54 12516.700000047684
+PoseDetectorPose.js:54 12547.700000047684
+PoseDetectorPose.js:54 12583.5
+PoseDetectorPose.js:54 12615.799999952316
+PoseDetectorPose.js:54 12647.700000047684
+PoseDetectorPose.js:54 12681.5
+PoseDetectorPose.js:54 12715
+PoseDetectorPose.js:54 12740.799999952316
+PoseDetectorPose.js:54 12763.799999952316
+PoseDetectorPose.js:54 12797
+PoseDetectorPose.js:54 12830.099999904633
+PoseDetectorPose.js:54 12881.200000047684
+PoseDetectorPose.js:54 12914.5
+PoseDetectorPose.js:54 12947.099999904633
+PoseDetectorPose.js:54 12982.400000095367
+PoseDetectorPose.js:54 13014.400000095367
+PoseDetectorPose.js:54 13047
+PoseDetectorPose.js:54 13082.200000047684
+PoseDetectorPose.js:54 13114.799999952316
+PoseDetectorPose.js:54 13129.299999952316
+PoseDetectorPose.js:54 13166.200000047684
+PoseDetectorPose.js:54 13214.299999952316
+PoseDetectorPose.js:54 13251
+PoseDetectorPose.js:54 13280.400000095367
+PoseDetectorPose.js:54 13314.700000047684

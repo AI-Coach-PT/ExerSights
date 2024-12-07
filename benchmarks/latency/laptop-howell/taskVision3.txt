@@ -1,0 +1,842 @@
+ Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+  Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
+    at p
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62044:87)
+    at p
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62044:87)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at Home (http://localhost:3000/static/js/bundle.js:2358:81)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:113222:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:113924:5)
+    at Router (http://localhost:3000/static/js/bundle.js:113858:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:111799:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66201:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:66889:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:65863:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66979:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63130:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63083:3)
+    at App
+printWarning @ bundle.js:84673
+  Warning: Received NaN for the `height` attribute. If this is expected, cast the value to a string.
+    at canvas
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at _c (http://localhost:3000/static/js/bundle.js:1783:30)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at ExerciseBox (http://localhost:3000/static/js/bundle.js:358:3)
+    at SquatPage (http://localhost:3000/static/js/bundle.js:3609:96)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:113222:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:113924:5)
+    at Router (http://localhost:3000/static/js/bundle.js:113858:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:111799:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66201:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:66889:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:65863:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66979:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63130:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63083:3)
+    at App
+printWarning @ bundle.js:84673
+vision_wasm_internal.js:1087  I0000 00:00:1733541151.049000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ vision_wasm_internal.js:1087
+vision_wasm_internal.js:1087  I0000 00:00:1733541151.050000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ vision_wasm_internal.js:1087
+vision_wasm_internal.js:1087  W0000 00:00:1733541151.051000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ vision_wasm_internal.js:1087
+vision_wasm_internal.js:1071 Graph successfully started running.
+vision_wasm_internal.js:1087  I0000 00:00:1733541151.199000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ vision_wasm_internal.js:1087
+vision_wasm_internal.js:1087  I0000 00:00:1733541151.200000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ vision_wasm_internal.js:1087
+vision_wasm_internal.js:1087  W0000 00:00:1733541151.201000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ vision_wasm_internal.js:1087
+vision_wasm_internal.js:1071 Graph successfully started running.
+vision_wasm_internal.js:1087  I0000 00:00:1733541151.289000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ vision_wasm_internal.js:1087
+vision_wasm_internal.js:1087  I0000 00:00:1733541151.290000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ vision_wasm_internal.js:1087
+vision_wasm_internal.js:1087  W0000 00:00:1733541151.291000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ vision_wasm_internal.js:1087
+vision_wasm_internal.js:1071 Graph successfully started running.
+vision_wasm_internal.js:1087  INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+put_char @ vision_wasm_internal.js:1087
+PoseDetectorTasksVision.js:54 4022.699999988079
+PoseDetectorTasksVision.js:54 4037.599999964237
+PoseDetectorTasksVision.js:54 4052.899999976158
+PoseDetectorTasksVision.js:54 4073
+PoseDetectorTasksVision.js:54 4095.899999976158
+PoseDetectorTasksVision.js:54 4111.799999952316
+PoseDetectorTasksVision.js:54 4131.799999952316
+PoseDetectorTasksVision.js:54 4147.099999964237
+PoseDetectorTasksVision.js:54 4196.899999976158
+[.WebGL-0x76ec057ae300] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x76ec057ae300] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x76ec057ae300] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x76ec057ae300] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x76ec057ae300] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x76ec057ae300] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x76ec057ae300] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x76ec057ae300] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x76ec057ae300] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+PoseDetectorTasksVision.js:54 4269.899999976158
+PoseDetectorTasksVision.js:54 4303.699999988079
+PoseDetectorTasksVision.js:54 4335.199999988079
+PoseDetectorTasksVision.js:54 4378.299999952316
+PoseDetectorTasksVision.js:54 4410.799999952316
+PoseDetectorTasksVision.js:54 4443.599999964237
+PoseDetectorTasksVision.js:54 4476.099999964237
+PoseDetectorTasksVision.js:54 4506
+PoseDetectorTasksVision.js:54 4535.299999952316
+PoseDetectorTasksVision.js:54 4564.899999976158
+PoseDetectorTasksVision.js:54 4597.5
+PoseDetectorTasksVision.js:54 4630.199999988079
+PoseDetectorTasksVision.js:54 4663.899999976158
+PoseDetectorTasksVision.js:54 4707.699999988079
+PoseDetectorTasksVision.js:54 4746.399999976158
+PoseDetectorTasksVision.js:54 4781.299999952316
+PoseDetectorTasksVision.js:54 4816.199999988079
+PoseDetectorTasksVision.js:54 4850.299999952316
+PoseDetectorTasksVision.js:54 4880.299999952316
+PoseDetectorTasksVision.js:54 4911.099999964237
+PoseDetectorTasksVision.js:54 4942.299999952316
+PoseDetectorTasksVision.js:54 4970.399999976158
+PoseDetectorTasksVision.js:54 4999.899999976158
+PoseDetectorTasksVision.js:54 5032.899999976158
+PoseDetectorTasksVision.js:54 5060.599999964237
+PoseDetectorTasksVision.js:54 5094.5
+PoseDetectorTasksVision.js:54 5139.599999964237
+PoseDetectorTasksVision.js:54 5209.099999964237
+PoseDetectorTasksVision.js:54 5241.599999964237
+PoseDetectorTasksVision.js:54 5273.699999988079
+PoseDetectorTasksVision.js:54 5312.599999964237
+PoseDetectorTasksVision.js:54 5348.699999988079
+PoseDetectorTasksVision.js:54 5383.399999976158
+PoseDetectorTasksVision.js:54 5423.699999988079
+PoseDetectorTasksVision.js:54 5460.699999988079
+PoseDetectorTasksVision.js:54 5498.299999952316
+PoseDetectorTasksVision.js:54 5546.399999976158
+PoseDetectorTasksVision.js:54 5587.699999988079
+PoseDetectorTasksVision.js:54 5626.699999988079
+PoseDetectorTasksVision.js:54 5683.899999976158
+PoseDetectorTasksVision.js:54 5721.5
+PoseDetectorTasksVision.js:54 5784.699999988079
+PoseDetectorTasksVision.js:54 5835.699999988079
+PoseDetectorTasksVision.js:54 5876.799999952316
+PoseDetectorTasksVision.js:54 5915.799999952316
+PoseDetectorTasksVision.js:54 5954.599999964237
+PoseDetectorTasksVision.js:54 5991.099999964237
+PoseDetectorTasksVision.js:54 6024.599999964237
+PoseDetectorTasksVision.js:54 6198.399999976158
+PoseDetectorTasksVision.js:54 6251.099999964237
+PoseDetectorTasksVision.js:54 6304.699999988079
+PoseDetectorTasksVision.js:54 6361.199999988079
+PoseDetectorTasksVision.js:54 6419.899999976158
+PoseDetectorTasksVision.js:54 6482.799999952316
+PoseDetectorTasksVision.js:54 6534.799999952316
+PoseDetectorTasksVision.js:54 6584.299999952316
+PoseDetectorTasksVision.js:54 6650.5
+PoseDetectorTasksVision.js:54 6718.099999964237
+PoseDetectorTasksVision.js:54 6779.599999964237
+PoseDetectorTasksVision.js:54 6832.899999976158
+PoseDetectorTasksVision.js:54 6901.299999952316
+PoseDetectorTasksVision.js:54 6962.199999988079
+PoseDetectorTasksVision.js:54 7022.299999952316
+PoseDetectorTasksVision.js:54 7148.399999976158
+PoseDetectorTasksVision.js:54 7277.399999976158
+PoseDetectorTasksVision.js:54 7337.399999976158
+PoseDetectorTasksVision.js:54 7438.799999952316
+PoseDetectorTasksVision.js:54 7494.399999976158
+PoseDetectorTasksVision.js:54 7542.299999952316
+PoseDetectorTasksVision.js:54 7608.599999964237
+PoseDetectorTasksVision.js:54 7659.699999988079
+PoseDetectorTasksVision.js:54 7711.799999952316
+PoseDetectorTasksVision.js:54 7784.799999952316
+PoseDetectorTasksVision.js:54 7832.699999988079
+PoseDetectorTasksVision.js:54 7890.599999964237
+PoseDetectorTasksVision.js:54 8041.699999988079
+PoseDetectorTasksVision.js:54 8088.899999976158
+PoseDetectorTasksVision.js:54 8135.399999976158
+PoseDetectorTasksVision.js:54 8202.599999964237
+PoseDetectorTasksVision.js:54 8243.899999976158
+PoseDetectorTasksVision.js:54 8287.699999988079
+PoseDetectorTasksVision.js:54 8350.799999952316
+PoseDetectorTasksVision.js:54 8399.099999964237
+PoseDetectorTasksVision.js:54 8443.599999964237
+PoseDetectorTasksVision.js:54 8507.799999952316
+PoseDetectorTasksVision.js:54 8550.799999952316
+PoseDetectorTasksVision.js:54 8595.799999952316
+PoseDetectorTasksVision.js:54 8658.799999952316
+PoseDetectorTasksVision.js:54 8706.899999976158
+PoseDetectorTasksVision.js:54 8759.099999964237
+PoseDetectorTasksVision.js:54 8826.799999952316
+PoseDetectorTasksVision.js:54 8876.199999988079
+PoseDetectorTasksVision.js:54 8929.699999988079
+PoseDetectorTasksVision.js:54 8975.799999952316
+PoseDetectorTasksVision.js:54 9030.399999976158
+PoseDetectorTasksVision.js:54 9071.299999952316
+PoseDetectorTasksVision.js:54 9118
+PoseDetectorTasksVision.js:54 9162
+PoseDetectorTasksVision.js:54 9206.599999964237
+PoseDetectorTasksVision.js:54 9253.699999988079
+PoseDetectorTasksVision.js:54 9302
+PoseDetectorTasksVision.js:54 9346.599999964237
+PoseDetectorTasksVision.js:54 9393.399999976158
+PoseDetectorTasksVision.js:54 9440.399999976158
+PoseDetectorTasksVision.js:54 9483.899999976158
+PoseDetectorTasksVision.js:54 9529.199999988079
+PoseDetectorTasksVision.js:54 9578
+PoseDetectorTasksVision.js:54 9622.599999964237
+PoseDetectorTasksVision.js:54 9670.199999988079
+PoseDetectorTasksVision.js:54 9720.799999952316
+PoseDetectorTasksVision.js:54 9766.199999988079
+PoseDetectorTasksVision.js:54 9814.799999952316
+PoseDetectorTasksVision.js:54 9858.199999988079
+PoseDetectorTasksVision.js:54 9902
+PoseDetectorTasksVision.js:54 9946.899999976158
+PoseDetectorTasksVision.js:54 9991.699999988079
+PoseDetectorTasksVision.js:54 10038.599999964237
+PoseDetectorTasksVision.js:54 10085
+PoseDetectorTasksVision.js:54 10132
+PoseDetectorTasksVision.js:54 10176.599999964237
+PoseDetectorTasksVision.js:54 10229
+PoseDetectorTasksVision.js:54 10280.099999964237
+PoseDetectorTasksVision.js:54 10329.5
+PoseDetectorTasksVision.js:54 10385.199999988079
+PoseDetectorTasksVision.js:54 10429.599999964237
+PoseDetectorTasksVision.js:54 10487
+PoseDetectorTasksVision.js:54 10542.299999952316
+PoseDetectorTasksVision.js:54 10589.899999976158
+PoseDetectorTasksVision.js:54 10636.099999964237
+PoseDetectorTasksVision.js:54 10694
+PoseDetectorTasksVision.js:54 10753.299999952316
+PoseDetectorTasksVision.js:54 10800.899999976158
+PoseDetectorTasksVision.js:54 10855.199999988079
+PoseDetectorTasksVision.js:54 10905.099999964237
+PoseDetectorTasksVision.js:54 10949.199999988079
+PoseDetectorTasksVision.js:54 11005.399999976158
+PoseDetectorTasksVision.js:54 11054.099999964237
+PoseDetectorTasksVision.js:54 11097.5
+PoseDetectorTasksVision.js:54 11148.099999964237
+PoseDetectorTasksVision.js:54 11189.799999952316
+PoseDetectorTasksVision.js:54 11235.099999964237
+PoseDetectorTasksVision.js:54 11283.199999988079
+PoseDetectorTasksVision.js:54 11327.099999964237
+PoseDetectorTasksVision.js:54 11374.799999952316
+PoseDetectorTasksVision.js:54 11421.799999952316
+PoseDetectorTasksVision.js:54 11468
+PoseDetectorTasksVision.js:54 11514.699999988079
+PoseDetectorTasksVision.js:54 11568.5
+PoseDetectorTasksVision.js:54 11613
+PoseDetectorTasksVision.js:54 11655.899999976158
+PoseDetectorTasksVision.js:54 11709.699999988079
+PoseDetectorTasksVision.js:54 11766.799999952316
+PoseDetectorTasksVision.js:54 11814.899999976158
+PoseDetectorTasksVision.js:54 11865.799999952316
+PoseDetectorTasksVision.js:54 11912.899999976158
+PoseDetectorTasksVision.js:54 11958.799999952316
+PoseDetectorTasksVision.js:54 12010.5
+PoseDetectorTasksVision.js:54 12057.099999964237
+PoseDetectorTasksVision.js:54 12106.699999988079
+PoseDetectorTasksVision.js:54 12159.799999952316
+PoseDetectorTasksVision.js:54 12205.799999952316
+PoseDetectorTasksVision.js:54 12248.899999976158
+PoseDetectorTasksVision.js:54 12297.5
+PoseDetectorTasksVision.js:54 12340.5
+PoseDetectorTasksVision.js:54 12384.399999976158
+PoseDetectorTasksVision.js:54 12438.5
+PoseDetectorTasksVision.js:54 12483.5
+PoseDetectorTasksVision.js:54 12525.599999964237
+PoseDetectorTasksVision.js:54 12571.599999964237
+PoseDetectorTasksVision.js:54 12618.5
+PoseDetectorTasksVision.js:54 12667.399999976158
+PoseDetectorTasksVision.js:54 12724.799999952316
+PoseDetectorTasksVision.js:54 12770.5
+PoseDetectorTasksVision.js:54 12815.899999976158
+PoseDetectorTasksVision.js:54 12865.299999952316
+PoseDetectorTasksVision.js:54 12909.5
+PoseDetectorTasksVision.js:54 12955.199999988079
+PoseDetectorTasksVision.js:54 13005.299999952316
+PoseDetectorTasksVision.js:54 13047
+PoseDetectorTasksVision.js:54 13093.099999964237
+PoseDetectorTasksVision.js:54 13142
+PoseDetectorTasksVision.js:54 13187.5
+PoseDetectorTasksVision.js:54 13231.299999952316
+PoseDetectorTasksVision.js:54 13294.799999952316
+PoseDetectorTasksVision.js:54 13343.599999964237
+PoseDetectorTasksVision.js:54 13388.099999964237
+PoseDetectorTasksVision.js:54 13439.699999988079
+PoseDetectorTasksVision.js:54 13487.399999976158
+PoseDetectorTasksVision.js:54 13533
+PoseDetectorTasksVision.js:54 13584.199999988079
+PoseDetectorTasksVision.js:54 13625.699999988079
+PoseDetectorTasksVision.js:54 13669.299999952316
+PoseDetectorTasksVision.js:54 13728.699999988079
+PoseDetectorTasksVision.js:54 13779.5
+PoseDetectorTasksVision.js:54 13824
+PoseDetectorTasksVision.js:54 13874.299999952316
+PoseDetectorTasksVision.js:54 13920.899999976158
+PoseDetectorTasksVision.js:54 13964.199999988079
+PoseDetectorTasksVision.js:54 14015.299999952316
+PoseDetectorTasksVision.js:54 14060.399999976158
+PoseDetectorTasksVision.js:54 14103.099999964237
+PoseDetectorTasksVision.js:54 14151.599999964237
+PoseDetectorTasksVision.js:54 14194.299999952316
+PoseDetectorTasksVision.js:54 14240.5
+PoseDetectorTasksVision.js:54 14290.799999952316
+PoseDetectorTasksVision.js:54 14334.5
+PoseDetectorTasksVision.js:54 14376.299999952316
+PoseDetectorTasksVision.js:54 14423.199999988079
+PoseDetectorTasksVision.js:54 14470.299999952316
+PoseDetectorTasksVision.js:54 14520.099999964237
+PoseDetectorTasksVision.js:54 14572
+PoseDetectorTasksVision.js:54 14614.399999976158
+PoseDetectorTasksVision.js:54 14661.5
+PoseDetectorTasksVision.js:54 14720.299999952316
+PoseDetectorTasksVision.js:54 14774.299999952316
+PoseDetectorTasksVision.js:54 14820.299999952316
+PoseDetectorTasksVision.js:54 14874.899999976158
+PoseDetectorTasksVision.js:54 14919.899999976158
+PoseDetectorTasksVision.js:54 14964.199999988079
+PoseDetectorTasksVision.js:54 15019.799999952316
+PoseDetectorTasksVision.js:54 15069.799999952316
+PoseDetectorTasksVision.js:54 15118.699999988079
+PoseDetectorTasksVision.js:54 15172.099999964237
+PoseDetectorTasksVision.js:54 15216.399999976158
+PoseDetectorTasksVision.js:54 15259.799999952316
+PoseDetectorTasksVision.js:54 15313.5
+PoseDetectorTasksVision.js:54 15359.299999952316
+PoseDetectorTasksVision.js:54 15409.599999964237
+PoseDetectorTasksVision.js:54 15461.299999952316
+PoseDetectorTasksVision.js:54 15511.599999964237
+PoseDetectorTasksVision.js:54 15560.899999976158
+PoseDetectorTasksVision.js:54 15613.699999988079
+PoseDetectorTasksVision.js:54 15657.199999988079
+PoseDetectorTasksVision.js:54 15707.399999976158
+PoseDetectorTasksVision.js:54 15762.5
+PoseDetectorTasksVision.js:54 15810.099999964237
+PoseDetectorTasksVision.js:54 15860.799999952316
+PoseDetectorTasksVision.js:54 15920.699999988079
+PoseDetectorTasksVision.js:54 15965.899999976158
+PoseDetectorTasksVision.js:54 16010.099999964237
+PoseDetectorTasksVision.js:54 16064
+PoseDetectorTasksVision.js:54 16118.699999988079
+PoseDetectorTasksVision.js:54 16173.899999976158
+PoseDetectorTasksVision.js:54 16230.299999952316
+PoseDetectorTasksVision.js:54 16283.799999952316
+PoseDetectorTasksVision.js:54 16331.299999952316
+PoseDetectorTasksVision.js:54 16395.099999964237
+PoseDetectorTasksVision.js:54 16457.69999998808
+PoseDetectorTasksVision.js:54 16530.5
+PoseDetectorTasksVision.js:54 16601.299999952316
+PoseDetectorTasksVision.js:54 16679.899999976158
+PoseDetectorTasksVision.js:54 16739.399999976158
+PoseDetectorTasksVision.js:54 16804.299999952316
+PoseDetectorTasksVision.js:54 16878.599999964237
+PoseDetectorTasksVision.js:54 16963.899999976158
+PoseDetectorTasksVision.js:54 17021.799999952316
+PoseDetectorTasksVision.js:54 17088.799999952316
+PoseDetectorTasksVision.js:54 17164.5
+PoseDetectorTasksVision.js:54 17229
+PoseDetectorTasksVision.js:54 17273.5
+PoseDetectorTasksVision.js:54 17322.19999998808
+PoseDetectorTasksVision.js:54 17369.5
+PoseDetectorTasksVision.js:54 17420.5
+PoseDetectorTasksVision.js:54 17471.5
+PoseDetectorTasksVision.js:54 17520.5
+PoseDetectorTasksVision.js:54 17566.19999998808
+PoseDetectorTasksVision.js:54 17614.69999998808
+PoseDetectorTasksVision.js:54 17671.799999952316
+PoseDetectorTasksVision.js:54 17730.899999976158
+PoseDetectorTasksVision.js:54 17779.19999998808
+PoseDetectorTasksVision.js:54 17833.19999998808
+PoseDetectorTasksVision.js:54 17879.599999964237
+PoseDetectorTasksVision.js:54 17923.19999998808
+PoseDetectorTasksVision.js:54 17972.099999964237
+PoseDetectorTasksVision.js:54 18017.299999952316
+PoseDetectorTasksVision.js:54 18063.299999952316
+PoseDetectorTasksVision.js:54 18113.099999964237
+PoseDetectorTasksVision.js:54 18160.399999976158
+PoseDetectorTasksVision.js:54 18206.099999964237
+PoseDetectorTasksVision.js:54 18268.099999964237
+PoseDetectorTasksVision.js:54 18328.899999976158
+PoseDetectorTasksVision.js:54 18377.399999976158
+PoseDetectorTasksVision.js:54 18434.19999998808
+PoseDetectorTasksVision.js:54 18479.799999952316
+PoseDetectorTasksVision.js:54 18525.599999964237
+PoseDetectorTasksVision.js:54 18575.5
+PoseDetectorTasksVision.js:54 18625.099999964237
+PoseDetectorTasksVision.js:54 18671.299999952316
+PoseDetectorTasksVision.js:54 18728.19999998808
+PoseDetectorTasksVision.js:54 18782.099999964237
+PoseDetectorTasksVision.js:54 18829.599999964237
+PoseDetectorTasksVision.js:54 18886.299999952316
+PoseDetectorTasksVision.js:54 18931.799999952316
+PoseDetectorTasksVision.js:54 18977.299999952316
+PoseDetectorTasksVision.js:54 19031.19999998808
+PoseDetectorTasksVision.js:54 19078.5
+PoseDetectorTasksVision.js:54 19123.799999952316
+PoseDetectorTasksVision.js:54 19173.799999952316
+PoseDetectorTasksVision.js:54 19219
+PoseDetectorTasksVision.js:54 19265.799999952316
+PoseDetectorTasksVision.js:54 19317.899999976158
+PoseDetectorTasksVision.js:54 19364.899999976158
+PoseDetectorTasksVision.js:54 19411.799999952316
+PoseDetectorTasksVision.js:54 19464.099999964237
+PoseDetectorTasksVision.js:54 19512.299999952316
+PoseDetectorTasksVision.js:54 19559.099999964237
+PoseDetectorTasksVision.js:54 19609.899999976158
+PoseDetectorTasksVision.js:54 19656.69999998808
+PoseDetectorTasksVision.js:54 19703.19999998808
+PoseDetectorTasksVision.js:54 19754.399999976158
+PoseDetectorTasksVision.js:54 19801.19999998808
+PoseDetectorTasksVision.js:54 19852
+PoseDetectorTasksVision.js:54 19901.799999952316
+PoseDetectorTasksVision.js:54 19947.5
+PoseDetectorTasksVision.js:54 19994
+PoseDetectorTasksVision.js:54 20043.899999976158
+PoseDetectorTasksVision.js:54 20088.599999964237
+PoseDetectorTasksVision.js:54 20133.099999964237
+PoseDetectorTasksVision.js:54 20183
+PoseDetectorTasksVision.js:54 20226.099999964237
+PoseDetectorTasksVision.js:54 20266.899999976158
+PoseDetectorTasksVision.js:54 20319.19999998808
+PoseDetectorTasksVision.js:54 20365.899999976158
+PoseDetectorTasksVision.js:54 20409.899999976158
+PoseDetectorTasksVision.js:54 20463.299999952316
+PoseDetectorTasksVision.js:54 20508.5
+PoseDetectorTasksVision.js:54 20553.5
+PoseDetectorTasksVision.js:54 20608.799999952316
+PoseDetectorTasksVision.js:54 20652.799999952316
+PoseDetectorTasksVision.js:54 20700.799999952316
+PoseDetectorTasksVision.js:54 20761.799999952316
+PoseDetectorTasksVision.js:54 20808.69999998808
+PoseDetectorTasksVision.js:54 20855.19999998808
+PoseDetectorTasksVision.js:54 20905.799999952316
+PoseDetectorTasksVision.js:54 20953.099999964237
+PoseDetectorTasksVision.js:54 21000.799999952316
+PoseDetectorTasksVision.js:54 21055.19999998808
+PoseDetectorTasksVision.js:54 21100.099999964237
+PoseDetectorTasksVision.js:54 21142.399999976158
+PoseDetectorTasksVision.js:54 21193.799999952316
+PoseDetectorTasksVision.js:54 21240.299999952316
+PoseDetectorTasksVision.js:54 21285
+PoseDetectorTasksVision.js:54 21335.799999952316
+PoseDetectorTasksVision.js:54 21384.399999976158
+PoseDetectorTasksVision.js:54 21434.799999952316
+PoseDetectorTasksVision.js:54 21486.799999952316
+PoseDetectorTasksVision.js:54 21534.5
+PoseDetectorTasksVision.js:54 21580.69999998808
+PoseDetectorTasksVision.js:54 21637.899999976158
+PoseDetectorTasksVision.js:54 21686
+PoseDetectorTasksVision.js:54 21736.5
+PoseDetectorTasksVision.js:54 21788.19999998808
+PoseDetectorTasksVision.js:54 21837.099999964237
+PoseDetectorTasksVision.js:54 21909.69999998808
+PoseDetectorTasksVision.js:54 21964.5
+PoseDetectorTasksVision.js:54 22009.299999952316
+PoseDetectorTasksVision.js:54 22054.099999964237
+PoseDetectorTasksVision.js:54 22104.399999976158
+PoseDetectorTasksVision.js:54 22158
+PoseDetectorTasksVision.js:54 22203.5
+PoseDetectorTasksVision.js:54 22255.5
+PoseDetectorTasksVision.js:54 22308.19999998808
+PoseDetectorTasksVision.js:54 22362.5
+PoseDetectorTasksVision.js:54 22425.19999998808
+PoseDetectorTasksVision.js:54 22478.299999952316
+PoseDetectorTasksVision.js:54 22530.19999998808
+PoseDetectorTasksVision.js:54 22582.899999976158
+PoseDetectorTasksVision.js:54 22645.899999976158
+PoseDetectorTasksVision.js:54 22693.399999976158
+PoseDetectorTasksVision.js:54 22754.899999976158
+PoseDetectorTasksVision.js:54 22808.69999998808
+PoseDetectorTasksVision.js:54 22858
+PoseDetectorTasksVision.js:54 22911.799999952316
+PoseDetectorTasksVision.js:54 22961.299999952316
+PoseDetectorTasksVision.js:54 23010.299999952316
+PoseDetectorTasksVision.js:54 23061.099999964237
+PoseDetectorTasksVision.js:54 23115.5
+PoseDetectorTasksVision.js:54 23163.099999964237
+PoseDetectorTasksVision.js:54 23220.19999998808
+PoseDetectorTasksVision.js:54 23273.399999976158
+PoseDetectorTasksVision.js:54 23337
+PoseDetectorTasksVision.js:54 23396.19999998808
+PoseDetectorTasksVision.js:54 23453.799999952316
+PoseDetectorTasksVision.js:54 23505.799999952316
+PoseDetectorTasksVision.js:54 23552.099999964237
+PoseDetectorTasksVision.js:54 23596.19999998808
+PoseDetectorTasksVision.js:54 23645.19999998808
+PoseDetectorTasksVision.js:54 23696.899999976158
+PoseDetectorTasksVision.js:54 23745.599999964237
+PoseDetectorTasksVision.js:54 23789
+PoseDetectorTasksVision.js:54 23848.799999952316
+PoseDetectorTasksVision.js:54 23895.69999998808
+PoseDetectorTasksVision.js:54 23940.099999964237
+PoseDetectorTasksVision.js:54 23989.19999998808
+PoseDetectorTasksVision.js:54 24033.5
+PoseDetectorTasksVision.js:54 24078.399999976158
+PoseDetectorTasksVision.js:54 24127.299999952316
+PoseDetectorTasksVision.js:54 24173.19999998808
+PoseDetectorTasksVision.js:54 24220.099999964237
+PoseDetectorTasksVision.js:54 24268.399999976158
+PoseDetectorTasksVision.js:54 24317.899999976158
+PoseDetectorTasksVision.js:54 24364.69999998808
+PoseDetectorTasksVision.js:54 24413.69999998808
+PoseDetectorTasksVision.js:54 24458.69999998808
+PoseDetectorTasksVision.js:54 24503.099999964237
+PoseDetectorTasksVision.js:54 24556.099999964237
+PoseDetectorTasksVision.js:54 24619.299999952316
+PoseDetectorTasksVision.js:54 24680
+PoseDetectorTasksVision.js:54 24774.099999964237
+PoseDetectorTasksVision.js:54 24839.5
+PoseDetectorTasksVision.js:54 24883.299999952316
+PoseDetectorTasksVision.js:54 24935.599999964237
+PoseDetectorTasksVision.js:54 24981.5
+PoseDetectorTasksVision.js:54 25026.5
+PoseDetectorTasksVision.js:54 25077
+PoseDetectorTasksVision.js:54 25123
+PoseDetectorTasksVision.js:54 25164.19999998808
+PoseDetectorTasksVision.js:54 25210.399999976158
+PoseDetectorTasksVision.js:54 25255
+PoseDetectorTasksVision.js:54 25308.399999976158
+PoseDetectorTasksVision.js:54 25373.69999998808
+PoseDetectorTasksVision.js:54 25424.399999976158
+PoseDetectorTasksVision.js:54 25470.299999952316
+PoseDetectorTasksVision.js:54 25523.69999998808
+PoseDetectorTasksVision.js:54 25573
+PoseDetectorTasksVision.js:54 25618.5
+PoseDetectorTasksVision.js:54 25665.799999952316
+PoseDetectorTasksVision.js:54 25715.099999964237
+PoseDetectorTasksVision.js:54 25767.5
+PoseDetectorTasksVision.js:54 25823.5
+PoseDetectorTasksVision.js:54 25871.299999952316
+PoseDetectorTasksVision.js:54 25916.69999998808
+PoseDetectorTasksVision.js:54 25966.799999952316
+PoseDetectorTasksVision.js:54 26008.099999964237
+PoseDetectorTasksVision.js:54 26059
+PoseDetectorTasksVision.js:54 26108.5
+PoseDetectorTasksVision.js:54 26154.799999952316
+PoseDetectorTasksVision.js:54 26205.799999952316
+PoseDetectorTasksVision.js:54 26263.599999964237
+PoseDetectorTasksVision.js:54 26311.5
+PoseDetectorTasksVision.js:54 26357.5
+PoseDetectorTasksVision.js:54 26407.599999964237
+PoseDetectorTasksVision.js:54 26457
+PoseDetectorTasksVision.js:54 26502.799999952316
+PoseDetectorTasksVision.js:54 26556.899999976158
+PoseDetectorTasksVision.js:54 26609.099999964237
+PoseDetectorTasksVision.js:54 26659.5
+PoseDetectorTasksVision.js:54 26721.899999976158
+PoseDetectorTasksVision.js:54 26780.099999964237
+PoseDetectorTasksVision.js:54 26829.899999976158
+PoseDetectorTasksVision.js:54 26883
+PoseDetectorTasksVision.js:54 26929.799999952316
+PoseDetectorTasksVision.js:54 26980.899999976158
+PoseDetectorTasksVision.js:54 27033.099999964237
+PoseDetectorTasksVision.js:54 27079.099999964237
+PoseDetectorTasksVision.js:54 27126.099999964237
+PoseDetectorTasksVision.js:54 27178.599999964237
+PoseDetectorTasksVision.js:54 27223.599999964237
+PoseDetectorTasksVision.js:54 27268.19999998808
+PoseDetectorTasksVision.js:54 27318
+PoseDetectorTasksVision.js:54 27366.5
+PoseDetectorTasksVision.js:54 27410.099999964237
+PoseDetectorTasksVision.js:54 27460.599999964237
+PoseDetectorTasksVision.js:54 27510.19999998808
+PoseDetectorTasksVision.js:54 27557.299999952316
+PoseDetectorTasksVision.js:54 27615.69999998808
+PoseDetectorTasksVision.js:54 27665.399999976158
+PoseDetectorTasksVision.js:54 27720.5
+PoseDetectorTasksVision.js:54 27776.899999976158
+PoseDetectorTasksVision.js:54 27821
+PoseDetectorTasksVision.js:54 27867.69999998808
+PoseDetectorTasksVision.js:54 27921.599999964237
+PoseDetectorTasksVision.js:54 27968.099999964237
+PoseDetectorTasksVision.js:54 28011.299999952316
+PoseDetectorTasksVision.js:54 28066.19999998808
+PoseDetectorTasksVision.js:54 28114.599999964237
+PoseDetectorTasksVision.js:54 28165.19999998808
+PoseDetectorTasksVision.js:54 28210.69999998808
+PoseDetectorTasksVision.js:54 28267.399999976158
+PoseDetectorTasksVision.js:54 28313.69999998808
+PoseDetectorTasksVision.js:54 28368.299999952316
+PoseDetectorTasksVision.js:54 28413
+PoseDetectorTasksVision.js:54 28463.599999964237
+PoseDetectorTasksVision.js:54 28510.19999998808
+PoseDetectorTasksVision.js:54 28560.299999952316
+PoseDetectorTasksVision.js:54 28604.899999976158
+PoseDetectorTasksVision.js:54 28659.299999952316
+PoseDetectorTasksVision.js:54 28706
+PoseDetectorTasksVision.js:54 28756.299999952316
+PoseDetectorTasksVision.js:54 28808.5
+PoseDetectorTasksVision.js:54 28853.599999964237
+PoseDetectorTasksVision.js:54 28903
+PoseDetectorTasksVision.js:54 28959.099999964237
+PoseDetectorTasksVision.js:54 29007.799999952316
+PoseDetectorTasksVision.js:54 29052.299999952316
+PoseDetectorTasksVision.js:54 29100
+PoseDetectorTasksVision.js:54 29151.099999964237
+PoseDetectorTasksVision.js:54 29199.19999998808
+PoseDetectorTasksVision.js:54 29246.799999952316
+PoseDetectorTasksVision.js:54 29288
+PoseDetectorTasksVision.js:54 29334.19999998808
+PoseDetectorTasksVision.js:54 29384.599999964237
+PoseDetectorTasksVision.js:54 29433.599999964237
+PoseDetectorTasksVision.js:54 29479.899999976158
+PoseDetectorTasksVision.js:54 29529.299999952316
+PoseDetectorTasksVision.js:54 29575.899999976158
+PoseDetectorTasksVision.js:54 29619.5
+PoseDetectorTasksVision.js:54 29666
+PoseDetectorTasksVision.js:54 29726.899999976158
+PoseDetectorTasksVision.js:54 29772.299999952316
+PoseDetectorTasksVision.js:54 29818.099999964237
+PoseDetectorTasksVision.js:54 29859.299999952316
+PoseDetectorTasksVision.js:54 29907.799999952316
+PoseDetectorTasksVision.js:54 29952.599999964237
+PoseDetectorTasksVision.js:54 29999
+PoseDetectorTasksVision.js:54 30046.599999964237
+PoseDetectorTasksVision.js:54 30095.5
+PoseDetectorTasksVision.js:54 30140.599999964237
+PoseDetectorTasksVision.js:54 30186.899999976158
+PoseDetectorTasksVision.js:54 30233.299999952316
+PoseDetectorTasksVision.js:54 30277.69999998808
+PoseDetectorTasksVision.js:54 30327.19999998808
+PoseDetectorTasksVision.js:54 30375
+PoseDetectorTasksVision.js:54 30423.69999998808
+PoseDetectorTasksVision.js:54 30477.19999998808
+PoseDetectorTasksVision.js:54 30526.399999976158
+PoseDetectorTasksVision.js:54 30571.799999952316
+PoseDetectorTasksVision.js:54 30625.19999998808
+PoseDetectorTasksVision.js:54 30678.69999998808
+PoseDetectorTasksVision.js:54 30733.69999998808
+PoseDetectorTasksVision.js:54 30782.5
+PoseDetectorTasksVision.js:54 30854.19999998808
+PoseDetectorTasksVision.js:54 30913.099999964237
+PoseDetectorTasksVision.js:54 30969
+PoseDetectorTasksVision.js:54 31018.899999976158
+PoseDetectorTasksVision.js:54 31069.5
+PoseDetectorTasksVision.js:54 31114.799999952316
+PoseDetectorTasksVision.js:54 31160.69999998808
+PoseDetectorTasksVision.js:54 31205.299999952316
+PoseDetectorTasksVision.js:54 31252.69999998808
+PoseDetectorTasksVision.js:54 31298.899999976158
+PoseDetectorTasksVision.js:54 31345.799999952316
+PoseDetectorTasksVision.js:54 31391.299999952316
+PoseDetectorTasksVision.js:54 31442.5
+PoseDetectorTasksVision.js:54 31486.69999998808
+PoseDetectorTasksVision.js:54 31531.599999964237
+PoseDetectorTasksVision.js:54 31580.69999998808
+PoseDetectorTasksVision.js:54 31624.19999998808
+PoseDetectorTasksVision.js:54 31668.399999976158
+PoseDetectorTasksVision.js:54 31723.399999976158
+PoseDetectorTasksVision.js:54 31770.399999976158
+PoseDetectorTasksVision.js:54 31820.599999964237
+PoseDetectorTasksVision.js:54 31869.19999998808
+PoseDetectorTasksVision.js:54 31916
+PoseDetectorTasksVision.js:54 31961.099999964237
+PoseDetectorTasksVision.js:54 32007.69999998808
+PoseDetectorTasksVision.js:54 32057.899999976158
+PoseDetectorTasksVision.js:54 32107.899999976158
+PoseDetectorTasksVision.js:54 32164.5
+PoseDetectorTasksVision.js:54 32220.19999998808
+PoseDetectorTasksVision.js:54 32276.399999976158
+PoseDetectorTasksVision.js:54 32332.099999964237
+PoseDetectorTasksVision.js:54 32383.299999952316
+PoseDetectorTasksVision.js:54 32429.599999964237
+PoseDetectorTasksVision.js:54 32485.799999952316
+PoseDetectorTasksVision.js:54 32532.5
+PoseDetectorTasksVision.js:54 32581
+PoseDetectorTasksVision.js:54 32653.099999964237
+PoseDetectorTasksVision.js:54 32715.5
+PoseDetectorTasksVision.js:54 32767.19999998808
+PoseDetectorTasksVision.js:54 32824
+PoseDetectorTasksVision.js:54 32874.89999997616
+PoseDetectorTasksVision.js:54 32922.19999998808
+PoseDetectorTasksVision.js:54 32973.59999996424
+PoseDetectorTasksVision.js:54 33020.89999997616
+PoseDetectorTasksVision.js:54 33068.69999998808
+PoseDetectorTasksVision.js:54 33117.09999996424
+PoseDetectorTasksVision.js:54 33165.89999997616
+PoseDetectorTasksVision.js:54 33213.39999997616
+PoseDetectorTasksVision.js:54 33269.59999996424
+PoseDetectorTasksVision.js:54 33337.19999998808
+PoseDetectorTasksVision.js:54 33387.39999997616
+PoseDetectorTasksVision.js:54 33441.39999997616
+PoseDetectorTasksVision.js:54 33489.59999996424
+PoseDetectorTasksVision.js:54 33547.69999998808
+PoseDetectorTasksVision.js:54 33596.59999996424
+PoseDetectorTasksVision.js:54 33654.09999996424
+PoseDetectorTasksVision.js:54 33705.69999998808
+PoseDetectorTasksVision.js:54 33760.69999998808
+PoseDetectorTasksVision.js:54 33810.19999998808
+PoseDetectorTasksVision.js:54 33861
+PoseDetectorTasksVision.js:54 33927.59999996424
+PoseDetectorTasksVision.js:54 33977.69999998808
+PoseDetectorTasksVision.js:54 34023.299999952316
+PoseDetectorTasksVision.js:54 34071.39999997616
+PoseDetectorTasksVision.js:54 34116.19999998808
+PoseDetectorTasksVision.js:54 34162.69999998808
+PoseDetectorTasksVision.js:54 34209
+PoseDetectorTasksVision.js:54 34269.69999998808
+PoseDetectorTasksVision.js:54 34345.19999998808
+PoseDetectorTasksVision.js:54 34400.09999996424
+PoseDetectorTasksVision.js:54 34455.19999998808
+PoseDetectorTasksVision.js:54 34511.89999997616
+PoseDetectorTasksVision.js:54 34567.5
+PoseDetectorTasksVision.js:54 34618
+PoseDetectorTasksVision.js:54 34667.5
+PoseDetectorTasksVision.js:54 34725.19999998808
+PoseDetectorTasksVision.js:54 34784.5
+PoseDetectorTasksVision.js:54 34832.09999996424
+PoseDetectorTasksVision.js:54 34881.89999997616
+PoseDetectorTasksVision.js:54 34934.799999952316
+PoseDetectorTasksVision.js:54 34984.69999998808
+PoseDetectorTasksVision.js:54 35041.59999996424
+PoseDetectorTasksVision.js:54 35091.5
+ 35142.59999996424
+ 35200.5
+ 35268
+ 35320.89999997616
+ 35374
+ 35437.299999952316
+ 35498
+ 35553.09999996424
+ 35610.19999998808
+ 35671.59999996424
+ 35727
+ 35777.799999952316
+ 35830.59999996424
+ 35889.69999998808
+ 35944.89999997616
+ 36002.89999997616
+ 36052.5
+ 36109.299999952316
+ 36159.09999996424
+ 36218
+ 36275.39999997616
+ 36321.89999997616
+ 36371.299999952316
+ 36426.59999996424
+ 36476.19999998808
+ 36523
+ 36572.19999998808
+ 36622.299999952316
+ 36678.299999952316
+ 36731.69999998808
+ 36781
+ 36825.69999998808
+ 36872.09999996424
+ 36917.799999952316
+ 36965
+ 37010.799999952316
+ 37060.09999996424
+ 37102.799999952316
+ 37157.299999952316
+ 37214.299999952316
+ 37260.39999997616
+ 37318.19999998808
+ 37371.5
+ 37443.19999998808
+ 37494.299999952316
+ 37542.69999998808
+ 37593
+ 37644.299999952316
+ 37691.09999996424
+ 37747
+ 37811.69999998808
+ 37865.69999998808
+ 37933.19999998808
+ 37983.19999998808
+ 38039.19999998808
+ 38092.09999996424
+ 38141.69999998808
+ 38186.5
+ 38247.59999996424
+ 38300.19999998808
+ 38345.69999998808
+ 38394.799999952316
+ 38454.39999997616
+ 38504.299999952316
+ 38551.799999952316
+ 38595.19999998808
+ 38644.799999952316
+ 38693.09999996424
+ 38745
+ 38793.89999997616
+ 38843.69999998808
+ 38891.89999997616
+ 38944.09999996424
+ 38990.799999952316
+ 39035
+ 39081.299999952316
+ 39134.39999997616
+ 39189.59999996424
+ 39240
+ 39284.09999996424
+ 39335.799999952316
+ 39380.69999998808
+ 39438.69999998808
+ 39485
+ 39530.5
+ 39580.5
+ 39624
+ 39667.09999996424
+ 39719.69999998808
+ 39763.39999997616
+ 39810.799999952316
+ 39862.19999998808
+ 39924.299999952316
+ 39985.39999997616
+ 40042.299999952316
+ 40101.59999996424
+ 40178.89999997616
+ 40243.59999996424
+ 40341.89999997616
+ 40390.19999998808
+ 40451.19999998808
+ 40511.799999952316
+ 40566.09999996424
+ 40624.799999952316
+ 40681.299999952316
+ 40743.39999997616
+ 40800.59999996424
+ 40860.5
+ 40920.39999997616
+ 40982.89999997616
+ 41050.5
+ 41105.5
+ 41157.19999998808
+ 41213.89999997616
+ 41264.799999952316
+ 41322.69999998808
+ 41377.89999997616
+ 41438.19999998808
+ 41489.39999997616
+ 41544.69999998808
+ 41604
+ 41660.19999998808
+ 41712.19999998808
+ 41769.299999952316
+ 41825.5
+ 41882.89999997616
+ 41931.299999952316
+ 41982.299999952316
+ 42030.39999997616
+ 42083.89999997616
+ 42145.89999997616
