@@ -1,0 +1,418 @@
+ Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+ Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
+    at p
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62044:87)
+    at p
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62044:87)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at Home (http://localhost:3000/static/js/bundle.js:2358:81)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:113222:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:113924:5)
+    at Router (http://localhost:3000/static/js/bundle.js:113858:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:111799:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66201:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:66889:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:65863:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66979:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63130:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63083:3)
+    at App
+printWarning @ bundle.js:84673
+ Warning: Received NaN for the `height` attribute. If this is expected, cast the value to a string.
+    at canvas
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at _c (http://localhost:3000/static/js/bundle.js:1783:30)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6753:66
+    at Box (http://localhost:3000/static/js/bundle.js:67764:81)
+    at ExerciseBox (http://localhost:3000/static/js/bundle.js:358:3)
+    at PullUpPage (http://localhost:3000/static/js/bundle.js:3285:112)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:113222:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:113924:5)
+    at Router (http://localhost:3000/static/js/bundle.js:113858:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:111799:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66201:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:66889:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:65863:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66979:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63130:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63083:3)
+    at App
+printWarning @ bundle.js:84673
+ I0000 00:00:1733532070.546000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ vision_wasm_internal.js:1087
+ I0000 00:00:1733532070.548000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ vision_wasm_internal.js:1087
+ W0000 00:00:1733532070.549000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ vision_wasm_internal.js:1087
+ Graph successfully started running.
+ I0000 00:00:1733532070.590000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ vision_wasm_internal.js:1087
+ I0000 00:00:1733532070.591000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ vision_wasm_internal.js:1087
+ W0000 00:00:1733532070.591000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ vision_wasm_internal.js:1087
+ Graph successfully started running.
+ I0000 00:00:1733532070.628000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ vision_wasm_internal.js:1087
+ I0000 00:00:1733532070.628000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ vision_wasm_internal.js:1087
+ W0000 00:00:1733532070.629000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ vision_wasm_internal.js:1087
+ Graph successfully started running.
+ INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+put_char @ vision_wasm_internal.js:1087
+ 6897.300000190735
+ 6921.300000190735
+ 6939.300000190735
+[.WebGL-0x105409260600] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x105409260600] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x105409260600] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x105409260600] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x105409260600] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+[.WebGL-0x105409260600] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.
+ 6959.700000047684
+ 6978
+ 6996.600000143051
+ 7064.700000047684
+ 7095.900000095367
+ 7124.300000190735
+ 7157.5
+ 7187.200000047684
+ 7215.600000143051
+ 7248.900000095367
+ 7278.300000190735
+ 7308.300000190735
+ 7341.100000143051
+ 7368.900000095367
+ 7397.700000047684
+ 7431.400000095367
+ 7459.300000190735
+ 7486.600000143051
+ 7518.300000190735
+ 7547.300000190735
+ 7575.900000095367
+ 7613.700000047684
+ 7641.400000095367
+ 7669.700000047684
+ 7700.800000190735
+ 7728.100000143051
+ 7755.300000190735
+ 7786.400000095367
+ 7815
+ 7843.400000095367
+ 7874.300000190735
+ 7901.900000095367
+ 7928.5
+ 7958.800000190735
+ 7987.200000047684
+ 8014.600000143051
+ 8046.100000143051
+ 8073.600000143051
+ 8100.800000190735
+ 8131.700000047684
+ 8159.400000095367
+ 8187.200000047684
+ 8219.200000047684
+ 8248.200000047684
+ 8276.900000095367
+ 8308.800000190735
+ 8336.400000095367
+ 8364.200000047684
+ 8394.900000095367
+ 8423.400000095367
+ 8451.100000143051
+ 8482.200000047684
+ 8509.600000143051
+ 8536.600000143051
+ 8567.700000047684
+ 8595.300000190735
+ 8629.200000047684
+ 8659.400000095367
+ 8687.200000047684
+ 8714.5
+ 8746.200000047684
+ 8773.5
+ 8800.400000095367
+ 8830.600000143051
+ 8857.700000047684
+ 8885.300000190735
+ 8915.800000190735
+ 8943.100000143051
+ 8971.400000095367
+ 9002.600000143051
+ 9029.800000190735
+ 9057.300000190735
+ 9088.300000190735
+ 9115.800000190735
+ 9143.700000047684
+ 9173.800000190735
+ 9201.5
+ 9229.200000047684
+ 9260.200000047684
+ 9288.400000095367
+ 9316.300000190735
+ 9347.800000190735
+ 9376.200000047684
+ 9404.5
+ 9436.800000190735
+ 9465.400000095367
+ 9497.400000095367
+ 9529.300000190735
+ 9557.5
+ 9586.100000143051
+ 9618.400000095367
+ 9647.200000047684
+ 9675.5
+ 9706.200000047684
+ 9735.200000047684
+ 9764.200000047684
+ 9796
+ 9825.200000047684
+ 9853.5
+ 9888
+ 9917.200000047684
+ 9945.700000047684
+ 9977.5
+ 10007.100000143051
+ 10037
+ 10069.900000095367
+ 10101.400000095367
+ 10130.200000047684
+ 10161.900000095367
+ 10190.400000095367
+ 10221
+ 10257.100000143051
+ 10291.200000047684
+ 10319.900000095367
+ 10354.200000047684
+ 10382.600000143051
+ 10411
+ 10442.600000143051
+ 10472.300000190735
+ 10501.800000190735
+ 10536.300000190735
+ 10569.700000047684
+ 10599.100000143051
+ 10633.300000190735
+ 10663.5
+ 10692.5
+ 10724.900000095367
+ 10754
+ 10782.600000143051
+ 10815
+ 10843.700000047684
+ 10872.600000143051
+ 10907.800000190735
+ 10937.200000047684
+ 10967.400000095367
+ 11005.300000190735
+ 11038.800000190735
+ 11071.600000143051
+ 11104.900000095367
+ 11134.5
+ 11164
+ 11200.200000047684
+ 11228.5
+ 11259.600000143051
+ 11293.300000190735
+ 11324.5
+ 11356.800000190735
+ 11388.400000095367
+ 11416.600000143051
+ 11447
+ 11478.900000095367
+ 11507.200000047684
+ 11535.900000095367
+ 11569
+ 11601.700000047684
+ 11630.100000143051
+ 11663.800000190735
+ 11693.5
+ 11722.700000047684
+ 11755
+ 11784.400000095367
+ 11816.300000190735
+ 11847.800000190735
+ 11877
+ 11905.5
+ 11939.700000047684
+ 11968.600000143051
+ 12003.900000095367
+ 12036.300000190735
+ 12064.700000047684
+ 12095.600000143051
+ 12134.300000190735
+ 12162.900000095367
+ 12191.800000190735
+ 12224.800000190735
+ 12253.400000095367
+ 12282.600000143051
+ 12314.200000047684
+ 12342.400000095367
+ 12370.800000190735
+ 12403.5
+ 12431.900000095367
+ 12460.200000047684
+ 12497.900000095367
+ 12529.900000095367
+ 12558.800000190735
+ 12590.900000095367
+ 12620.400000095367
+ 12650.100000143051
+ 12682.100000143051
+ 12710.900000095367
+ 12739.5
+ 12771.5
+ 12801.800000190735
+ 12829.900000095367
+ 12863.300000190735
+ 12892
+ 12920.600000143051
+ 12953.100000143051
+ 12986.200000047684
+ 13014.700000047684
+ 13046.300000190735
+ 13074.900000095367
+ 13103.5
+ 13137
+ 13165
+ 13193.800000190735
+ 13225.700000047684
+ 13254.200000047684
+ 13286.300000190735
+ 13318.800000190735
+ 13347.5
+ 13375.300000190735
+ 13407.800000190735
+ 13437.5
+ 13471.100000143051
+ 13503
+ 13531.5
+ 13560.300000190735
+ 13591.800000190735
+ 13620.100000143051
+ 13648
+ 13680.5
+ 13708.900000095367
+ 13740.800000190735
+ 13775.100000143051
+ 13807.300000190735
+ 13840.400000095367
+ 13872.400000095367
+ 13902.600000143051
+ 13931.300000190735
+ 13963.100000143051
+ 13992.900000095367
+ 14028.900000095367
+ 14067.5
+ 14096.300000190735
+ 14124.900000095367
+ 14156.400000095367
+ 14185.400000095367
+ 14216.700000047684
+ 14251.5
+ 14286.5
+ 14317.600000143051
+PoseDetectorTasksVision.js:54 14349.200000047684
+PoseDetectorTasksVision.js:54 14380.700000047684
+PoseDetectorTasksVision.js:54 14412.600000143051
+PoseDetectorTasksVision.js:54 14448.300000190735
+PoseDetectorTasksVision.js:54 14479.800000190735
+PoseDetectorTasksVision.js:54 14508.300000190735
+PoseDetectorTasksVision.js:54 14543.900000095367
+PoseDetectorTasksVision.js:54 14572.5
+PoseDetectorTasksVision.js:54 14601.900000095367
+PoseDetectorTasksVision.js:54 14633.700000047684
+PoseDetectorTasksVision.js:54 14662.600000143051
+PoseDetectorTasksVision.js:54 14692
+PoseDetectorTasksVision.js:54 14725.800000190735
+PoseDetectorTasksVision.js:54 14754.300000190735
+PoseDetectorTasksVision.js:54 14782.400000095367
+PoseDetectorTasksVision.js:54 14816
+PoseDetectorTasksVision.js:54 14844.400000095367
+PoseDetectorTasksVision.js:54 14877.200000047684
+PoseDetectorTasksVision.js:54 14912
+PoseDetectorTasksVision.js:54 14939.900000095367
+PoseDetectorTasksVision.js:54 14969.300000190735
+PoseDetectorTasksVision.js:54 15003.300000190735
+PoseDetectorTasksVision.js:54 15040.300000190735
+PoseDetectorTasksVision.js:54 15071.700000047684
+PoseDetectorTasksVision.js:54 15108.700000047684
+PoseDetectorTasksVision.js:54 15137.5
+PoseDetectorTasksVision.js:54 15167.700000047684
+PoseDetectorTasksVision.js:54 15200.700000047684
+PoseDetectorTasksVision.js:54 15231.5
+PoseDetectorTasksVision.js:54 15263.400000095367
+PoseDetectorTasksVision.js:54 15295.800000190735
+PoseDetectorTasksVision.js:54 15327.300000190735
+PoseDetectorTasksVision.js:54 15362.800000190735
+PoseDetectorTasksVision.js:54 15395.400000095367
+PoseDetectorTasksVision.js:54 15424.300000190735
+PoseDetectorTasksVision.js:54 15454.5
+PoseDetectorTasksVision.js:54 15489
+PoseDetectorTasksVision.js:54 15519.200000047684
+PoseDetectorTasksVision.js:54 15549.5
+PoseDetectorTasksVision.js:54 15585.300000190735
+PoseDetectorTasksVision.js:54 15613.5
+PoseDetectorTasksVision.js:54 15642.5
+PoseDetectorTasksVision.js:54 15674.100000143051
+PoseDetectorTasksVision.js:54 15705.100000143051
+PoseDetectorTasksVision.js:54 15734.200000047684
+PoseDetectorTasksVision.js:54 15770
+PoseDetectorTasksVision.js:54 15800.600000143051
+PoseDetectorTasksVision.js:54 15832.700000047684
+PoseDetectorTasksVision.js:54 15870.400000095367
+PoseDetectorTasksVision.js:54 15899.400000095367
+PoseDetectorTasksVision.js:54 15929.400000095367
+PoseDetectorTasksVision.js:54 15961.100000143051
+PoseDetectorTasksVision.js:54 15989.800000190735
+PoseDetectorTasksVision.js:54 16021.600000143051
+PoseDetectorTasksVision.js:54 16055.100000143051
+PoseDetectorTasksVision.js:54 16085.300000190735
+PoseDetectorTasksVision.js:54 16113.800000190735
+PoseDetectorTasksVision.js:54 16145.400000095367
+PoseDetectorTasksVision.js:54 16174
+PoseDetectorTasksVision.js:54 16202.5
+PoseDetectorTasksVision.js:54 16235.400000095367
+PoseDetectorTasksVision.js:54 16264
+PoseDetectorTasksVision.js:54 16293.5
+PoseDetectorTasksVision.js:54 16325.300000190735
+PoseDetectorTasksVision.js:54 16353.700000047684
+PoseDetectorTasksVision.js:54 16382.800000190735
+PoseDetectorTasksVision.js:54 16416
+PoseDetectorTasksVision.js:54 16445.60000014305
+PoseDetectorTasksVision.js:54 16474.200000047684
+PoseDetectorTasksVision.js:54 16505.5
+PoseDetectorTasksVision.js:54 16535.5
+PoseDetectorTasksVision.js:54 16565.700000047684
+PoseDetectorTasksVision.js:54 16597.60000014305
+PoseDetectorTasksVision.js:54 16627.400000095367
+PoseDetectorTasksVision.js:54 16655.700000047684
+PoseDetectorTasksVision.js:54 16689.700000047684
+PoseDetectorTasksVision.js:54 16718.700000047684
+PoseDetectorTasksVision.js:54 16747.900000095367
+PoseDetectorTasksVision.js:54 16779.900000095367
+PoseDetectorTasksVision.js:54 16808.60000014305
+PoseDetectorTasksVision.js:54 16837
+PoseDetectorTasksVision.js:54 16870.10000014305
+PoseDetectorTasksVision.js:54 16898.700000047684
+PoseDetectorTasksVision.js:54 16925.700000047684
+PoseDetectorTasksVision.js:54 16958.10000014305
+PoseDetectorTasksVision.js:54 16990.300000190735
+PoseDetectorTasksVision.js:54 17024.300000190735
