@@ -23,7 +23,7 @@ def parse_and_measure(filename):
         parts = line.split()
         if len(parts) > 1:
             try:
-                number = int(parts[1])  # Extract the number
+                number = float(parts[1])  # Extract the number
                 numbers.append(number)
             except ValueError:
                 continue                # Skip lines that don't contain valid numbers
