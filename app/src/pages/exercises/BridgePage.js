@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { checkBridges } from "../../utils/Bridge";
+import { checkBridges } from "../../utils/exercises/Bridge";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";

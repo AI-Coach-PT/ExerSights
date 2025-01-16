@@ -1,6 +1,6 @@
-import { visibilityCheck } from './InFrame';
-import { playSoundCorrectRep, playText } from './Audio';
-import { calculateAngle } from './Angles';
+import { visibilityCheck } from './helpers/InFrame';
+import { playSoundCorrectRep, playText } from './helpers/Audio';
+import { calculateAngle } from './helpers/Angles';
 
 let repCount = 0;
 

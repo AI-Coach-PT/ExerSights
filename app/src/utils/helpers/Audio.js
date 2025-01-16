@@ -1,4 +1,4 @@
-import rep from '../assets/correct.wav'
+import rep from '../../assets/correct.wav'
 
 const voiceName = "Google US English";
 let selectedVoice = null;

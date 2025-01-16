@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { checkPushup } from "../../utils/PushUp";
+import { checkPushup } from "../../utils/exercises/PushUp";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";

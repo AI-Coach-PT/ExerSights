@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { checkDeadBug } from "../../utils/DeadBug";
+import { checkDeadBug } from "../../utils/exercises/DeadBug";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";

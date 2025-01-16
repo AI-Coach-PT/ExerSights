@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { checkLatExtRotation } from "../../utils/LatExtRotation";
+import { checkLatExtRotation } from "../../utils/exercises/LatExtRotation";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";

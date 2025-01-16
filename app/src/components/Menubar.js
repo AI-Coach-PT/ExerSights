@@ -12,7 +12,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { handleLogin, handleLogout } from "../utils/HandleLogin";
+import { handleLogin, handleLogout } from "../utils/helpers/HandleLogin";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import logo from "../assets/logoNoName.png";
