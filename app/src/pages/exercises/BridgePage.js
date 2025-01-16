@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { checkBridges } from "../../utils/exercises/Bridge";
 import HelpModal from "../../components/HelpModal";
-import squatHelpImg from "../../assets/instructions/squatHelp.png";
-import { instructionsTextSquat } from "../../assets/content";
+import bridgeHelpImg from "../../assets/instructions/bridgeHelp.png";
+import { instructionsTextBridge } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -84,7 +84,7 @@ function BridgePage() {
       repCount={repCount}
       handleReset={handleReset}
       HelpModal={
-        <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
+        <HelpModal image={bridgeHelpImg} description={instructionsTextBridge} />
       }
       SettingsModal={
         <SettingsModal exerciseName="bridge" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />

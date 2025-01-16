@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { checkPullup } from "../../utils/exercises/PullUp";
 import HelpModal from "../../components/HelpModal";
-import squatHelpImg from "../../assets/instructions/squatHelp.png";
-import { instructionsTextSquat } from "../../assets/content";
+import pullupHelpImg from "../../assets/instructions/pullupHelp.png";
+import { instructionsTextPullup } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -61,7 +61,7 @@ function PullUpPage() {
       repCount={repCount}
       handleReset={handleReset}
       HelpModal={
-        <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
+        <HelpModal image={pullupHelpImg} description={instructionsTextPullup} />
       }
       SettingsModal={
         <SettingsModal exerciseName="pullup" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
