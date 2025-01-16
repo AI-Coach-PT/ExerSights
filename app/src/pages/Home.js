@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box, Card, CardContent, Button, CardMedia } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/catalog.png";
+import logo from "../assets/logos/catalog.png";
 import { disclaimerText } from "../assets/content";
 
 function Home() {

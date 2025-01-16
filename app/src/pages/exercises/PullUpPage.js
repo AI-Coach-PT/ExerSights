@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { checkPullup } from "../../utils/exercises/PullUp";
 import HelpModal from "../../components/HelpModal";
-import squatHelpImg from "../../assets/squatHelp.png";
+import squatHelpImg from "../../assets/instructions/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";

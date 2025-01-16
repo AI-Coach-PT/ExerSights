@@ -15,8 +15,8 @@ import { Link } from "react-router-dom";
 import { handleLogin, handleLogout } from "../utils/helpers/HandleLogin";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import logo from "../assets/logoNoName.png";
-import name from "../assets/productNameWhite.png";
+import logo from "../assets/logos/logoNoName.png";
+import name from "../assets/logos/productNameWhite.png";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
