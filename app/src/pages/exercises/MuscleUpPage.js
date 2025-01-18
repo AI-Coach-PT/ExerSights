@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { checkMuscleUp } from "../../utils/MuscleUp";
+import { checkMuscleUp } from "../../utils/exercises/MuscleUp";
 import HelpModal from "../../components/HelpModal";
-import squatHelpImg from "../../assets/squatHelp.png";
-import { instructionsTextSquat } from "../../assets/content";
+import muscleupHelpImg from "../../assets/instructions/muscleupHelp.png";
+import { instructionsTextMuscleup } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -61,7 +61,7 @@ function MuscleUpPage() {
             repCount={repCount}
             handleReset={handleReset}
             HelpModal={
-                <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
+                <HelpModal image={muscleupHelpImg} description={instructionsTextMuscleup} />
             }
             SettingsModal={
                 <SettingsModal exerciseName="muscleup" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />

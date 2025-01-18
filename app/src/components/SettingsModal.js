@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IconButton, Modal, Box, Typography, Button, TextField } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { loadExerciseSettings, storeExerciseSettings } from "../utils/ExerciseSettings";
+import { loadExerciseSettings, storeExerciseSettings } from "../utils/helpers/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 

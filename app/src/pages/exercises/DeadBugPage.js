@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { checkDeadBug } from "../../utils/DeadBug";
+import { checkDeadBug } from "../../utils/exercises/DeadBug";
 import HelpModal from "../../components/HelpModal";
-import squatHelpImg from "../../assets/squatHelp.png";
-import { instructionsTextSquat } from "../../assets/content";
+import deadbugHelpImg from "../../assets/instructions/deadbugHelp.png";
+import { instructionsTextDeadbug } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -82,7 +82,7 @@ function DeadBugPage() {
       repCount={repCount}
       handleReset={handleReset}
       HelpModal={
-        <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
+        <HelpModal image={deadbugHelpImg} description={instructionsTextDeadbug} />
       }
       SettingsModal={
         <SettingsModal exerciseName="deadbug" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />

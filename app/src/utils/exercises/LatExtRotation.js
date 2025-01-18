@@ -1,4 +1,4 @@
-import { genCheck } from "./GenFeedback";
+import { genCheck } from "../GenFeedback";
 
 const latExtRotationInfo = {
   states: {
