@@ -1,5 +1,5 @@
 import { FilesetResolver, PoseLandmarker, DrawingUtils } from "@mediapipe/tasks-vision";
-import poseLandmarkerTask from "../shared/models/pose_landmarker_lite.task";
+import poseLandmarkerTask from "../../shared/models/pose_landmarker_lite.task";
 
 let poseLandmarker;
 
@@ -70,9 +70,7 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
         }
         canvasCtx.restore();
 
-        if (result.landmarks[0]) {
-          onResultCallback(result.landmarks[0]);
-        }
+        onResultCallback(result.landmarks[0]);
       });
     }
     // if (!stopDetection.current) {
