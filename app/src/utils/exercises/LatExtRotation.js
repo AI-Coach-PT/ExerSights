@@ -3,11 +3,7 @@ import { genCheck } from "../GenFeedback";
 const latExtRotationInfo = {
   states: {
     INIT: { feedback: "Get ready!", audio: false, countRep: false },
-    NOT_PERPENDICULAR: {
-      feedback: "Rotate your bent arm upwards/externally, perpendicular to the ground!",
-      audio: true,
-      countRep: false,
-    },
+    NOT_PERPENDICULAR: { feedback: "Rotate arm upwards!", audio: true, countRep: false },
     PERPENDICULAR: { feedback: "Excellent!", audio: true, countRep: true },
   },
 
@@ -56,6 +52,7 @@ const latExtRotationInfo = {
 
   targets: {
     thresholdSideAngle: 140,
+    resetSideAngle: 100
   },
 
   disableVisibilityCheck: true,
@@ -73,11 +70,14 @@ const getTransitionType = (jointData, closerSide) => {
   const { leftSideAngle, rightSideAngle } = jointData;
 
   const thresholdSideAngle = latExtRotationInfo.targets["thresholdSideAngle"];
+  const resetSideAngle = latExtRotationInfo.targets["resetSideAngle"];
 
   const sideAngle = closerSide === "left" ? leftSideAngle : rightSideAngle;
 
-  if (sideAngle >= thresholdSideAngle) return "perpendicular";
-  else return "notPerpendicular";
+  if (currState === "NOT_PERPENDICULAR" && sideAngle >= thresholdSideAngle) return "perpendicular";
+  if ((currState === "PERPENDICULAR" || currState == "INIT") && sideAngle <= resetSideAngle) return "notPerpendicular"
+
+  return "null";
 };
 
 /**
