@@ -37,8 +37,6 @@ const latExtRotationInfo = {
     jointAngles: {
       leftSideAngle: [15, 13, 23],
       rightSideAngle: [16, 14, 24],
-      // leftSideAngle: [15, 13, 7],
-      // rightSideAngle: [15, 13, 8],
     },
     jointPos: {
       leftEarPos: 7,
@@ -75,7 +73,7 @@ const getTransitionType = (jointData, closerSide) => {
   const sideAngle = closerSide === "left" ? leftSideAngle : rightSideAngle;
 
   if (currState === "NOT_PERPENDICULAR" && sideAngle >= thresholdSideAngle) return "perpendicular";
-  if ((currState === "PERPENDICULAR" || currState == "INIT") && sideAngle <= resetSideAngle) return "notPerpendicular"
+  if ((currState === "PERPENDICULAR" || currState == "INIT") && sideAngle <= resetSideAngle) return "notPerpendicular";
 
   return "null";
 };
