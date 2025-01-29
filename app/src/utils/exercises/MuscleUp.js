@@ -2,11 +2,11 @@ import { genCheck } from '../GenFeedback';
 
 const muscleUpInfo = {
     states: {
-        INIT: { feedback: "Get in position!", audio: false, countRep: false },
-        PULLUP: { feedback: "Pull chin above bar!", audio: true, countRep: false },
-        TRANSITION: { feedback: "Transition to dip position!", audio: true, countRep: false },
-        DIP: { feedback: "Push up!", audio: true, countRep: false },
-        FINISH: { feedback: "Excellent!", audio: true, countRep: true },
+        INIT: { feedback: "Get in position!", audio: false, countRep: false, color: "yellow" },
+        PULLUP: { feedback: "Pull chin above bar!", audio: true, countRep: false, color: "yellow" },
+        TRANSITION: { feedback: "Transition to dip position!", audio: true, countRep: false, color: "yellow" },
+        DIP: { feedback: "Push up!", audio: true, countRep: false, color: "yellow" },
+        FINISH: { feedback: "Excellent!", audio: true, countRep: true, color: "green" },
     },
 
     transitions: {
@@ -99,7 +99,7 @@ const getTransitionType = (jointData, closerSide) => {
  * @param {Function} setRepCount - Function to update the repetition count.
  * @param {number} [targetElbowLockOutAngle=170] - The target elbow angle to be used for evaluation.
  */
-export const checkMuscleUp = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle = 170) => {
+export const checkMuscleUp = (landmarks, onFeedbackUpdate, setColor, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle = 170) => {
     muscleUpInfo.targets["thresholdElbowAngle"] = targetElbowLockOutAngle;
 
     currState = genCheck(
@@ -108,6 +108,7 @@ export const checkMuscleUp = (landmarks, onFeedbackUpdate, setCurrElbowAngle, se
         currState,
         landmarks,
         onFeedbackUpdate,
+        setColor,
         setRepCount,
         { ElbowAngle: setCurrElbowAngle }
     );

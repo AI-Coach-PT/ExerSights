@@ -24,6 +24,7 @@ function MuscleUpPage() {
     const [feedback, setFeedback] = useState("");
     const [currElbowAngle, setCurrElbowAngle] = useState(0);
     const [repCount, setRepCount] = useState(0);
+    const [color, setColor] = useState("white");
 
     // Object containing key-value pair of target angle label(s) and corresponding value(s);
     // used to store angles into Firebase Cloud Firestore
@@ -39,7 +40,7 @@ function MuscleUpPage() {
     const setTargetAnglesArray = [[setTargetElbowLockOutAngle, "targetElbowLockOutAngle"]];
 
     const processPoseResults = (landmarks) => {
-        checkMuscleUp(landmarks, setFeedback, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle);
+        checkMuscleUp(landmarks, setFeedback, setColor, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle);
     };
 
     const handleReset = () => {
@@ -75,6 +76,7 @@ function MuscleUpPage() {
             feedbackPanel={feedbackPanel}
             processPoseResults={processPoseResults}
             targetAngles={targetAngles}
+            color={color}
         />
     );
 }
