@@ -6,12 +6,17 @@ const Timer = () => {
   // const [currentTime, setCurrentTime] = useState(Date.now());
   // const [startElapsedTime, setStartElapsedTime] = useState(Date.now());
   // const [startExerciseTime, setStartExerciseTime] = useState(Date.now());
+
+  // State for timer duration and countdown (default 30 seconds)
   const [timerDuration, setTimerDuration] = useState(30);
   const [timerStarted, setTimerStarted] = useState(false);
   const [timerCountdown, setTimerCountdown] = useState(30);
+
+  // State for preparation countdown (5 seconds)
   const [prepStarted, setPrepStarted] = useState(false);
   const [prepCountdown, setPrepCountdown] = useState(5);
 
+  // Helper function to create delay using Promise
   const delay = async (ms) => {
     return new Promise((res) => setTimeout(res, ms));
   };
@@ -32,25 +37,28 @@ const Timer = () => {
     setTimerCountdown(value);
   };
 
+  // Main timer start function
   const handleTimerStart = async () => {
-    // 5-second prep time for users to get into position
+    // Start 5-second preparation countdown
     setPrepStarted(true);
     const prepTime = 5;
     for (let i = 0; i < prepTime; i++) {
       if (prepCountdown > 0) setPrepCountdown(prepCountdown - i);
       await delay(1000);
     }
+
+    // Reset prep timer and start main countdown
     setPrepCountdown(5);
     setPrepStarted(false);
-
-    // user-inputted countdown duration
     setTimerStarted(true);
+
+    // Main countdown loop
     for (let i = 0; i < timerDuration; i++) {
       if (timerCountdown > 0) setTimerCountdown(timerCountdown - i);
       await delay(1000);
     }
 
-    // reset timer and play finish audio
+    // Reset timer and play alarm when finished
     setTimerCountdown(timerDuration);
     setTimerStarted(false);
     playTimerFinishAlarm();
