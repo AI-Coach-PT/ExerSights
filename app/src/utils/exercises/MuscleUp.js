@@ -62,27 +62,27 @@ const muscleUpInfo = {
         thresholdElbowAngle: 170,
     },
 
-    conditions: {
-        lockedOut: {
-            states: ["DIP"],
-            req: "elbowAngle > thresholdElbowAngle",
-            ret: "lockedOut"
+    "conditions": {
+        "lockedOut": {
+            "states": ["DIP"],
+            "req": "elbowAngle > thresholdElbowAngle",
+            "ret": "lockedOut"
         },
-        chinAboveBar: {
-            states: ["PULLUP"],
-            req: "mouthPos.y < wristPos.y",
-            ret: "chinAboveBar"
+        "chinAboveBar": {
+            "states": ["PULLUP"],
+            "req": "mouthPos.y < wristPos.y",
+            "ret": "chinAboveBar"
         },
-        elbowAboveBar: {
-            states: ["TRANSITION"],
-            req: "elbowPos.y < wristPos.y",
-            ret: "elbowAboveBar"
+        "elbowAboveBar": {
+            "states": ["TRANSITION"],
+            "req": "elbowPos.y < wristPos.y",
+            "ret": "elbowAboveBar"
         },
-        chinBelowBar: {
-            states: ["INIT", "TRANSITION", "DIP", "FINISH"],
-            req: "mouthPos.y >= wristPos.y",
-            ret: "chinBelowBar"
-        },
+        "chinBelowBar": {
+            "states": ["INIT", "TRANSITION", "DIP", "FINISH"],
+            "req": "mouthPos.y >= wristPos.y",
+            "ret": "chinBelowBar"
+        }
     }
 };
 
@@ -95,19 +95,59 @@ let currState;
  * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
  */
 const getTransitionType = (jointData, closerSide) => {
-    const { leftElbowAngle, rightElbowAngle, leftElbowPos, rightElbowPos, leftWristPos, rightWristPos, leftMouthPos, rightMouthPos } = jointData;
+    const targets = muscleUpInfo.targets;
+    const jointPos = muscleUpInfo.jointInfo.jointPos;
+    const jointAngles = muscleUpInfo.jointInfo.jointAngles;
 
-    const thresholdElbowAngle = muscleUpInfo.targets["thresholdElbowAngle"];
+    const jointDataMap = {};
 
-    const elbowAngle = closerSide === "left" ? leftElbowAngle : rightElbowAngle;
-    const elbowPos = closerSide === "left" ? leftElbowPos : rightElbowPos;
-    const wristPos = closerSide === "left" ? leftWristPos : rightWristPos;
-    const mouthPos = closerSide === "left" ? leftMouthPos : rightMouthPos;
+    // Pull angles from jointData
+    for (const [key, index] of Object.entries(jointAngles)) {
+        if (key.startsWith(closerSide)) { // Match only relevant side
+            const genericKey = key.replace(closerSide, "").replace(/Angle$/, "").toLowerCase();
+
+            if (jointData[key] !== undefined) {
+                jointDataMap[genericKey + "Angle"] = jointData[key];
+            } else {
+                console.warn(`WARNING: Missing or invalid jointData for index ${key}`);
+                jointDataMap[genericKey + "Angle"] = 0;
+            }
+        }
+    }
+
+    // Pull positions from jointData
+    for (const [key, index] of Object.entries(jointPos)) {
+        if (key.startsWith(closerSide)) { // Match only relevant side
+            const genericKey = key.replace(closerSide, "").replace(/Pos$/, "").toLowerCase();
+
+            if (jointData[key] && typeof jointData[key] === "object" && "y" in jointData[key]) {
+                jointDataMap[genericKey + "Pos"] = jointData[key];
+            } else {
+                console.warn(`WARNING: Missing or invalid jointData for index ${key}`);
+                jointDataMap[genericKey + "Pos"] = { x: 0, y: 0 };
+            }
+        }
+    }
 
     for (const conditionKey in muscleUpInfo.conditions) {
         const condition = muscleUpInfo.conditions[conditionKey];
         if (condition.states.includes(currState)) {
-            const { req, ret } = condition;
+            let { req, ret } = condition;
+
+            // Replace generic placeholders with actual values from jointDataMap
+            Object.keys(jointDataMap).forEach(key => {
+                if (typeof jointDataMap[key] === "object" && jointDataMap[key] !== null) {
+                    // If the key represents a position object ({x, y}), replace properly
+                    req = req.replace(new RegExp(`\\b${key}\\.y\\b`, 'g'), jointDataMap[key].y);
+                } else {
+                    req = req.replace(new RegExp(`\\b${key}\\b`, 'g'), jointDataMap[key]);
+                }
+            });
+
+            for (const [key, index] of Object.entries(targets)) {
+                req = req.replace(new RegExp(key, 'g'), targets[key]);
+            }
+
             if (eval(req)) {
                 return ret;
             }
