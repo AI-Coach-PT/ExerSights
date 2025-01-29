@@ -23,6 +23,7 @@ export const genCheck = (
     currState,
     landmarks,
     onFeedbackUpdate,
+    setColor,
     setRepCount,
     angleHandlers = {}
 ) => {
@@ -72,6 +73,7 @@ export const genCheck = (
     if (!exerInfo.disableVisibilityCheck && !visibilityCheck(leftJointLandmarks) && !visibilityCheck(rightJointLandmarks)) {
         let feedback = "Make sure limbs are visible";
         onFeedbackUpdate(feedback);
+        setColor("red");
         return currState;
     }
 
@@ -111,6 +113,10 @@ export const genCheck = (
     }
 
     onFeedbackUpdate(exerInfo.states[currState].feedback);
+
+    if(exerInfo.states[currState].color){
+        setColor(exerInfo.states[currState].color);
+    }
     return currState;
 };
 

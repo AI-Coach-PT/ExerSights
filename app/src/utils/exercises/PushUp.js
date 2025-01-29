@@ -2,10 +2,10 @@ import { genCheck } from '../GenFeedback';
 
 const pushUpInfo = {
     states: {
-        INIT: { feedback: "Please Begin Rep!", audio: false, countRep: false },
-        DESCENDING: { feedback: "Go Down Lower!", audio: true, countRep: false },
-        HOLD: { feedback: "Excellent!", audio: true, countRep: false },
-        FINISHED: { feedback: "Excellent!", audio: false, countRep: true },
+        INIT: { feedback: "Please Begin Rep!", audio: false, countRep: false, color: "yellow" },
+        DESCENDING: { feedback: "Go Down Lower!", audio: true, countRep: false, color: "yellow" },
+        HOLD: { feedback: "Excellent!", audio: true, countRep: false, color: "green" },
+        FINISHED: { feedback: "Excellent!", audio: false, countRep: true, color: "green" },
     },
 
     transitions: {
@@ -82,7 +82,7 @@ const getTransitionType = (jointAngles, closerSide) => {
  * @param {Function} setRepCount - Function to update the repetition count.
  * @param {number} [targetElbowAngle=65] - The target elbow angle to be used for evaluation.
  */
-export const checkPushup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, targetElbowAngle = 65) => {
+export const checkPushup = (landmarks, onFeedbackUpdate, setColor, setCurrElbowAngle, setRepCount, targetElbowAngle = 65) => {
     pushUpInfo.targets["targetElbowAngle"] = targetElbowAngle;
 
     currState = genCheck(
@@ -91,6 +91,7 @@ export const checkPushup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setR
         currState,
         landmarks,
         onFeedbackUpdate,
+        setColor,
         setRepCount,
         { ElbowAngle: setCurrElbowAngle }
     );

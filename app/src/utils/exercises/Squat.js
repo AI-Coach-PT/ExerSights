@@ -8,10 +8,10 @@ import { genCheck } from '../GenFeedback';
  */
 const squatInfo = {
     states: {
-        STANDING: { feedback: "Please Begin Rep!", audio: false, countRep: false },
-        DESCENDING: { feedback: "Go Down Lower!", audio: true, countRep: false },
-        SQUATTING: { feedback: "Excellent!", audio: true, countRep: false },
-        FINISHED: { feedback: "Excellent!", audio: false, countRep: true }
+        STANDING: { feedback: "Please Begin Rep!", audio: false, countRep: false, color: "yellow"},
+        DESCENDING: { feedback: "Go Down Lower!", audio: true, countRep: false, color: "yellow" },
+        SQUATTING: { feedback: "Excellent!", audio: true, countRep: false, color: "green" },
+        FINISHED: { feedback: "Excellent!", audio: false, countRep: true, color: "green" }
     },
 
     transitions: {
@@ -88,7 +88,7 @@ let currState;
  * @param {Function} setRepCount - Function to update the repetition count.
  * @param {number} [targetKneeAngle=90] - The target knee angle to be used for evaluation.
  */
-export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
+export const checkSquats = (landmarks, onFeedbackUpdate, setColor, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
     squatInfo.targets["targetKneeAngle"] = targetKneeAngle;
 
     currState = genCheck(
@@ -97,9 +97,11 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
         currState,
         landmarks,
         onFeedbackUpdate,
+        setColor,
         setRepCount,
         { KneeAngle: setCurrKneeAngle }
     );
+
 };
 
 /** 
@@ -110,8 +112,8 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setCurrKneeAngle, setRe
  */
 const chestInfo = {
     states: {
-        UPRIGHT: { feedback: "", audio: false, countRep: false },
-        LEANING_FORWARD: { feedback: "Chest up!", audio: false, countRep: false }
+        UPRIGHT: { feedback: "", audio: false, countRep: false, color: "" },
+        LEANING_FORWARD: { feedback: "Chest up!", audio: false, countRep: false, color: ""}
     },
 
     transitions: {
@@ -171,7 +173,7 @@ let currStateChest;
  * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
  * @param {number} [targetHipAngle=45] - The target hip angle to be used for evaluation.
  */
-export const checkChestUp = (landmarks, onFeedbackUpdate, targetHipAngle = 45) => {
+export const checkChestUp = (landmarks, onFeedbackUpdate, setColor, targetHipAngle = 45) => {
     chestInfo.targets["targetHipAngle"] = targetHipAngle;
 
     currStateChest = genCheck(
@@ -180,6 +182,7 @@ export const checkChestUp = (landmarks, onFeedbackUpdate, targetHipAngle = 45) =
         currStateChest,
         landmarks,
         onFeedbackUpdate,
+        setColor,
         () => { },
     );
 };

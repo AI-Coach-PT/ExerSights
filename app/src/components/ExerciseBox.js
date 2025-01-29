@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, getInitColorSchemeScript, Typography } from "@mui/material";
 import WebcamCanvas from "./WebcamCanvas";
 import VideoCanvas from "./VideoCanvas";
 import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
@@ -15,13 +15,15 @@ import detectPose from "../utils/models/PoseDetector";
  *
  * @returns {JSX.Element} The JSX code for the ExerciseBox layout.
  */
-function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles }) {
+function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, color}) {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
     const [dimensions] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
     });
+
+    const webcamContainerRef = useRef(null);
 
     const videoRef = useRef(null);
     const videoCanvasRef = useRef(null);
@@ -57,6 +59,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles })
         handleVideoUpload: handleVideoUpload, // Spread in the extra props
     });
 
+
     return (
         <Box>
             <Typography variant="h2" sx={{ textAlign: "center" }}>
@@ -72,7 +75,11 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles })
                     padding: "2vmin",
                 }}
             >
-                <Box sx={{ display: useVideo ? "none" : "" }}>
+                <Box ref={webcamContainerRef} sx={{ border: `8px solid ${color || "white"}`, // Dynamic border color 
+                borderRadius: "8px", 
+                overflow: "hidden", 
+                padding: "5px",  
+                display: useVideo ? "none" : "" }}>
                     <WebcamCanvas
                         dimensions={dimensions}
                         ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
@@ -84,6 +91,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles })
                         ref={{ videoRef: videoRef, canvasRef: videoCanvasRef }}
                     />
                 </Box>
+
 
                 {enhancedFeedbackPanel}
             </Box>
