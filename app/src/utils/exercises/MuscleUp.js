@@ -61,6 +61,29 @@ const muscleUpInfo = {
     targets: {
         thresholdElbowAngle: 170,
     },
+
+    conditions: {
+        lockedOut: {
+            states: ["DIP"],
+            req: "elbowAngle > thresholdElbowAngle",
+            ret: "lockedOut"
+        },
+        chinAboveBar: {
+            states: ["PULLUP"],
+            req: "mouthPos.y < wristPos.y",
+            ret: "chinAboveBar"
+        },
+        elbowAboveBar: {
+            states: ["TRANSITION"],
+            req: "elbowPos.y < wristPos.y",
+            ret: "elbowAboveBar"
+        },
+        chinBelowBar: {
+            states: ["INIT", "TRANSITION", "DIP", "FINISH"],
+            req: "mouthPos.y >= wristPos.y",
+            ret: "chinBelowBar"
+        },
+    }
 };
 
 let currState;
@@ -81,10 +104,15 @@ const getTransitionType = (jointData, closerSide) => {
     const wristPos = closerSide === "left" ? leftWristPos : rightWristPos;
     const mouthPos = closerSide === "left" ? leftMouthPos : rightMouthPos;
 
-    if (currState === "DIP" && elbowAngle > thresholdElbowAngle) return "lockedOut";
-    if (currState === "PULLUP" && mouthPos.y < wristPos.y) return "chinAboveBar";
-    if (currState === "TRANSITION" && elbowPos.y < wristPos.y) return "elbowAboveBar";
-    if (mouthPos.y >= wristPos.y) return "chinBelowBar";
+    for (const conditionKey in muscleUpInfo.conditions) {
+        const condition = muscleUpInfo.conditions[conditionKey];
+        if (condition.states.includes(currState)) {
+            const { req, ret } = condition;
+            if (eval(req)) {
+                return ret;
+            }
+        }
+    }
 
     return null;
 };
