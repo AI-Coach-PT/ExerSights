@@ -91,6 +91,7 @@ const WebcamCanvas = forwardRef((props, ref) => {
                 style={{
                     width: "100%",
                     height: "100%",
+                    transform: "scaleX(-1)"
                 }}
             />
         </Box>
