@@ -26,6 +26,16 @@ export const genCheck = (
     setRepCount,
     angleHandlers = {}
 ) => {
+    if (!landmarks) {
+        if (!exerInfo.disableVisibilityCheck) {
+            onFeedbackUpdate("Get in frame!");
+        }
+        else {
+            onFeedbackUpdate("");
+        }
+        return;
+    }
+
     if (currState === undefined) {
         currState = Object.keys(exerInfo.states)[0];
     }
