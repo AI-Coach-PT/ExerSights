@@ -1,4 +1,4 @@
-import { auth, provider } from "../firebaseConfig";
+import { auth, provider } from "../../firebaseConfig";
 import { signInWithPopup, signOut } from "firebase/auth";
 
 /**

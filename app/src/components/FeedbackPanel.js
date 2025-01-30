@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Box, Paper, Button } from "@mui/material";
+import Timer from "./Timer";
 
 /**
  * A React functional component for rendering a feedback panel that displays real-time
@@ -71,6 +72,8 @@ function FeedbackPanel({
         Upload Video
         <input type="file" accept="video/*" onChange={handleVideoUpload} hidden />
       </Button>
+
+      <Timer />
     </Paper>
   );
 }

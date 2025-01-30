@@ -1,4 +1,4 @@
-import { genCheck } from './GenFeedback';
+import { genCheck } from '../GenFeedback';
 
 /** 
  * FSM list of 4 states, 3 types of transitions, joint information, target value information

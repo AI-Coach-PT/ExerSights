@@ -1,4 +1,4 @@
-import { genCheck } from './GenFeedback';
+import { genCheck, getTransitionType } from '../GenFeedback';
 
 const muscleUpInfo = {
     states: {
@@ -61,33 +61,32 @@ const muscleUpInfo = {
     targets: {
         thresholdElbowAngle: 170,
     },
+
+    conditions: {
+        lockedOut: {
+            states: ["DIP"],
+            req: "elbowAngle > thresholdElbowAngle",
+            ret: "lockedOut"
+        },
+        chinAboveBar: {
+            states: ["PULLUP"],
+            req: "mouthPos.y < wristPos.y",
+            ret: "chinAboveBar"
+        },
+        elbowAboveBar: {
+            states: ["TRANSITION"],
+            req: "elbowPos.y < wristPos.y",
+            ret: "elbowAboveBar"
+        },
+        chinBelowBar: {
+            states: ["INIT", "TRANSITION", "DIP", "FINISH"],
+            req: "mouthPos.y >= wristPos.y",
+            ret: "chinBelowBar"
+        }
+    }
 };
 
 let currState;
-
-/**
- * Determines the type of transition based on pull-up posture and arm movement.
- *
- * @param {object} jointData Object containing calculated angles for relevant joints.
- * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
- */
-const getTransitionType = (jointData, closerSide) => {
-    const { leftElbowAngle, rightElbowAngle, leftElbowPos, rightElbowPos, leftWristPos, rightWristPos, leftMouthPos, rightMouthPos } = jointData;
-
-    const thresholdElbowAngle = muscleUpInfo.targets["thresholdElbowAngle"];
-
-    const elbowAngle = closerSide === "left" ? leftElbowAngle : rightElbowAngle;
-    const elbowPos = closerSide === "left" ? leftElbowPos : rightElbowPos;
-    const wristPos = closerSide === "left" ? leftWristPos : rightWristPos;
-    const mouthPos = closerSide === "left" ? leftMouthPos : rightMouthPos;
-
-    if (currState === "DIP" && elbowAngle > thresholdElbowAngle) return "lockedOut";
-    if (currState === "PULLUP" && mouthPos.y < wristPos.y) return "chinAboveBar";
-    if (currState === "TRANSITION" && elbowPos.y < wristPos.y) return "elbowAboveBar";
-    if (mouthPos.y >= wristPos.y) return "chinBelowBar";
-
-    return null;
-};
 
 /**
  * Checks and updates the pull-up posture state, tracks elbow angle, and counts repetitions.
@@ -104,7 +103,7 @@ export const checkMuscleUp = (landmarks, onFeedbackUpdate, setCurrElbowAngle, se
 
     currState = genCheck(
         muscleUpInfo,
-        getTransitionType,
+        (...args) => getTransitionType(...args, muscleUpInfo, currState),
         currState,
         landmarks,
         onFeedbackUpdate,

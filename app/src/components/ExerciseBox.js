@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Box, Typography } from "@mui/material";
 import WebcamCanvas from "./WebcamCanvas";
 import VideoCanvas from "./VideoCanvas";
-import startPoseDetection from "../utils/PoseDetectorPoseVideo";
-import detectPose from "../utils/PoseDetector";
+import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
+import detectPose from "../utils/models/PoseDetector";
 
 /**
  * A reusable layout component for exercise tracking pages.

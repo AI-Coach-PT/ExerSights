@@ -4,9 +4,9 @@ import { Box } from "@mui/material";
 
 // Webcam style based on environment variable
 const webcamStyle =
-    process.env.REACT_APP_MODEL === "tasks-vision"
-        ? { visibility: "hidden", position: "absolute" }
-        : { display: "none" };
+  process.env.REACT_APP_MODEL === "tasks-vision"
+    ? { visibility: "hidden", position: "absolute" }
+    : { display: "none" };
 
 /**
  * WebcamCanvas component provides a webcam interface with responsive dimensions
