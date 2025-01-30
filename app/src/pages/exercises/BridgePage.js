@@ -101,6 +101,7 @@ function BridgePage() {
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
       color = {color}
+      repCount = {repCount}
     />
   );
 }

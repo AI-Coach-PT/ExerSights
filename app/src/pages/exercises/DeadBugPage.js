@@ -99,6 +99,7 @@ function DeadBugPage() {
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
       color={color}
+      repCount = {repCount}
     />
   );
 }

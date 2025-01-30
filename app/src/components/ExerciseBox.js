@@ -4,7 +4,6 @@ import WebcamCanvas from "./WebcamCanvas";
 import VideoCanvas from "./VideoCanvas";
 import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
 import detectPose from "../utils/models/PoseDetector";
-import PlusOneBox from "./CounterGraphic";
 import OverlayBox from "./CounterGraphic";
 
 
@@ -40,18 +39,15 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     }, [targetAngles]);
 
     const [showOverlay, setShowOverlay] = useState(false);
-    const [overlayKey, setOverlayKey] = useState(0);
-    // Timer Trigger PlusOne hide/show whenever repCount changes
     useEffect(() => {
-        if (repCount > 0) { // Ensures overlay appears only after the first rep
-            setShowOverlay(false); // Reset animation
+        if (repCount > 0) { 
+            setShowOverlay(false); 
             setTimeout(() => {
                 setShowOverlay(true);
-                setOverlayKey(prevKey => prevKey + 1); // Change key to force re-render
-            }, 10); // Brief delay to reset component
+            }, 10); 
             setTimeout(() => {
                 setShowOverlay(false);
-            }, 1000); // Overlay disappears after 1 second
+            }, 1000); 
         }
     }, [repCount]);
 
@@ -95,16 +91,17 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
                     padding: "2vmin",
                 }}
             >
-                <Box ref={webcamContainerRef} sx={{ border: `12px solid ${color || "white"}`, // Dynamic border color 
+                <Box sx={{ border: `12px solid ${color || "white"}`, // Dynamic border color 
                 borderRadius: "8px", 
                 overflow: "hidden", 
                 padding: "5px",  
-                display: useVideo ? "none" : "" }}>
+                display: useVideo ? "none" : "", 
+                position: "relative"}}>
                     <WebcamCanvas
                         dimensions={dimensions}
                         ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
                     />
-                    {showOverlay  && <OverlayBox text="+1" />}
+                    {showOverlay  && <OverlayBox text={repCount} />}
                 </Box>
                 <Box sx={{ 
                     border: `12px solid ${color || "white"}`, // Dynamic border color 
@@ -116,6 +113,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
                         handlePlay={handlePlay}
                         ref={{ videoRef: videoRef, canvasRef: videoCanvasRef }}
                     />
+                    {showOverlay  && <OverlayBox text={repCount} />}
                 </Box>
 
 

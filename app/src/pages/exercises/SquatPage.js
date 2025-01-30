@@ -93,6 +93,7 @@ function SquatPage() {
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
       color = {color}
+      repCount = {repCount}
     />
   );
 }

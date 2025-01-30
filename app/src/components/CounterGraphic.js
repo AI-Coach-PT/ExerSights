@@ -3,8 +3,8 @@ import { Box, Typography, keyframes } from "@mui/material";
 
 // Keyframe animation for moving up and fading out
 const fadeUp = keyframes`
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-20px); }
+  0% { opacity: 0.8; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-30px); }
 `;
 
 /**
@@ -27,15 +27,16 @@ const OverlayBox = ({ text }) => {
             }}
         >
             <Typography
-                variant="h4"
+                //variant="h2" // Larger font size
                 sx={{
-                    color: "white",
+                    color: "green",
                     fontWeight: "bold",
                     textAlign: "center",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
-                    padding: "10px 20px",
-                    borderRadius: "10px",
-                    animation: `${fadeUp} 1s ease-out forwards`, // Apply the animation
+                    backgroundColor: "rgba(0, 0, 0, 0.7)", // Darker background for better visibility
+                    padding: "20px 40px", // Increase padding
+                    borderRadius: "15px",
+                    fontSize: 300, // Significantly larger font size
+                    animation: `${fadeUp} 1s ease-out forwards`, // Apply animation
                 }}
             >
                 {text}
