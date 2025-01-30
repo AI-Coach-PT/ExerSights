@@ -26,6 +26,7 @@ function LatExtRotationPage() {
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
 
+
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
   const [targetAngles, setTargetAngles] = useState({
@@ -78,6 +79,7 @@ function LatExtRotationPage() {
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
       color = {color}
+      repCount = {repCount}
     />
   );
 }
