@@ -45,7 +45,7 @@ const pushUpInfo = {
 
     targets: {
         thresholdElbowAngle: 150,
-        targetElbowAngle: 65,
+        targetElbowAngle: 90,
     },
 };
 
@@ -80,7 +80,7 @@ const getTransitionType = (jointAngles, closerSide) => {
  * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
  * @param {Function} setCurrElbowAngle - Function to update the current elbow angle.
  * @param {Function} setRepCount - Function to update the repetition count.
- * @param {number} [targetElbowAngle=65] - The target elbow angle to be used for evaluation.
+ * @param {number} [targetElbowAngle=90] - The target elbow angle to be used for evaluation.
  */
 export const checkPushup = (landmarks, onFeedbackUpdate, setCurrElbowAngle, setRepCount, targetElbowAngle = 65) => {
     pushUpInfo.targets["targetElbowAngle"] = targetElbowAngle;

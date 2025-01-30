@@ -25,13 +25,13 @@ function PushUpGamePage() {
   const [leftFeedback, setLeftFeedback] = useState("");
   const [leftElbowAngle, setLeftElbowAngle] = useState(0);
   const [leftRepCount, setLeftRepCount] = useState(0);
-  const [leftTargetElbowAngle, setLeftTargetElbowAngle] = useState(65);
+  const [leftTargetElbowAngle, setLeftTargetElbowAngle] = useState(100);
 
   // State for the right pose
   const [rightFeedback, setRightFeedback] = useState("");
   const [rightElbowAngle, setRightElbowAngle] = useState(0);
   const [rightRepCount, setRightRepCount] = useState(0);
-  const [rightTargetElbowAngle, setRightTargetElbowAngle] = useState(65);
+  const [rightTargetElbowAngle, setRightTargetElbowAngle] = useState(100);
 
   // Memoized processPoseResults to avoid triggering useEffect on every render
   const processPoseResults = useCallback(
