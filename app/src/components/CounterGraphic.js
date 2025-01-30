@@ -27,16 +27,16 @@ const OverlayBox = ({ text }) => {
             }}
         >
             <Typography
-                //variant="h2" // Larger font size
+
                 sx={{
                     color: "green",
                     fontWeight: "bold",
                     textAlign: "center",
-                    backgroundColor: "rgba(0, 0, 0, 0.7)", // Darker background for better visibility
-                    padding: "20px 40px", // Increase padding
+                    backgroundColor: "rgba(0, 0, 0, 0.7)",
+                    padding: "20px 40px",
                     borderRadius: "15px",
-                    fontSize: 300, // Significantly larger font size
-                    animation: `${fadeUp} 1s ease-out forwards`, // Apply animation
+                    fontSize: 300,
+                    animation: `${fadeUp} 1s ease-out forwards`,
                 }}
             >
                 {text}
