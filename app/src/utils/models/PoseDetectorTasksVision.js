@@ -70,7 +70,9 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
         }
         canvasCtx.restore();
 
-        onResultCallback(result.landmarks[0]);
+        if (result.landmarks[0]) {
+          onResultCallback(result.landmarks[0]);
+        }
       });
     }
     // if (!stopDetection.current) {

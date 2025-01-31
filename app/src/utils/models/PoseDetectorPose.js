@@ -50,9 +50,10 @@ const detectPose = (webcamRef, canvasRef, onResultsCallback) => {
 
             drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS_NON_FACE, { color: 'blue', lineWidth: 5 });
             drawLandmarks(canvasCtx, nonFaceLandmarks, { color: 'red', radius: 2.5 });
+
+            onResultsCallback(results.poseLandmarks);
         }
 
-        onResultsCallback(results.poseLandmarks);
         canvasCtx.restore();
     });
 
