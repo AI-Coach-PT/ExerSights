@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, getInitColorSchemeScript, Typography } from "@mui/material";
 import WebcamCanvas from "./WebcamCanvas";
 import VideoCanvas from "./VideoCanvas";
 import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
 import detectPose from "../utils/models/PoseDetector";
+import OverlayBox from "./CounterGraphic";
+
+
 
 /**
  * A reusable layout component for exercise tracking pages.
@@ -15,13 +18,15 @@ import detectPose from "../utils/models/PoseDetector";
  *
  * @returns {JSX.Element} The JSX code for the ExerciseBox layout.
  */
-function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles }) {
+function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, color, repCount}) {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
     const [dimensions] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
     });
+
+    const webcamContainerRef = useRef(null);
 
     const videoRef = useRef(null);
     const videoCanvasRef = useRef(null);
@@ -32,6 +37,19 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles })
 
         return () => { };
     }, [targetAngles]);
+
+    const [showOverlay, setShowOverlay] = useState(false);
+    useEffect(() => {
+        if (repCount > 0) { 
+            setShowOverlay(false); 
+            setTimeout(() => {
+                setShowOverlay(true);
+            }, 10); 
+            setTimeout(() => {
+                setShowOverlay(false);
+            }, 1000); 
+        }
+    }, [repCount]);
 
     const handleVideoUpload = (event) => {
         const file = event.target.files[0];
@@ -57,6 +75,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles })
         handleVideoUpload: handleVideoUpload, // Spread in the extra props
     });
 
+
     return (
         <Box>
             <Typography variant="h2" sx={{ textAlign: "center" }}>
@@ -72,18 +91,31 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles })
                     padding: "2vmin",
                 }}
             >
-                <Box sx={{ display: useVideo ? "none" : "" }}>
+                <Box sx={{ border: `12px solid ${color || "white"}`, // Dynamic border color 
+                borderRadius: "8px", 
+                overflow: "hidden", 
+                padding: "5px",  
+                display: useVideo ? "none" : "", 
+                position: "relative"}}>
                     <WebcamCanvas
                         dimensions={dimensions}
                         ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
                     />
+                    {showOverlay  && <OverlayBox text={repCount} />}
                 </Box>
-                <Box sx={{ display: useVideo ? "" : "none" }}>
+                <Box sx={{ 
+                    border: `12px solid ${color || "white"}`, // Dynamic border color 
+                    borderRadius: "8px", 
+                    overflow: "hidden", 
+                    padding: "5px",  
+                    display: useVideo ? "" : "none" }}>
                     <VideoCanvas
                         handlePlay={handlePlay}
                         ref={{ videoRef: videoRef, canvasRef: videoCanvasRef }}
                     />
+                    {showOverlay  && <OverlayBox text={repCount} />}
                 </Box>
+
 
                 {enhancedFeedbackPanel}
             </Box>

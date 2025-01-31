@@ -2,9 +2,9 @@ import { genCheck } from "../GenFeedback";
 
 const latExtRotationInfo = {
   states: {
-    INIT: { feedback: "Get ready!", audio: false, countRep: false },
-    NOT_PERPENDICULAR: { feedback: "Rotate arm upwards!", audio: true, countRep: false },
-    PERPENDICULAR: { feedback: "Excellent!", audio: true, countRep: true },
+    INIT: { feedback: "Get ready!", audio: false, countRep: false, color: "yellow"  },
+    NOT_PERPENDICULAR: { feedback: "Rotate arm upwards!", audio: true, countRep: false, color: "yellow" },
+    PERPENDICULAR: { feedback: "Excellent!", audio: true, countRep: true, color: "green" },
   },
 
   transitions: {
@@ -90,6 +90,7 @@ const getTransitionType = (jointData, closerSide) => {
 export const checkLatExtRotation = (
   landmarks,
   onFeedbackUpdate,
+  setColor,
   setCurrSideAngle,
   setRepCount,
   targetSideAngle = 140
@@ -102,6 +103,7 @@ export const checkLatExtRotation = (
     currState,
     landmarks,
     onFeedbackUpdate,
+    setColor,
     setRepCount,
     { SideAngle: setCurrSideAngle }
   );

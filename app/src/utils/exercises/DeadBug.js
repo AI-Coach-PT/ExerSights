@@ -2,9 +2,9 @@ import { genCheck } from "../GenFeedback";
 
 const deadBugInfo = {
     states: {
-        INIT: { feedback: "Please Begin Rep!", audio: false, countRep: false },
-        EXTENDING: { feedback: "Extend alternate sides!", audio: true, countRep: false },
-        HOLD: { feedback: "Excellent!", audio: true, countRep: true },
+        INIT: { feedback: "Please Begin Rep!", audio: false, countRep: false, color: "yellow" },
+        EXTENDING: { feedback: "Extend alternate sides!", audio: true, countRep: false, color: "yellow" },
+        HOLD: { feedback: "Excellent!", audio: true, countRep: true, color: "green" },
     },
 
     transitions: {
@@ -98,6 +98,7 @@ export const checkDeadBug = (
     setLeftHipAngle,
     setRightHipAngle,
     onFeedbackUpdate,
+    setColor,
     setRepCount,
 ) => {
     deadBugInfo.targets["targetFlatAngle"] = targetFlatAngle;
@@ -108,6 +109,7 @@ export const checkDeadBug = (
         currState,
         landmarks,
         onFeedbackUpdate,
+        setColor,
         setRepCount,
         {
             leftUnderarmAngle: setLeftUnderarmAngle,

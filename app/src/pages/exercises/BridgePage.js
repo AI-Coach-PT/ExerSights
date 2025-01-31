@@ -26,6 +26,7 @@ function BridgePage() {
   const [leftHipAngle, setLeftHipAngle] = useState(0);
   const [leftKneeAngle, setLeftKneeAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
+  const [color, setColor] = useState("white");
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -53,6 +54,7 @@ function BridgePage() {
     checkBridges(
       landmarks,
       setFeedback,
+      setColor,
       setLeftHipAngle,
       setLeftKneeAngle,
       setRepCount,
@@ -98,6 +100,8 @@ function BridgePage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
+      color = {color}
+      repCount = {repCount}
     />
   );
 }

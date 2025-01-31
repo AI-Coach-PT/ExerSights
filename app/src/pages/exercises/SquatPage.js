@@ -26,6 +26,7 @@ function SquatPage() {
   const [hipAngleFeedback, setHipAngleFeedback] = useState("");
   const [currKneeAngle, setCurrKneeAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
+  const [color, setColor] = useState("white");
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -49,9 +50,10 @@ function SquatPage() {
    *
    * @param {Array} landmarks - The array of pose landmarks.
    */
+  
   const processPoseResults = (landmarks) => {
-    checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, targetKneeAngle);
-    checkChestUp(landmarks, setHipAngleFeedback, targetHipAngle);
+    checkSquats(landmarks, setFeedback, setColor, setCurrKneeAngle, setRepCount, targetKneeAngle);
+    checkChestUp(landmarks, setHipAngleFeedback, setColor, targetHipAngle);
   };
 
   /**
@@ -90,6 +92,8 @@ function SquatPage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
+      color = {color}
+      repCount = {repCount}
     />
   );
 }

@@ -27,6 +27,7 @@ function DeadBugPage() {
   const [rightHipAngle, setRightHipAngle] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [repCount, setRepCount] = useState(0);
+  const [color, setColor] = useState("white");
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -53,6 +54,7 @@ function DeadBugPage() {
       setLeftHipAngle,
       setRightHipAngle,
       setFeedback,
+      setColor,
       setRepCount
     );
   };
@@ -96,6 +98,8 @@ function DeadBugPage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
+      color={color}
+      repCount = {repCount}
     />
   );
 }

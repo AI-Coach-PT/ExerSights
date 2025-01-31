@@ -24,6 +24,7 @@ function PushUpPage() {
   const [feedback, setFeedback] = useState("");
   const [currElbowAngle, setCurrElbowAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
+  const [color, setColor] = useState("white");
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -39,7 +40,7 @@ function PushUpPage() {
   const setTargetAnglesArray = [[setTargetElbowAngle, "targetElbowAngle"]];
 
   const processPoseResults = (landmarks) => {
-    checkPushup(landmarks, setFeedback, setCurrElbowAngle, setRepCount, targetElbowAngle);
+    checkPushup(landmarks, setFeedback, setColor, setCurrElbowAngle, setRepCount, targetElbowAngle);
   };
 
   const handleReset = () => {
@@ -75,6 +76,8 @@ function PushUpPage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
+      color = {color}
+      repCount = {repCount}
     />
   );
 }
