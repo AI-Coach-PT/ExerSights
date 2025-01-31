@@ -1,12 +1,12 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import { Box } from "@mui/material";
 
 // Webcam style based on environment variable
 const webcamStyle =
-    process.env.REACT_APP_MODEL === "tasks-vision"
-        ? { visibility: "hidden", position: "absolute" }
-        : { display: "none" };
+  process.env.REACT_APP_MODEL === "tasks-vision"
+    ? { visibility: "hidden", position: "absolute" }
+    : { display: "none" };
 
 /**
  * WebcamCanvas component provides a webcam interface with responsive dimensions
@@ -26,63 +26,56 @@ const webcamStyle =
  * />
  */
 const WebcamCanvas = forwardRef((props, ref) => {
+    const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 }); // Default 16:9 ratio
 
-    //const { width, height } = props.dimensions;
-    // Standard 16:9 aspect ratio for video
-    const videoElement = ref?.webcamRef?.current?.video;
-    const videoWidth = videoElement?.videoWidth;
-    const videoHeight = videoElement?.videoHeight;
+    useEffect(() => {
+        const videoElement = ref?.webcamRef?.current?.video;
 
-    const aspectRatio = videoWidth / videoHeight;
+        const updateCanvasSize = () => {
+            if (videoElement) {
+                const videoWidth = videoElement.videoWidth ; // Default width
+                const videoHeight = videoElement.videoHeight ;
 
+                const aspectRatio = videoWidth / videoHeight;
 
-    // Calculate 70% of browser dimensions
-    const browserWidth = props.dimensions.width * 0.7;
-    const browserHeight = props.dimensions.height * 0.7;
-    let newWidth, newHeight;
+                const browserWidth = props.dimensions.width * 0.7;
+                const browserHeight = props.dimensions.height * 0.7;
 
-    // Calculate responsive dimensions while maintaining aspect ratio
-    if (browserWidth / browserHeight > aspectRatio) {
-        newHeight = browserHeight;
-        newWidth = newHeight * aspectRatio;
-    } else {
-        newWidth = browserWidth;
-        newHeight = newWidth / aspectRatio;
-    }
+                let newWidth, newHeight;
+
+                if (browserWidth / browserHeight > aspectRatio) {
+                    newHeight = browserHeight;
+                    newWidth = newHeight * aspectRatio;
+                } else {
+                    newWidth = browserWidth;
+                    newHeight = newWidth / aspectRatio;
+                }
+
+                setCanvasSize({ width: newWidth, height: newHeight });
+            }
+        };
+
+        if (videoElement) {
+            // Update size when metadata is loaded
+            videoElement.addEventListener("loadedmetadata", updateCanvasSize);
+
+            // Cleanup listener on unmount
+            return () => {
+                videoElement.removeEventListener("loadedmetadata", updateCanvasSize);
+            };
+        }
+    }, [ref, props.dimensions.width, props.dimensions.height]);
 
     /**
      * Video constraints for webcam
      * @type {Object}
      */
     const videoContraints = {
-        // width: newWidth,
-        // height: newHeight,
-        //aspectRatio: aspectRatio,
         facingMode: "user", // or 'environment' for rear camera on mobile
     };
+
     return (
-        <Box
-            // sx={{
-            //     // Dynamically calculate 70% sizes at each breakpoint
-            //     // Fixed pixel values at each breakpoint
-            //     width: {
-            //         xs: 320 * 0.7, // Extra-small screens
-            //         sm: 640 * 0.7, 
-            //         md: 1280 * 0.7, 
-            //         lg: 1440 * 0.7, 
-            //         xl: 1920 * 0.7, // Extra-large screens
-            //     },
-            //     height: {
-            //         xs: 240 * 0.7, // Extra-small screens
-            //         sm: 480 * 0.7, 
-            //         md: 800 * 0.7, 
-            //         lg: 900 * 0.7, 
-            //         xl: 1200 * 0.7, // Extra-large screens
-            //     },
-            //     maxWidth: "100%", // Stop box from  exceeding screen width
-            //     maxHeight: "100%", // Stop box from  exceeding screen height
-            // }}
-        >
+        <Box>
             <div style={webcamStyle}>
                 <Webcam
                     ref={ref.webcamRef}
@@ -93,15 +86,12 @@ const WebcamCanvas = forwardRef((props, ref) => {
             </div>
             <canvas
                 ref={ref.canvasRef}
-                // canvas drawing size
-                width={newWidth}
-                height={newHeight}
+                width={canvasSize.width}
+                height={canvasSize.height}
                 style={{
-                    // canvas display size
-                    // width: `${newWidth}px`,
-                    // height: `${newHeight}px`,
                     width: "100%",
                     height: "100%",
+                    transform: "scaleX(-1)"
                 }}
             />
         </Box>

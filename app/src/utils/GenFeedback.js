@@ -27,6 +27,16 @@ export const genCheck = (
     setRepCount,
     angleHandlers = {}
 ) => {
+    if (!landmarks) {
+        if (!exerInfo.disableVisibilityCheck) {
+            onFeedbackUpdate("Get in frame!");
+        }
+        else {
+            onFeedbackUpdate("");
+        }
+        return;
+    }
+
     if (currState === undefined) {
         currState = Object.keys(exerInfo.states)[0];
     }
@@ -151,4 +161,77 @@ function getCloserSide(leftLandmarks = [], rightLandmarks = []) {
  */
 export const resetRepCount = (val) => {
     repCount = val;
+};
+
+/**
+ * Determines the transition type based on joint data and exercise state.
+ *
+ * @param {Object} jointData - The calculated angles and positions of relevant joints.
+ * @param {string} closerSide - The side of the body being evaluated ("left" or "right").
+ * @param {Object} exerciseFSM - The finite state machine containing exercise conditions.
+ * @param {string} currState - The current state of the exercise.
+ * @returns {string|null} - The determined transition type or null if no transition applies.
+ */
+
+export const getTransitionType = (jointData, closerSide, exerciseFSM, currState) => {
+    const targets = exerciseFSM.targets;
+    const jointPos = exerciseFSM.jointInfo.jointPos;
+    const jointAngles = exerciseFSM.jointInfo.jointAngles;
+
+    const jointDataMap = {};
+
+    // Pull angles from jointData
+    for (const [key, index] of Object.entries(jointAngles)) {
+        if (key.startsWith(closerSide)) { // Match only relevant side
+            const genericKey = key.replace(closerSide, "").replace(/Angle$/, "").toLowerCase();
+
+            if (jointData[key] !== undefined) {
+                jointDataMap[genericKey + "Angle"] = jointData[key];
+            } else {
+                console.warn(`WARNING: Missing or invalid jointData for index ${key}`);
+                jointDataMap[genericKey + "Angle"] = 0;
+            }
+        }
+    }
+
+    // Pull positions from jointData
+    for (const [key, index] of Object.entries(jointPos)) {
+        if (key.startsWith(closerSide)) { // Match only relevant side
+            const genericKey = key.replace(closerSide, "").replace(/Pos$/, "").toLowerCase();
+
+            if (jointData[key] && typeof jointData[key] === "object" && "y" in jointData[key]) {
+                jointDataMap[genericKey + "Pos"] = jointData[key];
+            } else {
+                console.warn(`WARNING: Missing or invalid jointData for index ${key}`);
+                jointDataMap[genericKey + "Pos"] = { x: 0, y: 0 };
+            }
+        }
+    }
+
+    for (const conditionKey in exerciseFSM.conditions) {
+        const condition = exerciseFSM.conditions[conditionKey];
+        if (condition.states.includes(currState)) {
+            let { req, ret } = condition;
+
+            // Replace generic placeholders with actual values from jointDataMap
+            Object.keys(jointDataMap).forEach(key => {
+                if (typeof jointDataMap[key] === "object" && jointDataMap[key] !== null) {
+                    // If the key represents a position object ({x, y}), replace properly
+                    req = req.replace(new RegExp(`\\b${key}\\.y\\b`, 'g'), jointDataMap[key].y);
+                } else {
+                    req = req.replace(new RegExp(`\\b${key}\\b`, 'g'), jointDataMap[key]);
+                }
+            });
+
+            for (const [key, index] of Object.entries(targets)) {
+                req = req.replace(new RegExp(key, 'g'), targets[key]);
+            }
+
+            if (eval(req)) {
+                return ret;
+            }
+        }
+    }
+
+    return null;
 };

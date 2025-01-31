@@ -1,4 +1,4 @@
-import { genCheck } from '../GenFeedback';
+import { genCheck, getTransitionType } from '../GenFeedback';
 
 const pullUpInfo = {
     states: {
@@ -62,34 +62,32 @@ const pullUpInfo = {
         thresholdElbowAngle: 150,
         thresholdKneeAngle: 120
     },
+
+    conditions: {
+        kneeBend: {
+            states: ["ASCENDING", "KIP"],
+            req: "kneeAngle < thresholdKneeAngle",
+            ret: "kneeBend"
+        },
+        lockedOut: {
+            states: ["DESCENDING", "KIP"],
+            req: "elbowAngle > thresholdElbowAngle",
+            ret: "lockedOut"
+        },
+        chinAbove: {
+            states: ["ASCENDING"],
+            req: "mouthPos.y < wristPos.y",
+            ret: "chinAbove"
+        },
+        chinBelow: {
+            states: ["INIT", "UP"],
+            req: "mouthPos.y >= wristPos.y",
+            ret: "chinBelow"
+        }
+    }
 };
 
 let currState;
-
-/**
- * Determines the type of transition based on pull-up posture and arm movement.
- *
- * @param {object} jointData Object containing calculated angles for relevant joints.
- * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
- */
-const getTransitionType = (jointData, closerSide) => {
-    const { leftElbowAngle, rightElbowAngle, leftWristPos, rightWristPos, leftMouthPos, rightMouthPos, leftKneeAngle, rightKneeAngle } = jointData;
-
-    const thresholdElbowAngle = pullUpInfo.targets["thresholdElbowAngle"];
-    const thresholdKneeAngle = pullUpInfo.targets["thresholdKneeAngle"];
-
-    const elbowAngle = closerSide === "left" ? leftElbowAngle : rightElbowAngle;
-    const wristPos = closerSide === "left" ? leftWristPos : rightWristPos;
-    const mouthPos = closerSide === "left" ? leftMouthPos : rightMouthPos;
-    const kneeAngle = closerSide === "left" ? leftKneeAngle : rightKneeAngle;
-
-    if ((currState === "KIP" || currState === "ASCENDING") && kneeAngle < thresholdKneeAngle) return "kneeBend";
-    if ((currState === "KIP" || currState === "DESCENDING") && elbowAngle > thresholdElbowAngle) return "lockedOut";
-    if (currState === "ASCENDING" && mouthPos.y < wristPos.y) return "chinAbove";
-    if (mouthPos.y >= wristPos.y) return "chinBelow";
-
-    return null;
-};
 
 /**
  * Checks and updates the pull-up posture state, tracks elbow angle, and counts repetitions.
@@ -106,7 +104,7 @@ export const checkPullup = (landmarks, onFeedbackUpdate, setColor, setCurrElbowA
 
     currState = genCheck(
         pullUpInfo,
-        getTransitionType,
+        (...args) => getTransitionType(...args, pullUpInfo, currState),
         currState,
         landmarks,
         onFeedbackUpdate,
