@@ -31,6 +31,7 @@ function Menubar() {
     { text: "Home", path: "/home" },
     { text: "Catalog", path: "/catalog" },
     { text: "About", path: "/about" },
+    { text: "Contact", path: "/contact" },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
