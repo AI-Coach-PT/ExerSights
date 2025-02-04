@@ -2,28 +2,34 @@ import { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 export default function ContactForm() {
+  // State to store and display form submission status
   const [result, setResult] = useState("");
 
+  // Handle form submission
   const onSubmit = async (event) => {
-    event.preventDefault();
-    setResult("Sending....");
-    const formData = new FormData(event.target);
+    event.preventDefault(); // Prevent default form submission behavior
+    setResult("Sending...."); // Show sending status
+    const formData = new FormData(event.target); // Create FormData object from form
 
+    // Add Web3Forms access key to formData
     formData.append("access_key", "2fe1561a-b924-4fc7-97f1-fabada7d79ec");
 
+    // Send POST request to Web3Forms API
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData,
     });
 
+    // Parse response data
     const data = await response.json();
 
+    // Handle submission result
     if (data.success) {
-      setResult("Form Submitted Successfully");
-      event.target.reset();
+      setResult("Thank you for your feedback!");
+      event.target.reset(); // Clear form fields
     } else {
       console.log("Error", data);
-      setResult(data.message);
+      setResult(data.message); // Display error message
     }
   };
 
@@ -38,27 +44,41 @@ export default function ContactForm() {
       }}>
       <form onSubmit={onSubmit}>
         <Box sx={{ mb: "1rem" }}>
-          <TextField type="text" name="name" placeholder="Your name" required error />
+          <TextField
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+            autoComplete
+            autoFocus
+          />
         </Box>
         <Box sx={{ mb: "1rem" }}>
-          <TextField type="email" name="email" placeholder="Your email" required error />
+          <TextField
+            type="email"
+            name="email"
+            placeholder="your_email@gmail.com"
+            required
+            autoComplete
+          />
         </Box>
         <Box sx={{ mb: "1rem" }}>
           <TextField
             name="message"
-            placeholder="What would you like to tell us?"
+            placeholder="Your feedback helps us improve! Feel free to also let us know what you would like to see. Now, what would you like to tell us?"
             required
-            error
             multiline
+            autoComplete
+            minRows={2}
             sx={{ width: "80%" }}
           />
         </Box>
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" sx={{ mb: "1rem" }}>
           Submit Form
         </Button>
       </form>
       <Box sx={{ flexBasis: "100%" }}>
-        <Typography>{result}</Typography>
+        <Typography variant="body1">{result}</Typography>
       </Box>
     </Box>
   );
