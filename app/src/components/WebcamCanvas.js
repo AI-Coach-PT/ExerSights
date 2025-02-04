@@ -1,12 +1,14 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
-import { Box } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 
 // Webcam style based on environment variable
 const webcamStyle =
-  process.env.REACT_APP_MODEL === "tasks-vision"
-    ? { visibility: "hidden", position: "absolute" }
-    : { display: "none" };
+    process.env.REACT_APP_MODEL === "tasks-vision"
+        ? { visibility: "hidden", position: "absolute" }
+        : { display: "none" };
+
+const WEBCAM_TIMEOUT = 5000; // ms before reload prompt triggers
 
 /**
  * WebcamCanvas component provides a webcam interface with responsive dimensions
@@ -27,14 +29,16 @@ const webcamStyle =
  */
 const WebcamCanvas = forwardRef((props, ref) => {
     const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 }); // Default 16:9 ratio
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const videoElement = ref?.webcamRef?.current?.video;
+        let timeoutId;
 
         const updateCanvasSize = () => {
             if (videoElement) {
-                const videoWidth = videoElement.videoWidth ; // Default width
-                const videoHeight = videoElement.videoHeight ;
+                const videoWidth = videoElement.videoWidth;
+                const videoHeight = videoElement.videoHeight;
 
                 const aspectRatio = videoWidth / videoHeight;
 
@@ -52,6 +56,7 @@ const WebcamCanvas = forwardRef((props, ref) => {
                 }
 
                 setCanvasSize({ width: newWidth, height: newHeight });
+                clearTimeout(timeoutId);
             }
         };
 
@@ -59,9 +64,21 @@ const WebcamCanvas = forwardRef((props, ref) => {
             // Update size when metadata is loaded
             videoElement.addEventListener("loadedmetadata", updateCanvasSize);
 
+            timeoutId = setTimeout(() => {
+                if (loading) {
+                    const shouldReload = window.confirm(
+                        "Webcam is taking too long to load. Would you like to reload the page?"
+                    );
+                    if (shouldReload) {
+                        window.location.reload(); // Reload the page
+                    }
+                }
+            }, WEBCAM_TIMEOUT);
+
             // Cleanup listener on unmount
             return () => {
                 videoElement.removeEventListener("loadedmetadata", updateCanvasSize);
+                clearTimeout(timeoutId);
             };
         }
     }, [ref, props.dimensions.width, props.dimensions.height]);
@@ -84,6 +101,19 @@ const WebcamCanvas = forwardRef((props, ref) => {
                     videoConstraints={videoContraints}
                 />
             </div>
+            {loading && (
+                <Box
+                    position="absolute"
+                    top="40%"
+                    left="40%"
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                >
+                    <CircularProgress />
+                    <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
+                </Box>
+            )}
             <canvas
                 ref={ref.canvasRef}
                 width={canvasSize.width}
