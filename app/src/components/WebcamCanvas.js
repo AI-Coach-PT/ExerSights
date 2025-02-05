@@ -101,7 +101,7 @@ const WebcamCanvas = forwardRef((props, ref) => {
                     videoConstraints={videoContraints}
                 />
             </div>
-            {loading && (
+            {/*loading && */(
                 <Box
                     position="absolute"
                     top="40%"
