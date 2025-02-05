@@ -1,6 +1,5 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-import Contact from "../components/ContactForm";
 
 function About() {
   return (
