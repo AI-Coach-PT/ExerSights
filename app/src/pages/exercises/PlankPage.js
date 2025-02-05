@@ -19,7 +19,7 @@ import ExerciseBox from "../../components/ExerciseBox";
  * @returns {JSX.Element} The JSX code to render the Lateral External Rotation tracking page, including feedback display,
  *                        repetition count, side angle display, and a reset button.
  */
-function LatExtRotationPage() {
+function PlankPage() {
   const [targetHipAngle, setTargetHipAngle] = useState(140);
   const [feedback, setFeedback] = useState("");
   const [currHipAngle, setCurrHipAngle] = useState(90);
@@ -51,8 +51,8 @@ function LatExtRotationPage() {
 
   // Update the targetAngles object whenever targetKneeAngle and/or targetHipAngle changes
   useEffect(() => {
-    setTargetAngles({ targetSideAngle: targetSideAngle });
-  }, [targetSideAngle]);
+    setTargetAngles({ targetHipAngle: targetHipAngle });
+  }, [targetHipAngle]);
 
   const feedbackPanel = (
     <FeedbackPanel
@@ -63,7 +63,7 @@ function LatExtRotationPage() {
       HelpModal={<HelpModal image={latExtRotationHelpImg} description={instructionsTextLatExtRotation} />}
       SettingsModal={
         <SettingsModal
-          exerciseName="latExtRotation"
+          exerciseName="plank"
           targetAngles={targetAngles}
           setTargetAnglesArray={setTargetAnglesArray}
         />
@@ -73,7 +73,7 @@ function LatExtRotationPage() {
 
   return (
     <ExerciseBox
-      title="Plank Page"
+      title="Plank"
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
@@ -83,4 +83,4 @@ function LatExtRotationPage() {
   );
 }
 
-export default LatExtRotationPage;
+export default PlankPage;

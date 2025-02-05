@@ -69,7 +69,7 @@ const getTransitionType = (jointData, closerSide) => {
  * @param {Function} onFeedbackUpdate - Callback function to update feedback based on the current state.
  * @param {Function} setCurrSideAngle - Function to set the current side angle.
  * @param {Function} setRepCount - Function to update the repetition count.
- * @param {number} [targetSideAngle=145] - The target angle for side rotation. Defaults to 140 if not specified.
+ * @param {number} [targetHipAngle=145] - The target angle for side rotation. Defaults to 140 if not specified.
  */
 export const checkPlank = (
   landmarks,
@@ -82,7 +82,7 @@ export const checkPlank = (
   plankInfo.targets["targetHipAngle"] = targetHipAngle;
 
   currState = genCheck(
-    latExtRotationInfo,
+    plankInfo,
     getTransitionType,
     currState,
     landmarks,
