@@ -9,5 +9,6 @@ export const instructionsTextBridge = content.instructions.bridge;
 export const instructionsTextPullup = content.instructions.pullup;
 export const instructionsTextMuscleup = content.instructions.muscleup;
 export const instructionsTextLatExtRotation = content.instructions.latExtRotation;
+export const instructionsTextPlank = content.instructions.plank;
 
 export const disclaimerText = content.legal.disclaimer;

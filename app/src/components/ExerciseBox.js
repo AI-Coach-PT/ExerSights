@@ -26,8 +26,6 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
         height: window.innerHeight,
     });
 
-    const webcamContainerRef = useRef(null);
-
     const videoRef = useRef(null);
     const videoCanvasRef = useRef(null);
     const [useVideo, setUseVideo] = useState(false);
