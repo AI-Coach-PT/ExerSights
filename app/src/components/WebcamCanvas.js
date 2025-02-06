@@ -57,6 +57,7 @@ const WebcamCanvas = forwardRef((props, ref) => {
 
                 setCanvasSize({ width: newWidth, height: newHeight });
                 clearTimeout(timeoutId);
+                setLoading(false);
             }
         };
 
