@@ -28,6 +28,7 @@ function DeadBugPage() {
   const [feedback, setFeedback] = useState("");
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
+  const [angleView, setAngleView] = useState(true);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -83,14 +84,19 @@ function DeadBugPage() {
       ]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={
-        <HelpModal image={deadbugHelpImg} description={instructionsTextDeadbug} />
-      }
+      HelpModal={<HelpModal image={deadbugHelpImg} description={instructionsTextDeadbug} />}
       SettingsModal={
-        <SettingsModal exerciseName="deadbug" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
+        <SettingsModal
+          exerciseName="deadbug"
+          targetAngles={targetAngles}
+          setTargetAnglesArray={setTargetAnglesArray}
+          angleView={angleView}
+          setAngleView={setAngleView}
+        />
       }
+      angleView={angleView}
     />
-  )
+  );
 
   return (
     <ExerciseBox
@@ -99,7 +105,7 @@ function DeadBugPage() {
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
       color={color}
-      repCount = {repCount}
+      repCount={repCount}
     />
   );
 }

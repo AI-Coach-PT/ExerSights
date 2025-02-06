@@ -25,7 +25,7 @@ function LatExtRotationPage() {
   const [currSideAngle, setCurrSideAngle] = useState(90);
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
-
+  const [angleView, setAngleView] = useState(true);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -41,7 +41,14 @@ function LatExtRotationPage() {
   const setTargetAnglesArray = [[setTargetSideAngle, "targetSideAngle"]];
 
   const processPoseResults = (landmarks) => {
-    checkLatExtRotation(landmarks, setFeedback, setColor, setCurrSideAngle, setRepCount, targetSideAngle);
+    checkLatExtRotation(
+      landmarks,
+      setFeedback,
+      setColor,
+      setCurrSideAngle,
+      setRepCount,
+      targetSideAngle
+    );
     //console.log("Current color:", color);
   };
 
@@ -61,14 +68,19 @@ function LatExtRotationPage() {
       valuesList={[{ label: "Side Angle", value: currSideAngle }]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={<HelpModal image={latExtRotationHelpImg} description={instructionsTextLatExtRotation} />}
+      HelpModal={
+        <HelpModal image={latExtRotationHelpImg} description={instructionsTextLatExtRotation} />
+      }
       SettingsModal={
         <SettingsModal
           exerciseName="latExtRotation"
           targetAngles={targetAngles}
           setTargetAnglesArray={setTargetAnglesArray}
+          angleView={angleView}
+          setAngleView={setAngleView}
         />
       }
+      angleView={angleView}
     />
   );
 
@@ -78,8 +90,8 @@ function LatExtRotationPage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
-      color = {color}
-      repCount = {repCount}
+      color={color}
+      repCount={repCount}
     />
   );
 }

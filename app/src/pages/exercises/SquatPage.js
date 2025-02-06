@@ -27,6 +27,7 @@ function SquatPage() {
   const [currKneeAngle, setCurrKneeAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
+  const [angleView, setAngleView] = useState(true);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -50,7 +51,7 @@ function SquatPage() {
    *
    * @param {Array} landmarks - The array of pose landmarks.
    */
-  
+
   const processPoseResults = (landmarks) => {
     checkSquats(landmarks, setFeedback, setColor, setCurrKneeAngle, setRepCount, targetKneeAngle);
     checkChestUp(landmarks, setHipAngleFeedback, setColor, targetHipAngle);
@@ -72,19 +73,22 @@ function SquatPage() {
   const feedbackPanel = (
     <FeedbackPanel
       feedbackList={[feedback, hipAngleFeedback]}
-      valuesList={[
-        { label: "Knee Angle", value: currKneeAngle },
-      ]}
+      valuesList={[{ label: "Knee Angle", value: currKneeAngle }]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={
-        <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
-      }
+      HelpModal={<HelpModal image={squatHelpImg} description={instructionsTextSquat} />}
       SettingsModal={
-        <SettingsModal exerciseName="squat" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
+        <SettingsModal
+          exerciseName="squat"
+          targetAngles={targetAngles}
+          setTargetAnglesArray={setTargetAnglesArray}
+          angleView={angleView}
+          setAngleView={setAngleView}
+        />
       }
+      angleView={angleView}
     />
-  )
+  );
 
   return (
     <ExerciseBox
@@ -92,8 +96,8 @@ function SquatPage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
-      color = {color}
-      repCount = {repCount}
+      color={color}
+      repCount={repCount}
     />
   );
 }

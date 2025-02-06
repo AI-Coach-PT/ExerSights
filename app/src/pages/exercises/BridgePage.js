@@ -27,7 +27,7 @@ function BridgePage() {
   const [leftKneeAngle, setLeftKneeAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
-  const [angleView, setAngleView] = useState(false);
+  const [angleView, setAngleView] = useState(true);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
