@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { checkBridges } from "../../utils/exercises/Bridge";
 import HelpModal from "../../components/HelpModal";
 import bridgeHelpImg from "../../assets/instructions/bridgeHelp.png";
-import { instructionsTextBridge } from "../../assets/content";
+import { instructionsTextBridge, instructionsVideoBridge } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -86,7 +86,7 @@ function BridgePage() {
       repCount={repCount}
       handleReset={handleReset}
       HelpModal={
-        <HelpModal image={bridgeHelpImg} description={instructionsTextBridge} />
+        <HelpModal image={bridgeHelpImg} description={instructionsTextBridge} video={instructionsVideoBridge} />
       }
       SettingsModal={
         <SettingsModal exerciseName="bridge" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
@@ -100,8 +100,8 @@ function BridgePage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
-      color = {color}
-      repCount = {repCount}
+      color={color}
+      repCount={repCount}
     />
   );
 }
