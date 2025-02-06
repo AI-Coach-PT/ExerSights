@@ -27,7 +27,7 @@ function PlankPage() {
   const [currHipAngle, setCurrHipAngle] = useState(90);
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
-
+  const [angleView, setAngleView] = useState(true);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -69,8 +69,11 @@ function PlankPage() {
           exerciseName="plank"
           targetAngles={targetAngles}
           setTargetAnglesArray={setTargetAnglesArray}
+          angleView={angleView}
+          setAngleView={setAngleView}
         />
       }
+      angleView={angleView}
     />
   );
 
@@ -80,8 +83,8 @@ function PlankPage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
-      color = {color}
-      repCount = {repCount}
+      color={color}
+      repCount={repCount}
     />
   );
 }
