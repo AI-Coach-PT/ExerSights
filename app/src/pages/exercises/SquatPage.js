@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { checkChestUp, checkSquats } from "../../utils/exercises/Squat";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/instructions/squatHelp.png";
-import { instructionsTextSquat } from "../../assets/content";
+import { instructionsTextSquat, instructionsVideoSquat } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -76,7 +76,9 @@ function SquatPage() {
       valuesList={[{ label: "Knee Angle", value: currKneeAngle }]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={<HelpModal image={squatHelpImg} description={instructionsTextSquat} />}
+      HelpModal={
+        <HelpModal image={squatHelpImg} description={instructionsTextSquat} video={instructionsVideoSquat} />
+      }
       SettingsModal={
         <SettingsModal
           exerciseName="squat"

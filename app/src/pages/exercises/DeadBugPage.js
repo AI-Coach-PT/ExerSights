@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { checkDeadBug } from "../../utils/exercises/DeadBug";
 import HelpModal from "../../components/HelpModal";
 import deadbugHelpImg from "../../assets/instructions/deadbugHelp.png";
-import { instructionsTextDeadbug } from "../../assets/content";
+import { instructionsTextDeadbug, instructionsVideoDeadbug } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -84,7 +84,9 @@ function DeadBugPage() {
       ]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={<HelpModal image={deadbugHelpImg} description={instructionsTextDeadbug} />}
+      HelpModal={
+        <HelpModal image={deadbugHelpImg} description={instructionsTextDeadbug} video={instructionsVideoDeadbug} />
+      }
       SettingsModal={
         <SettingsModal
           exerciseName="deadbug"

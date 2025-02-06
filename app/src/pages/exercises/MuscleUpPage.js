@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { checkMuscleUp } from "../../utils/exercises/MuscleUp";
 import HelpModal from "../../components/HelpModal";
 import muscleupHelpImg from "../../assets/instructions/muscleupHelp.png";
-import { instructionsTextMuscleup } from "../../assets/content";
+import { instructionsTextMuscleup, instructionsVideoMuscleup } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -67,7 +67,9 @@ function MuscleUpPage() {
       valuesList={[{ label: "Elbow Angle", value: currElbowAngle }]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={<HelpModal image={muscleupHelpImg} description={instructionsTextMuscleup} />}
+      HelpModal={
+        <HelpModal image={muscleupHelpImg} description={instructionsTextMuscleup} video={instructionsVideoMuscleup} />
+      }
       SettingsModal={
         <SettingsModal
           exerciseName="muscleup"
@@ -80,7 +82,6 @@ function MuscleUpPage() {
       angleView={angleView}
     />
   );
-
   return (
     <ExerciseBox
       title="Muscle-Up"

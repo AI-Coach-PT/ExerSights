@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { checkPushup } from "../../utils/exercises/PushUp";
 import HelpModal from "../../components/HelpModal";
 import pushupHelpImg from "../../assets/instructions/pushupHelp.png";
-import { instructionsTextPushup } from "../../assets/content";
+import { instructionsTextPushup, instructionsVideoPushup } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -60,7 +60,9 @@ function PushUpPage() {
       valuesList={[{ label: "Elbow Angle", value: currElbowAngle }]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={<HelpModal image={pushupHelpImg} description={instructionsTextPushup} />}
+      HelpModal={
+        <HelpModal image={pushupHelpImg} description={instructionsTextPushup} video={instructionsVideoPushup} />
+      }
       SettingsModal={
         <SettingsModal
           exerciseName="pushup"

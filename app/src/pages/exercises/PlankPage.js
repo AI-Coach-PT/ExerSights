@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { checkLatExtRotation } from "../../utils/exercises/LatExtRotation";
+import { checkPlank } from "../../utils/exercises/Plank";
+import { checkArms } from "../../utils/exercises/Plank";
 import HelpModal from "../../components/HelpModal";
-import latExtRotationHelpImg from "../../assets/instructions/latExtRotationHelp.png";
-import { instructionsTextLatExtRotation, instructionsVideoLatExtRotation } from "../../assets/content";
+import plankHelpImg from "../../assets/instructions/plankHelp.png";
+import { instructionsTextPlank } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -19,18 +20,19 @@ import ExerciseBox from "../../components/ExerciseBox";
  * @returns {JSX.Element} The JSX code to render the Lateral External Rotation tracking page, including feedback display,
  *                        repetition count, side angle display, and a reset button.
  */
-function LatExtRotationPage() {
-  const [targetSideAngle, setTargetSideAngle] = useState(140);
+function PlankPage() {
+  const [targetHipAngle, setTargetHipAngle] = useState(145);
   const [feedback, setFeedback] = useState("");
-  const [currSideAngle, setCurrSideAngle] = useState(90);
+  const [armFeedback, setArmFeedback] = useState("");
+  const [currHipAngle, setCurrHipAngle] = useState(90);
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
-  const [angleView, setAngleView] = useState(true);
+
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
   const [targetAngles, setTargetAngles] = useState({
-    targetSideAngle: targetSideAngle,
+    targetHipAngle: targetHipAngle,
   });
 
   // Array of arrays of useState set functions, with the key into the Promise object,
@@ -38,18 +40,11 @@ function LatExtRotationPage() {
   // differs from the targetAngles state in that this is an array array of FUNCTIONS + KEYS,
   // whereas targetAngles is an Object that keeps a store of target angle VALUES;
   // both states are used to modularize usage of the store/load functions in ExerciseSettings.js
-  const setTargetAnglesArray = [[setTargetSideAngle, "targetSideAngle"]];
+  const setTargetAnglesArray = [[setTargetHipAngle, "targetHipAngle"]];
 
   const processPoseResults = (landmarks) => {
-    checkLatExtRotation(
-      landmarks,
-      setFeedback,
-      setColor,
-      setCurrSideAngle,
-      setRepCount,
-      targetSideAngle
-    );
-    //console.log("Current color:", color);
+    checkPlank(landmarks, setFeedback, setColor, setCurrHipAngle, setRepCount, targetHipAngle);
+    checkArms(landmarks, setArmFeedback, setColor, setRepCount);
   };
 
   const handleReset = () => {
@@ -57,41 +52,38 @@ function LatExtRotationPage() {
     setRepCount(0);
   };
 
-  // Update the targetAngles object whenever targetKneeAngle and/or targetHipAngle changes
+  // Update the targetAngles object whenever targetHipAngle changes
   useEffect(() => {
-    setTargetAngles({ targetSideAngle: targetSideAngle });
-  }, [targetSideAngle]);
+    setTargetAngles({ targetHipAngle: targetHipAngle });
+  }, [targetHipAngle]);
 
   const feedbackPanel = (
     <FeedbackPanel
-      feedbackList={[feedback]}
-      valuesList={[{ label: "Side Angle", value: currSideAngle }]}
+      feedbackList={[feedback, armFeedback]}
+      valuesList={[{ label: "Hip Angle", value: currHipAngle }]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={<HelpModal image={latExtRotationHelpImg} description={instructionsTextLatExtRotation} video={instructionsVideoLatExtRotation} />}
+      HelpModal={<HelpModal image={plankHelpImg} description={instructionsTextPlank} />}
       SettingsModal={
         <SettingsModal
-          exerciseName="latExtRotation"
+          exerciseName="plank"
           targetAngles={targetAngles}
           setTargetAnglesArray={setTargetAnglesArray}
-          angleView={angleView}
-          setAngleView={setAngleView}
         />
       }
-      angleView={angleView}
     />
   );
 
   return (
     <ExerciseBox
-      title="Lateral External Rotation"
+      title="Plank"
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
-      color={color}
-      repCount={repCount}
+      color = {color}
+      repCount = {repCount}
     />
   );
 }
 
-export default LatExtRotationPage;
+export default PlankPage;
