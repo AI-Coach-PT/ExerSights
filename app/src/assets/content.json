@@ -20,11 +20,11 @@
   "instructionVideos": {
     "squat": "https://www.youtube.com/watch?v=4KmY44Xsg2w",
     "pushup": "https://www.youtube.com/watch?v=I9fsqKE5XHo",
-    "deadbug": "",
-    "bridge": "",
-    "pullup": "",
-    "muscleup": "",
-    "latExtRotation": ""
+    "deadbug": "https://www.youtube.com/watch?v=zechBkcIMf0",
+    "bridge": "https://www.youtube.com/watch?v=wPM8icPu6H8",
+    "pullup": "https://www.youtube.com/watch?v=eGo4IYlbE5g",
+    "muscleup": "https://www.youtube.com/watch?v=WXvZpIMOicc",
+    "latExtRotation": "https://www.youtube.com/watch?v=EUMsYC_W3aI"
   },
   "legal": {
     "disclaimer": "Disclaimer: Exercise feedback and stats provided may not always be accurate. We are not liable for inaccurate feedback or any resulting injuries. Always consult a professional trainer before performing exercises. Use at your own risk."
