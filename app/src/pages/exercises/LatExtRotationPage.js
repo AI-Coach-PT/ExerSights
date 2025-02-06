@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { checkLatExtRotation } from "../../utils/exercises/LatExtRotation";
 import HelpModal from "../../components/HelpModal";
 import latExtRotationHelpImg from "../../assets/instructions/latExtRotationHelp.png";
-import { instructionsTextLatExtRotation } from "../../assets/content";
+import { instructionsTextLatExtRotation, instructionsVideoLatExtRotation } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -61,7 +61,7 @@ function LatExtRotationPage() {
       valuesList={[{ label: "Side Angle", value: currSideAngle }]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={<HelpModal image={latExtRotationHelpImg} description={instructionsTextLatExtRotation} />}
+      HelpModal={<HelpModal image={latExtRotationHelpImg} description={instructionsTextLatExtRotation} video={instructionsVideoLatExtRotation} />}
       SettingsModal={
         <SettingsModal
           exerciseName="latExtRotation"
@@ -78,8 +78,8 @@ function LatExtRotationPage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
-      color = {color}
-      repCount = {repCount}
+      color={color}
+      repCount={repCount}
     />
   );
 }

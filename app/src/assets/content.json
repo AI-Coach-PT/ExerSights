@@ -17,6 +17,15 @@
     "muscleup": "For best results, position the webcam to face the FRONT of your body while on the bar. Ensure that your entire body is in frame and the camera is straight and not tilted.",
     "latExtRotation": "For best results, position the webcam to face the SIDE of your upper body. Ensure that the camera is straight and not tilted."
   },
+  "instructionVideos": {
+    "squat": "https://www.youtube.com/embed/4KmY44Xsg2w",
+    "pushup": "https://www.youtube.com/embed/I9fsqKE5XHo",
+    "deadbug": "https://www.youtube.com/embed/zechBkcIMf0",
+    "bridge": "https://www.youtube.com/embed/wPM8icPu6H8",
+    "pullup": "https://www.youtube.com/embed/eGo4IYlbE5g",
+    "muscleup": "https://www.youtube.com/embed/WXvZpIMOicc",
+    "latExtRotation": "https://www.youtube.com/embed/EUMsYC_W3aI"
+  },
   "legal": {
     "disclaimer": "Disclaimer: Exercise feedback and stats provided may not always be accurate. We are not liable for inaccurate feedback or any resulting injuries. Always consult a professional trainer before performing exercises. Use at your own risk."
   }

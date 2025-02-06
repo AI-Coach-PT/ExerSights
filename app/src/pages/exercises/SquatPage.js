@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { checkChestUp, checkSquats } from "../../utils/exercises/Squat";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/instructions/squatHelp.png";
-import { instructionsTextSquat } from "../../assets/content";
+import { instructionsTextSquat, instructionsVideoSquat } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -50,7 +50,7 @@ function SquatPage() {
    *
    * @param {Array} landmarks - The array of pose landmarks.
    */
-  
+
   const processPoseResults = (landmarks) => {
     checkSquats(landmarks, setFeedback, setColor, setCurrKneeAngle, setRepCount, targetKneeAngle);
     checkChestUp(landmarks, setHipAngleFeedback, setColor, targetHipAngle);
@@ -78,7 +78,7 @@ function SquatPage() {
       repCount={repCount}
       handleReset={handleReset}
       HelpModal={
-        <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
+        <HelpModal image={squatHelpImg} description={instructionsTextSquat} video={instructionsVideoSquat} />
       }
       SettingsModal={
         <SettingsModal exerciseName="squat" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
@@ -92,8 +92,8 @@ function SquatPage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
-      color = {color}
-      repCount = {repCount}
+      color={color}
+      repCount={repCount}
     />
   );
 }
