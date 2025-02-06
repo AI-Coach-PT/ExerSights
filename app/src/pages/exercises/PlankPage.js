@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { checkPlank } from "../../utils/exercises/Plank";
+import { checkArms } from "../../utils/exercises/Plank";
 import HelpModal from "../../components/HelpModal";
-import latExtRotationHelpImg from "../../assets/instructions/latExtRotationHelp.png";
-import { instructionsTextLatExtRotation } from "../../assets/content";
+import plankHelpImg from "../../assets/instructions/plankHelp.png";
+import { instructionsTextPlank } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -20,8 +21,9 @@ import ExerciseBox from "../../components/ExerciseBox";
  *                        repetition count, side angle display, and a reset button.
  */
 function PlankPage() {
-  const [targetHipAngle, setTargetHipAngle] = useState(140);
+  const [targetHipAngle, setTargetHipAngle] = useState(145);
   const [feedback, setFeedback] = useState("");
+  const [armFeedback, setArmFeedback] = useState("");
   const [currHipAngle, setCurrHipAngle] = useState(90);
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
@@ -42,6 +44,7 @@ function PlankPage() {
 
   const processPoseResults = (landmarks) => {
     checkPlank(landmarks, setFeedback, setColor, setCurrHipAngle, setRepCount, targetHipAngle);
+    checkArms(landmarks, setArmFeedback, setColor, setRepCount);
   };
 
   const handleReset = () => {
@@ -49,18 +52,18 @@ function PlankPage() {
     setRepCount(0);
   };
 
-  // Update the targetAngles object whenever targetKneeAngle and/or targetHipAngle changes
+  // Update the targetAngles object whenever targetHipAngle changes
   useEffect(() => {
     setTargetAngles({ targetHipAngle: targetHipAngle });
   }, [targetHipAngle]);
 
   const feedbackPanel = (
     <FeedbackPanel
-      feedbackList={[feedback]}
+      feedbackList={[feedback, armFeedback]}
       valuesList={[{ label: "Hip Angle", value: currHipAngle }]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={<HelpModal image={latExtRotationHelpImg} description={instructionsTextLatExtRotation} />}
+      HelpModal={<HelpModal image={plankHelpImg} description={instructionsTextPlank} />}
       SettingsModal={
         <SettingsModal
           exerciseName="plank"

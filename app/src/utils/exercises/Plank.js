@@ -29,8 +29,8 @@ const plankInfo = {
       },
     },
     jointAngles: {
-      leftSideAngle: [12, 24, 26],
-      rightSideAngle: [11, 23, 25],
+      leftHipAngle: [12, 24, 26],
+      rightHipAngle: [11, 23, 25],
     },
   },
 
@@ -41,7 +41,7 @@ const plankInfo = {
   disableVisibilityCheck: false,
 };
 
-let currState;
+let currStatePlank;
 
 /**
  * Determines the type of transition based on pull-up posture and arm movement.
@@ -49,15 +49,15 @@ let currState;
  * @param {object} jointData Object containing calculated angles for relevant joints.
  * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.
  */
-const getTransitionType = (jointData, closerSide) => {
-  const { leftSideAngle, rightSideAngle } = jointData;
+const getTransitionTypePlank = (jointData, closerSide) => {
+  const { leftHipAngle, rightHipAngle } = jointData;
 
   const targetHipAngle = plankInfo.targets["targetHipAngle"];
 
-  const sideAngle = closerSide === "left" ? leftSideAngle : rightSideAngle;
+  const hipAngle = closerSide === "left" ? leftHipAngle : rightHipAngle;
 
-  if (currState === "MISALIGNED_HIP" && sideAngle >= targetHipAngle - 10 && sideAngle <= targetHipAngle + 10) return "aligned";
-  if ((currState === "ALIGNED_HIP") && (sideAngle <= targetHipAngle - 10 || sideAngle >= targetHipAngle + 10)) return "misaligned";
+  if (currStatePlank === "MISALIGNED_HIP" && hipAngle > targetHipAngle) return "aligned";
+  if (currStatePlank === "ALIGNED_HIP" && hipAngle < targetHipAngle) return "misaligned";
 
   return "null";
 };
@@ -81,14 +81,111 @@ export const checkPlank = (
 ) => {
   plankInfo.targets["targetHipAngle"] = targetHipAngle;
 
-  currState = genCheck(
+  currStatePlank = genCheck(
     plankInfo,
-    getTransitionType,
-    currState,
+    getTransitionTypePlank,
+    currStatePlank,
     landmarks,
     onFeedbackUpdate,
     setColor,
     setRepCount,
     { HipAngle: setCurrHipAngle }
+  );
+};
+
+
+/** 
+ * FSM for checking if arm are aligned
+ * States: ALIGNED_ARM, MISALIGNED_ARM
+ * Transitions: aligned, misaligned
+ * Accesses shoulder and elbow x positions
+ */
+const armInfo = {
+  states: {
+      MISALIGNED_ARM: { feedback: "Make sure shoulder(s) are above elbow(s)", audio: false, countRep: false, color: "" },
+      ALIGNED_ARM: { feedback: "Arms Good", audio: false, countRep: false, color: ""}
+  },
+
+  transitions: {
+      MISALIGNED_ARM: {
+          aligned: "ALIGNED_ARM",
+      },
+      ALIGNED_ARM: {
+          misaligned: "MISALIGNED_ARM",
+      }
+  },
+
+  jointInfo: {
+      joints: {
+        leftShoulder: 11,
+        leftElbow: 13,
+        rightShoulder: 12,
+        rightElbow: 14,
+      },
+      jointPos: {
+        leftShoulder: 11,
+        leftElbow: 13,
+        rightShoulder: 12,
+        rightElbow: 14,
+      }
+  },
+
+  disableVisibilityCheck: true
+};
+
+let currStateArm;
+/**
+* Determines the type of transition based on chest posture (hip angles).
+*
+* @param {object} jointAngles Object containing calculated angles for relevant joints.
+* @returns {string|null} The type of transition ("leaningTooFar", "upright") or null if no transition applies.
+*/
+const getTransitionTypeArm = (jointData, closerSide) => {
+  //const { leftShoulderPos, leftElbowPos, rightShoulderPos, rightElbowPos } = jointData;
+  const leftShoulderPos = jointData["leftShoulder"];
+  const leftElbowPos = jointData["leftElbow"];
+  const rightShoulderPos = jointData["rightShoulder"];
+  const rightElbowPos = jointData["rightElbow"];
+    //leftElbowPos, rightShoulderPos, rightElbowPos } = jointData;
+
+  const shoulderPos = closerSide === "left" ? leftShoulderPos : rightShoulderPos;
+  const elbowPos = closerSide === "left" ? leftElbowPos : rightElbowPos;
+
+  console.log(shoulderPos.x, elbowPos.x);
+
+  if(currStateArm === "MISALIGNED_ARM" && shoulderPos.x <= elbowPos.x + 0.05 && shoulderPos.x >= elbowPos.x - 0.05) 
+    return "aligned";
+
+  if(currStateArm === "ALIGNED_ARM" && (shoulderPos.x > elbowPos.x + 0.05 || shoulderPos.x < elbowPos.x - 0.05))
+    return "misaligned";
+
+  return "null";
+};
+
+
+
+/**
+* Checks and updates the arm position state based on the provided landmarks
+* Leverages generalized feedback checking method.
+*
+* @param {Object} landmarks - The landmarks of the body to evaluate posture.
+* @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
+*/
+export const checkArms = (
+  landmarks,
+  onFeedbackUpdate,
+  setColor,
+  setRepCount,
+) => {
+
+  currStateArm = genCheck(
+    armInfo,
+    getTransitionTypeArm,
+    currStateArm,
+    landmarks,
+    onFeedbackUpdate,
+    setColor,
+    setRepCount,
+    {}
   );
 };
