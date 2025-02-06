@@ -102,8 +102,8 @@ export const checkPlank = (
  */
 const armInfo = {
   states: {
-      MISALIGNED_ARM: { feedback: "Make sure shoulder(s) are above elbow(s)", audio: false, countRep: false, color: "" },
-      ALIGNED_ARM: { feedback: "Arms Good", audio: false, countRep: false, color: ""}
+      MISALIGNED_ARM: { feedback: "Make sure shoulder is above elbow", audio: false, countRep: false, color: "" },
+      ALIGNED_ARM: { feedback: "", audio: false, countRep: false, color: ""}
   },
 
   transitions: {
