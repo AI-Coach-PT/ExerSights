@@ -31,6 +31,7 @@ function Menubar() {
     { text: "Home", path: "/home" },
     { text: "Catalog", path: "/catalog" },
     { text: "About", path: "/about" },
+    { text: "Contact", path: "/contact" },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
@@ -57,7 +58,7 @@ function Menubar() {
   }, [auth]);
 
   return (
-    <AppBar position="static" elevation={8}>
+    <AppBar position="static" elevation={8} sx={{ mb: "1rem" }}>
       <Toolbar>
         {/* logo */}
         <Box sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>

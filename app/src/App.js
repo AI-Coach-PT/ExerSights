@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import SquatPage from "./pages/exercises/SquatPage";
 import Menubar from "./components/Menubar";
 import BridgePage from "./pages/exercises/BridgePage";
@@ -25,28 +26,29 @@ import PlankPage from "./pages/exercises/PlankPage";
  * @returns {JSX.Element} The main app component with routing and navigation.
  */
 function App() {
-    return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Router>
-                <Menubar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/catalog" element={<Catalog />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/squat" element={<SquatPage />} />
-                    <Route path="/bridge" element={<BridgePage />} />
-                    <Route path="/deadbug" element={<DeadBugPage />} />
-                    <Route path="/pushup" element={<PushUpPage />} />
-                    <Route path="/pullup" element={<PullUpPage />} />
-                    <Route path="/muscleup" element={<MuscleUpPage />} />
-                    <Route path="/latExtRotation" element={<LatExtRotationPage />} />
-                    <Route path="/plank" element={<PlankPage />} />
-                </Routes>
-            </Router>
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Menubar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/squat" element={<SquatPage />} />
+          <Route path="/bridge" element={<BridgePage />} />
+          <Route path="/deadbug" element={<DeadBugPage />} />
+          <Route path="/pushup" element={<PushUpPage />} />
+          <Route path="/pullup" element={<PullUpPage />} />
+          <Route path="/muscleup" element={<MuscleUpPage />} />
+          <Route path="/latExtRotation" element={<LatExtRotationPage />} />
+          <Route path="/plank" element={<PlankPage />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
+  );
 }
 
 export default App;

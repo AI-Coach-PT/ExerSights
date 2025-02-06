@@ -27,6 +27,7 @@ function SquatPage() {
   const [currKneeAngle, setCurrKneeAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
+  const [angleView, setAngleView] = useState(true);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -72,19 +73,24 @@ function SquatPage() {
   const feedbackPanel = (
     <FeedbackPanel
       feedbackList={[feedback, hipAngleFeedback]}
-      valuesList={[
-        { label: "Knee Angle", value: currKneeAngle },
-      ]}
+      valuesList={[{ label: "Knee Angle", value: currKneeAngle }]}
       repCount={repCount}
       handleReset={handleReset}
       HelpModal={
         <HelpModal image={squatHelpImg} description={instructionsTextSquat} video={instructionsVideoSquat} />
       }
       SettingsModal={
-        <SettingsModal exerciseName="squat" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
+        <SettingsModal
+          exerciseName="squat"
+          targetAngles={targetAngles}
+          setTargetAnglesArray={setTargetAnglesArray}
+          angleView={angleView}
+          setAngleView={setAngleView}
+        />
       }
+      angleView={angleView}
     />
-  )
+  );
 
   return (
     <ExerciseBox

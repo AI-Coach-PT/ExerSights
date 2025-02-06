@@ -25,6 +25,7 @@ function PushUpPage() {
   const [currElbowAngle, setCurrElbowAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
+  const [angleView, setAngleView] = useState(true);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -56,19 +57,24 @@ function PushUpPage() {
   const feedbackPanel = (
     <FeedbackPanel
       feedbackList={[feedback]}
-      valuesList={[
-        { label: "Elbow Angle", value: currElbowAngle },
-      ]}
+      valuesList={[{ label: "Elbow Angle", value: currElbowAngle }]}
       repCount={repCount}
       handleReset={handleReset}
       HelpModal={
         <HelpModal image={pushupHelpImg} description={instructionsTextPushup} video={instructionsVideoPushup} />
       }
       SettingsModal={
-        <SettingsModal exerciseName="pushup" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
+        <SettingsModal
+          exerciseName="pushup"
+          targetAngles={targetAngles}
+          setTargetAnglesArray={setTargetAnglesArray}
+          angleView={angleView}
+          setAngleView={setAngleView}
+        />
       }
+      angleView={angleView}
     />
-  )
+  );
 
   return (
     <ExerciseBox

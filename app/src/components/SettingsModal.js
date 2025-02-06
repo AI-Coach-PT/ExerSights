@@ -6,8 +6,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 
 /**
- * A React functional component for displaying and managing a modal that allows users to adjust 
- * exercise-specific settings, such as target angles. The settings are dynamically rendered 
+ * A React functional component for displaying and managing a modal that allows users to adjust
+ * exercise-specific settings, such as target angles. The settings are dynamically rendered
  * based on the provided configuration and stored for authenticated users.
  *
  * @component
@@ -18,95 +18,103 @@ import { auth } from "../firebaseConfig";
  *
  * @returns {JSX.Element} The rendered SettingsModal component.
  */
-function SettingsModal({ exerciseName, targetAngles, setTargetAnglesArray }) {
-    const [openModal, setOpenModal] = useState(false);
+function SettingsModal({
+  exerciseName,
+  targetAngles,
+  setTargetAnglesArray,
+  angleView,
+  setAngleView,
+}) {
+  const [openModal, setOpenModal] = useState(false);
+  const [userEmail, setUsername] = useState("");
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
-    const [userEmail, setUsername] = useState("");
-    const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
 
-    const handleOpenModal = () => {
-        setOpenModal(true);
-    };
+  const handleCloseModal = () => {
+    setOpenModal(false);
 
-    const handleCloseModal = () => {
-        setOpenModal(false);
+    if (userLoggedIn) {
+      storeExerciseSettings(userEmail, exerciseName, targetAngles);
+      loadExerciseSettings(userEmail, exerciseName, setTargetAnglesArray);
+    }
+  };
 
-        if (userLoggedIn) {
-            storeExerciseSettings(userEmail, exerciseName, targetAngles);
-            loadExerciseSettings(userEmail, exerciseName, setTargetAnglesArray);
-        }
-    };
+  const handleInputChange = (index, value) => {
+    const [setAngle, key] = setTargetAnglesArray[index];
+    setAngle(value); // Update the state directly
+  };
 
-    const handleInputChange = (index, value) => {
-        const [setAngle, key] = setTargetAnglesArray[index];
-        setAngle(value); // Update the state directly
-    };
+  const handleToggleAngleView = () => {
+    setAngleView(!angleView);
+    console.log(angleView);
+  };
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUsername(user.email);
-                setUserLoggedIn(true);
-                // Load settings upon a signed-in user navigating to exercise page;
-                // if the user does not have saved settings, this will do nothing,
-                // and the last set values will be used (most likely default values)
-                loadExerciseSettings(userEmail, exerciseName, setTargetAnglesArray);
-            } else {
-                setUsername("");
-                setUserLoggedIn(false);
-            }
-        });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUsername(user.email);
+        setUserLoggedIn(true);
+        // Load settings upon a signed-in user navigating to exercise page;
+        // if the user does not have saved settings, this will do nothing,
+        // and the last set values will be used (most likely default values)
+        loadExerciseSettings(userEmail, exerciseName, setTargetAnglesArray);
+      } else {
+        setUsername("");
+        setUserLoggedIn(false);
+      }
+    });
 
-        return () => unsubscribe();
-    }, [userEmail]);
+    return () => unsubscribe();
+  }, [userEmail]);
 
-    return (
-        <div>
-            <IconButton sx={{ position: "static" }} onClick={handleOpenModal}>
-                <SettingsIcon fontSize="small" />
-            </IconButton>
+  return (
+    <div>
+      <IconButton sx={{ position: "static" }} onClick={handleOpenModal}>
+        <SettingsIcon fontSize="small" />
+      </IconButton>
 
-            <Modal open={openModal} onClose={handleCloseModal}>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 400,
-                        bgcolor: "background.paper",
-                        border: "2px solid black",
-                        boxShadow: 24,
-                        p: 4,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                    }}>
-                    <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                        sx={{ marginBottom: "20px" }}>
-                        Adjust Exercise Settings
-                    </Typography>
-                    {setTargetAnglesArray.map(([_, key], index) => (
-                        <TextField
-                            key={key}
-                            id={`outlined-number-${key}`}
-                            label={`Target ${key.replace("target", "")}`}
-                            type="number"
-                            value={targetAngles[key]}
-                            onChange={(e) => handleInputChange(index, e.target.value)}
-                            sx={{ marginBottom: "20px" }}
-                        />
-                    ))}
-                    <Button variant="contained" onClick={handleCloseModal}>
-                        Save & Close
-                    </Button>
-                </Box>
-            </Modal>
-        </div>
-    );
+      <Modal open={openModal} onClose={handleCloseModal}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            borderRadius: "25px",
+            boxShadow: 24,
+            p: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}>
+          <Typography variant="h6" component="h2" sx={{ mb: "1rem" }}>
+            Adjust Exercise Settings
+          </Typography>
+          {setTargetAnglesArray.map(([_, key], index) => (
+            <TextField
+              key={key}
+              label={`Target ${key.replace("target", "")}`}
+              type="number"
+              value={targetAngles[key]}
+              onChange={(e) => handleInputChange(index, e.target.value)}
+              sx={{ marginBottom: "1rem" }}
+            />
+          ))}
+          <Button variant="contained" onClick={handleToggleAngleView} sx={{ mb: "0.5rem" }}>
+            Toggle Angle View
+          </Button>
+          <Button variant="contained" onClick={handleCloseModal}>
+            Save & Close
+          </Button>
+        </Box>
+      </Modal>
+    </div>
+  );
 }
 
 export default SettingsModal;
