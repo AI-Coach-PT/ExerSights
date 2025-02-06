@@ -27,6 +27,7 @@ function BridgePage() {
   const [leftKneeAngle, setLeftKneeAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
+  const [angleView, setAngleView] = useState(false);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -81,18 +82,23 @@ function BridgePage() {
       feedbackList={[feedback]}
       valuesList={[
         { label: "Hip Angle", value: leftHipAngle },
-        { label: "Knee Angle", value: leftKneeAngle }
+        { label: "Knee Angle", value: leftKneeAngle },
       ]}
       repCount={repCount}
       handleReset={handleReset}
-      HelpModal={
-        <HelpModal image={bridgeHelpImg} description={instructionsTextBridge} />
-      }
+      HelpModal={<HelpModal image={bridgeHelpImg} description={instructionsTextBridge} />}
       SettingsModal={
-        <SettingsModal exerciseName="bridge" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
+        <SettingsModal
+          exerciseName="bridge"
+          targetAngles={targetAngles}
+          setTargetAnglesArray={setTargetAnglesArray}
+          angleView={angleView}
+          setAngleView={setAngleView}
+        />
       }
+      angleView={angleView}
     />
-  )
+  );
 
   return (
     <ExerciseBox
@@ -100,8 +106,8 @@ function BridgePage() {
       feedbackPanel={feedbackPanel}
       processPoseResults={processPoseResults}
       targetAngles={targetAngles}
-      color = {color}
-      repCount = {repCount}
+      color={color}
+      repCount={repCount}
     />
   );
 }

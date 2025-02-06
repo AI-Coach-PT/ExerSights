@@ -26,6 +26,7 @@ function FeedbackPanel({
   HelpModal,
   SettingsModal,
   handleVideoUpload,
+  angleView,
 }) {
   return (
     <Paper
@@ -57,11 +58,16 @@ function FeedbackPanel({
         </Typography>
       </Box>
 
-      {valuesList.map((angle, index) => (
-        <Typography key={`angle-${index}`} variant="body1">
-          {`${angle.label}: ${angle.value.toFixed(0)}°`}
-        </Typography>
-      ))}
+      {valuesList.map((angle, index) =>
+        angleView ? (
+          <Typography key={`angle-${index}`} variant="body1">
+            {`${angle.label}: ${angle.value.toFixed(0)}°`}
+          </Typography>
+        ) : (
+          ""
+        )
+      )}
+
       <Typography variant="body1">Current Rep Count: {repCount}</Typography>
 
       <Button variant="contained" color="primary" onClick={handleReset} sx={{ width: "50%" }}>
