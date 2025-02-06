@@ -6,7 +6,8 @@
     "bridge": "The bridge exercise strengthens core muscles and improves spinal stability.",
     "pullup": "The pull-up exercise builds upper body strength in the back, shoulders, and biceps.",
     "latExtRotation": "Strengthens rotator cuff muscles, enhancing shoulder stability and reducing injury risk.",
-    "muscleup": "The muscle-up is a combination of the pull-up and dip, building upper body explosive strength."
+    "muscleup": "The muscle-up is a combination of the pull-up and dip, building upper body explosive strength.",
+    "plank": "The plank exercise strengthens the core, shoulders, and back, improving stability and posture."
   },
   "instructions": {
     "squat": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
@@ -15,7 +16,8 @@
     "bridge": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
     "pullup": "For best results, position the webcam to face the BACK of your body while on the bar. Ensure that your entire body is in frame and the camera is straight and not tilted.",
     "muscleup": "For best results, position the webcam to face the FRONT of your body while on the bar. Ensure that your entire body is in frame and the camera is straight and not tilted.",
-    "latExtRotation": "For best results, position the webcam to face the SIDE of your upper body. Ensure that the camera is straight and not tilted."
+    "latExtRotation": "For best results, position the webcam to face the SIDE of your upper body. Ensure that the camera is straight and not tilted.",
+    "plank": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted."
   },
   "instructionVideos": {
     "squat": "https://www.youtube.com/embed/4KmY44Xsg2w",

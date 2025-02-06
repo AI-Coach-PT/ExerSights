@@ -9,6 +9,7 @@ import pushUpImage from "../assets/exercise-cards/pushUp.png";
 import pullUpImage from "../assets/exercise-cards/pullUp.png";
 import muscleUpImage from "../assets/exercise-cards/muscleUp.png";
 import latExtRotationImg from "../assets/exercise-cards/latExtRotation.png";
+import plankImg from "../assets/exercise-cards/plank.png";
 import { catalogText } from "../assets/content.js";
 
 /**
@@ -72,6 +73,13 @@ function Catalog() {
           link="/latExtRotation"
           image={latExtRotationImg}
         />
+        <ExerciseCard
+          title="Plank"
+          description={catalogText.plank}
+          link="/plank"
+          image={plankImg}
+        />
+        
       </Grid>
     </Box>
   );
