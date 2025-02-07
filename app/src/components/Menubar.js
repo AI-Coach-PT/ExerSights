@@ -61,7 +61,7 @@ function Menubar() {
     <AppBar position="static" elevation={8} sx={{ mb: "1rem" }}>
       <Toolbar>
         {/* logo */}
-        <Box sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
+        <Box component={Link} to="/" sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
           <Box
             component="img"
             src={logo}

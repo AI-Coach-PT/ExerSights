@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Box, Paper, Button } from "@mui/material";
 import Timer from "./Timer";
 
@@ -28,6 +28,13 @@ function FeedbackPanel({
   handleVideoUpload,
   angleView,
 }) {
+
+  useEffect(() => {
+    return () => {
+      handleReset();
+    }
+  }, []);
+
   return (
     <Paper
       elevation={3}
