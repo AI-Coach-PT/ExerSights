@@ -58,7 +58,10 @@ function Menubar() {
   }, [auth]);
 
   return (
-    <AppBar position="static" elevation={8} sx={{ mb: "1rem" }}>
+    <AppBar
+      position="static"
+      elevation={8}
+      sx={{ mt: "0.25rem", mb: "1rem", borderRadius: "3rem" }}>
       <Toolbar>
         {/* logo */}
         <Box sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>

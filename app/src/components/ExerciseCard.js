@@ -43,6 +43,7 @@ function ExerciseCard({ image, title, description, link }) {
           "&:hover": {
             transform: "scale(1.05)",
           },
+          borderRadius: "2rem",
         }}>
         <CardActionArea component={link ? Link : "div"} to={link ? link : null} variant="outlined">
           <CardMedia component="img" image={image} />
