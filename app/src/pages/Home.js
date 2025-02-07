@@ -51,6 +51,7 @@ function Home() {
           "&:hover": {
             transform: "scale(1.05)",
           },
+          borderRadius: "2rem",
         }}
         onClick={handleNavigate}>
         <CardMedia

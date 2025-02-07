@@ -17,6 +17,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import logo from "../assets/logos/logoNoName.png";
 import name from "../assets/logos/productNameWhite.png";
+import HomeIcon from "@mui/icons-material/Home";
+import ListIcon from "@mui/icons-material/List";
+import InfoIcon from "@mui/icons-material/Info";
+import EmailIcon from "@mui/icons-material/Email";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -28,10 +32,10 @@ import name from "../assets/logos/productNameWhite.png";
  */
 function Menubar() {
   const menuItems = [
-    { text: "Home", path: "/home" },
-    { text: "Catalog", path: "/catalog" },
-    { text: "About", path: "/about" },
-    { text: "Contact", path: "/contact" },
+    { text: "Home", path: "/home", icon: <HomeIcon /> },
+    { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
+    { text: "About", path: "/about", icon: <InfoIcon /> },
+    { text: "Contact", path: "/contact", icon: <EmailIcon /> },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
@@ -84,6 +88,7 @@ function Menubar() {
             }}
           />
         </Box>
+
         {/* desktop navigation */}
         <Box
           sx={{
@@ -92,17 +97,33 @@ function Menubar() {
             flexGrow: 1,
             flexBasis: "0%",
           }}>
-          {menuItems.map((item) => (
-            <Button key={item.text} component={Link} to={item.path}>
-              <Typography
-                variant="button"
-                // textTransform={"none"}
-                sx={{ color: "white" }}>
-                {item.text}
-              </Typography>
-            </Button>
-          ))}
+          <Box sx={{ display: "flex", justifyContent: "left" }}>
+            {menuItems.map((item) => (
+              <Box>
+                <IconButton component={Link} to={item.path}>
+                  {item.icon}
+                </IconButton>
+                <Typography
+                  variant="button"
+                  className="menu-text"
+                  sx={{
+                    color: "white",
+                    position: "absolute",
+                    left: "100%",
+                    width: 0,
+                    opacity: 0,
+                    visibility: "hidden",
+                    whiteSpace: "nowrap",
+                    transition: "all 0.3s ease-in-out",
+                    overflow: "hidden",
+                  }}>
+                  {item.text}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Box>
+
         {/* login/logout button */}
         <Box
           sx={{
@@ -128,6 +149,7 @@ function Menubar() {
             {isAuth ? "Logout" : "Login"}
           </Button>
         </Box>
+
         {/* drawer icon */}
         <Box
           sx={{
@@ -139,6 +161,7 @@ function Menubar() {
             <MenuIcon />
           </IconButton>
         </Box>
+
         {/* mobile drawer */}
         <Drawer
           anchor="right"
@@ -150,14 +173,17 @@ function Menubar() {
           }}>
           <List>
             {menuItems.map((item) => (
-              <ListItem
-                button
-                component={Link}
-                key={item.text}
-                to={item.path}
-                onClick={handleDrawerToggle}>
-                <ListItemText primary={item.text} sx={{ color: "white" }} />
-              </ListItem>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                {item.icon}
+                <ListItem
+                  button
+                  component={Link}
+                  key={item.text}
+                  to={item.path}
+                  onClick={handleDrawerToggle}>
+                  <ListItemText primary={item.text} sx={{ color: "white" }} />
+                </ListItem>
+              </Box>
             ))}
             <ListItem
               button
