@@ -51,6 +51,7 @@ function Home() {
           "&:hover": {
             transform: "scale(1.05)",
           },
+          mb: "1rem",
         }}
         onClick={handleNavigate}>
         <CardMedia
@@ -71,6 +72,21 @@ function Home() {
           </Button>
         </CardContent>
       </Card>
+
+      <Typography variant="h1" sx={{ mb: "0.5rem" }}>
+        Not sure how to get started?
+      </Typography>
+      <Typography variant="h3">Watch our tutorial below!</Typography>
+      <Box sx={{ width: "30%", aspectRatio: "16/9" }}>
+        <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/MyhWLZnW5Hc?si=KR26nZ71EfauV9bp"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen></iframe>
+      </Box>
 
       <Typography variant="body2" sx={{ color: "text.secondary", m: "2rem" }}>
         {disclaimerText}
