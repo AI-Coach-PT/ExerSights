@@ -59,7 +59,7 @@ function FeedbackPanel({
           Feedback:
           {feedbackList.map((feedback, index) => (
             <Typography key={`feedback-${index}`} variant="body1" style={{ color: "red" }}>
-              {feedback}
+              {(feedback || index > 0) ? feedback : "Get in frame!"}
             </Typography>
           ))}
         </Typography>
