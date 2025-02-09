@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Modal, Box, Typography, Button, TextField } from "@mui/material";
+import { IconButton, Modal, Box, Typography, Button, TextField, Switch, FormControlLabel } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../utils/helpers/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import { setVoiceName, getVoiceName } from "../utils/helpers/Audio";
 
 /**
  * A React functional component for displaying and managing a modal that allows users to adjust
@@ -28,6 +29,7 @@ function SettingsModal({
   const [openModal, setOpenModal] = useState(false);
   const [userEmail, setUsername] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -50,6 +52,12 @@ function SettingsModal({
   const handleToggleAngleView = () => {
     setAngleView(!angleView);
     console.log(angleView);
+  };
+
+  const handleToggleVoice = () => {
+    const newVoiceState = !voiceEnabled;
+    setVoiceEnabled(newVoiceState);
+    setVoiceName(newVoiceState ? "Google US English" : "");
   };
 
   useEffect(() => {
@@ -108,6 +116,11 @@ function SettingsModal({
           <Button variant="contained" onClick={handleToggleAngleView} sx={{ mb: "0.5rem" }}>
             Toggle Angle View
           </Button>
+          <FormControlLabel
+            control={<Switch checked={voiceEnabled} onChange={handleToggleVoice} />}
+            label="Enable Voice"
+            sx={{ mb: "1rem" }}
+          />
           <Button variant="contained" onClick={handleCloseModal}>
             Save & Close
           </Button>
