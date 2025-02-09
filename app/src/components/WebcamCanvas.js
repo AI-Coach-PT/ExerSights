@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
-import { Box, Typography, CircularProgress } from "@mui/material";
+import { Box, Typography, CircularProgress, Button } from "@mui/material";
 
 // Webcam style based on environment variable
 const webcamStyle =
@@ -29,7 +29,7 @@ const WEBCAM_TIMEOUT = 5000; // ms before reload prompt triggers
  */
 const WebcamCanvas = forwardRef((props, ref) => {
     const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 }); // Default 16:9 ratio
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const videoElement = ref?.webcamRef?.current?.video;
@@ -56,8 +56,6 @@ const WebcamCanvas = forwardRef((props, ref) => {
                 }
 
                 setCanvasSize({ width: newWidth, height: newHeight });
-                clearTimeout(timeoutId);
-                setLoading(false);
             }
         };
 
@@ -66,14 +64,8 @@ const WebcamCanvas = forwardRef((props, ref) => {
             videoElement.addEventListener("loadedmetadata", updateCanvasSize);
 
             timeoutId = setTimeout(() => {
-                if (loading) {
-                    const shouldReload = window.confirm(
-                        "Webcam is taking too long to load. Would you like to reload the page?"
-                    );
-                    if (shouldReload) {
-                        window.location.reload(); // Reload the page
-                    }
-                }
+                setLoading(true);
+                clearTimeout(timeoutId);
             }, WEBCAM_TIMEOUT);
 
             // Cleanup listener on unmount
@@ -102,19 +94,23 @@ const WebcamCanvas = forwardRef((props, ref) => {
                     videoConstraints={videoContraints}
                 />
             </div>
-            {/*loading && */(
-                <Box
-                    position="absolute"
-                    top="40%"
-                    left="40%"
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                >
-                    <CircularProgress />
-                    <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
-                </Box>
-            )}
+            <Box
+                position="absolute"
+                top="40%"
+                left="40%"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+            >
+                <CircularProgress />
+                <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
+                {loading && (
+                    <>
+                        <Typography variant="body1" mt={1}>Taking too long? Click below to reload the page.</Typography>
+                        <Button variant="contained" color="primary" sx={{ mt: 1 }} onClick={() => { window.location.reload(); }}>Reload</Button>
+                    </>
+                )}
+            </Box>
             <canvas
                 ref={ref.canvasRef}
                 width={canvasSize.width}
@@ -122,7 +118,8 @@ const WebcamCanvas = forwardRef((props, ref) => {
                 style={{
                     width: "100%",
                     height: "100%",
-                    transform: "scaleX(-1)"
+                    transform: "scaleX(-1)",
+                    pointerEvents: "none"
                 }}
             />
         </Box>
