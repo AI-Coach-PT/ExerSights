@@ -96,11 +96,12 @@ const WebcamCanvas = forwardRef((props, ref) => {
             </div>
             <Box
                 position="absolute"
-                top="40%"
-                left="40%"
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
+                justifyContent="center"
+                width="100%"
+                height="100%"
             >
                 <CircularProgress />
                 <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
