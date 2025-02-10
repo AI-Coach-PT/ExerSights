@@ -28,11 +28,10 @@ function FeedbackPanel({
   handleVideoUpload,
   angleView,
 }) {
-
   useEffect(() => {
     return () => {
       handleReset();
-    }
+    };
   }, []);
 
   return (
@@ -48,7 +47,13 @@ function FeedbackPanel({
         flexDirection: "column",
         gap: "0.25rem",
       }}>
-      <Box sx={{ display: "flex", justifyContent: "right", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          alignItems: "center",
+          textAlign: "center",
+        }}>
         <Typography variant="body1">Real-Time Feedback Panel</Typography>
         {HelpModal}
         {SettingsModal}
@@ -58,8 +63,8 @@ function FeedbackPanel({
         <Typography variant="body1">
           Feedback:
           {feedbackList.map((feedback, index) => (
-            <Typography key={`feedback-${index}`} variant="body1" style={{ color: "red" }}>
-              {(feedback || index > 0) ? feedback : "Get in frame!"}
+            <Typography key={`feedback-${index}`} variant="body1" color="secondary">
+              {feedback || index > 0 ? feedback : "Get in frame!"}
             </Typography>
           ))}
         </Typography>
