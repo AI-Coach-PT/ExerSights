@@ -19,33 +19,29 @@ function Home() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        padding: "1rem",
       }}>
-      <Box
-        sx={{
-          m: "20px",
-        }}>
-        <Typography variant="h1" gutterBottom>
+      <Box>
+        <Typography variant="h1" sx={{ mb: ".5rem" }}>
           Welcome to ExerSights!
         </Typography>
 
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" sx={{ mb: ".5rem" }}>
           AI-powered App for Fitness & Rehab
         </Typography>
 
-        <Typography variant="body1" sx={{ color: "text.secondary" }} gutterBottom>
-          <Typography variant="body1" sx={{ color: "text.secondary" }} gutterBottom>
-            Providing real-time feedback on exercise form using state-of-the-art computer vision
-            models.
-            <br />
-            Track, correct, and improve your exercise form for safer, smarter, and more effective
-            workouts.
-          </Typography>
+        <Typography variant="body1" sx={{ color: "text.secondary", mb: "1rem" }} gutterBottom>
+          Providing real-time feedback on exercise form using state-of-the-art computer vision
+          models.
+          <br />
+          Track, correct, and improve your exercise form for safer, smarter, and more effective
+          workouts.
         </Typography>
       </Box>
 
       <Card
         sx={{
-          width: { xs: "20rem", md: "40rem" },
+          width: { xs: "40vw", md: "40rem" },
           cursor: "pointer",
           transition: "transform 0.3s",
           "&:hover": {
@@ -59,7 +55,7 @@ function Home() {
           component="img"
           image={logo}
           alt="Catalog Preview"
-          sx={{ width: "40rem", display: { xs: "none", md: "block" } }}
+          sx={{ width: { xs: "40vw", md: "40rem" } }}
         />
         <CardContent>
           <Typography variant="h6" gutterBottom>
@@ -77,8 +73,10 @@ function Home() {
       <Typography variant="h1" sx={{ mb: "0.5rem" }}>
         Not sure how to get started?
       </Typography>
-      <Typography variant="h3">Watch our tutorial below!</Typography>
-      <Box sx={{ width: "30%", aspectRatio: "16/9" }}>
+      <Typography variant="h3" sx={{ mb: "0.5rem" }}>
+        Watch our tutorial below!
+      </Typography>
+      <Box sx={{ width: "65vw", aspectRatio: "16/9" }}>
         <iframe
           width="100%"
           height="100%"
@@ -86,7 +84,8 @@ function Home() {
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen></iframe>
+          allowFullScreen
+          style={{ borderRadius: "3rem" }}></iframe>
       </Box>
 
       <Typography variant="body2" sx={{ color: "text.secondary", m: "2rem" }}>

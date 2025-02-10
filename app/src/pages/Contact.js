@@ -4,7 +4,7 @@ import ContactForm from "../components/ContactForm";
 
 function Contact() {
   return (
-    <Box sx={{ m: "20px", textAlign: "center" }}>
+    <Box sx={{ textAlign: "center", padding: "1rem" }}>
       <Typography variant="h1" gutterBottom>
         Contact us!
       </Typography>

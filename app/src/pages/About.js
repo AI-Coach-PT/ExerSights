@@ -8,7 +8,14 @@ import jilinImg from "../assets/about-profiles/jilin.png";
 
 function About() {
   return (
-    <Box sx={{ m: "20px", textAlign: "center" }}>
+    <Box
+      sx={{
+        textAlign: "center",
+        padding: "1rem",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}>
       <Typography variant="h1" sx={{ mb: "1rem" }}>
         Our Mission
       </Typography>
