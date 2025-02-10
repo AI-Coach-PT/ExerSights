@@ -25,10 +25,10 @@ let theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: amber[700],
+      main: "#3f51b5",
     },
     secondary: {
-      main: "#8c9eff",
+      main: amber[700],
     },
     background: {
       default: "#212121",
