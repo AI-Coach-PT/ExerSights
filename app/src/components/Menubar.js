@@ -68,7 +68,7 @@ function Menubar() {
       sx={{ mt: "0.25rem", mb: "1rem", borderRadius: "3rem" }}>
       <Toolbar>
         {/* logo */}
-        <Box sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
+        <Box component={Link} to="/" sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
           <Box
             component="img"
             src={logo}
