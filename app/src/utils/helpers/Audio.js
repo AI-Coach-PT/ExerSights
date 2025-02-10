@@ -40,7 +40,7 @@ window.speechSynthesis.onvoiceschanged = setVoice;
  * @param {string} text - The text to be converted to audio.
  */
 const playText = (text) => {
-    if (voiceName == "")
+    if (voiceName === "None")
         return;
 
     window.speechSynthesis.cancel();
@@ -51,4 +51,4 @@ const playText = (text) => {
     window.speechSynthesis.speak(utterance);
 }
 
-export { playSoundCorrectRep, playText, setVoiceName, getVoiceName };
+export { playSoundCorrectRep, playText, setVoiceName, getVoiceName, setVoice };

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Modal, Box, Typography, Button, TextField, Switch, FormControlLabel } from "@mui/material";
+import { IconButton, Modal, Box, Typography, Button, TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../utils/helpers/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import { setVoiceName, getVoiceName } from "../utils/helpers/Audio";
+import { setVoiceName, getVoiceName, setVoice } from "../utils/helpers/Audio";
 
 /**
  * A React functional component for displaying and managing a modal that allows users to adjust
@@ -29,7 +29,8 @@ function SettingsModal({
   const [openModal, setOpenModal] = useState(false);
   const [userEmail, setUsername] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [voicesList, setVoicesList] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(getVoiceName());
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -54,13 +55,22 @@ function SettingsModal({
     console.log(angleView);
   };
 
-  const handleToggleVoice = () => {
-    const newVoiceState = !voiceEnabled;
-    setVoiceEnabled(newVoiceState);
-    setVoiceName(newVoiceState ? "Google US English" : "");
+  const handleVoiceChange = (event) => {
+    const newVoice = event.target.value;
+    setSelectedVoice(newVoice);
+    setVoiceName(newVoice);
+    setVoice();
   };
 
   useEffect(() => {
+    const fetchVoices = () => {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoicesList(["None", ...availableVoices.map(voice => voice.name)]);
+    };
+
+    fetchVoices();
+    window.speechSynthesis.onvoiceschanged = fetchVoices;
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUsername(user.email);
@@ -116,11 +126,14 @@ function SettingsModal({
           <Button variant="contained" onClick={handleToggleAngleView} sx={{ mb: "0.5rem" }}>
             Toggle Angle View
           </Button>
-          <FormControlLabel
-            control={<Switch checked={voiceEnabled} onChange={handleToggleVoice} />}
-            label="Enable Voice"
-            sx={{ mb: "1rem" }}
-          />
+          <FormControl sx={{ mb: "1rem", width: "100%" }}>
+            <InputLabel>Select Voice</InputLabel>
+            <Select value={selectedVoice} onChange={handleVoiceChange}>
+              {voicesList.map((voice, index) => (
+                <MenuItem key={index} value={voice}>{voice}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <Button variant="contained" onClick={handleCloseModal}>
             Save & Close
           </Button>
