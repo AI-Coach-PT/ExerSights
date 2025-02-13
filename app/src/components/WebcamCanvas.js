@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
-import { Box, Typography, CircularProgress, Button } from "@mui/material";
+import { Box, Typography, CircularProgress, Button, Dialog, DialogTitle, DialogContent, DialogActions, MenuItem, Select } from "@mui/material";
 
 // Webcam style based on environment variable
 const webcamStyle =
@@ -10,26 +10,27 @@ const webcamStyle =
 
 const WEBCAM_TIMEOUT = 5000; // ms before reload prompt triggers
 
-/**
- * WebcamCanvas component provides a webcam interface with responsive dimensions
- *
- * @component
- * @param {Object} props - Component props
- * @param {Object} props.dimensions - Browser dimensions
- * @param {number} props.dimensions.width - Browser window width
- * @param {number} props.dimensions.height - Browser window height
- * @param {React.Ref} ref - Forwarded ref for accessing webcam methods
- *
- * @example
- * // Usage
- * <WebcamCanvas
- *   dimensions={{ width: window.innerWidth, height: window.innerHeight }}
- *   ref={webcamRef}
- * />
- */
 const WebcamCanvas = forwardRef((props, ref) => {
-    const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 }); // Default 16:9 ratio
+    const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 }); // Default 16:9
     const [loading, setLoading] = useState(false);
+    const [cameras, setCameras] = useState([]);
+    const [selectedCamera, setSelectedCamera] = useState(null);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [key, setKey] = useState(0); // Force Webcam re-mount
+
+    useEffect(() => {
+        // Fetch available cameras
+        navigator.mediaDevices.enumerateDevices().then((devices) => {
+            const videoDevices = devices.filter((device) => device.kind === "videoinput");
+            setCameras(videoDevices);
+
+            if (videoDevices.length > 1) {
+                setOpenDialog(true); // Prompt camera selection if multiple
+            } else if (videoDevices.length === 1) {
+                setSelectedCamera(videoDevices[0].deviceId);
+            }
+        });
+    }, []);
 
     useEffect(() => {
         const videoElement = ref?.webcamRef?.current?.video;
@@ -39,14 +40,12 @@ const WebcamCanvas = forwardRef((props, ref) => {
             if (videoElement) {
                 const videoWidth = videoElement.videoWidth;
                 const videoHeight = videoElement.videoHeight;
-
                 const aspectRatio = videoWidth / videoHeight;
 
                 const browserWidth = props.dimensions.width * 0.7;
                 const browserHeight = props.dimensions.height * 0.7;
 
                 let newWidth, newHeight;
-
                 if (browserWidth / browserHeight > aspectRatio) {
                     newHeight = browserHeight;
                     newWidth = newHeight * aspectRatio;
@@ -60,15 +59,12 @@ const WebcamCanvas = forwardRef((props, ref) => {
         };
 
         if (videoElement) {
-            // Update size when metadata is loaded
             videoElement.addEventListener("loadedmetadata", updateCanvasSize);
-
             timeoutId = setTimeout(() => {
                 setLoading(true);
                 clearTimeout(timeoutId);
             }, WEBCAM_TIMEOUT);
 
-            // Cleanup listener on unmount
             return () => {
                 videoElement.removeEventListener("loadedmetadata", updateCanvasSize);
                 clearTimeout(timeoutId);
@@ -76,24 +72,49 @@ const WebcamCanvas = forwardRef((props, ref) => {
         }
     }, [ref, props.dimensions.width, props.dimensions.height]);
 
-    /**
-     * Video constraints for webcam
-     * @type {Object}
-     */
-    const videoContraints = {
-        facingMode: "user", // or 'environment' for rear camera on mobile
+    const handleCameraSelect = (deviceId) => {
+        setSelectedCamera(deviceId);
+        setOpenDialog(false);
+        setKey((prevKey) => prevKey + 1); // Change key to force re-mount
     };
 
     return (
         <Box>
+            {/* Camera Selection Dialog */}
+            <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+                <DialogTitle>Select a Camera</DialogTitle>
+                <DialogContent>
+                    <Select
+                        fullWidth
+                        value={selectedCamera || ""}
+                        onChange={(e) => handleCameraSelect(e.target.value)}
+                    >
+                        {cameras.map((camera, index) => (
+                            <MenuItem key={camera.deviceId} value={camera.deviceId}>
+                                {camera.label || `Camera ${index + 1}`}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenDialog(false)} color="primary">
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
             <div style={webcamStyle}>
-                <Webcam
-                    ref={ref.webcamRef}
-                    className="hidden-webcam"
-                    disablePictureInPicture={true}
-                    videoConstraints={videoContraints}
-                />
+                {selectedCamera && (
+                    <Webcam
+                        key={key} // Force re-mount when camera changes
+                        ref={ref.webcamRef}
+                        className="hidden-webcam"
+                        disablePictureInPicture
+                        videoConstraints={{ deviceId: { exact: selectedCamera } }}
+                    />
+                )}
             </div>
+
             <Box
                 position="absolute"
                 display="flex"
@@ -107,11 +128,12 @@ const WebcamCanvas = forwardRef((props, ref) => {
                 <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
                 {loading && (
                     <>
-                        <Typography variant="body1" mt={1}>Taking too long? Click below to reload the page.</Typography>
-                        <Button variant="contained" color="primary" sx={{ mt: 1 }} onClick={() => { window.location.reload(); }}>Reload</Button>
+                        <Typography variant="body1" mt={1}>Taking too long? Click below to reload.</Typography>
+                        <Button variant="contained" color="primary" sx={{ mt: 1 }} onClick={() => window.location.reload()}>Reload</Button>
                     </>
                 )}
             </Box>
+
             <canvas
                 ref={ref.canvasRef}
                 width={canvasSize.width}
