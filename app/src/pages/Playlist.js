@@ -31,32 +31,47 @@ function Playlist(){
 
     const navigate = useNavigate();
 
-    const [exerciseList, setExerciseList] = useState(playlists.core);
 
+    const [playlistsState, setPlaylistsState] = useState(
+      JSON.parse(localStorage.getItem("playlists")) || playlists
+    );
 
-    const handleNavigate = () => {
-      navigate("/playlistOverlay", { state: { exerciseList } });
+    useEffect(() => {
+      localStorage.setItem("playlists", JSON.stringify(playlistsState));
+    }, [playlistsState]);
+    
+    
+    const handleNavigate = (playlistName) => {
+      navigate("/playlistOverlay", { state: { currentPlaylist: playlistsState[playlistName], playlistName: playlistName } });
     };
+    
+    const removeExercise = (index, playlistName) => {
 
-    const removeExercise = (index, setExerciseList, playlistName) => {
-        setExerciseList((prevList) => prevList.filter((_, i) => i !== index)); 
-    }
-
-    const addExercise = (index, setExerciseList, exercise, playlistName) => {
-      setExerciseList((prevList) => {
-          const newList = [...prevList]; // Create a new array
-          newList.splice(index, 0, exercise); // Insert at the given index
-          return newList;
+      
+  
+      setPlaylistsState((prevPlaylists) => {
+        const updatedPlaylist = prevPlaylists[playlistName].filter((_, i) => i !== index); // Remove item
+        if (updatedPlaylist.length === 0) return prevPlaylists;
+        return {
+          ...prevPlaylists,
+          [playlistName]: updatedPlaylist, // Update the correct playlist
+        };
       });
     };
 
-    // const modifyPlaylistName = (oldName, newName) => {
-    //   setExerciseList((prevList) => {
-    //       const newList = [...prevList]; // Create a new array
-    //       newList.splice(index, 0, exercise); // Insert at the given index
-    //       return newList;
-    //   });
-    // };
+    const addExercise = (index, exercise, playlistName) => {
+  
+      setPlaylistsState((prevPlaylists) => {
+        const updatedPlaylist = [...prevPlaylists[playlistName]]; // Copy playlist
+        updatedPlaylist.splice(index, 0, exercise); // Insert new exercise
+  
+        return {
+          ...prevPlaylists,
+          [playlistName]: updatedPlaylist, // Update the correct playlist
+        };
+      });
+    };
+
   
 
     
@@ -81,34 +96,43 @@ function Playlist(){
     
           </Box>
 
-          <Box
-            sx={{
-              width: { xs: "20rem", md: "40rem" },
-              mb: "1rem",
-            }}>
-            <Typography variant="h6" gutterBottom>
-              Core
-            </Typography>
-            <PlaylistModal 
-              exerciseList={exerciseList} 
-              setExerciseList={setExerciseList}
-              addExercise={addExercise} 
-              removeExercise={removeExercise} 
-              exerciseOptions={exerciseOptions}
-            />
-            <Button variant="contained" 
-            color="primary" 
-            sx={{ mt: "0.5rem", 
-              cursor: "pointer",
-              transition: "transform 0.3s",
-              "&:hover": {
-                transform: "scale(1.05)",
-              },
-            }} 
-            onClick={handleNavigate}>
-              Start Routine
-            </Button>
-          </Box>
+          {/* ✅ Dynamically Display All Playlists */}
+          {Object.entries(playlistsState).map(([playlistName, exercises]) => (
+            <Box key={playlistName} sx={{ width: { xs: "20rem", md: "40rem" }, mb: "1rem" }}>
+              <Typography variant="h6" gutterBottom>
+                {playlistName} Playlist
+              </Typography>
+
+              <PlaylistModal
+                playlistName={playlistName}
+                exerciseList={exercises}
+                setExerciseList={(newList) =>
+                  setPlaylistsState((prev) => ({ ...prev, [playlistName]: newList }))
+                }
+                addExercise={(index, exercise) => addExercise(index, exercise, playlistName)}
+                removeExercise={(index) => removeExercise(index, playlistName)}
+                exerciseOptions={exerciseOptions}
+              />
+
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  mt: "0.5rem",
+                  cursor: "pointer",
+                  transition: "transform 0.3s",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                  },
+                }}
+                onClick={() => handleNavigate(playlistName)}
+              >
+                Start Routine
+              </Button>
+
+            </Box>
+          ))}
+
 
 
     </Box>

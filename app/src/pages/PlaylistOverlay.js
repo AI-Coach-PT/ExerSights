@@ -26,21 +26,17 @@ function PlaylistOverlay(){
 
     const location = useLocation();
     const { 
-        exerciseList = []
+        currentPlaylist = [],
+        playlistName = ""
       } = location.state || {};
     const [index, setIndex] = useState(0);
-    const [currentRepCount, setCurrentRepCount] = useState(0);
-
-    const updateRepCount = (repCount) => {
-        setCurrentRepCount(repCount);
-    };
 
 
     const increment = () => {
-        setIndex((prevIndex) => (prevIndex + 1) % exerciseList.length); // Loop back to start
+        setIndex((prevIndex) => (prevIndex + 1) % currentPlaylist.length); // Loop back to start
       };
     
-    const currentExercise = exerciseList[index];
+    const currentExercise = currentPlaylist[index];
     const CurrentExercisePage = exerciseComponents[currentExercise.exercise];
 
 
@@ -55,7 +51,7 @@ function PlaylistOverlay(){
           }}>
             <Box sx={{ m: "20px" }}>
                 <Typography variant="h5" gutterBottom>
-                Core
+                {playlistName} Playlist 
                 </Typography>
             </Box>
 

@@ -5,11 +5,11 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 function PlaylistModal({
-  exerciseList,
-  addExercise,
-  removeExercise,
-  setExerciseList,
-  exerciseOptions
+    playlistName,
+    exerciseList,
+    addExercise,
+    removeExercise,
+    setExerciseList,
 }) {
 
 
@@ -81,7 +81,7 @@ function PlaylistModal({
                   {/* Add Exercise Button */}
                   <IconButton
                     onClick={() =>
-                      addExercise(index + 1, setExerciseList, { exercise: newExercise || "New Exercise"})
+                      addExercise(index + 1, { exercise: newExercise || "New Exercise"}, playlistName)
                     }
                     color="primary"
                   >
@@ -89,7 +89,7 @@ function PlaylistModal({
                   </IconButton>
 
                   {/* Remove Exercise Button */}
-                  <IconButton onClick={() => removeExercise(index, setExerciseList)} color="error">
+                  <IconButton onClick={() => removeExercise(index, playlistName)} color="error">
                     <RemoveCircleIcon />
                   </IconButton>
                 </Box>
