@@ -22,7 +22,16 @@ const setVoiceName = (name) => {
  * Returns voiceName string value.
  */
 const getVoiceName = () => {
-    return voiceName;
+    if (selectedVoice)
+        return selectedVoice.name;
+
+    const voices = window.speechSynthesis.getVoices();
+
+    if (voices.length > 0) {
+        return voices.find(voice => voice.default)?.name || voices[0].name;
+    }
+
+    return "None";
 }
 
 /**

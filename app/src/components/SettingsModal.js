@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Modal, Box, Typography, Button, TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { IconButton, Modal, Box, Typography, Button, TextField, FormControl, MenuItem } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../utils/helpers/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
@@ -123,16 +123,15 @@ function SettingsModal({
               sx={{ marginBottom: "1rem" }}
             />
           ))}
-          <Button variant="contained" onClick={handleToggleAngleView} sx={{ mb: "0.5rem" }}>
+          <Button variant="contained" onClick={handleToggleAngleView} sx={{ mb: "1rem" }}>
             Toggle Angle View
           </Button>
           <FormControl sx={{ mb: "1rem", width: "100%" }}>
-            <InputLabel>Select Voice</InputLabel>
-            <Select value={selectedVoice} onChange={handleVoiceChange}>
+            <TextField select label="Select Voice" value={selectedVoice} onChange={handleVoiceChange} helperText="⚠ WARNING: Not all voices have been tested." >
               {voicesList.map((voice, index) => (
                 <MenuItem key={index} value={voice}>{voice}</MenuItem>
               ))}
-            </Select>
+            </TextField>
           </FormControl>
           <Button variant="contained" onClick={handleCloseModal}>
             Save & Close
