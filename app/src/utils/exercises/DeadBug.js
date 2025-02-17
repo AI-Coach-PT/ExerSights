@@ -1,6 +1,6 @@
 import { genCheck } from "../GenFeedback";
 
-const deadBugInfo = {
+export const deadBugInfo = {
     states: {
         INIT: { feedback: "Please Begin Rep!", audio: false, countRep: false, color: "yellow" },
         EXTENDING: { feedback: "Extend alternate sides!", audio: true, countRep: false, color: "yellow" },
@@ -92,14 +92,14 @@ const getTransitionType = (jointAngles, closer) => {
  */
 export const checkDeadBug = (
     landmarks,
-    targetFlatAngle,
+    onFeedbackUpdate,
+    setColor,
     setLeftUnderarmAngle,
     setRightUnderarmAngle,
     setLeftHipAngle,
     setRightHipAngle,
-    onFeedbackUpdate,
-    setColor,
     setRepCount,
+    targetFlatAngle,
 ) => {
     deadBugInfo.targets["targetFlatAngle"] = targetFlatAngle;
 
