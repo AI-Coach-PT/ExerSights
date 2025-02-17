@@ -23,7 +23,8 @@ function ExercisePage() {
 
     // Extract target angles from FSM
     const initialTargets = Object.keys(fsm.targets).reduce((acc, key) => {
-        acc[key] = fsm.targets[key];
+        if (key.includes("target"))
+            acc[key] = fsm.targets[key];
         return acc;
     }, {});
     const [targetAngles, setTargetAngles] = useState(initialTargets);
@@ -76,7 +77,7 @@ function ExercisePage() {
         <FeedbackPanel
             feedbackList={[feedback]}
             valuesList={Object.keys(jointAngles).map((key) => ({
-                label: key.replace(/([A-Z])/g, " $1").trim(),
+                label: key.replace(/([A-Z])/g, " $1").trim().replace(/^./, (str) => str.toUpperCase()),
                 value: jointAngles[key],
             }))}
             repCount={repCount}
