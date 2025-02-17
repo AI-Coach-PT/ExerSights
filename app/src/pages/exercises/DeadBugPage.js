@@ -49,14 +49,14 @@ function DeadBugPage() {
   const processPoseResults = (landmarks) => {
     checkDeadBug(
       landmarks,
-      targetFlatAngle,
+      setFeedback,
+      setColor,
       setLeftUnderarmAngle,
       setRightUnderarmAngle,
       setLeftHipAngle,
       setRightHipAngle,
-      setFeedback,
-      setColor,
-      setRepCount
+      setRepCount,
+      targetFlatAngle
     );
   };
 
