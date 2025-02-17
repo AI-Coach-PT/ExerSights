@@ -5,53 +5,81 @@ import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
 import ExerciseBox from "../../components/ExerciseBox";
 import { resetRepCount } from "../../utils/GenFeedback";
-import { exerciseFSMs } from "./ExercisePageData";
 
 function ExercisePage() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const exerciseName = queryParams.get("exercise");
 
-    const exerciseData = exerciseFSMs[exerciseName];
-
-    const { fsm, checkFunction, helpImage, instructionsText, instructionsVideo } = exerciseData;
+    const [exerciseData, setExerciseData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     const [feedback, setFeedback] = useState("");
     const [repCount, setRepCount] = useState(0);
     const [color, setColor] = useState("white");
     const [angleView, setAngleView] = useState(true);
+    const [targetAngles, setTargetAngles] = useState({});
+    const [jointAngles, setJointAngles] = useState({});
 
-    // Extract target angles from FSM
-    const initialTargets = Object.keys(fsm.targets).reduce((acc, key) => {
-        if (key.includes("target"))
-            acc[key] = fsm.targets[key];
-        return acc;
-    }, {});
-    const [targetAngles, setTargetAngles] = useState(initialTargets);
+    useEffect(() => {
+        if (!exerciseName) {
+            setError(true);
+            setLoading(false);
+            return;
+        }
 
-    // Create states for joint angles dynamically
-    const [jointAngles, setJointAngles] = useState(
-        Object.keys(fsm.jointInfo.jointAngles).reduce((acc, key) => {
-            acc[key] = 0;
-            return acc;
-        }, {})
-    );
+        setLoading(true);
+        setError(false);
 
-    // Create setter functions for joint angles dynamically
+        import("./ExercisePageData")
+            .then((module) => {
+                if (module[exerciseName]) {
+                    const data = module[exerciseName];
+                    setExerciseData(data);
+
+                    const initialTargets = Object.keys(data.fsm.targets).reduce((acc, key) => {
+                        if (key.includes("target"))
+                            acc[key] = data.fsm.targets[key];
+                        return acc;
+                    }, {});
+                    setTargetAngles(initialTargets);
+
+                    const initialJointAngles = Object.keys(data.fsm.jointInfo.jointAngles).reduce((acc, key) => {
+                        acc[key] = 0;
+                        return acc;
+                    }, {});
+                    setJointAngles(initialJointAngles);
+                } else {
+                    setError(true);
+                }
+                setLoading(false);
+            })
+            .catch(() => {
+                setError(true);
+                setLoading(false);
+            });
+    }, [exerciseName]);
+
+    if (loading) {
+        return <div>Loading exercise...</div>;
+    }
+
+    if (error || !exerciseData) {
+        return <div>Exercise not found!</div>;
+    }
+
+    const { fsm, checkFunction, helpImage, instructionsText, instructionsVideo } = exerciseData;
+
     const setAngleFunctions = Object.keys(jointAngles).reduce((acc, key) => {
         acc[key] = (value) => setJointAngles((prev) => ({ ...prev, [key]: value }));
         return acc;
     }, {});
 
-    // Store setters in an array for SettingsModal
     const setTargetAnglesArray = Object.keys(targetAngles).map((key) => [
         (val) => setTargetAngles((prev) => ({ ...prev, [key]: val })),
         key,
     ]);
-
-    useEffect(() => {
-        setTargetAngles(initialTargets);
-    }, [exerciseName]);
 
     const processPoseResults = (landmarks) => {
         checkFunction(
@@ -68,10 +96,6 @@ function ExercisePage() {
         setRepCount(0);
         resetRepCount(0);
     };
-
-    if (!exerciseFSMs[exerciseName]) {
-        return <div>Exercise not found!</div>;
-    }
 
     const feedbackPanel = (
         <FeedbackPanel
