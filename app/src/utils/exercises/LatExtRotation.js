@@ -1,8 +1,8 @@
 import { genCheck } from "../GenFeedback";
 
-const latExtRotationInfo = {
+export const latExtRotationInfo = {
   states: {
-    INIT: { feedback: "Get ready!", audio: false, countRep: false, color: "yellow"  },
+    INIT: { feedback: "Get ready!", audio: false, countRep: false, color: "yellow" },
     NOT_PERPENDICULAR: { feedback: "Rotate arm upwards!", audio: true, countRep: false, color: "yellow" },
     PERPENDICULAR: { feedback: "Excellent!", audio: true, countRep: true, color: "green" },
   },
@@ -73,7 +73,7 @@ const getTransitionType = (jointData, closerSide) => {
   const sideAngle = closerSide === "left" ? leftSideAngle : rightSideAngle;
 
   if (currState === "NOT_PERPENDICULAR" && sideAngle >= thresholdSideAngle) return "perpendicular";
-  if ((currState === "PERPENDICULAR" || currState == "INIT") && sideAngle <= resetSideAngle) return "notPerpendicular";
+  if ((currState === "PERPENDICULAR" || currState === "INIT") && sideAngle <= resetSideAngle) return "notPerpendicular";
 
   return "null";
 };

@@ -1,6 +1,6 @@
 import { genCheck, getTransitionType } from '../GenFeedback';
 
-const muscleUpInfo = {
+export const muscleUpInfo = {
     states: {
         INIT: { feedback: "Get in position!", audio: false, countRep: false, color: "yellow" },
         PULLUP: { feedback: "Pull chin above bar!", audio: true, countRep: false, color: "yellow" },
@@ -59,13 +59,13 @@ const muscleUpInfo = {
     },
 
     targets: {
-        thresholdElbowAngle: 170,
+        targetElbowLockOutAngle: 170,
     },
 
     conditions: {
         lockedOut: {
             states: ["DIP"],
-            req: "elbowAngle > thresholdElbowAngle",
+            req: "elbowAngle > targetElbowLockOutAngle",
             ret: "lockedOut"
         },
         chinAboveBar: {
@@ -99,7 +99,7 @@ let currState;
  * @param {number} [targetElbowLockOutAngle=170] - The target elbow angle to be used for evaluation.
  */
 export const checkMuscleUp = (landmarks, onFeedbackUpdate, setColor, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle = 170) => {
-    muscleUpInfo.targets["thresholdElbowAngle"] = targetElbowLockOutAngle;
+    muscleUpInfo.targets["targetElbowLockOutAngle"] = targetElbowLockOutAngle;
 
     currState = genCheck(
         muscleUpInfo,

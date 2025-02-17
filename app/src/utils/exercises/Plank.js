@@ -1,6 +1,6 @@
 import { genCheck } from "../GenFeedback";
 
-const plankInfo = {
+export const plankInfo = {
   states: {
     MISALIGNED_HIP: {
       feedback: "Make sure hip is aligned with shoulder and knee",

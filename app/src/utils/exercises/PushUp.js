@@ -1,6 +1,6 @@
 import { genCheck } from '../GenFeedback';
 
-const pushUpInfo = {
+export const pushUpInfo = {
     states: {
         INIT: { feedback: "Please Begin Rep!", audio: false, countRep: false, color: "yellow" },
         DESCENDING: { feedback: "Go Down Lower!", audio: true, countRep: false, color: "yellow" },

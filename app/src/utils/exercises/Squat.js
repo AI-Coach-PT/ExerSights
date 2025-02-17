@@ -6,9 +6,9 @@ import { genCheck } from '../GenFeedback';
  * Transitions = descending, hitTarget, finishing
  * Accesses leftKneeAngle and rightKneeAngle
  */
-const squatInfo = {
+export const squatInfo = {
     states: {
-        STANDING: { feedback: "Please Begin Rep!", audio: false, countRep: false, color: "yellow"},
+        STANDING: { feedback: "Please Begin Rep!", audio: false, countRep: false, color: "yellow" },
         DESCENDING: { feedback: "Go Down Lower!", audio: true, countRep: false, color: "yellow" },
         SQUATTING: { feedback: "Excellent!", audio: true, countRep: false, color: "green" },
         FINISHED: { feedback: "Excellent!", audio: false, countRep: true, color: "green" }
@@ -113,7 +113,7 @@ export const checkSquats = (landmarks, onFeedbackUpdate, setColor, setCurrKneeAn
 const chestInfo = {
     states: {
         UPRIGHT: { feedback: "", audio: false, countRep: false, color: "" },
-        LEANING_FORWARD: { feedback: "Chest up!", audio: false, countRep: false, color: ""}
+        LEANING_FORWARD: { feedback: "Chest up!", audio: false, countRep: false, color: "" }
     },
 
     transitions: {

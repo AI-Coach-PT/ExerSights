@@ -16,6 +16,7 @@ import PullUpPage from "./pages/exercises/PullUpPage";
 import LatExtRotationPage from "./pages/exercises/LatExtRotationPage";
 import MuscleUpPage from "./pages/exercises/MuscleUpPage";
 import PlankPage from "./pages/exercises/PlankPage";
+import ExercisePage from "./pages/exercises/ExercisePage";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -45,6 +46,7 @@ function App() {
           <Route path="/muscleup" element={<MuscleUpPage />} />
           <Route path="/latExtRotation" element={<LatExtRotationPage />} />
           <Route path="/plank" element={<PlankPage />} />
+          <Route path="/exercise" element={<ExercisePage />} />
         </Routes>
       </Router>
     </ThemeProvider>

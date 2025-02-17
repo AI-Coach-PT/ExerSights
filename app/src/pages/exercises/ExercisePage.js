@@ -45,8 +45,9 @@ function ExercisePage() {
                     }, {});
                     setTargetAngles(initialTargets);
 
-                    const initialJointAngles = Object.keys(data.fsm.jointInfo.jointAngles).reduce((acc, key) => {
-                        acc[key] = 0;
+                    const functionParams = extractFunctionParams(data.checkFunction);
+                    const initialJointAngles = functionParams.reduce((acc, param) => {
+                        acc[param] = 0;
                         return acc;
                     }, {});
                     setJointAngles(initialJointAngles);
@@ -71,8 +72,9 @@ function ExercisePage() {
 
     const { fsm, checkFunction, helpImage, instructionsText, instructionsVideo } = exerciseData;
 
-    const setAngleFunctions = Object.keys(jointAngles).reduce((acc, key) => {
-        acc[key] = (value) => setJointAngles((prev) => ({ ...prev, [key]: value }));
+    const functionParams = extractFunctionParams(checkFunction);
+    const setAngleFunctions = functionParams.reduce((acc, param) => {
+        acc[param] = (value) => setJointAngles((prev) => ({ ...prev, [param]: value }));
         return acc;
     }, {});
 
@@ -101,17 +103,13 @@ function ExercisePage() {
         <FeedbackPanel
             feedbackList={[feedback]}
             valuesList={Object.keys(jointAngles).map((key) => ({
-                label: key.replace(/([A-Z])/g, " $1").trim().replace(/^./, (str) => str.toUpperCase()),
+                label: formatJointName(key),
                 value: jointAngles[key],
             }))}
             repCount={repCount}
             handleReset={handleReset}
             HelpModal={
-                <HelpModal
-                    image={helpImage}
-                    description={instructionsText}
-                    video={instructionsVideo}
-                />
+                <HelpModal image={helpImage} description={instructionsText} video={instructionsVideo} />
             }
             SettingsModal={
                 <SettingsModal
@@ -139,3 +137,31 @@ function ExercisePage() {
 }
 
 export default ExercisePage;
+
+/**
+ * 🔥 Extract function parameter names dynamically
+ */
+function extractFunctionParams(fn) {
+    const fnString = fn.toString();
+    const match = fnString.match(/\(([^)]*)\)/);
+    if (!match) return [];
+
+    const params = match[1].split(",").map((param) => param.trim());
+
+    const ignoredParams = ["landmarks", "onFeedbackUpdate", "setColor", "setRepCount"];
+    const setterParams = params.filter(
+        (param) => !ignoredParams.includes(param) && !param.toLowerCase().includes("target")
+    );
+
+    return setterParams.map((param) => {
+        return param;
+    });
+}
+
+function formatJointName(name) {
+    return name
+        .replace(/^set/, "")
+        .replace(/([A-Z])/g, " $1")
+        .trim()
+        .replace(/^./, (str) => str.toUpperCase());
+}
