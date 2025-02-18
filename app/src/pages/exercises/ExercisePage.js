@@ -153,6 +153,10 @@ function extractFunctionParams(fn) {
         (param) => !ignoredParams.includes(param) && !param.toLowerCase().includes("target")
     );
 
+    console.log(fnString);
+    console.log(params);
+    console.log(setterParams);
+
     return setterParams.map((param) => {
         return param;
     });
