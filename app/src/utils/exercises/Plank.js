@@ -45,7 +45,7 @@ export const plankInfo = {
 
   disableVisibilityCheck: false,
 
-  angleSetters: ["setCurrSideAngle"],
+  angleSetters: ["setSideAngle"],
 
   title: "Plank",
 };

@@ -54,7 +54,7 @@ export const squatInfo = {
         targetKneeAngle: 90,
     },
 
-    angleSetters: ["setCurrKneeAngle"],
+    angleSetters: ["setKneeAngle"],
 
     title: "Squat",
 }
