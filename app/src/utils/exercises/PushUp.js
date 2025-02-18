@@ -48,6 +48,8 @@ export const pushUpInfo = {
         targetElbowAngle: 65,
     },
 
+    angleSetters: ["setCurrElbowAngle"],
+
     title: "Push-up",
 };
 

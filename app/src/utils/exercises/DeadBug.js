@@ -46,6 +46,8 @@ export const deadBugInfo = {
         targetFlatAngle: 140,
     },
 
+    angleSetters: ["setLeftUnderarmAngle", "setRightUnderarmAngle", "setLeftHipAngle", "setRightHipAngle"],
+
     title: "Dead Bug",
 };
 

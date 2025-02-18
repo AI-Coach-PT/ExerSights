@@ -55,6 +55,8 @@ export const latExtRotationInfo = {
 
   disableVisibilityCheck: true,
 
+  angleSetters: ["setCurrSideAngle"],
+
   title: "Lateral External Rotation",
 };
 

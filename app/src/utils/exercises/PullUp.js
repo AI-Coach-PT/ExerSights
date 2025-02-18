@@ -86,6 +86,8 @@ export const pullUpInfo = {
         }
     },
 
+    angleSetters: ["setCurrElbowAngle"],
+
     title: "Pull-up",
 };
 

@@ -45,8 +45,8 @@ function ExercisePage() {
                     }, {});
                     setTargetAngles(initialTargets);
 
-                    const functionParams = extractFunctionParams(data.checkFunction);
-                    const initialJointAngles = functionParams.reduce((acc, param) => {
+                    const angleSetters = data.fsm.angleSetters || [];
+                    const initialJointAngles = angleSetters.reduce((acc, param) => {
                         acc[param] = 0;
                         return acc;
                     }, {});
@@ -72,8 +72,7 @@ function ExercisePage() {
 
     const { fsm, checkFunction, helpImage, instructionsText, instructionsVideo } = exerciseData;
 
-    const functionParams = extractFunctionParams(checkFunction);
-    const setAngleFunctions = functionParams.reduce((acc, param) => {
+    const setAngleFunctions = (fsm.angleSetters || []).reduce((acc, param) => {
         acc[param] = (value) => setJointAngles((prev) => ({ ...prev, [param]: value }));
         return acc;
     }, {});
@@ -137,30 +136,6 @@ function ExercisePage() {
 }
 
 export default ExercisePage;
-
-/**
- * Extract function parameter names dynamically
- */
-function extractFunctionParams(fn) {
-    const fnString = fn.toString();
-    const match = fnString.match(/\(([^)]*)\)/);
-    if (!match) return [];
-
-    const params = match[1].split(",").map((param) => param.trim());
-
-    const ignoredParams = ["landmarks", "onFeedbackUpdate", "setColor", "setRepCount"];
-    const setterParams = params.filter(
-        (param) => !ignoredParams.includes(param) && !param.toLowerCase().includes("target")
-    );
-
-    console.log(fnString);
-    console.log(params);
-    console.log(setterParams);
-
-    return setterParams.map((param) => {
-        return param;
-    });
-}
 
 function formatJointName(name) {
     return name

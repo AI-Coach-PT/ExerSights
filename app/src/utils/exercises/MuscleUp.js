@@ -85,6 +85,8 @@ export const muscleUpInfo = {
         }
     },
 
+    angleSetters: ["setCurrElbowAngle"],
+
     title: "Muscle-up",
 };
 

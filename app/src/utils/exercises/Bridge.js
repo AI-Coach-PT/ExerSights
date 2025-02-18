@@ -48,6 +48,8 @@ export const bridgeInfo = {
         targetKneeAngle: 90,
     },
 
+    angleSetters: ["setHipAngle", "setKneeAngle"],
+
     title: "Bridge",
 };
 
