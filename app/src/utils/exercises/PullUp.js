@@ -101,7 +101,7 @@ let currState;
  * @param {Function} setRepCount - Function to update the repetition count.
  * @param {number} [targetElbowLockOutAngle=150] - The target elbow angle to be used for evaluation.
  */
-export const checkPullup = (landmarks, onFeedbackUpdate, setColor, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle = 150) => {
+export const checkPullUp = (landmarks, onFeedbackUpdate, setColor, setCurrElbowAngle, setRepCount, targetElbowLockOutAngle = 150) => {
     pullUpInfo.targets["targetElbowLockOutAngle"] = targetElbowLockOutAngle;
 
     currState = genCheck(

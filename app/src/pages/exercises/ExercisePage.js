@@ -5,6 +5,7 @@ import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
 import ExerciseBox from "../../components/ExerciseBox";
 import { resetRepCount } from "../../utils/GenFeedback";
+import { loadExerciseData } from "./ExercisePageData";
 
 function ExercisePage() {
     const location = useLocation();
@@ -32,10 +33,9 @@ function ExercisePage() {
         setLoading(true);
         setError(false);
 
-        import("./ExercisePageData")
-            .then((module) => {
-                if (module[exerciseName]) {
-                    const data = module[exerciseName];
+        loadExerciseData(exerciseName)
+            .then((data) => {
+                if (data) {
                     setExerciseData(data);
 
                     const initialTargets = Object.keys(data.fsm.targets).reduce((acc, key) => {

@@ -90,7 +90,7 @@ let currState;
  * @param {Function} setRepCount - Function to update the repetition count.
  * @param {number} [targetKneeAngle=90] - The target knee angle to be used for evaluation.
  */
-export const checkSquats = (landmarks, onFeedbackUpdate, setColor, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
+export const checkSquat = (landmarks, onFeedbackUpdate, setColor, setCurrKneeAngle, setRepCount, targetKneeAngle = 90) => {
     squatInfo.targets["targetKneeAngle"] = targetKneeAngle;
 
     currState = genCheck(

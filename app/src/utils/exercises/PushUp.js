@@ -84,7 +84,7 @@ const getTransitionType = (jointAngles, closerSide) => {
  * @param {Function} setRepCount - Function to update the repetition count.
  * @param {number} [targetElbowAngle=65] - The target elbow angle to be used for evaluation.
  */
-export const checkPushup = (landmarks, onFeedbackUpdate, setColor, setCurrElbowAngle, setRepCount, targetElbowAngle = 65) => {
+export const checkPushUp = (landmarks, onFeedbackUpdate, setColor, setCurrElbowAngle, setRepCount, targetElbowAngle = 65) => {
     pushUpInfo.targets["targetElbowAngle"] = targetElbowAngle;
 
     currState = genCheck(

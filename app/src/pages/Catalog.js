@@ -46,25 +46,25 @@ function Catalog() {
         <ExerciseCard
           title="Dead Bug"
           description={catalogText.deadbug}
-          link="/exercise?exercise=deadbug"
+          link="/exercise?exercise=deadBug"
           image={deadBugImage}
         />
         <ExerciseCard
           title="Push-up"
           description={catalogText.pushup}
-          link="/exercise?exercise=pushup"
+          link="/exercise?exercise=pushUp"
           image={pushUpImage}
         />
         <ExerciseCard
           title="Pull-up"
           description={catalogText.pullup}
-          link="/exercise?exercise=pullup"
+          link="/exercise?exercise=pullUp"
           image={pullUpImage}
         />
         <ExerciseCard
           title="Muscle-up"
           description={catalogText.muscleup}
-          link="/exercise?exercise=muscleup"
+          link="/exercise?exercise=muscleUp"
           image={muscleUpImage}
         />
         <ExerciseCard

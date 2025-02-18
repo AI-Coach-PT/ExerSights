@@ -87,7 +87,7 @@ const getTransitionType = (jointAngles, closerSide) => {
  * @param {number} [targetHipAngle=140] - The target hip angle to be used for evaluation.
  * @param {number} [targetKneeAngle=90] - The target knee angle to be used for evaluation.
  */
-export const checkBridges = (
+export const checkBridge = (
     landmarks,
     onFeedbackUpdate,
     setColor,
