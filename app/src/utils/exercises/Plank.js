@@ -44,6 +44,8 @@ export const plankInfo = {
   },
 
   disableVisibilityCheck: false,
+
+  title: "Plank",
 };
 
 let currStatePlank;

@@ -83,7 +83,9 @@ export const muscleUpInfo = {
             req: "mouthPos.y >= wristPos.y",
             ret: "chinBelowBar"
         }
-    }
+    },
+
+    title: "Muscle-up",
 };
 
 let currState;

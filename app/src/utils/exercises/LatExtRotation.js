@@ -54,6 +54,8 @@ export const latExtRotationInfo = {
   },
 
   disableVisibilityCheck: true,
+
+  title: "Lateral External Rotation",
 };
 
 let currState;

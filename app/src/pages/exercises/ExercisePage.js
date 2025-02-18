@@ -126,7 +126,7 @@ function ExercisePage() {
 
     return (
         <ExerciseBox
-            title={exerciseName.charAt(0).toUpperCase() + exerciseName.slice(1)}
+            title={fsm.title ? fsm.title : exerciseName}
             feedbackPanel={feedbackPanel}
             processPoseResults={processPoseResults}
             targetAngles={targetAngles}
@@ -139,7 +139,7 @@ function ExercisePage() {
 export default ExercisePage;
 
 /**
- * 🔥 Extract function parameter names dynamically
+ * Extract function parameter names dynamically
  */
 function extractFunctionParams(fn) {
     const fnString = fn.toString();

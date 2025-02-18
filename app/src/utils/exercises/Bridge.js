@@ -47,6 +47,8 @@ export const bridgeInfo = {
         targetHipAngle: 140,
         targetKneeAngle: 90,
     },
+
+    title: "Bridge",
 };
 
 let currState;

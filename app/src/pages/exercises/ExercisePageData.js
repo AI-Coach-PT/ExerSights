@@ -78,7 +78,7 @@ export const muscleup = {
     instructionsVideo: instructionsVideoMuscleup
 }
 
-export const latextrotation = {
+export const latExtRotation = {
     fsm: latExtRotationInfo,
     checkFunction: checkLatExtRotation,
     helpImage: latextrotationHelpImg,

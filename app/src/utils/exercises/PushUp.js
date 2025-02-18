@@ -47,6 +47,8 @@ export const pushUpInfo = {
         thresholdElbowAngle: 150,
         targetElbowAngle: 65,
     },
+
+    title: "Push-up",
 };
 
 let currState;

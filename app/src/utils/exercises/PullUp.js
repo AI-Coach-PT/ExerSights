@@ -84,7 +84,9 @@ export const pullUpInfo = {
             req: "mouthPos.y >= wristPos.y",
             ret: "chinBelow"
         }
-    }
+    },
+
+    title: "Pull-up",
 };
 
 let currState;

@@ -45,6 +45,8 @@ export const deadBugInfo = {
     targets: {
         targetFlatAngle: 140,
     },
+
+    title: "Dead Bug",
 };
 
 let currState;

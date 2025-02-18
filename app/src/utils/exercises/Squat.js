@@ -52,7 +52,9 @@ export const squatInfo = {
     targets: {
         thresholdKneeAngle: 160,
         targetKneeAngle: 90,
-    }
+    },
+
+    title: "Squat",
 }
 
 /**
