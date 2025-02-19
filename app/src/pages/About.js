@@ -21,7 +21,7 @@ function About() {
       </Typography>
 
       <Box sx={{ textAlign: "left" }}>
-        <Typography variant="body1" sx={{ mb: "3rem", mx: "10rem" }}>
+        <Typography variant="body1" sx={{ mb: "3rem", mx: { xs: "1rem", lg: "10rem" } }}>
           We are actively developing a web application to assess physical therapy techniques and
           athletic movements with computer vision. Key concepts of our mission are integrating human
           pose detection models with video data that can accurately, efficiently, and constantly
