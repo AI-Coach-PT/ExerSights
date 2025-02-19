@@ -8,7 +8,6 @@ import SquatPage from "./pages/exercises/SquatPage";
 import Menubar from "./components/Menubar";
 import BridgePage from "./pages/exercises/BridgePage";
 import DeadBugPage from "./pages/exercises/DeadBugPage";
-//import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import PushUpPage from "./pages/exercises/PushUpPage";
@@ -60,8 +59,8 @@ function App() {
         main: amber[700],
       },
       background: {
-        default: darkMode ? "#212121" : "white",
-        paper: "#0d0d0d",
+        default: darkMode ? "#212121" : "#ffffff",
+        paper: darkMode ? "#0d0d0d" : "#eeeeee",
       },
       text: {
         primary: darkMode ? grey[50] : grey[900],
