@@ -63,7 +63,7 @@ function FeedbackPanel({
         <Typography variant="body1">
           Feedback:
           {feedbackList.map((feedback, index) => (
-            <Typography key={`feedback-${index}`} variant="body1" color="secondary">
+            <Typography key={`feedback-${index}`} variant="body1" color="red">
               {feedback || index > 0 ? feedback : "Get in frame!"}
             </Typography>
           ))}
@@ -82,11 +82,17 @@ function FeedbackPanel({
 
       <Typography variant="body1">Current Rep Count: {repCount}</Typography>
 
-      <Button variant="contained" color="primary" onClick={handleReset} sx={{ width: "50%" }}>
+      <Button
+        variant="contained"
+        onClick={handleReset}
+        color="secondary"
+        sx={{
+          width: "50%",
+        }}>
         Reset Rep Count
       </Button>
 
-      <Button variant="contained" color="primary" component="label" sx={{ width: "50%" }}>
+      <Button variant="contained" component="label" color="secondary" sx={{ width: "50%" }}>
         Upload Video
         <input type="file" accept="video/*" onChange={handleVideoUpload} hidden />
       </Button>

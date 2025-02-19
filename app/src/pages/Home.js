@@ -64,7 +64,7 @@ function Home() {
           <Typography variant="body2" color="text.secondary" gutterBottom>
             Discover a variety of exercises tailored to your fitness and rehab needs.
           </Typography>
-          <Button variant="contained" color="primary" sx={{ mt: "0.5rem" }}>
+          <Button variant="contained" color="secondary" sx={{ mt: "0.5rem" }}>
             Go to Catalog
           </Button>
         </CardContent>

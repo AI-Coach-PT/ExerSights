@@ -94,7 +94,7 @@ const Timer = () => {
         />
       )}
       {!timerStarted && !prepStarted && (
-        <Button variant="contained" onClick={handleTimerStart}>
+        <Button variant="contained" color="secondary" onClick={handleTimerStart}>
           Start {timerDuration}-second Timer
         </Button>
       )}

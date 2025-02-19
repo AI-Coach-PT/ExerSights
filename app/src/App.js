@@ -53,10 +53,11 @@ function App() {
     palette: {
       mode: darkMode ? "dark" : "light",
       primary: {
-        main: darkMode ? "#3f51b5" : "rgba(63,81,181,0.84)",
+        main: darkMode ? indigo[500] : orange[700],
+        contrastText: "#ffffff",
       },
       secondary: {
-        main: amber[700],
+        main: darkMode ? indigo[500] : orange[700],
       },
       background: {
         default: darkMode ? "#212121" : "#ffffff",
@@ -77,10 +78,10 @@ function App() {
       },
     },
     typography: {
-      fontFamily: "Lexend, Arial, sans-serif",
+      fontFamily: "Poppins, Lexend, Arial, sans-serif",
       h1: {
         fontSize: "3.125rem",
-        fontWeight: 700,
+        fontWeight: 600,
         lineHeight: 1.2,
         xs: {
           fontSize: "4.125rem",
@@ -88,11 +89,10 @@ function App() {
         md: {
           fontSize: "5.125rem",
         },
-        // fontFamily: "Poppins",
       },
       h2: {
         fontSize: "2.625rem",
-        fontWeight: 600,
+        fontWeight: 500,
         sm: {
           fontSize: "3.625rem",
         },
@@ -102,7 +102,7 @@ function App() {
       },
       h3: {
         fontSize: "2.125rem",
-        fontWeight: 600,
+        fontWeight: 500,
         lineHeight: 1.3,
         sm: {
           fontSize: "2.625rem",
@@ -113,7 +113,7 @@ function App() {
       },
       h4: {
         fontSize: "1.8125rem",
-        fontWeight: 600,
+        fontWeight: 500,
         lineHeight: 1.4,
         sm: {
           fontSize: "2.125rem",
