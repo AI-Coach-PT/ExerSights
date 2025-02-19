@@ -23,6 +23,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import ListIcon from "@mui/icons-material/List";
 import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -129,12 +131,7 @@ function Menubar(props) {
           </Box>
         </Box>
 
-        <FormControlLabel
-          control={<Switch checked={props.darkMode} onChange={props.toggleDarkMode} />}
-          label="Dark Mode"
-        />
-
-        {/* login/logout button */}
+        {/* toggle dark mode, login/logout button */}
         <Box
           sx={{
             display: "flex",
@@ -143,6 +140,9 @@ function Menubar(props) {
             justifyContent: "right",
             alignItems: "center",
           }}>
+          <IconButton onClick={props.toggleDarkMode}>
+            {props.darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          </IconButton>
           {isAuth && (
             <Typography
               variant="body1"
@@ -191,7 +191,7 @@ function Menubar(props) {
                   key={item.text}
                   to={item.path}
                   onClick={handleDrawerToggle}>
-                  <ListItemText primary={item.text} sx={{ color: "white" }} />
+                  <ListItemText primary={item.text} />
                 </ListItem>
               </Box>
             ))}
@@ -201,7 +201,7 @@ function Menubar(props) {
                 isAuth ? handleLogout() : handleLogin();
                 handleDrawerToggle();
               }}>
-              <ListItemText primary={isAuth ? "Logout" : "Login"} sx={{ color: "white" }} />
+              <ListItemText primary={isAuth ? "Logout" : "Login"} />
             </ListItem>
           </List>
         </Drawer>

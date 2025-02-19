@@ -54,7 +54,7 @@ function App() {
     palette: {
       mode: darkMode ? "dark" : "light",
       primary: {
-        main: "#3f51b5",
+        main: darkMode ? "#3f51b5" : "rgba(63,81,181,0.84)",
       },
       secondary: {
         main: amber[700],
@@ -65,7 +65,7 @@ function App() {
       },
       text: {
         primary: darkMode ? grey[50] : grey[900],
-        secondary: blueGrey[100],
+        secondary: darkMode ? blueGrey[100] : blueGrey[900],
       },
     },
     breakpoints: {
@@ -89,7 +89,7 @@ function App() {
         md: {
           fontSize: "5.125rem",
         },
-        fontFamily: "Poppins",
+        // fontFamily: "Poppins",
       },
       h2: {
         fontSize: "2.625rem",
