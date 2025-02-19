@@ -41,22 +41,17 @@ function Home() {
 
       <Card
         sx={{
-          width: { xs: "40vw", md: "40rem" },
+          width: { xs: "25rem", md: "40rem" },
           cursor: "pointer",
           transition: "transform 0.3s",
           "&:hover": {
             transform: "scale(1.05)",
           },
-          mb: "1rem",
+          mb: "1.5rem",
           borderRadius: "2rem",
         }}
         onClick={handleNavigate}>
-        <CardMedia
-          component="img"
-          image={logo}
-          alt="Catalog Preview"
-          sx={{ width: { xs: "40vw", md: "40rem" } }}
-        />
+        <CardMedia component="img" image={logo} alt="Catalog Preview" sx={{ width: "100%" }} />
         <CardContent>
           <Typography variant="h6" gutterBottom>
             Explore Our Catalog

@@ -155,7 +155,8 @@ function Menubar(props) {
           )}
           <Button
             onClick={isAuth ? handleLogout : handleLogin}
-            sx={{ display: { xs: "none", md: "block" }, color: "white", ml: "1vw" }}>
+            variant="contained"
+            sx={{ display: { xs: "none", md: "block" }, ml: "1vw" }}>
             {isAuth ? "Logout" : "Login"}
           </Button>
         </Box>
