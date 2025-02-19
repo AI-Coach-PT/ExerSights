@@ -10,6 +10,8 @@ import {
   List,
   ListItem,
   ListItemText,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { handleLogin, handleLogout } from "../utils/helpers/HandleLogin";
@@ -30,7 +32,7 @@ import EmailIcon from "@mui/icons-material/Email";
  * @component
  * @returns {JSX.Element} A Material UI AppBar with navigation links.
  */
-function Menubar() {
+function Menubar(props) {
   const menuItems = [
     { text: "Home", path: "/home", icon: <HomeIcon /> },
     { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
@@ -68,7 +70,10 @@ function Menubar() {
       sx={{ mt: "0.25rem", mb: "1rem", borderRadius: "3rem" }}>
       <Toolbar>
         {/* logo */}
-        <Box component={Link} to="/" sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
+        <Box
+          component={Link}
+          to="/"
+          sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
           <Box
             component="img"
             src={logo}
@@ -123,6 +128,11 @@ function Menubar() {
             ))}
           </Box>
         </Box>
+
+        <FormControlLabel
+          control={<Switch checked={props.darkMode} onChange={props.toggleDarkMode} />}
+          label="Dark Mode"
+        />
 
         {/* login/logout button */}
         <Box
