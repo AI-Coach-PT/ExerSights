@@ -6,16 +6,10 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SquatPage from "./pages/exercises/SquatPage";
 import Menubar from "./components/Menubar";
-import BridgePage from "./pages/exercises/BridgePage";
-import DeadBugPage from "./pages/exercises/DeadBugPage";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import PushUpPage from "./pages/exercises/PushUpPage";
-import PullUpPage from "./pages/exercises/PullUpPage";
-import LatExtRotationPage from "./pages/exercises/LatExtRotationPage";
-import MuscleUpPage from "./pages/exercises/MuscleUpPage";
-import PlankPage from "./pages/exercises/PlankPage";
+import ExercisePage from "./pages/exercises/ExercisePage";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -38,13 +32,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/home" element={<Home />} />
           <Route path="/squat" element={<SquatPage />} />
-          <Route path="/bridge" element={<BridgePage />} />
-          <Route path="/deadbug" element={<DeadBugPage />} />
-          <Route path="/pushup" element={<PushUpPage />} />
-          <Route path="/pullup" element={<PullUpPage />} />
-          <Route path="/muscleup" element={<MuscleUpPage />} />
-          <Route path="/latExtRotation" element={<LatExtRotationPage />} />
-          <Route path="/plank" element={<PlankPage />} />
+          <Route path="/exercise" element={<ExercisePage />} />
         </Routes>
       </Router>
     </ThemeProvider>

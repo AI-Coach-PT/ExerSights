@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { checkChestUp, checkSquats } from "../../utils/exercises/Squat";
+import { checkChestUp, checkSquat } from "../../utils/exercises/Squat";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/instructions/squatHelp.png";
 import { instructionsTextSquat, instructionsVideoSquat } from "../../assets/content";
@@ -53,7 +53,7 @@ function SquatPage() {
    */
 
   const processPoseResults = (landmarks) => {
-    checkSquats(landmarks, setFeedback, setColor, setCurrKneeAngle, setRepCount, targetKneeAngle);
+    checkSquat(landmarks, setFeedback, setColor, setCurrKneeAngle, setRepCount, targetKneeAngle);
     checkChestUp(landmarks, setHipAngleFeedback, setColor, targetHipAngle);
   };
 

@@ -1,6 +1,6 @@
 import { genCheck } from '../GenFeedback';
 
-const bridgeInfo = {
+export const bridgeInfo = {
     states: {
         ADJUST_FEET: { feedback: "Bend Knees", audio: true, countRep: false, color: "yellow" },
         RAISING_HIPS: { feedback: "Raise Hips", audio: true, countRep: false, color: "yellow" },
@@ -47,6 +47,10 @@ const bridgeInfo = {
         targetHipAngle: 140,
         targetKneeAngle: 90,
     },
+
+    angleSetters: ["setHipAngle", "setKneeAngle"],
+
+    title: "Bridge",
 };
 
 let currState;
@@ -85,7 +89,16 @@ const getTransitionType = (jointAngles, closerSide) => {
  * @param {number} [targetHipAngle=140] - The target hip angle to be used for evaluation.
  * @param {number} [targetKneeAngle=90] - The target knee angle to be used for evaluation.
  */
-export const checkBridges = (landmarks, onFeedbackUpdate, setColor, setHipAngle, setKneeAngle, setRepCount, targetHipAngle = 140, targetKneeAngle = 90) => {
+export const checkBridge = (
+    landmarks,
+    onFeedbackUpdate,
+    setColor,
+    setHipAngle,
+    setKneeAngle,
+    setRepCount,
+    targetHipAngle = 140,
+    targetKneeAngle = 90
+) => {
     bridgeInfo.targets["targetHipAngle"] = targetHipAngle;
     bridgeInfo.targets["targetKneeAngle"] = targetKneeAngle;
 

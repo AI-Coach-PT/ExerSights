@@ -1,8 +1,8 @@
 import { genCheck } from "../GenFeedback";
 
-const latExtRotationInfo = {
+export const latExtRotationInfo = {
   states: {
-    INIT: { feedback: "Get ready!", audio: false, countRep: false, color: "yellow"  },
+    INIT: { feedback: "Get ready!", audio: false, countRep: false, color: "yellow" },
     NOT_PERPENDICULAR: { feedback: "Rotate arm upwards!", audio: true, countRep: false, color: "yellow" },
     PERPENDICULAR: { feedback: "Excellent!", audio: true, countRep: true, color: "green" },
   },
@@ -49,11 +49,15 @@ const latExtRotationInfo = {
   },
 
   targets: {
-    thresholdSideAngle: 140,
+    targetSideAngle: 140,
     resetSideAngle: 100
   },
 
   disableVisibilityCheck: true,
+
+  angleSetters: ["setSideAngle"],
+
+  title: "Lateral External Rotation",
 };
 
 let currState;
@@ -67,13 +71,13 @@ let currState;
 const getTransitionType = (jointData, closerSide) => {
   const { leftSideAngle, rightSideAngle } = jointData;
 
-  const thresholdSideAngle = latExtRotationInfo.targets["thresholdSideAngle"];
+  const targetSideAngle = latExtRotationInfo.targets["targetSideAngle"];
   const resetSideAngle = latExtRotationInfo.targets["resetSideAngle"];
 
   const sideAngle = closerSide === "left" ? leftSideAngle : rightSideAngle;
 
-  if (currState === "NOT_PERPENDICULAR" && sideAngle >= thresholdSideAngle) return "perpendicular";
-  if ((currState === "PERPENDICULAR" || currState == "INIT") && sideAngle <= resetSideAngle) return "notPerpendicular";
+  if (currState === "NOT_PERPENDICULAR" && sideAngle >= targetSideAngle) return "perpendicular";
+  if ((currState === "PERPENDICULAR" || currState === "INIT") && sideAngle <= resetSideAngle) return "notPerpendicular";
 
   return "null";
 };
@@ -95,7 +99,7 @@ export const checkLatExtRotation = (
   setRepCount,
   targetSideAngle = 140
 ) => {
-  latExtRotationInfo.targets["thresholdSideAngle"] = targetSideAngle;
+  latExtRotationInfo.targets["targetSideAngle"] = targetSideAngle;
 
   currState = genCheck(
     latExtRotationInfo,
