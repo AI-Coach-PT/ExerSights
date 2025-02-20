@@ -72,7 +72,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   });
 
   return (
-    <Box>
+    <Box sx={{ padding: "0.5rem" }}>
       <Typography variant="h2" sx={{ textAlign: "center" }}>
         {title}
       </Typography>

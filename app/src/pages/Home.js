@@ -19,7 +19,7 @@ function Home() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        padding: "1rem",
+        padding: "0.5rem",
       }}>
       <Box>
         <Typography variant="h1" sx={{ mb: ".5rem" }}>

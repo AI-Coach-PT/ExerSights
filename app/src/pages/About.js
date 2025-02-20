@@ -11,7 +11,7 @@ function About() {
     <Box
       sx={{
         textAlign: "center",
-        padding: "1rem",
+        padding: "0.5rem",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

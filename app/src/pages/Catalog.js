@@ -25,12 +25,10 @@ import { catalogText } from "../assets/content.js";
  */
 function Catalog() {
   return (
-    <Box sx={{ textAlign: "center", padding: "1rem" }}>
-      <Typography variant="h1" sx={{ mb: "1rem" }}>
-        Catalog
-      </Typography>
+    <Box sx={{ textAlign: "center", padding: "0.5rem" }}>
+      <Typography variant="h1">Catalog</Typography>
 
-      <Grid container spacing={2} sx={{ justifyContent: "center" }}>
+      <Grid container spacing={2} sx={{ justifyContent: "center", padding: "1rem" }}>
         <ExerciseCard
           title="Squat"
           description={catalogText.squat}
