@@ -1,4 +1,4 @@
-import content from './content.json';
+import content from "./content.json";
 
 export const catalogText = content.catalog;
 
@@ -10,6 +10,7 @@ export const instructionsTextPullUp = content.instructions.pullup;
 export const instructionsTextMuscleUp = content.instructions.muscleup;
 export const instructionsTextLatExtRotation = content.instructions.latExtRotation;
 export const instructionsTextPlank = content.instructions.plank;
+export const instructionsTextPilatesHundred = content.instructions.pilatesHundred;
 
 export const instructionsVideoSquat = content.instructionVideos.squat;
 export const instructionsVideoPushUp = content.instructionVideos.pushup;
@@ -18,5 +19,7 @@ export const instructionsVideoBridge = content.instructionVideos.bridge;
 export const instructionsVideoPullUp = content.instructionVideos.pullup;
 export const instructionsVideoMuscleUp = content.instructionVideos.muscleup;
 export const instructionsVideoLatExtRotation = content.instructionVideos.latExtRotation;
+export const instructionsVideoPlank = content.instructionVideos.plank;
+export const instructionsVideoPilatesHundred = content.instructionVideos.pilatesHundred;
 
 export const disclaimerText = content.legal.disclaimer;
