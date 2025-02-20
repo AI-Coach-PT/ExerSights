@@ -15,8 +15,15 @@ import { Link } from "react-router-dom";
 import { handleLogin, handleLogout } from "../utils/helpers/HandleLogin";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import logo from "../assets/logos/logoNoName.png";
-import name from "../assets/logos/productNameWhite.png";
+import exerSightsLogo from "../assets/logos/logoNoName.png";
+import exerSightsNameWhite from "../assets/logos/productNameWhite.png";
+import exerSightsNameBlack from "../assets/logos/productNameBlack.png";
+import HomeIcon from "@mui/icons-material/Home";
+import ListIcon from "@mui/icons-material/List";
+import InfoIcon from "@mui/icons-material/Info";
+import EmailIcon from "@mui/icons-material/Email";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -26,12 +33,12 @@ import name from "../assets/logos/productNameWhite.png";
  * @component
  * @returns {JSX.Element} A Material UI AppBar with navigation links.
  */
-function Menubar() {
+function Menubar(props) {
   const menuItems = [
-    { text: "Home", path: "/home" },
-    { text: "Catalog", path: "/catalog" },
-    { text: "About", path: "/about" },
-    { text: "Contact", path: "/contact" },
+    { text: "Home", path: "/home", icon: <HomeIcon /> },
+    { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
+    { text: "About", path: "/about", icon: <InfoIcon /> },
+    { text: "Contact", path: "/contact", icon: <EmailIcon /> },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
@@ -58,49 +65,55 @@ function Menubar() {
   }, [auth]);
 
   return (
-    <AppBar position="static" elevation={8} sx={{ mb: "1rem" }}>
+    <AppBar
+      position="static"
+      elevation={8}
+      sx={{ mt: "0.25rem", mb: "1rem", borderRadius: "3rem" }}>
       <Toolbar>
         {/* logo */}
-        <Box component={Link} to="/" sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
+        <Box
+          component={Link}
+          to="/"
+          sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
           <Box
             component="img"
-            src={logo}
+            src={exerSightsLogo}
             sx={{
-              height: 60,
-              width: 60,
+              height: "60px",
+              width: "60px",
             }}
           />
           <Box
             component="img"
-            src={name}
+            src={props.darkMode ? exerSightsNameWhite : exerSightsNameBlack}
             sx={{
-              height: 30,
-              width: "fit-content",
-              ml: "1vw",
+              height: "30px",
+              width: "200px",
+              ml: "0.5vw",
               display: { xs: "none", md: "flex" },
             }}
           />
         </Box>
+
         {/* desktop navigation */}
         <Box
           sx={{
             display: { xs: "none", md: "flex" },
             justifyContent: "center",
-            flexGrow: 1,
-            flexBasis: "0%",
           }}>
           {menuItems.map((item) => (
-            <Button key={item.text} component={Link} to={item.path}>
-              <Typography
-                variant="button"
-                // textTransform={"none"}
-                sx={{ color: "white" }}>
+            <Box>
+              <IconButton component={Link} to={item.path}>
+                {item.icon}
+              </IconButton>
+              <Button component={Link} to={item.path} variant="text" color="text.primary">
                 {item.text}
-              </Typography>
-            </Button>
+              </Button>
+            </Box>
           ))}
         </Box>
-        {/* login/logout button */}
+
+        {/* toggle dark mode, login/logout button */}
         <Box
           sx={{
             display: "flex",
@@ -109,6 +122,9 @@ function Menubar() {
             justifyContent: "right",
             alignItems: "center",
           }}>
+          <IconButton onClick={props.toggleDarkMode}>
+            {props.darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          </IconButton>
           {isAuth && (
             <Typography
               variant="body1"
@@ -121,10 +137,13 @@ function Menubar() {
           )}
           <Button
             onClick={isAuth ? handleLogout : handleLogin}
-            sx={{ display: { xs: "none", md: "block" }, color: "white", ml: "1vw" }}>
+            variant="text"
+            color="text.primary"
+            sx={{ display: { xs: "none", md: "block" }, ml: "1vw" }}>
             {isAuth ? "Logout" : "Login"}
           </Button>
         </Box>
+
         {/* drawer icon */}
         <Box
           sx={{
@@ -136,6 +155,7 @@ function Menubar() {
             <MenuIcon />
           </IconButton>
         </Box>
+
         {/* mobile drawer */}
         <Drawer
           anchor="right"
@@ -147,14 +167,17 @@ function Menubar() {
           }}>
           <List>
             {menuItems.map((item) => (
-              <ListItem
-                button
-                component={Link}
-                key={item.text}
-                to={item.path}
-                onClick={handleDrawerToggle}>
-                <ListItemText primary={item.text} sx={{ color: "white" }} />
-              </ListItem>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                {item.icon}
+                <ListItem
+                  button
+                  component={Link}
+                  key={item.text}
+                  to={item.path}
+                  onClick={handleDrawerToggle}>
+                  <ListItemText primary={item.text} />
+                </ListItem>
+              </Box>
             ))}
             <ListItem
               button
@@ -162,7 +185,7 @@ function Menubar() {
                 isAuth ? handleLogout() : handleLogin();
                 handleDrawerToggle();
               }}>
-              <ListItemText primary={isAuth ? "Logout" : "Login"} sx={{ color: "white" }} />
+              <ListItemText primary={isAuth ? "Logout" : "Login"} />
             </ListItem>
           </List>
         </Drawer>

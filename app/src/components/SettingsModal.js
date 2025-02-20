@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Modal, Box, Typography, Button, TextField } from "@mui/material";
+import { IconButton, Modal, Box, Typography, Button, TextField, FormControl, MenuItem } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../utils/helpers/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import { setVoiceName, getVoiceName, setVoice } from "../utils/helpers/Audio";
 
 /**
  * A React functional component for displaying and managing a modal that allows users to adjust
@@ -28,6 +29,8 @@ function SettingsModal({
   const [openModal, setOpenModal] = useState(false);
   const [userEmail, setUsername] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [voicesList, setVoicesList] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(getVoiceName());
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -52,7 +55,22 @@ function SettingsModal({
     console.log(angleView);
   };
 
+  const handleVoiceChange = (event) => {
+    const newVoice = event.target.value;
+    setSelectedVoice(newVoice);
+    setVoiceName(newVoice);
+    setVoice();
+  };
+
   useEffect(() => {
+    const fetchVoices = () => {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoicesList(["None", ...availableVoices.map(voice => voice.name)]);
+    };
+
+    fetchVoices();
+    window.speechSynthesis.onvoiceschanged = fetchVoices;
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUsername(user.email);
@@ -105,9 +123,16 @@ function SettingsModal({
               sx={{ marginBottom: "1rem" }}
             />
           ))}
-          <Button variant="contained" onClick={handleToggleAngleView} sx={{ mb: "0.5rem" }}>
+          <Button variant="contained" onClick={handleToggleAngleView} sx={{ mb: "1rem" }}>
             Toggle Angle View
           </Button>
+          <FormControl sx={{ mb: "1rem", width: "100%" }}>
+            <TextField select label="Select Voice" value={selectedVoice} onChange={handleVoiceChange} helperText="⚠ WARNING: Not all voices have been tested." >
+              {voicesList.map((voice, index) => (
+                <MenuItem key={index} value={voice}>{voice}</MenuItem>
+              ))}
+            </TextField>
+          </FormControl>
           <Button variant="contained" onClick={handleCloseModal}>
             Save & Close
           </Button>
