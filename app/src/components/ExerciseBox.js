@@ -6,8 +6,6 @@ import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
 import detectPose from "../utils/models/PoseDetector";
 import OverlayBox from "./CounterGraphic";
 
-
-
 /**
  * A reusable layout component for exercise tracking pages.
  *
@@ -18,107 +16,112 @@ import OverlayBox from "./CounterGraphic";
  *
  * @returns {JSX.Element} The JSX code for the ExerciseBox layout.
  */
-function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, color, repCount}) {
-    const webcamRef = useRef(null);
-    const canvasRef = useRef(null);
-    const [dimensions] = useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
+function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, color, repCount }) {
+  const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
+  const [dimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
-    const videoRef = useRef(null);
-    const videoCanvasRef = useRef(null);
-    const [useVideo, setUseVideo] = useState(false);
+  const videoRef = useRef(null);
+  const videoCanvasRef = useRef(null);
+  const [useVideo, setUseVideo] = useState(false);
 
-    useEffect(() => {
-        detectPose(webcamRef, canvasRef, processPoseResults);
+  useEffect(() => {
+    detectPose(webcamRef, canvasRef, processPoseResults);
 
-        return () => { };
-    }, [targetAngles]);
+    return () => {};
+  }, [targetAngles]);
 
-    const [showOverlay, setShowOverlay] = useState(false);
-    useEffect(() => {
-        if (repCount > 0) { 
-            setShowOverlay(false); 
-            setTimeout(() => {
-                setShowOverlay(true);
-            }, 10); 
-            setTimeout(() => {
-                setShowOverlay(false);
-            }, 1000); 
-        }
-    }, [repCount]);
+  const [showOverlay, setShowOverlay] = useState(false);
+  useEffect(() => {
+    if (repCount > 0) {
+      setShowOverlay(false);
+      setTimeout(() => {
+        setShowOverlay(true);
+      }, 10);
+      setTimeout(() => {
+        setShowOverlay(false);
+      }, 1000);
+    }
+  }, [repCount]);
 
-    const handleVideoUpload = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const videoURL = URL.createObjectURL(file);
-            const videoElement = videoRef.current;
+  const handleVideoUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const videoURL = URL.createObjectURL(file);
+      const videoElement = videoRef.current;
 
-            videoElement.src = videoURL;
-            videoElement.onloadeddata = () => {
-                videoElement.pause(); // Pause initially until user plays it
-            };
+      videoElement.src = videoURL;
+      videoElement.onloadeddata = () => {
+        videoElement.pause(); // Pause initially until user plays it
+      };
 
-            setUseVideo(true);
-        }
-    };
+      setUseVideo(true);
+    }
+  };
 
-    const handlePlay = () => {
-        const videoElement = videoRef.current;
-        startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
-    };
+  const handlePlay = () => {
+    const videoElement = videoRef.current;
+    startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
+  };
 
-    const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
-        handleVideoUpload: handleVideoUpload, // Spread in the extra props
-    });
+  const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
+    handleVideoUpload: handleVideoUpload, // Spread in the extra props
+  });
 
-
-    return (
-        <Box>
-            <Typography variant="h2" sx={{ textAlign: "center" }}>
-                {title}
-            </Typography>
-            <Box
-                sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                    width: "100%",
-                    height: "fit-content",
-                    padding: "2vmin",
-                }}
-            >
-                <Box sx={{ border: `12px solid ${color || "white"}`, // Dynamic border color 
-                borderRadius: "8px", 
-                overflow: "hidden", 
-                padding: "5px",  
-                display: useVideo ? "none" : "", 
-                position: "relative"}}>
-                    <WebcamCanvas
-                        dimensions={dimensions}
-                        ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-                    />
-                    {showOverlay  && <OverlayBox text={repCount} />}
-                </Box>
-                <Box sx={{ 
-                    border: `12px solid ${color || "white"}`, // Dynamic border color 
-                    borderRadius: "8px", 
-                    overflow: "hidden", 
-                    padding: "5px",  
-                    display: useVideo ? "" : "none" }}>
-                    <VideoCanvas
-                        handlePlay={handlePlay}
-                        ref={{ videoRef: videoRef, canvasRef: videoCanvasRef }}
-                    />
-                    {showOverlay  && <OverlayBox text={repCount} />}
-                </Box>
-
-
-                {enhancedFeedbackPanel}
-            </Box>
+  return (
+    <Box sx={{ padding: "0.5rem" }}>
+      <Typography variant="h2" sx={{ textAlign: "center" }}>
+        {title}
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          width: "100%",
+          height: "fit-content",
+          padding: "2vmin",
+          gap: "2rem",
+        }}>
+        <Box
+          sx={{
+            border: `6px solid ${color || "white"}`, // Dynamic border color
+            borderRadius: "1rem",
+            overflow: "hidden",
+            m: "2rem",
+            display: useVideo ? "none" : "",
+            position: "relative",
+            boxShadow: `0px 0px 65px 0px ${color}`,
+          }}>
+          <WebcamCanvas
+            dimensions={dimensions}
+            ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
+          />
+          {showOverlay && <OverlayBox text={repCount} />}
         </Box>
-    );
-};
+        <Box
+          sx={{
+            border: `6px solid ${color || "white"}`, // Dynamic border color
+            borderRadius: "8px",
+            overflow: "hidden",
+            padding: "5px",
+            display: useVideo ? "" : "none",
+            boxShadow: `0px 0px 65px 0px ${color}`,
+          }}>
+          <VideoCanvas
+            handlePlay={handlePlay}
+            ref={{ videoRef: videoRef, canvasRef: videoCanvasRef }}
+          />
+          {showOverlay && <OverlayBox text={repCount} />}
+        </Box>
+
+        {enhancedFeedbackPanel}
+      </Box>
+    </Box>
+  );
+}
 
 export default ExerciseBox;

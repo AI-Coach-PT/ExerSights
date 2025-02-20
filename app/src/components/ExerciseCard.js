@@ -43,6 +43,7 @@ function ExerciseCard({ image, title, description, link }) {
           "&:hover": {
             transform: "scale(1.05)",
           },
+          borderRadius: "2rem",
         }}>
         <CardActionArea component={link ? Link : "div"} to={link ? link : null} variant="outlined">
           <CardMedia component="img" image={image} />
@@ -50,7 +51,7 @@ function ExerciseCard({ image, title, description, link }) {
             <Typography variant="h5" component="div">
               {title}
             </Typography>
-            <Typography variant="body2" sx={{ color: "text.secondary" }} height="5vh">
+            <Typography variant="body2" color="text.secondary" height="5vh">
               {description}
             </Typography>
           </CardContent>

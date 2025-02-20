@@ -16,86 +16,80 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
  * @returns {JSX.Element} - Returns a modal component that can be triggered by a question mark icon button.
  */
 function HelpModal({ image, description, video }) {
-    const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
-    const handleOpenModal = () => {
-        setOpenModal(true);
-    };
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
 
-    const handleCloseModal = () => {
-        setOpenModal(false);
-    };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
-    return (
-        <div>
-            <IconButton sx={{ position: "static" }} onClick={handleOpenModal}>
-                <QuestionMarkIcon fontSize="small" />
-            </IconButton>
+  return (
+    <>
+      <IconButton sx={{ position: "static" }} onClick={handleOpenModal}>
+        <QuestionMarkIcon fontSize="small" />
+      </IconButton>
 
-            <Modal open={openModal} onClose={handleCloseModal}>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: "50vw",
-                        bgcolor: "background.paper",
-                        border: "2px solid black",
-                        boxShadow: 24,
-                        p: 4,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        maxHeight: "90vh",
-                        overflow: "auto",
-                    }}
-                >
-                    <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                        sx={{ marginBottom: "4vh" }}
-                    >
-                        Video Tutorial
-                    </Typography>
-
-                    <iframe
-                        width="100%"
-                        src={video}
-                        title="YouTube Video"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        style={{ marginBottom: "4vh", borderRadius: "8px", maxWidth: "100%", aspectRatio: "16/9" }}
-                    ></iframe>
-
-                    <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                        sx={{ marginBottom: "4vh" }}
-                    >
-                        Camera Placement Instructions
-                    </Typography>
-
-                    <img src={image} width={500} />
-
-                    <Typography
-                        variant="body2"
-                        textAlign="center"
-                        width={600}
-                        sx={{ color: "text.secondary", marginTop: "4vh", marginBottom: "4vh" }}
-                    >
-                        {description}
-                    </Typography>
-
-                    <Button variant="contained" onClick={handleCloseModal}>
-                        Close
-                    </Button>
-                </Box>
-            </Modal>
-        </div>
-    );
+      <Modal open={openModal} onClose={handleCloseModal}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "70vw",
+            height: "80vh",
+            bgcolor: "background.default",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            overflow: "auto",
+            boxShadow: "0px 0px 20px 0px rgba(255,255,255,1)",
+            p: 4,
+            borderRadius: "20px",
+            textAlign: "center",
+          }}>
+          <Typography id="modal-modal-title" variant="h3" sx={{ mb: "1rem" }}>
+            Video Tutorial
+          </Typography>
+          <iframe
+            width="100%"
+            src={video}
+            title="YouTube Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{
+              borderRadius: "8px",
+              aspectRatio: "16/9",
+              marginBottom: "2rem",
+            }}></iframe>
+          <Typography id="modal-modal-title" variant="h3" sx={{ mb: "1rem" }}>
+            Camera Placement Instructions
+          </Typography>
+          <Box
+            component="img"
+            src={image}
+            sx={{
+              width: "80%",
+              mb: "1rem",
+              borderRadius: "10px",
+            }}
+          />
+          <Typography
+            variant="body2"
+            textAlign="center"
+            sx={{ color: "text.secondary", mb: "1rem" }}>
+            {description}
+          </Typography>
+          <Button variant="contained" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Box>
+      </Modal>
+    </>
+  );
 }
 
 export default HelpModal;

@@ -28,11 +28,10 @@ function FeedbackPanel({
   handleVideoUpload,
   angleView,
 }) {
-
   useEffect(() => {
     return () => {
       handleReset();
-    }
+    };
   }, []);
 
   return (
@@ -42,13 +41,19 @@ function FeedbackPanel({
         padding: "20px",
         textAlign: "left",
         height: "fit-content",
-        width: "25rem",
+        width: "28rem",
         margin: "10px",
         display: "flex",
         flexDirection: "column",
         gap: "0.25rem",
       }}>
-      <Box sx={{ display: "flex", justifyContent: "right", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          alignItems: "center",
+          textAlign: "center",
+        }}>
         <Typography variant="body1">Real-Time Feedback Panel</Typography>
         {HelpModal}
         {SettingsModal}
@@ -58,8 +63,8 @@ function FeedbackPanel({
         <Typography variant="body1">
           Feedback:
           {feedbackList.map((feedback, index) => (
-            <Typography key={`feedback-${index}`} variant="body1" style={{ color: "red" }}>
-              {(feedback || index > 0) ? feedback : "Get in frame!"}
+            <Typography key={`feedback-${index}`} variant="body1" color="red">
+              {feedback || index > 0 ? feedback : "Get in frame!"}
             </Typography>
           ))}
         </Typography>
@@ -77,14 +82,22 @@ function FeedbackPanel({
 
       <Typography variant="body1">Current Rep Count: {repCount}</Typography>
 
-      <Button variant="contained" color="primary" onClick={handleReset} sx={{ width: "50%" }}>
-        Reset Rep Count
-      </Button>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+        <Button
+          variant="contained"
+          onClick={handleReset}
+          color="secondary"
+          sx={{
+            width: "45%",
+          }}>
+          Reset Rep Count
+        </Button>
 
-      <Button variant="contained" color="primary" component="label" sx={{ width: "50%" }}>
-        Upload Video
-        <input type="file" accept="video/*" onChange={handleVideoUpload} hidden />
-      </Button>
+        <Button variant="contained" component="label" color="secondary" sx={{ width: "45%" }}>
+          Upload Video
+          <input type="file" accept="video/*" onChange={handleVideoUpload} hidden />
+        </Button>
+      </Box>
 
       <Timer />
     </Paper>
