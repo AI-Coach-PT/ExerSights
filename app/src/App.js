@@ -54,6 +54,7 @@ function App() {
       mode: darkMode ? "dark" : "light",
       primary: {
         main: darkMode ? indigo[500] : orange[700],
+        contrastText: darkMode ? "white" : "black",
       },
       secondary: {
         main: darkMode ? indigo[500] : orange[700],

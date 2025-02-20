@@ -10,15 +10,14 @@ import {
   List,
   ListItem,
   ListItemText,
-  FormControlLabel,
-  Switch,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { handleLogin, handleLogout } from "../utils/helpers/HandleLogin";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import logo from "../assets/logos/logoNoName.png";
-import name from "../assets/logos/productNameWhite.png";
+import exerSightsLogo from "../assets/logos/logoNoName.png";
+import exerSightsNameWhite from "../assets/logos/productNameWhite.png";
+import exerSightsNameBlack from "../assets/logos/productNameBlack.png";
 import HomeIcon from "@mui/icons-material/Home";
 import ListIcon from "@mui/icons-material/List";
 import InfoIcon from "@mui/icons-material/Info";
@@ -78,7 +77,7 @@ function Menubar(props) {
           sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
           <Box
             component="img"
-            src={logo}
+            src={exerSightsLogo}
             sx={{
               height: 60,
               width: 60,
@@ -86,7 +85,7 @@ function Menubar(props) {
           />
           <Box
             component="img"
-            src={name}
+            src={props.darkMode ? exerSightsNameWhite : exerSightsNameBlack}
             sx={{
               height: 30,
               width: "fit-content",
@@ -101,34 +100,18 @@ function Menubar(props) {
           sx={{
             display: { xs: "none", md: "flex" },
             justifyContent: "center",
-            flexGrow: 1,
-            flexBasis: "0%",
+            gap: 1,
           }}>
-          <Box sx={{ display: "flex", justifyContent: "left" }}>
-            {menuItems.map((item) => (
-              <Box>
-                <IconButton component={Link} to={item.path}>
-                  {item.icon}
-                </IconButton>
-                <Typography
-                  variant="button"
-                  className="menu-text"
-                  sx={{
-                    color: "white",
-                    position: "absolute",
-                    left: "100%",
-                    width: 0,
-                    opacity: 0,
-                    visibility: "hidden",
-                    whiteSpace: "nowrap",
-                    transition: "all 0.3s ease-in-out",
-                    overflow: "hidden",
-                  }}>
-                  {item.text}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
+          {menuItems.map((item) => (
+            <Box>
+              <IconButton component={Link} to={item.path}>
+                {item.icon}
+              </IconButton>
+              <Button component={Link} to={item.path} variant="text" color="text.primary">
+                {item.text}
+              </Button>
+            </Box>
+          ))}
         </Box>
 
         {/* toggle dark mode, login/logout button */}
