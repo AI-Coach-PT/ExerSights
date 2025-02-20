@@ -38,6 +38,7 @@ import {
 } from "@mui/material/colors";
 import { createTheme, responsiveFontSizes } from "@mui/material";
 import { useState } from "react";
+import ExercisePage from "./pages/exercises/ExercisePage";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -221,13 +222,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/home" element={<Home />} />
           <Route path="/squat" element={<SquatPage />} />
-          <Route path="/bridge" element={<BridgePage />} />
-          <Route path="/deadbug" element={<DeadBugPage />} />
-          <Route path="/pushup" element={<PushUpPage />} />
-          <Route path="/pullup" element={<PullUpPage />} />
-          <Route path="/muscleup" element={<MuscleUpPage />} />
-          <Route path="/latExtRotation" element={<LatExtRotationPage />} />
-          <Route path="/plank" element={<PlankPage />} />
+          <Route path="/exercise" element={<ExercisePage />} />
         </Routes>
       </Router>
     </ThemeProvider>

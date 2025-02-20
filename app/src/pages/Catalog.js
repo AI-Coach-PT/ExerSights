@@ -34,49 +34,49 @@ function Catalog() {
         <ExerciseCard
           title="Squat"
           description={catalogText.squat}
-          link="/squat"
+          link="/exercise?exercise=squat"
           image={squatImg}
         />
         <ExerciseCard
           title="Bridge"
           description={catalogText.bridge}
-          link="/bridge"
+          link="/exercise?exercise=bridge"
           image={bridgeImg}
         />
         <ExerciseCard
           title="Dead Bug"
           description={catalogText.deadbug}
-          link="/deadbug"
+          link="/exercise?exercise=deadBug"
           image={deadBugImage}
         />
         <ExerciseCard
           title="Push-up"
           description={catalogText.pushup}
-          link="/pushup"
+          link="/exercise?exercise=pushUp"
           image={pushUpImage}
         />
         <ExerciseCard
           title="Pull-up"
           description={catalogText.pullup}
-          link="/pullup"
+          link="/exercise?exercise=pullUp"
           image={pullUpImage}
         />
         <ExerciseCard
           title="Muscle-up"
           description={catalogText.muscleup}
-          link="/muscleup"
+          link="/exercise?exercise=muscleUp"
           image={muscleUpImage}
         />
         <ExerciseCard
           title="Lateral External Rotation"
           description={catalogText.latExtRotation}
-          link="/latExtRotation"
+          link="/exercise?exercise=latExtRotation"
           image={latExtRotationImg}
         />
         <ExerciseCard
           title="Plank"
           description={catalogText.plank}
-          link="/plank"
+          link="/exercise?exercise=plank"
           image={plankImg}
         />
       </Grid>
