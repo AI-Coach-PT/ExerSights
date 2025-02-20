@@ -65,7 +65,7 @@ function Home() {
         </CardContent>
       </Card>
 
-      <Typography variant="h1" sx={{ mb: "0.5rem" }}>
+      <Typography variant="h2" sx={{ mb: "0.5rem" }}>
         Not sure how to get started?
       </Typography>
       <Typography variant="h3" sx={{ mb: "0.5rem" }}>

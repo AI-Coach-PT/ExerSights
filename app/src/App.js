@@ -6,15 +6,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SquatPage from "./pages/exercises/SquatPage";
 import Menubar from "./components/Menubar";
-import BridgePage from "./pages/exercises/BridgePage";
-import DeadBugPage from "./pages/exercises/DeadBugPage";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import PushUpPage from "./pages/exercises/PushUpPage";
-import PullUpPage from "./pages/exercises/PullUpPage";
-import LatExtRotationPage from "./pages/exercises/LatExtRotationPage";
-import MuscleUpPage from "./pages/exercises/MuscleUpPage";
-import PlankPage from "./pages/exercises/PlankPage";
 import {
   red,
   pink,
