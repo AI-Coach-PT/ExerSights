@@ -41,7 +41,7 @@ function FeedbackPanel({
         padding: "20px",
         textAlign: "left",
         height: "fit-content",
-        width: "25rem",
+        width: "28rem",
         margin: "10px",
         display: "flex",
         flexDirection: "column",
@@ -82,20 +82,22 @@ function FeedbackPanel({
 
       <Typography variant="body1">Current Rep Count: {repCount}</Typography>
 
-      <Button
-        variant="contained"
-        onClick={handleReset}
-        color="secondary"
-        sx={{
-          width: "50%",
-        }}>
-        Reset Rep Count
-      </Button>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+        <Button
+          variant="contained"
+          onClick={handleReset}
+          color="secondary"
+          sx={{
+            width: "45%",
+          }}>
+          Reset Rep Count
+        </Button>
 
-      <Button variant="contained" component="label" color="secondary" sx={{ width: "50%" }}>
-        Upload Video
-        <input type="file" accept="video/*" onChange={handleVideoUpload} hidden />
-      </Button>
+        <Button variant="contained" component="label" color="secondary" sx={{ width: "45%" }}>
+          Upload Video
+          <input type="file" accept="video/*" onChange={handleVideoUpload} hidden />
+        </Button>
+      </Box>
 
       <Timer />
     </Paper>
