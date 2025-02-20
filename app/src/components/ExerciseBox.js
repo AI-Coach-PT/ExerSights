@@ -88,13 +88,13 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
         }}>
         <Box
           sx={{
-            border: `12px none ${color || "white"}`, // Dynamic border color
+            border: `6px solid ${color || "white"}`, // Dynamic border color
             borderRadius: "1rem",
             overflow: "hidden",
             m: "2rem",
             display: useVideo ? "none" : "",
             position: "relative",
-            boxShadow: `0px 0px 105px 0px ${color}`,
+            boxShadow: `0px 0px 65px 0px ${color}`,
           }}>
           <WebcamCanvas
             dimensions={dimensions}
@@ -104,11 +104,12 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
         </Box>
         <Box
           sx={{
-            border: `12px solid ${color || "white"}`, // Dynamic border color
+            border: `6px solid ${color || "white"}`, // Dynamic border color
             borderRadius: "8px",
             overflow: "hidden",
             padding: "5px",
             display: useVideo ? "" : "none",
+            boxShadow: `0px 0px 65px 0px ${color}`,
           }}>
           <VideoCanvas
             handlePlay={handlePlay}
