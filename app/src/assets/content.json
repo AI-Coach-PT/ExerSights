@@ -1,13 +1,14 @@
 {
   "catalog": {
-    "squat": "Squats strengthen the legs, glutes, and core, improving flexibility and balance.",
-    "pushup": "The push-up exercise builds upper body strength specifically in your chest and triceps.",
-    "deadbug": "The dead bug exercise is a technique for building strength in your back and core.",
-    "bridge": "The bridge exercise strengthens core muscles and improves spinal stability.",
-    "pullup": "The pull-up exercise builds upper body strength in the back, shoulders, and biceps.",
+    "squat": "Strengthens the legs, glutes, and core, improving flexibility and balance.",
+    "pushup": "Builds upper body strength specifically in your chest and triceps.",
+    "deadbug": "A technique for building strength in your back and core.",
+    "bridge": "Strengthens core muscles and improves spinal stability.",
+    "pullup": "Builds upper body strength in the back, shoulders, and biceps.",
     "latExtRotation": "Strengthens rotator cuff muscles, enhancing shoulder stability and reducing injury risk.",
-    "muscleup": "The muscle-up is a combination of the pull-up and dip, building upper body explosive strength.",
-    "plank": "The plank exercise strengthens the core, shoulders, and back, improving stability and posture."
+    "muscleup": "A combination of the pull-up and dip, building upper body explosive strength.",
+    "plank": "Strengthens the core, shoulders, and back, improving stability and posture.",
+    "pilatesHundred": "Combines arm-pumping movements with a sustained core-engaged position to strengthen abs, shoulders, arms inner thigs, and hip flexors."
   },
   "instructions": {
     "squat": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
@@ -17,7 +18,8 @@
     "pullup": "For best results, position the webcam to face the BACK of your body while on the bar. Ensure that your entire body is in frame and the camera is straight and not tilted.",
     "muscleup": "For best results, position the webcam to face the FRONT of your body while on the bar. Ensure that your entire body is in frame and the camera is straight and not tilted.",
     "latExtRotation": "For best results, position the webcam to face the SIDE of your upper body. Ensure that the camera is straight and not tilted.",
-    "plank": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted."
+    "plank": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
+    "pilatesHundred": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted."
   },
   "instructionVideos": {
     "squat": "https://www.youtube.com/embed/4KmY44Xsg2w",
@@ -26,7 +28,9 @@
     "bridge": "https://www.youtube.com/embed/wPM8icPu6H8",
     "pullup": "https://www.youtube.com/embed/eGo4IYlbE5g",
     "muscleup": "https://www.youtube.com/embed/WXvZpIMOicc",
-    "latExtRotation": "https://www.youtube.com/embed/EUMsYC_W3aI"
+    "latExtRotation": "https://www.youtube.com/embed/EUMsYC_W3aI",
+    "plank": "https://www.youtube.com/embed/pSHjTRCQxIw",
+    "pilatesHundred": "https://www.youtube.com/embed/UaqpuUzs1i8"
   },
   "legal": {
     "disclaimer": "Disclaimer: Exercise feedback and stats provided may not always be accurate. We are not liable for inaccurate feedback or any resulting injuries. Always consult a professional trainer before performing exercises. Use at your own risk."

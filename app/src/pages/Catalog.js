@@ -10,6 +10,7 @@ import pullUpImage from "../assets/exercise-cards/pullUp.png";
 import muscleUpImage from "../assets/exercise-cards/muscleUp.png";
 import latExtRotationImg from "../assets/exercise-cards/latExtRotation.png";
 import plankImg from "../assets/exercise-cards/plank.png";
+import pilatesHundredImg from "../assets/exercise-cards/pilatesHundred.png";
 import { catalogText } from "../assets/content.js";
 
 /**
@@ -76,6 +77,12 @@ function Catalog() {
           description={catalogText.plank}
           link="/exercise?exercise=plank"
           image={plankImg}
+        />
+        <ExerciseCard
+          title="Pilates Hundred"
+          description={catalogText.pilatesHundred}
+          link="/exercise?exercise=pilatesHundred"
+          image={pilatesHundredImg}
         />
       </Grid>
     </Box>

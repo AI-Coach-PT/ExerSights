@@ -23,19 +23,19 @@ export const plankInfo = {
   jointInfo: {
     joints: {
       left: {
-        leftShoulder: 12,
-        leftHip: 24,
-        leftKnee: 26,
+        leftShoulder: 11,
+        leftHip: 23,
+        leftKnee: 25,
       },
       right: {
-        rightShoulder: 11,
-        rightHip: 23,
-        rightKnee: 25,
+        rightShoulder: 12,
+        rightHip: 24,
+        rightKnee: 26,
       },
     },
     jointAngles: {
-      leftHipAngle: [12, 24, 26],
-      rightHipAngle: [11, 23, 25],
+      leftHipAngle: [11, 23, 25],
+      rightHipAngle: [12, 24, 26],
     },
   },
 
