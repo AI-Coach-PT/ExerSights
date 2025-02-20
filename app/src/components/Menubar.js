@@ -79,17 +79,17 @@ function Menubar(props) {
             component="img"
             src={exerSightsLogo}
             sx={{
-              height: 60,
-              width: 60,
+              height: "60px",
+              width: "60px",
             }}
           />
           <Box
             component="img"
             src={props.darkMode ? exerSightsNameWhite : exerSightsNameBlack}
             sx={{
-              height: 30,
-              width: "fit-content",
-              ml: "1vw",
+              height: "30px",
+              width: "200px",
+              ml: "0.5vw",
               display: { xs: "none", md: "flex" },
             }}
           />
@@ -100,7 +100,6 @@ function Menubar(props) {
           sx={{
             display: { xs: "none", md: "flex" },
             justifyContent: "center",
-            gap: 1,
           }}>
           {menuItems.map((item) => (
             <Box>
