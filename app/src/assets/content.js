@@ -11,6 +11,9 @@ export const instructionsTextMuscleUp = content.instructions.muscleup;
 export const instructionsTextLatExtRotation = content.instructions.latExtRotation;
 export const instructionsTextPlank = content.instructions.plank;
 export const instructionsTextPilatesHundred = content.instructions.pilatesHundred;
+export const instructionsTextLunge = content.instructions.lunge;
+export const instructionsTextLegRaise = content.instructions.legRaise;
+export const instructionsTextToeTouch = content.instructions.toeTouch;
 
 export const instructionsVideoSquat = content.instructionVideos.squat;
 export const instructionsVideoPushUp = content.instructionVideos.pushup;
@@ -21,5 +24,8 @@ export const instructionsVideoMuscleUp = content.instructionVideos.muscleup;
 export const instructionsVideoLatExtRotation = content.instructionVideos.latExtRotation;
 export const instructionsVideoPlank = content.instructionVideos.plank;
 export const instructionsVideoPilatesHundred = content.instructionVideos.pilatesHundred;
+export const instructionsVideoLunge = content.instructionVideos.lunge;
+export const instructionsVideoLegRaise = content.instructionVideos.legRaise;
+export const instructionsVideoToeTouch = content.instructionVideos.toeTouch;
 
 export const disclaimerText = content.legal.disclaimer;

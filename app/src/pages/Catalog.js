@@ -11,6 +11,9 @@ import muscleUpImage from "../assets/exercise-cards/muscleUp.png";
 import latExtRotationImg from "../assets/exercise-cards/latExtRotation.png";
 import plankImg from "../assets/exercise-cards/plank.png";
 import pilatesHundredImg from "../assets/exercise-cards/pilatesHundred.png";
+import lungeImg from "../assets/exercise-cards/lunge.png";
+import legRaiseImg from "../assets/exercise-cards/legRaise.png";
+import toeTouchImg from "../assets/exercise-cards/toeTouch.png";
 import { catalogText } from "../assets/content.js";
 
 /**
@@ -83,6 +86,24 @@ function Catalog() {
           description={catalogText.pilatesHundred}
           link="/exercise?exercise=pilatesHundred"
           image={pilatesHundredImg}
+        />
+        <ExerciseCard
+          title="Lunge"
+          description={catalogText.lunge}
+          link="/exercise?exercise=lunge"
+          image={lungeImg}
+        />
+        <ExerciseCard
+          title="Leg Raise"
+          description={catalogText.legRaise}
+          link="/exercise?exercise=legRaise"
+          image={legRaiseImg}
+        />
+        <ExerciseCard
+          title="Toe Touch"
+          description={catalogText.toeTouch}
+          link="/exercise?exercise=toeTouch"
+          image={toeTouchImg}
         />
       </Grid>
     </Box>
