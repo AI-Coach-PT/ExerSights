@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid2";
+import Box from "@mui/material/Box";
 
 /**
  * A card component that displays exercise information with optional navigation functionality.
@@ -44,14 +45,35 @@ function ExerciseCard({ image, title, description, link }) {
             transform: "scale(1.05)",
           },
           borderRadius: "2rem",
+          display: "flex",
+          flexDirection: "column",
         }}>
         <CardActionArea component={link ? Link : "div"} to={link ? link : null} variant="outlined">
-          <CardMedia component="img" image={image} />
-          <CardContent>
+          <Box
+            sx={{
+              width: "100%",
+              height: "0",
+              paddingTop: "56.25%",
+              position: "relative",
+            }}>
+            <CardMedia
+              component="img"
+              image={image}
+              sx={{
+                position: "absolute",
+                top: "0",
+                left: "0",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover"
+              }}
+            />
+          </Box>
+          <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <Typography variant="h5" component="div">
               {title}
             </Typography>
-            <Typography variant="body2" color="text.secondary" height="5vh">
+            <Typography variant="body2" color="text.secondary">
               {description}
             </Typography>
           </CardContent>
