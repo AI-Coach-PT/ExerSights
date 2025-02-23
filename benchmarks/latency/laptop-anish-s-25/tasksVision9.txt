@@ -1,0 +1,704 @@
+react refresh:6 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+Menubar.js:95 Warning: Each child in a list should have a unique "key" prop.
+
+Check the render method of `Menubar`. See https://reactjs.org/link/warning-keys for more information.
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at Menubar (http://localhost:3000/static/js/bundle.js:1859:78)
+    at Router (http://localhost:3000/static/js/bundle.js:114434:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:112375:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66777:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:67465:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66439:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:67555:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63706:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63659:3)
+    at App (http://localhost:3000/static/js/bundle.js:66:82)
+printWarning @ react-jsx-dev-runtime.development.js:87
+error @ react-jsx-dev-runtime.development.js:61
+validateExplicitKey @ react-jsx-dev-runtime.development.js:1078
+validateChildKeys @ react-jsx-dev-runtime.development.js:1105
+jsxWithValidation @ react-jsx-dev-runtime.development.js:1277
+Menubar @ Menubar.js:95
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533Understand this errorAI
+28Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.Understand this warningAI
+react-dom.development.js:86 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
+    at p
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62558:87)
+    at p
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62558:87)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Paper (http://localhost:3000/static/js/bundle.js:58906:96)
+    at FeedbackPanel (http://localhost:3000/static/js/bundle.js:1363:3)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at ExerciseBox (http://localhost:3000/static/js/bundle.js:956:3)
+    at ExercisePage (http://localhost:3000/static/js/bundle.js:3888:81)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:113798:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:114500:5)
+    at Router (http://localhost:3000/static/js/bundle.js:114434:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:112375:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66777:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:67465:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66439:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:67555:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63706:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63659:3)
+    at App (http://localhost:3000/static/js/bundle.js:66:82)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+validateDOMNesting @ react-dom.development.js:10849
+createInstance @ react-dom.development.js:10930
+completeWork @ react-dom.development.js:22226
+completeUnitOfWork @ react-dom.development.js:26635
+performUnitOfWork @ react-dom.development.js:26607
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533Understand this errorAI
+VM309 vision_wasm_internal.js:1087 I0000 00:00:1740279531.823000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ VM309 vision_wasm_internal.js:1087
+write @ VM309 vision_wasm_internal.js:1022
+write @ VM309 vision_wasm_internal.js:2353
+doWritev @ VM309 vision_wasm_internal.js:5859
+_fd_write @ VM309 vision_wasm_internal.js:5872
+$func14773 @ vision_wasm_internal.wasm:0x7362d6
+$func449 @ vision_wasm_internal.wasm:0x20ebb
+$func709 @ vision_wasm_internal.wasm:0x3dd99
+$func5967 @ vision_wasm_internal.wasm:0x384b83
+$func14682 @ vision_wasm_internal.wasm:0x71b7c5
+$func5970 @ vision_wasm_internal.wasm:0x38518b
+$func3584 @ vision_wasm_internal.wasm:0x1d237d
+$func291 @ vision_wasm_internal.wasm:0x1030d
+$func5139 @ vision_wasm_internal.wasm:0x2f47dd
+$func12467 @ vision_wasm_internal.wasm:0x640abb
+$func5164 @ vision_wasm_internal.wasm:0x2f9ed4
+$func5335 @ vision_wasm_internal.wasm:0x325d54
+$$d @ vision_wasm_internal.wasm:0x71138b
+Module._changeBinaryGraph @ VM309 vision_wasm_internal.js:8342
+setGraph @ vision_bundle.mjs:1
+setGraph @ vision_bundle.mjs:1
+m @ vision_bundle.mjs:1
+(anonymous) @ vision_bundle.mjs:1
+Promise.then
+l @ vision_bundle.mjs:1
+l @ vision_bundle.mjs:1
+o @ vision_bundle.mjs:1
+zo @ vision_bundle.mjs:1
+await in zo
+(anonymous) @ vision_bundle.mjs:1
+Ka @ vision_bundle.mjs:1
+push../node_modules/@mediapipe/tasks-vision/vision_bundle.mjs.Yh.createFromOptions @ vision_bundle.mjs:1
+createPoseLandmarker @ PoseDetectorTasksVision.js:12
+await in createPoseLandmarker
+detectPose @ PoseDetectorTasksVision.js:29
+getDetectPose @ PoseDetector.js:10
+await in getDetectPose
+(anonymous) @ ExerciseBox.js:32
+commitHookEffectListMount @ react-dom.development.js:23189
+commitPassiveMountOnFiber @ react-dom.development.js:24965
+commitPassiveMountEffects_complete @ react-dom.development.js:24930
+commitPassiveMountEffects_begin @ react-dom.development.js:24917
+commitPassiveMountEffects @ react-dom.development.js:24905
+flushPassiveEffectsImpl @ react-dom.development.js:27078
+flushPassiveEffects @ react-dom.development.js:27023
+(anonymous) @ react-dom.development.js:26808
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533Understand this warningAI
+VM309 vision_wasm_internal.js:1087 I0000 00:00:1740279531.826000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ VM309 vision_wasm_internal.js:1087
+write @ VM309 vision_wasm_internal.js:1022
+write @ VM309 vision_wasm_internal.js:2353
+doWritev @ VM309 vision_wasm_internal.js:5859
+_fd_write @ VM309 vision_wasm_internal.js:5872
+$func14773 @ vision_wasm_internal.wasm:0x7362d6
+$func449 @ vision_wasm_internal.wasm:0x20ebb
+$func709 @ vision_wasm_internal.wasm:0x3dd99
+$func5967 @ vision_wasm_internal.wasm:0x384b83
+$func14682 @ vision_wasm_internal.wasm:0x71b7c5
+$func5970 @ vision_wasm_internal.wasm:0x38518b
+$func3584 @ vision_wasm_internal.wasm:0x1d237d
+$func291 @ vision_wasm_internal.wasm:0x1030d
+$func9927 @ vision_wasm_internal.wasm:0x534b5f
+$func3322 @ vision_wasm_internal.wasm:0x1b1224
+$func1359 @ vision_wasm_internal.wasm:0x8787f
+$func5139 @ vision_wasm_internal.wasm:0x2f4890
+$func12467 @ vision_wasm_internal.wasm:0x640abb
+$func5164 @ vision_wasm_internal.wasm:0x2f9ed4
+$func5335 @ vision_wasm_internal.wasm:0x325d54
+$$d @ vision_wasm_internal.wasm:0x71138b
+Module._changeBinaryGraph @ VM309 vision_wasm_internal.js:8342
+setGraph @ vision_bundle.mjs:1
+setGraph @ vision_bundle.mjs:1
+m @ vision_bundle.mjs:1
+(anonymous) @ vision_bundle.mjs:1
+Promise.then
+l @ vision_bundle.mjs:1
+l @ vision_bundle.mjs:1
+o @ vision_bundle.mjs:1
+zo @ vision_bundle.mjs:1
+await in zo
+(anonymous) @ vision_bundle.mjs:1
+Ka @ vision_bundle.mjs:1
+push../node_modules/@mediapipe/tasks-vision/vision_bundle.mjs.Yh.createFromOptions @ vision_bundle.mjs:1
+createPoseLandmarker @ PoseDetectorTasksVision.js:12
+await in createPoseLandmarker
+detectPose @ PoseDetectorTasksVision.js:29
+getDetectPose @ PoseDetector.js:10
+await in getDetectPose
+(anonymous) @ ExerciseBox.js:32
+commitHookEffectListMount @ react-dom.development.js:23189
+commitPassiveMountOnFiber @ react-dom.development.js:24965
+commitPassiveMountEffects_complete @ react-dom.development.js:24930
+commitPassiveMountEffects_begin @ react-dom.development.js:24917
+commitPassiveMountEffects @ react-dom.development.js:24905
+flushPassiveEffectsImpl @ react-dom.development.js:27078
+flushPassiveEffects @ react-dom.development.js:27023
+(anonymous) @ react-dom.development.js:26808
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533Understand this warningAI
+VM309 vision_wasm_internal.js:1087 W0000 00:00:1740279531.827000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ VM309 vision_wasm_internal.js:1087
+write @ VM309 vision_wasm_internal.js:1022
+write @ VM309 vision_wasm_internal.js:2353
+doWritev @ VM309 vision_wasm_internal.js:5859
+_fd_write @ VM309 vision_wasm_internal.js:5872
+$func14773 @ vision_wasm_internal.wasm:0x7362d6
+$func449 @ vision_wasm_internal.wasm:0x20ebb
+$func709 @ vision_wasm_internal.wasm:0x3dd99
+$func5967 @ vision_wasm_internal.wasm:0x384b83
+$func14682 @ vision_wasm_internal.wasm:0x71b7c5
+$func5970 @ vision_wasm_internal.wasm:0x38518b
+$func3584 @ vision_wasm_internal.wasm:0x1d237d
+$func291 @ vision_wasm_internal.wasm:0x1030d
+$func3322 @ vision_wasm_internal.wasm:0x1b1284
+$func1359 @ vision_wasm_internal.wasm:0x8787f
+$func5139 @ vision_wasm_internal.wasm:0x2f4890
+$func12467 @ vision_wasm_internal.wasm:0x640abb
+$func5164 @ vision_wasm_internal.wasm:0x2f9ed4
+$func5335 @ vision_wasm_internal.wasm:0x325d54
+$$d @ vision_wasm_internal.wasm:0x71138b
+Module._changeBinaryGraph @ VM309 vision_wasm_internal.js:8342
+setGraph @ vision_bundle.mjs:1
+setGraph @ vision_bundle.mjs:1
+m @ vision_bundle.mjs:1
+(anonymous) @ vision_bundle.mjs:1
+Promise.then
+l @ vision_bundle.mjs:1
+l @ vision_bundle.mjs:1
+o @ vision_bundle.mjs:1
+zo @ vision_bundle.mjs:1
+await in zo
+(anonymous) @ vision_bundle.mjs:1
+Ka @ vision_bundle.mjs:1
+push../node_modules/@mediapipe/tasks-vision/vision_bundle.mjs.Yh.createFromOptions @ vision_bundle.mjs:1
+createPoseLandmarker @ PoseDetectorTasksVision.js:12
+await in createPoseLandmarker
+detectPose @ PoseDetectorTasksVision.js:29
+getDetectPose @ PoseDetector.js:10
+await in getDetectPose
+(anonymous) @ ExerciseBox.js:32
+commitHookEffectListMount @ react-dom.development.js:23189
+commitPassiveMountOnFiber @ react-dom.development.js:24965
+commitPassiveMountEffects_complete @ react-dom.development.js:24930
+commitPassiveMountEffects_begin @ react-dom.development.js:24917
+commitPassiveMountEffects @ react-dom.development.js:24905
+flushPassiveEffectsImpl @ react-dom.development.js:27078
+flushPassiveEffects @ react-dom.development.js:27023
+(anonymous) @ react-dom.development.js:26808
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533Understand this warningAI
+VM309 vision_wasm_internal.js:1071 Graph successfully started running.
+vision_wasm_internal.js:1087 I0000 00:00:1740279531.912000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ vision_wasm_internal.js:1087
+write @ vision_wasm_internal.js:1022
+write @ vision_wasm_internal.js:2353
+doWritev @ vision_wasm_internal.js:5859
+_fd_write @ vision_wasm_internal.js:5872
+$func14773 @ vision_wasm_internal.wasm:0x7362d6
+$func449 @ vision_wasm_internal.wasm:0x20ebb
+$func709 @ vision_wasm_internal.wasm:0x3dd99
+$func5967 @ vision_wasm_internal.wasm:0x384b83
+$func14682 @ vision_wasm_internal.wasm:0x71b7c5
+$func5970 @ vision_wasm_internal.wasm:0x38518b
+$func3584 @ vision_wasm_internal.wasm:0x1d237d
+$func291 @ vision_wasm_internal.wasm:0x1030d
+$func5139 @ vision_wasm_internal.wasm:0x2f47dd
+$func12467 @ vision_wasm_internal.wasm:0x640abb
+$func5164 @ vision_wasm_internal.wasm:0x2f9ed4
+$func5335 @ vision_wasm_internal.wasm:0x325d54
+$$d @ vision_wasm_internal.wasm:0x71138b
+Module._changeBinaryGraph @ vision_wasm_internal.js:8342
+setGraph @ vision_bundle.mjs:1
+setGraph @ vision_bundle.mjs:1
+m @ vision_bundle.mjs:1
+(anonymous) @ vision_bundle.mjs:1
+Promise.then
+l @ vision_bundle.mjs:1
+l @ vision_bundle.mjs:1
+o @ vision_bundle.mjs:1
+zo @ vision_bundle.mjs:1
+await in zo
+(anonymous) @ vision_bundle.mjs:1
+Ka @ vision_bundle.mjs:1
+push../node_modules/@mediapipe/tasks-vision/vision_bundle.mjs.Yh.createFromOptions @ vision_bundle.mjs:1
+createPoseLandmarker @ PoseDetectorTasksVision.js:12
+await in createPoseLandmarker
+detectPose @ PoseDetectorTasksVision.js:29
+getDetectPose @ PoseDetector.js:10
+await in getDetectPose
+(anonymous) @ ExerciseBox.js:32
+commitHookEffectListMount @ react-dom.development.js:23189
+invokePassiveEffectMountInDEV @ react-dom.development.js:25193
+invokeEffectsInDev @ react-dom.development.js:27390
+commitDoubleInvokeEffectsInDEV @ react-dom.development.js:27369
+flushPassiveEffectsImpl @ react-dom.development.js:27095
+flushPassiveEffects @ react-dom.development.js:27023
+(anonymous) @ react-dom.development.js:26808
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533Understand this warningAI
+vision_wasm_internal.js:1087 I0000 00:00:1740279531.913000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ vision_wasm_internal.js:1087
+write @ vision_wasm_internal.js:1022
+write @ vision_wasm_internal.js:2353
+doWritev @ vision_wasm_internal.js:5859
+_fd_write @ vision_wasm_internal.js:5872
+$func14773 @ vision_wasm_internal.wasm:0x7362d6
+$func449 @ vision_wasm_internal.wasm:0x20ebb
+$func709 @ vision_wasm_internal.wasm:0x3dd99
+$func5967 @ vision_wasm_internal.wasm:0x384b83
+$func14682 @ vision_wasm_internal.wasm:0x71b7c5
+$func5970 @ vision_wasm_internal.wasm:0x38518b
+$func3584 @ vision_wasm_internal.wasm:0x1d237d
+$func291 @ vision_wasm_internal.wasm:0x1030d
+$func9927 @ vision_wasm_internal.wasm:0x534b5f
+$func3322 @ vision_wasm_internal.wasm:0x1b1224
+$func1359 @ vision_wasm_internal.wasm:0x8787f
+$func5139 @ vision_wasm_internal.wasm:0x2f4890
+$func12467 @ vision_wasm_internal.wasm:0x640abb
+$func5164 @ vision_wasm_internal.wasm:0x2f9ed4
+$func5335 @ vision_wasm_internal.wasm:0x325d54
+$$d @ vision_wasm_internal.wasm:0x71138b
+Module._changeBinaryGraph @ vision_wasm_internal.js:8342
+setGraph @ vision_bundle.mjs:1
+setGraph @ vision_bundle.mjs:1
+m @ vision_bundle.mjs:1
+(anonymous) @ vision_bundle.mjs:1
+Promise.then
+l @ vision_bundle.mjs:1
+l @ vision_bundle.mjs:1
+o @ vision_bundle.mjs:1
+zo @ vision_bundle.mjs:1
+await in zo
+(anonymous) @ vision_bundle.mjs:1
+Ka @ vision_bundle.mjs:1
+push../node_modules/@mediapipe/tasks-vision/vision_bundle.mjs.Yh.createFromOptions @ vision_bundle.mjs:1
+createPoseLandmarker @ PoseDetectorTasksVision.js:12
+await in createPoseLandmarker
+detectPose @ PoseDetectorTasksVision.js:29
+getDetectPose @ PoseDetector.js:10
+await in getDetectPose
+(anonymous) @ ExerciseBox.js:32
+commitHookEffectListMount @ react-dom.development.js:23189
+invokePassiveEffectMountInDEV @ react-dom.development.js:25193
+invokeEffectsInDev @ react-dom.development.js:27390
+commitDoubleInvokeEffectsInDEV @ react-dom.development.js:27369
+flushPassiveEffectsImpl @ react-dom.development.js:27095
+flushPassiveEffects @ react-dom.development.js:27023
+(anonymous) @ react-dom.development.js:26808
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533Understand this warningAI
+vision_wasm_internal.js:1087 W0000 00:00:1740279531.913000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ vision_wasm_internal.js:1087
+write @ vision_wasm_internal.js:1022
+write @ vision_wasm_internal.js:2353
+doWritev @ vision_wasm_internal.js:5859
+_fd_write @ vision_wasm_internal.js:5872
+$func14773 @ vision_wasm_internal.wasm:0x7362d6
+$func449 @ vision_wasm_internal.wasm:0x20ebb
+$func709 @ vision_wasm_internal.wasm:0x3dd99
+$func5967 @ vision_wasm_internal.wasm:0x384b83
+$func14682 @ vision_wasm_internal.wasm:0x71b7c5
+$func5970 @ vision_wasm_internal.wasm:0x38518b
+$func3584 @ vision_wasm_internal.wasm:0x1d237d
+$func291 @ vision_wasm_internal.wasm:0x1030d
+$func3322 @ vision_wasm_internal.wasm:0x1b1284
+$func1359 @ vision_wasm_internal.wasm:0x8787f
+$func5139 @ vision_wasm_internal.wasm:0x2f4890
+$func12467 @ vision_wasm_internal.wasm:0x640abb
+$func5164 @ vision_wasm_internal.wasm:0x2f9ed4
+$func5335 @ vision_wasm_internal.wasm:0x325d54
+$$d @ vision_wasm_internal.wasm:0x71138b
+Module._changeBinaryGraph @ vision_wasm_internal.js:8342
+setGraph @ vision_bundle.mjs:1
+setGraph @ vision_bundle.mjs:1
+m @ vision_bundle.mjs:1
+(anonymous) @ vision_bundle.mjs:1
+Promise.then
+l @ vision_bundle.mjs:1
+l @ vision_bundle.mjs:1
+o @ vision_bundle.mjs:1
+zo @ vision_bundle.mjs:1
+await in zo
+(anonymous) @ vision_bundle.mjs:1
+Ka @ vision_bundle.mjs:1
+push../node_modules/@mediapipe/tasks-vision/vision_bundle.mjs.Yh.createFromOptions @ vision_bundle.mjs:1
+createPoseLandmarker @ PoseDetectorTasksVision.js:12
+await in createPoseLandmarker
+detectPose @ PoseDetectorTasksVision.js:29
+getDetectPose @ PoseDetector.js:10
+await in getDetectPose
+(anonymous) @ ExerciseBox.js:32
+commitHookEffectListMount @ react-dom.development.js:23189
+invokePassiveEffectMountInDEV @ react-dom.development.js:25193
+invokeEffectsInDev @ react-dom.development.js:27390
+commitDoubleInvokeEffectsInDEV @ react-dom.development.js:27369
+flushPassiveEffectsImpl @ react-dom.development.js:27095
+flushPassiveEffects @ react-dom.development.js:27023
+(anonymous) @ react-dom.development.js:26808
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533Understand this warningAI
+vision_wasm_internal.js:1071 Graph successfully started running.
+vision_wasm_internal.js:1087 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+put_char @ vision_wasm_internal.js:1087
+write @ vision_wasm_internal.js:1022
+write @ vision_wasm_internal.js:2353
+doWritev @ vision_wasm_internal.js:5859
+_fd_write @ vision_wasm_internal.js:5872
+$func14773 @ vision_wasm_internal.wasm:0x7362d6
+$func3646 @ vision_wasm_internal.wasm:0x1dbfdd
+$func2474 @ vision_wasm_internal.wasm:0x125118
+$func4083 @ vision_wasm_internal.wasm:0x257a37
+$func2829 @ vision_wasm_internal.wasm:0x1601ae
+$func6189 @ vision_wasm_internal.wasm:0x3a0aeb
+$func8596 @ vision_wasm_internal.wasm:0x4ef75e
+$func12213 @ vision_wasm_internal.wasm:0x6121c5
+$func11877 @ vision_wasm_internal.wasm:0x5ce582
+$func10001 @ vision_wasm_internal.wasm:0x536417
+$func3279 @ vision_wasm_internal.wasm:0x1aab21
+$func1253 @ vision_wasm_internal.wasm:0x76d58
+$fe @ vision_wasm_internal.wasm:0x3f91ca
+Module._waitUntilIdle @ vision_wasm_internal.js:8366
+finishProcessing @ vision_bundle.mjs:1
+finishProcessing @ vision_bundle.mjs:1
+Ya @ vision_bundle.mjs:1
+qa @ vision_bundle.mjs:1
+F @ vision_bundle.mjs:1
+detectAndDraw @ PoseDetectorTasksVision.js:53
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+requestAnimationFrame
+detectAndDraw @ PoseDetectorTasksVision.js:81
+detectPose @ PoseDetectorTasksVision.js:86
+await in detectPose
+getDetectPose @ PoseDetector.js:10
+await in getDetectPose
+(anonymous) @ ExerciseBox.js:32
+commitHookEffectListMount @ react-dom.development.js:23189
+commitPassiveMountOnFiber @ react-dom.development.js:24965
+commitPassiveMountEffects_complete @ react-dom.development.js:24930
+commitPassiveMountEffects_begin @ react-dom.development.js:24917
+commitPassiveMountEffects @ react-dom.development.js:24905
+flushPassiveEffectsImpl @ react-dom.development.js:27078
+flushPassiveEffects @ react-dom.development.js:27023
+(anonymous) @ react-dom.development.js:26808
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533Understand this warningAI
+PoseDetectorTasksVision.js:54 28922
+PoseDetectorTasksVision.js:54 28971.800000071526
+exercise?exercise=bridge:1 [.WebGL-0x1c1403420d00] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.Understand this warningAI
+exercise?exercise=bridge:1 [.WebGL-0x1c1403420d00] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.Understand this warningAI
+PoseDetectorTasksVision.js:54 29016.5
+PoseDetectorTasksVision.js:54 29060.100000023842
+exercise?exercise=bridge:1 [.WebGL-0x1c1403420d00] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.Understand this warningAI
+exercise?exercise=bridge:1 [.WebGL-0x1c1403420d00] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.Understand this warningAI
+PoseDetectorTasksVision.js:54 29115.100000023842
+PoseDetectorTasksVision.js:54 29162.300000071526
+PoseDetectorTasksVision.js:54 29208.100000023842
+PoseDetectorTasksVision.js:54 29250.400000095367
+PoseDetectorTasksVision.js:54 29294.700000047684
+PoseDetectorTasksVision.js:54 29337.5
+PoseDetectorTasksVision.js:54 29378.300000071526
+PoseDetectorTasksVision.js:54 29420.300000071526
+PoseDetectorTasksVision.js:54 29471.700000047684
+PoseDetectorTasksVision.js:54 29522
+PoseDetectorTasksVision.js:54 29568.200000047684
+PoseDetectorTasksVision.js:54 29614.100000023842
+PoseDetectorTasksVision.js:54 29657.5
+PoseDetectorTasksVision.js:54 29703.900000095367
+PoseDetectorTasksVision.js:54 29764.5
+PoseDetectorTasksVision.js:54 29809.400000095367
+PoseDetectorTasksVision.js:54 29849.900000095367
+PoseDetectorTasksVision.js:54 29897.300000071526
+PoseDetectorTasksVision.js:54 29945.5
+PoseDetectorTasksVision.js:54 29995.200000047684
+PoseDetectorTasksVision.js:54 30037.400000095367
+PoseDetectorTasksVision.js:54 30079.800000071526
+PoseDetectorTasksVision.js:54 30121.700000047684
+PoseDetectorTasksVision.js:54 30164.700000047684
+PoseDetectorTasksVision.js:54 30216
+PoseDetectorTasksVision.js:54 30263.100000023842
+PoseDetectorTasksVision.js:54 30310.700000047684
+PoseDetectorTasksVision.js:54 30361.600000023842
+PoseDetectorTasksVision.js:54 30406.5
+PoseDetectorTasksVision.js:54 30457.5
+PoseDetectorTasksVision.js:54 31096
+PoseDetectorTasksVision.js:54 31141.800000071526
+PoseDetectorTasksVision.js:54 31182.300000071526
+PoseDetectorTasksVision.js:54 31240.700000047684
+PoseDetectorTasksVision.js:54 31292.800000071526
+PoseDetectorTasksVision.js:54 31335.100000023842
+PoseDetectorTasksVision.js:54 31380.5
+PoseDetectorTasksVision.js:54 31430.5
+PoseDetectorTasksVision.js:54 31482.400000095367
+PoseDetectorTasksVision.js:54 31530.200000047684
+PoseDetectorTasksVision.js:54 31583.600000023842
+PoseDetectorTasksVision.js:54 31630.300000071526
+PoseDetectorTasksVision.js:54 31683.700000047684
+PoseDetectorTasksVision.js:54 31748.600000023842
+PoseDetectorTasksVision.js:54 31798.300000071526
+PoseDetectorTasksVision.js:54 31844.700000047684
+PoseDetectorTasksVision.js:54 31892.100000023842
+PoseDetectorTasksVision.js:54 31932.700000047684
+PoseDetectorTasksVision.js:54 31973.100000023842
+PoseDetectorTasksVision.js:54 32013.400000095367
+PoseDetectorTasksVision.js:54 32054.800000071526
+PoseDetectorTasksVision.js:54 32095.600000023842
+PoseDetectorTasksVision.js:54 32136
+PoseDetectorTasksVision.js:54 32179.100000023842
+PoseDetectorTasksVision.js:54 32222.300000071526
+PoseDetectorTasksVision.js:54 32268.400000095367
+PoseDetectorTasksVision.js:54 32312.600000023842
+PoseDetectorTasksVision.js:54 32355.700000047684
+PoseDetectorTasksVision.js:54 32402
+PoseDetectorTasksVision.js:54 32445.5
+PoseDetectorTasksVision.js:54 32489.600000023842
+PoseDetectorTasksVision.js:54 32532
+PoseDetectorTasksVision.js:54 32572
+PoseDetectorTasksVision.js:54 32611.600000023842
+PoseDetectorTasksVision.js:54 32655.700000047684
+PoseDetectorTasksVision.js:54 32696.100000023842
+PoseDetectorTasksVision.js:54 32737.900000095367
+PoseDetectorTasksVision.js:54 32779.200000047684
+PoseDetectorTasksVision.js:54 32821.5
+PoseDetectorTasksVision.js:54 32862
+PoseDetectorTasksVision.js:54 32903.40000009537
+PoseDetectorTasksVision.js:54 32944.60000002384
+PoseDetectorTasksVision.js:54 32985.10000002384
+PoseDetectorTasksVision.js:54 33028.40000009537
+PoseDetectorTasksVision.js:54 33071.60000002384
+PoseDetectorTasksVision.js:54 33112.40000009537
+PoseDetectorTasksVision.js:54 33157.90000009537
+PoseDetectorTasksVision.js:54 33199.200000047684
+PoseDetectorTasksVision.js:54 33248.40000009537
+PoseDetectorTasksVision.js:54 33289.700000047684
+PoseDetectorTasksVision.js:54 33334.800000071526
+PoseDetectorTasksVision.js:54 33375.60000002384
+PoseDetectorTasksVision.js:54 33417.800000071526
+PoseDetectorTasksVision.js:54 33459.5
+PoseDetectorTasksVision.js:54 33502.300000071526
+PoseDetectorTasksVision.js:54 33543.700000047684
+PoseDetectorTasksVision.js:54 33585.5
+PoseDetectorTasksVision.js:54 33627.90000009537
+PoseDetectorTasksVision.js:54 33668.40000009537
+PoseDetectorTasksVision.js:54 33714.300000071526
+PoseDetectorTasksVision.js:54 33757
+PoseDetectorTasksVision.js:54 33798.10000002384
+PoseDetectorTasksVision.js:54 33840.700000047684
+PoseDetectorTasksVision.js:54 33881.40000009537
+PoseDetectorTasksVision.js:54 33924.90000009537
+PoseDetectorTasksVision.js:54 33971.10000002384
+PoseDetectorTasksVision.js:54 34010.90000009537
+PoseDetectorTasksVision.js:54 34051.200000047684
+PoseDetectorTasksVision.js:54 34095.700000047684
+PoseDetectorTasksVision.js:54 34136.300000071526
+PoseDetectorTasksVision.js:54 34182.40000009537
+PoseDetectorTasksVision.js:54 34225.300000071526
+PoseDetectorTasksVision.js:54 34269.700000047684
+PoseDetectorTasksVision.js:54 34312.700000047684
+PoseDetectorTasksVision.js:54 34353.300000071526
+PoseDetectorTasksVision.js:54 34398.90000009537
+PoseDetectorTasksVision.js:54 34440.300000071526
+PoseDetectorTasksVision.js:54 34481.10000002384
+PoseDetectorTasksVision.js:54 34522.60000002384
+PoseDetectorTasksVision.js:54 34565.40000009537
+PoseDetectorTasksVision.js:54 34605.700000047684
+PoseDetectorTasksVision.js:54 34648.700000047684
+PoseDetectorTasksVision.js:54 34691.10000002384
+PoseDetectorTasksVision.js:54 34733.60000002384
+PoseDetectorTasksVision.js:54 34775.5
+PoseDetectorTasksVision.js:54 34815.90000009537
+PoseDetectorTasksVision.js:54 34855.800000071526
+PoseDetectorTasksVision.js:54 34897.200000047684
+PoseDetectorTasksVision.js:54 34938.300000071526
+PoseDetectorTasksVision.js:54 34980.800000071526
+PoseDetectorTasksVision.js:54 35022.700000047684
+PoseDetectorTasksVision.js:54 35061.700000047684
+PoseDetectorTasksVision.js:54 35103.700000047684
+PoseDetectorTasksVision.js:54 35147.700000047684
+PoseDetectorTasksVision.js:54 35187.90000009537
+PoseDetectorTasksVision.js:54 35232.60000002384
+PoseDetectorTasksVision.js:54 35275.300000071526
+PoseDetectorTasksVision.js:54 35317
+PoseDetectorTasksVision.js:54 35360.60000002384
+PoseDetectorTasksVision.js:54 35401.10000002384
+PoseDetectorTasksVision.js:54 35447
+PoseDetectorTasksVision.js:54 35491.10000002384
+PoseDetectorTasksVision.js:54 35534.5
+PoseDetectorTasksVision.js:54 35576.40000009537
+PoseDetectorTasksVision.js:54 35618.10000002384
+PoseDetectorTasksVision.js:54 35659.200000047684
+PoseDetectorTasksVision.js:54 35702.800000071526
+PoseDetectorTasksVision.js:54 35746
+PoseDetectorTasksVision.js:54 35787.40000009537
+PoseDetectorTasksVision.js:54 35833.40000009537
+PoseDetectorTasksVision.js:54 35875.800000071526
+PoseDetectorTasksVision.js:54 35916.10000002384
+PoseDetectorTasksVision.js:54 35958.300000071526
+PoseDetectorTasksVision.js:54 36003.200000047684
+PoseDetectorTasksVision.js:54 36048.700000047684
+PoseDetectorTasksVision.js:54 36095.800000071526
+PoseDetectorTasksVision.js:54 36139.60000002384
+PoseDetectorTasksVision.js:54 36186
+PoseDetectorTasksVision.js:54 36230.700000047684
+PoseDetectorTasksVision.js:54 36272.10000002384
+PoseDetectorTasksVision.js:54 36316.10000002384
+PoseDetectorTasksVision.js:54 36358.700000047684
+PoseDetectorTasksVision.js:54 36401.700000047684
+PoseDetectorTasksVision.js:54 36445.700000047684
+PoseDetectorTasksVision.js:54 36489.200000047684
+PoseDetectorTasksVision.js:54 36534.5
+PoseDetectorTasksVision.js:54 36581.10000002384
+PoseDetectorTasksVision.js:54 36624
+PoseDetectorTasksVision.js:54 36671.40000009537
+PoseDetectorTasksVision.js:54 36715.5
+PoseDetectorTasksVision.js:54 36759.90000009537
+PoseDetectorTasksVision.js:54 36802.800000071526
+PoseDetectorTasksVision.js:54 36847.90000009537
+PoseDetectorTasksVision.js:54 36889.60000002384
+PoseDetectorTasksVision.js:54 36932
+PoseDetectorTasksVision.js:54 36972.200000047684
+PoseDetectorTasksVision.js:54 37015.5
+PoseDetectorTasksVision.js:54 37055.60000002384
+PoseDetectorTasksVision.js:54 37101.700000047684
+PoseDetectorTasksVision.js:54 37144.700000047684
+PoseDetectorTasksVision.js:54 37189.300000071526
+PoseDetectorTasksVision.js:54 37234.300000071526
+PoseDetectorTasksVision.js:54 37277.700000047684
+PoseDetectorTasksVision.js:54 37322.5
+PoseDetectorTasksVision.js:54 37368.300000071526
+PoseDetectorTasksVision.js:54 37410.300000071526
+PoseDetectorTasksVision.js:54 37450.5
+PoseDetectorTasksVision.js:54 37495.300000071526
+PoseDetectorTasksVision.js:54 37536.200000047684
+PoseDetectorTasksVision.js:54 37577.300000071526
+PoseDetectorTasksVision.js:54 37619.5
+PoseDetectorTasksVision.js:54 37660.10000002384
+PoseDetectorTasksVision.js:54 37701
+PoseDetectorTasksVision.js:54 37743.90000009537
+PoseDetectorTasksVision.js:54 37789.200000047684
+PoseDetectorTasksVision.js:54 37834.60000002384
+PoseDetectorTasksVision.js:54 37879.200000047684
+PoseDetectorTasksVision.js:54 37920.700000047684
+PoseDetectorTasksVision.js:54 37963.90000009537
+PoseDetectorTasksVision.js:54 38004.5
+PoseDetectorTasksVision.js:54 38047.90000009537
+PoseDetectorTasksVision.js:54 38089.5
+PoseDetectorTasksVision.js:54 38133.40000009537
+PoseDetectorTasksVision.js:54 38177.10000002384
+PoseDetectorTasksVision.js:54 38218.700000047684
+PoseDetectorTasksVision.js:54 38260
+PoseDetectorTasksVision.js:54 38302.60000002384
+PoseDetectorTasksVision.js:54 38343.60000002384
+PoseDetectorTasksVision.js:54 38387.700000047684
+PoseDetectorTasksVision.js:54 38429.10000002384
+PoseDetectorTasksVision.js:54 38470.10000002384
+PoseDetectorTasksVision.js:54 38510.60000002384
+PoseDetectorTasksVision.js:54 38552.300000071526
+PoseDetectorTasksVision.js:54 38592.90000009537
+PoseDetectorTasksVision.js:54 38633.700000047684
+PoseDetectorTasksVision.js:54 38681.90000009537
+PoseDetectorTasksVision.js:54 38729.40000009537
+PoseDetectorTasksVision.js:54 38772
+PoseDetectorTasksVision.js:54 38812.90000009537
+PoseDetectorTasksVision.js:54 38857
+PoseDetectorTasksVision.js:54 38898.90000009537
+PoseDetectorTasksVision.js:54 38942.10000002384
+PoseDetectorTasksVision.js:54 38984.200000047684
+PoseDetectorTasksVision.js:54 39028.90000009537
+PoseDetectorTasksVision.js:54 39071.40000009537
+PoseDetectorTasksVision.js:54 39111.60000002384

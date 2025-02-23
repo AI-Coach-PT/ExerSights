@@ -1,0 +1,260 @@
+Check the render method of `Menubar`. See https://reactjs.org/link/warning-keys for more information.
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at Menubar (http://localhost:3000/static/js/bundle.js:1859:78)
+    at Router (http://localhost:3000/static/js/bundle.js:114434:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:112375:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66777:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:67465:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66439:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:67555:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63706:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63659:3)
+    at App (http://localhost:3000/static/js/bundle.js:66:82)
+printWarning @ react-jsx-dev-runtime.development.js:87Understand this errorAI
+react-dom.development.js:86 Warning: Invalid DOM property `frameborder`. Did you mean `frameBorder`?
+    at iframe
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at Home (http://localhost:3000/static/js/bundle.js:3627:81)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:113798:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:114500:5)
+    at Router (http://localhost:3000/static/js/bundle.js:114434:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:112375:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66777:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:67465:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66439:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:67555:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63706:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63659:3)
+    at App (http://localhost:3000/static/js/bundle.js:66:82)
+printWarning @ react-dom.development.js:86Understand this errorAI
+react-dom.development.js:86 Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
+    at p
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62558:87)
+    at p
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Typography (http://localhost:3000/static/js/bundle.js:62558:87)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Paper (http://localhost:3000/static/js/bundle.js:58906:96)
+    at FeedbackPanel (http://localhost:3000/static/js/bundle.js:1363:3)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at div
+    at http://localhost:3000/static/js/bundle.js:6375:66
+    at Box (http://localhost:3000/static/js/bundle.js:68340:81)
+    at ExerciseBox (http://localhost:3000/static/js/bundle.js:956:3)
+    at ExercisePage (http://localhost:3000/static/js/bundle.js:3888:81)
+    at RenderedRoute (http://localhost:3000/static/js/bundle.js:113798:5)
+    at Routes (http://localhost:3000/static/js/bundle.js:114500:5)
+    at Router (http://localhost:3000/static/js/bundle.js:114434:15)
+    at BrowserRouter (http://localhost:3000/static/js/bundle.js:112375:5)
+    at DefaultPropsProvider (http://localhost:3000/static/js/bundle.js:66777:3)
+    at RtlProvider (http://localhost:3000/static/js/bundle.js:67465:3)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:66439:5)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:67555:5)
+    at ThemeProviderNoVars (http://localhost:3000/static/js/bundle.js:63706:10)
+    at ThemeProvider (http://localhost:3000/static/js/bundle.js:63659:3)
+    at App (http://localhost:3000/static/js/bundle.js:66:82)
+printWarning @ react-dom.development.js:86Understand this errorAI
+vision_wasm_internal.js:1087 I0000 00:00:1740280670.755000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ vision_wasm_internal.js:1087Understand this warningAI
+vision_wasm_internal.js:1087 I0000 00:00:1740280670.771000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ vision_wasm_internal.js:1087Understand this warningAI
+vision_wasm_internal.js:1087 W0000 00:00:1740280670.771000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ vision_wasm_internal.js:1087Understand this warningAI
+vision_wasm_internal.js:1071 Graph successfully started running.
+vision_wasm_internal.js:1087 I0000 00:00:1740280670.834000       1 gl_context_webgl.cc:112] Successfully created a WebGL context with major version 3 and handle 1
+put_char @ vision_wasm_internal.js:1087Understand this warningAI
+vision_wasm_internal.js:1087 I0000 00:00:1740280670.835000       1 gl_context.cc:359] GL version: 3.0 (OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)))
+put_char @ vision_wasm_internal.js:1087Understand this warningAI
+vision_wasm_internal.js:1087 W0000 00:00:1740280670.835000       1 gl_context.cc:1000] OpenGL error checking is disabled
+put_char @ vision_wasm_internal.js:1087Understand this warningAI
+vision_wasm_internal.js:1071 Graph successfully started running.
+vision_wasm_internal.js:1087 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+put_char @ vision_wasm_internal.js:1087Understand this warningAI
+PoseDetectorTasksVision.js:54 2018.6000000238419
+PoseDetectorTasksVision.js:54 2039.8000000715256
+PoseDetectorTasksVision.js:54 2061.600000023842
+PoseDetectorTasksVision.js:54 2081
+PoseDetectorTasksVision.js:54 2102.100000023842
+PoseDetectorTasksVision.js:54 2120.399999976158
+6[.WebGL-0x37740333c000] GL_INVALID_FRAMEBUFFER_OPERATION: Framebuffer is incomplete: Attachment has zero size.Understand this warningAI
+PoseDetectorTasksVision.js:54 2148.3000000715256
+PoseDetectorTasksVision.js:54 2170.3000000715256
+PoseDetectorTasksVision.js:54 2194.100000023842
+PoseDetectorTasksVision.js:54 2219.2000000476837
+PoseDetectorTasksVision.js:54 2243.3000000715256
+PoseDetectorTasksVision.js:54 2263.5
+PoseDetectorTasksVision.js:54 2285.7000000476837
+PoseDetectorTasksVision.js:54 2306.100000023842
+PoseDetectorTasksVision.js:54 2327.399999976158
+PoseDetectorTasksVision.js:54 2351.399999976158
+PoseDetectorTasksVision.js:54 2374.399999976158
+PoseDetectorTasksVision.js:54 2394.8000000715256
+PoseDetectorTasksVision.js:54 2419.8000000715256
+PoseDetectorTasksVision.js:54 2441.600000023842
+PoseDetectorTasksVision.js:54 2462.7000000476837
+PoseDetectorTasksVision.js:54 2486.7000000476837
+PoseDetectorTasksVision.js:54 2508.100000023842
+PoseDetectorTasksVision.js:54 2528
+PoseDetectorTasksVision.js:54 2551.2000000476837
+PoseDetectorTasksVision.js:54 2571.600000023842
+PoseDetectorTasksVision.js:54 2597.399999976158
+PoseDetectorTasksVision.js:54 2619.100000023842
+PoseDetectorTasksVision.js:54 2639.100000023842
+PoseDetectorTasksVision.js:54 2661
+PoseDetectorTasksVision.js:54 2688.399999976158
+PoseDetectorTasksVision.js:54 2714.899999976158
+PoseDetectorTasksVision.js:54 2738.7000000476837
+PoseDetectorTasksVision.js:54 2759.8000000715256
+PoseDetectorTasksVision.js:54 2784.600000023842
+PoseDetectorTasksVision.js:54 2811.100000023842
+PoseDetectorTasksVision.js:54 2837.2000000476837
+PoseDetectorTasksVision.js:54 2856.8000000715256
+PoseDetectorTasksVision.js:54 2879.600000023842
+PoseDetectorTasksVision.js:54 2902.399999976158
+PoseDetectorTasksVision.js:54 2922.899999976158
+PoseDetectorTasksVision.js:54 2946.600000023842
+PoseDetectorTasksVision.js:54 2969.8000000715256
+PoseDetectorTasksVision.js:54 2992.899999976158
+PoseDetectorTasksVision.js:54 3017.600000023842
+PoseDetectorTasksVision.js:54 3038.7000000476837
+PoseDetectorTasksVision.js:54 3063.3000000715256
+PoseDetectorTasksVision.js:54 3086.899999976158
+PoseDetectorTasksVision.js:54 3108.100000023842
+PoseDetectorTasksVision.js:54 3129.100000023842
+PoseDetectorTasksVision.js:54 3154.7000000476837
+PoseDetectorTasksVision.js:54 3183.100000023842
+PoseDetectorTasksVision.js:54 3209.399999976158
+PoseDetectorTasksVision.js:54 3232.399999976158
+PoseDetectorTasksVision.js:54 3258.8000000715256
+146Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.Understand this warningAI
+PoseDetectorTasksVision.js:54 3290.2000000476837
+PoseDetectorTasksVision.js:54 3622.8000000715256
+PoseDetectorTasksVision.js:54 3665.600000023842
+PoseDetectorTasksVision.js:54 3722
+PoseDetectorTasksVision.js:54 3769.5
+PoseDetectorTasksVision.js:54 3827.8000000715256
+PoseDetectorTasksVision.js:54 3877.2000000476837
+PoseDetectorTasksVision.js:54 3934.5
+PoseDetectorTasksVision.js:54 3983.100000023842
+PoseDetectorTasksVision.js:54 4061.8000000715256
+PoseDetectorTasksVision.js:54 4109.5
+PoseDetectorTasksVision.js:54 4178.300000071526
+PoseDetectorTasksVision.js:54 4225.200000047684
+PoseDetectorTasksVision.js:54 4285.300000071526
+PoseDetectorTasksVision.js:54 4328.300000071526
+PoseDetectorTasksVision.js:54 4390.700000047684
+PoseDetectorTasksVision.js:54 4433.200000047684
+PoseDetectorTasksVision.js:54 4493.600000023842
+PoseDetectorTasksVision.js:54 4538.300000071526
+PoseDetectorTasksVision.js:54 4601.200000047684
+PoseDetectorTasksVision.js:54 4643.100000023842
+PoseDetectorTasksVision.js:54 4690.100000023842
+PoseDetectorTasksVision.js:54 4734.700000047684
+PoseDetectorTasksVision.js:54 4777.300000071526
+PoseDetectorTasksVision.js:54 4823
+PoseDetectorTasksVision.js:54 4885.399999976158
+PoseDetectorTasksVision.js:54 4928.700000047684
+PoseDetectorTasksVision.js:54 4981.899999976158
+PoseDetectorTasksVision.js:54 5024.200000047684
+PoseDetectorTasksVision.js:54 5066.800000071526
+PoseDetectorTasksVision.js:54 5110.700000047684
+PoseDetectorTasksVision.js:54 5155.899999976158
+PoseDetectorTasksVision.js:54 5198.600000023842
+PoseDetectorTasksVision.js:54 5247.300000071526
+PoseDetectorTasksVision.js:54 5298.200000047684
+PoseDetectorTasksVision.js:54 5349.399999976158
+PoseDetectorTasksVision.js:54 5390.100000023842
+PoseDetectorTasksVision.js:54 5432.200000047684
+PoseDetectorTasksVision.js:54 5473.399999976158
+PoseDetectorTasksVision.js:54 5516
+PoseDetectorTasksVision.js:54 5559.700000047684
+PoseDetectorTasksVision.js:54 5606.700000047684
+PoseDetectorTasksVision.js:54 5648.700000047684
+PoseDetectorTasksVision.js:54 5690.300000071526
+PoseDetectorTasksVision.js:54 5732.399999976158
+PoseDetectorTasksVision.js:54 5774.700000047684
+PoseDetectorTasksVision.js:54 5819.100000023842
+PoseDetectorTasksVision.js:54 5861.600000023842
+PoseDetectorTasksVision.js:54 5907.5
+PoseDetectorTasksVision.js:54 5949.200000047684
+PoseDetectorTasksVision.js:54 5991.100000023842
+PoseDetectorTasksVision.js:54 6032.399999976158
+PoseDetectorTasksVision.js:54 6074.200000047684
+PoseDetectorTasksVision.js:54 6117.899999976158
+PoseDetectorTasksVision.js:54 6158.5
+PoseDetectorTasksVision.js:54 6201.600000023842
+PoseDetectorTasksVision.js:54 6244.399999976158
+PoseDetectorTasksVision.js:54 6288
+PoseDetectorTasksVision.js:54 6328.600000023842
+PoseDetectorTasksVision.js:54 6378.5
+PoseDetectorTasksVision.js:54 6422.100000023842
+PoseDetectorTasksVision.js:54 6465.600000023842
+PoseDetectorTasksVision.js:54 6506.600000023842
+PoseDetectorTasksVision.js:54 6550.800000071526
+PoseDetectorTasksVision.js:54 6594.800000071526
+PoseDetectorTasksVision.js:54 6638.200000047684
+PoseDetectorTasksVision.js:54 6678.800000071526
+PoseDetectorTasksVision.js:54 6725.100000023842
+PoseDetectorTasksVision.js:54 6768.100000023842
+PoseDetectorTasksVision.js:54 6813.100000023842
+PoseDetectorTasksVision.js:54 6856.300000071526
+PoseDetectorTasksVision.js:54 6898.200000047684
+PoseDetectorTasksVision.js:54 6941.100000023842
+PoseDetectorTasksVision.js:54 6984.700000047684
+PoseDetectorTasksVision.js:54 7025.800000071526
+PoseDetectorTasksVision.js:54 7069.700000047684
+PoseDetectorTasksVision.js:54 7113.700000047684
+PoseDetectorTasksVision.js:54 7156.399999976158
+PoseDetectorTasksVision.js:54 7198
+PoseDetectorTasksVision.js:54 7245.399999976158
+PoseDetectorTasksVision.js:54 7288.100000023842
+PoseDetectorTasksVision.js:54 7329.700000047684
+PoseDetectorTasksVision.js:54 7372
+PoseDetectorTasksVision.js:54 7415.5
+PoseDetectorTasksVision.js:54 7457.200000047684
+PoseDetectorTasksVision.js:54 7500.800000071526
+PoseDetectorTasksVision.js:54 7542.700000047684
+PoseDetectorTasksVision.js:54 7585.5
+PoseDetectorTasksVision.js:54 7629.100000023842
+PoseDetectorTasksVision.js:54 7672.700000047684
+PoseDetectorTasksVision.js:54 7718
+PoseDetectorTasksVision.js:54 7761.300000071526
+PoseDetectorTasksVision.js:54 7802.800000071526
+PoseDetectorTasksVision.js:54 7849.5
+PoseDetectorTasksVision.js:54 7901.200000047684
+PoseDetectorTasksVision.js:54 7944
+PoseDetectorTasksVision.js:54 7991.899999976158
+PoseDetectorTasksVision.js:54 8034.700000047684
+PoseDetectorTasksVision.js:54 8078.200000047684
+PoseDetectorTasksVision.js:54 8122.700000047684
+PoseDetectorTasksVision.js:54 8164.399999976158
+PoseDetectorTasksVision.js:54 8206.100000023842
+PoseDetectorTasksVision.js:54 8249.600000023842
+PoseDetectorTasksVision.js:54 8300.100000023842
+PoseDetectorTasksVision.js:54 8342.300000071526
+PoseDetectorTasksVision.js:54 8389.200000047684
+PoseDetectorTasksVision.js:54 8432.5
+PoseDetectorTasksVision.js:54 8474.5
+PoseDetectorTasksVision.js:54 8521.800000071526
+PoseDetectorTasksVision.js:54 8563.300000071526
+PoseDetectorTasksVision.js:54 8606.700000047684
+PoseDetectorTasksVision.js:54 8655.800000071526
+PoseDetectorTasksVision.js:54 8700.600000023842
+PoseDetectorTasksVision.js:54 8746.200000047684
+PoseDetectorTasksVision.js:54 8792.5
+PoseDetectorTasksVision.js:54 8836.600000023842
+PoseDetectorTasksVision.js:54 8879
+PoseDetectorTasksVision.js:54 8922.100000023842
+PoseDetectorTasksVision.js:54 8968.5
