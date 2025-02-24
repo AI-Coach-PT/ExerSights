@@ -19,7 +19,7 @@ function Catalog() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredExercises = Object.keys(catalogText).filter((exerciseKey) =>
-    exerciseKey.toLowerCase().includes(searchTerm.toLowerCase())
+    exerciseKey.toLowerCase().includes(searchTerm.toLowerCase().replace(/\s/g, ''))
   );
 
   return (
@@ -33,15 +33,21 @@ function Catalog() {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <Grid container spacing={2} sx={{ justifyContent: "center", padding: "1rem" }}>
-        {filteredExercises.map((exerciseKey) => (
-          <ExerciseCard
-            key={exerciseKey}
-            title={exerciseKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-            description={catalogText[exerciseKey]}
-            link={`/exercise?exercise=${exerciseKey}`}
-            image={exerciseImages[exerciseKey]}
-          />
-        ))}
+        {filteredExercises.length > 0 ? (
+          filteredExercises.map((exerciseKey) => (
+            <ExerciseCard
+              key={exerciseKey}
+              title={exerciseKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+              description={catalogText[exerciseKey]}
+              link={`/exercise?exercise=${exerciseKey}`}
+              image={exerciseImages[exerciseKey]}
+            />
+          ))
+        ) : (
+          <Typography variant="h6" sx={{ width: "100%", textAlign: "center", marginTop: "1rem" }}>
+            No exercises fit your search criteria.
+          </Typography>
+        )}
       </Grid>
     </Box>
   );
