@@ -124,7 +124,7 @@ export const genCheck = (
 
     onFeedbackUpdate(exerInfo.states[currState].feedback);
 
-    if(exerInfo.states[currState].color){
+    if (exerInfo.states[currState].color) {
         setColor(exerInfo.states[currState].color);
     }
     return currState;
@@ -195,15 +195,17 @@ export const getTransitionType = (jointData, closerSide, exerciseFSM, currState)
     }
 
     // Pull positions from jointData
-    for (const [key, index] of Object.entries(jointPos)) {
-        if (key.startsWith(closerSide)) { // Match only relevant side
-            const genericKey = key.replace(closerSide, "").replace(/Pos$/, "").toLowerCase();
+    if (jointPos) {
+        for (const [key, index] of Object.entries(jointPos)) {
+            if (key.startsWith(closerSide)) { // Match only relevant side
+                const genericKey = key.replace(closerSide, "").replace(/Pos$/, "").toLowerCase();
 
-            if (jointData[key] && typeof jointData[key] === "object" && "y" in jointData[key]) {
-                jointDataMap[genericKey + "Pos"] = jointData[key];
-            } else {
-                console.warn(`WARNING: Missing or invalid jointData for index ${key}`);
-                jointDataMap[genericKey + "Pos"] = { x: 0, y: 0 };
+                if (jointData[key] && typeof jointData[key] === "object" && "y" in jointData[key]) {
+                    jointDataMap[genericKey + "Pos"] = jointData[key];
+                } else {
+                    console.warn(`WARNING: Missing or invalid jointData for index ${key}`);
+                    jointDataMap[genericKey + "Pos"] = { x: 0, y: 0 };
+                }
             }
         }
     }

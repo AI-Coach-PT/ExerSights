@@ -1,14 +1,17 @@
 {
   "catalog": {
     "squat": "Strengthens the legs, glutes, and core, improving flexibility and balance.",
-    "pushup": "Builds upper body strength specifically in your chest and triceps.",
-    "deadbug": "A technique for building strength in your back and core.",
+    "pushUp": "Builds upper body strength specifically in your chest and triceps.",
+    "deadBug": "A technique for building strength in your back and core.",
     "bridge": "Strengthens core muscles and improves spinal stability.",
-    "pullup": "Builds upper body strength in the back, shoulders, and biceps.",
+    "pullUp": "Builds upper body strength in the back, shoulders, and biceps.",
     "latExtRotation": "Strengthens rotator cuff muscles, enhancing shoulder stability and reducing injury risk.",
-    "muscleup": "A combination of the pull-up and dip, building upper body explosive strength.",
+    "muscleUp": "A combination of the pull-up and dip, building upper body explosive strength.",
     "plank": "Strengthens the core, shoulders, and back, improving stability and posture.",
-    "pilatesHundred": "Combines arm-pumping movements with a sustained core-engaged position to strengthen abs, shoulders, arms inner thigs, and hip flexors."
+    "pilatesHundred": "Combines movements with a core-engaged position to strengthen abs, shoulders, arms inner thigs, and hips.",
+    "lunge": "Improves leg strength, balance, and coordination by engaging the quads, hamstrings, and glutes.",
+    "legRaise": "Strengthens the lower abs, hip flexors, and core, improving stability and control.",
+    "toeTouch": "Enhances hamstring flexibility and core engagement while promoting lower back mobility."
   },
   "instructions": {
     "squat": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
@@ -19,7 +22,10 @@
     "muscleup": "For best results, position the webcam to face the FRONT of your body while on the bar. Ensure that your entire body is in frame and the camera is straight and not tilted.",
     "latExtRotation": "For best results, position the webcam to face the SIDE of your upper body. Ensure that the camera is straight and not tilted.",
     "plank": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
-    "pilatesHundred": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted."
+    "pilatesHundred": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
+    "lunge": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body, including both legs, is in frame and the camera is straight and not tilted.",
+    "legRaise": "Please lay down and position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
+    "toeTouch": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted."
   },
   "instructionVideos": {
     "squat": "https://www.youtube.com/embed/4KmY44Xsg2w",
@@ -30,7 +36,10 @@
     "muscleup": "https://www.youtube.com/embed/WXvZpIMOicc",
     "latExtRotation": "https://www.youtube.com/embed/EUMsYC_W3aI",
     "plank": "https://www.youtube.com/embed/pSHjTRCQxIw",
-    "pilatesHundred": "https://www.youtube.com/embed/UaqpuUzs1i8"
+    "pilatesHundred": "https://www.youtube.com/embed/UaqpuUzs1i8",
+    "lunge": "https://www.youtube.com/embed/wrwwXE_x-pQ",
+    "legRaise": "https://www.youtube.com/embed/l4kQd9eWclE",
+    "toeTouch": "https://www.youtube.com/embed/Xvr5N_Xf6QM"
   },
   "legal": {
     "disclaimer": "Disclaimer: Exercise feedback and stats provided may not always be accurate. We are not liable for inaccurate feedback or any resulting injuries. Always consult a professional trainer before performing exercises. Use at your own risk."
