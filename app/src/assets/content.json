@@ -1,12 +1,12 @@
 {
   "catalog": {
     "squat": "Strengthens the legs, glutes, and core, improving flexibility and balance.",
-    "pushup": "Builds upper body strength specifically in your chest and triceps.",
-    "deadbug": "A technique for building strength in your back and core.",
+    "pushUp": "Builds upper body strength specifically in your chest and triceps.",
+    "deadBug": "A technique for building strength in your back and core.",
     "bridge": "Strengthens core muscles and improves spinal stability.",
-    "pullup": "Builds upper body strength in the back, shoulders, and biceps.",
+    "pullUp": "Builds upper body strength in the back, shoulders, and biceps.",
     "latExtRotation": "Strengthens rotator cuff muscles, enhancing shoulder stability and reducing injury risk.",
-    "muscleup": "A combination of the pull-up and dip, building upper body explosive strength.",
+    "muscleUp": "A combination of the pull-up and dip, building upper body explosive strength.",
     "plank": "Strengthens the core, shoulders, and back, improving stability and posture.",
     "pilatesHundred": "Combines movements with a core-engaged position to strengthen abs, shoulders, arms inner thigs, and hips.",
     "lunge": "Improves leg strength, balance, and coordination by engaging the quads, hamstrings, and glutes.",
