@@ -39,7 +39,7 @@ function Menubar(props) {
     { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
     { text: "About", path: "/about", icon: <InfoIcon /> },
     { text: "Contact", path: "/contact", icon: <EmailIcon /> },
-    {text: "Playlist", path: "/playlist" },
+    {text: "Program", path: "/program", icon: <EmailIcon /> },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);

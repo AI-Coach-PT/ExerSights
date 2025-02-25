@@ -4,13 +4,44 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
-function PlaylistModal({
-    playlistName,
-    exerciseList,
-    addExercise,
-    removeExercise,
-    setExerciseList,
+function ProgramModal({
+    programId,
+    programData,
+    setProgramsState
 }) {
+
+      
+  const removeExercise = (index, programId) => {
+    setProgramsState((prevPrograms) => {
+      const updatedProgram = prevPrograms[programId].list.filter((_, i) => i !== index); // Remove exercise
+  
+      return {
+        ...prevPrograms,
+        [programId]: {
+          ...prevPrograms[programId], // Keep the name and other data
+          list: updatedProgram, // Update the list correctly
+        },
+      };
+    });
+  };
+
+  const addExercise = (index, exercise, programId) => {
+    setProgramsState((prevPrograms) => {
+      const updatedProgram = [...prevPrograms[programId].list]; // Copy program
+  
+      // Insert new exercise (it should be an object with {exercise: "name"})
+      updatedProgram.splice(index, 0, exercise);
+  
+      return {
+        ...prevPrograms,
+        [programId]: {
+          ...prevPrograms[programId], // Keep other program properties
+          list: updatedProgram, // Update the list
+        },
+      };
+    });
+  };
+    
 
 
 
@@ -55,13 +86,25 @@ function PlaylistModal({
             flexDirection: "column",
             alignItems: "center",
           }}>
-          <Typography variant="h6" component="h2" sx={{ mb: "1rem" }}>
-            Adjust List
-          </Typography>
+
+          <TextField
+            fullWidth
+            label="Progam Name"
+            variant="outlined"
+            value={programData.name}
+            onChange={(e) => setProgramsState((prev) => ({
+              ...prev,
+              [programId]: {
+                ...prev[programId],
+                name: e.target.value,
+              },
+            }))}
+            sx={{ mt: 2 }}
+          />
 
 
-        {exerciseList.length > 0 ? (
-            exerciseList.map((exercise, index) => (
+        {programData.list.length > 0 ? (
+            programData.list.map((exercise, index) => (
               <Box
                 key={index}
                 sx={{
@@ -75,13 +118,13 @@ function PlaylistModal({
                   borderRadius: "5px",
                 }}
               >
-                <Typography>{exercise.exercise}</Typography>
+                <Typography>{exercise}</Typography>
 
                 <Box>
                   {/* Add Exercise Button */}
                   <IconButton
                     onClick={() =>
-                      addExercise(index + 1, { exercise: newExercise || "New Exercise"}, playlistName)
+                      addExercise(index + 1, newExercise || "New Exercise", programId)
                     }
                     color="primary"
                   >
@@ -89,7 +132,7 @@ function PlaylistModal({
                   </IconButton>
 
                   {/* Remove Exercise Button */}
-                  <IconButton onClick={() => removeExercise(index, playlistName)} color="error">
+                  <IconButton onClick={() => removeExercise(index, programId)} color="error">
                     <RemoveCircleIcon />
                   </IconButton>
                 </Box>
@@ -114,7 +157,7 @@ function PlaylistModal({
             color="primary"
             onClick={() => {
               if (newExercise.trim() !== "") {
-                addExercise(0, setExerciseList, { exercise: newExercise});
+                addExercise(0, newExercise || "New Exercise");
                 setNewExercise(""); // Clear input after adding
               }
             }}
@@ -136,4 +179,4 @@ function PlaylistModal({
   );
 }
 
-export default PlaylistModal;
+export default ProgramModal;

@@ -6,6 +6,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SquatPage from "./pages/exercises/SquatPage";
 import Menubar from "./components/Menubar";
+import Program from "./pages/Program";
+import ProgramOverlay from "./pages/ProgramOverlay";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import {
@@ -216,6 +218,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/squat" element={<SquatPage />} />
           <Route path="/exercise" element={<ExercisePage />} />
+          <Route path="/program" element={<Program />} />
+          <Route path="/programOverlay" element={<ProgramOverlay />} />
         </Routes>
       </Router>
     </ThemeProvider>
