@@ -10,7 +10,6 @@ function ProgramModal({
     programData,
     setProgramsState
 }) {
-
     
 
   const validExercises = Object.keys(catalogText);
@@ -163,27 +162,25 @@ function ProgramModal({
             ))}
           </Select>
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              if (newExercise.trim() !== "") {
-                addExercise(0, newExercise, programId); 
-                setNewExercise(""); // Clear input after adding
-              }
-            }}
-            sx={{ mt: 2 }}
-          >
-            Add to Top
-          </Button>
+          <Box sx={{ display: "flex", justifyContent: "center", width: "100%", mt: 2, gap: 2 }}>
 
-            <Typography>
-                <br/>
-            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                if (newExercise.trim() !== "") {
+                  addExercise(0, newExercise, programId); 
+                  setNewExercise(""); // Clear input after adding
+                }
+              }}
+            >
+              Add to Top
+            </Button>
 
-          <Button variant="contained" onClick={handleCloseModal}>
-            Save & Close
-          </Button>
+            <Button variant="contained" onClick={handleCloseModal}>
+              Save & Close
+            </Button>
+          </Box>
         </Box>
       </Modal>
     </div>
