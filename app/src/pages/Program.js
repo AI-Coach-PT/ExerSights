@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Box, IconButton, CardContent, Button, CardMedia } from "@mui/material";
+import { Typography, Box, IconButton, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ProgramModal from "../components/ProgramModal";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const programs = {
   1: {
@@ -37,7 +38,7 @@ function Program(){
 
 
     const [programsState, setProgramsState] = useState(
-      //JSON.parse(localStorage.getItem("programs")) || 
+      JSON.parse(localStorage.getItem("programs")) || 
       programs
     );
 
@@ -51,11 +52,25 @@ function Program(){
     };
 
     const removeProgram = (programId) => {
+      const confirmDelete = window.confirm("Are you sure you want to delete this program?");
+      if (!confirmDelete) return; // Cancel deletion if user clicks "No"
       setProgramsState((prevPrograms) => {
         const updatedPrograms = { ...prevPrograms };
         delete updatedPrograms[programId]; // Remove the program
         return updatedPrograms;
       });
+    }
+
+    const addProgram = () => {
+      const newProgramId = Object.keys(programsState).length + 1;
+      setProgramsState((prevPrograms) => ({
+        ...prevPrograms,
+        [newProgramId]: {
+          name: `New Program ${newProgramId}`,
+          list: [],
+        },
+      }));
+
     }
     
 
@@ -117,6 +132,11 @@ function Program(){
 
             </Box>
           ))}
+
+        <IconButton onClick={() => addProgram()}>
+          <AddCircleIcon />
+        </IconButton> 
+
     </Box>
           
     );

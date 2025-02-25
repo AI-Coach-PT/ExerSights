@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Modal, Box, Typography, Button, TextField } from "@mui/material";
+import { IconButton, Modal, Box, Typography, Button, TextField, MenuItem, Select } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { catalogText } from "../assets/content.js";
 
 function ProgramModal({
     programId,
@@ -10,7 +11,21 @@ function ProgramModal({
     setProgramsState
 }) {
 
-      
+    
+
+  const validExercises = Object.keys(catalogText);
+
+  const [openModal, setOpenModal] = useState(false);
+  const [newExercise, setNewExercise] = useState("");
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  }
+
   const removeExercise = (index, programId) => {
     setProgramsState((prevPrograms) => {
       const updatedProgram = prevPrograms[programId].list.filter((_, i) => i !== index); // Remove exercise
@@ -26,6 +41,7 @@ function ProgramModal({
   };
 
   const addExercise = (index, exercise, programId) => {
+    if (!validExercises.includes(exercise)) return;
     setProgramsState((prevPrograms) => {
       const updatedProgram = [...prevPrograms[programId].list]; // Copy program
   
@@ -42,19 +58,6 @@ function ProgramModal({
     });
   };
     
-
-
-
-  const [openModal, setOpenModal] = useState(false);
-  const [newExercise, setNewExercise] = useState("test");
-
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  }
 
   return (
     <div>
@@ -124,7 +127,7 @@ function ProgramModal({
                   {/* Add Exercise Button */}
                   <IconButton
                     onClick={() =>
-                      addExercise(index + 1, newExercise || "New Exercise", programId)
+                      addExercise(index + 1, newExercise, programId)
                     }
                     color="primary"
                   >
@@ -142,28 +145,36 @@ function ProgramModal({
             <Typography>No exercises added yet.</Typography>
           )}
 
-          {/* Input Field to Add Custom Exercise */}
-          <TextField
+          {/* Dropdown to Select New Exercise */}
+          <Select
             fullWidth
-            label="New Exercise"
-            variant="outlined"
             value={newExercise}
             onChange={(e) => setNewExercise(e.target.value)}
+            displayEmpty
             sx={{ mt: 2 }}
-          />
+          >
+            <MenuItem value="" disabled>
+              Select an exercise
+            </MenuItem>
+            {validExercises.map((exercise) => (
+              <MenuItem key={exercise} value={exercise}>
+                {exercise}
+              </MenuItem>
+            ))}
+          </Select>
 
           <Button
             variant="contained"
             color="primary"
             onClick={() => {
               if (newExercise.trim() !== "") {
-                addExercise(0, newExercise || "New Exercise");
+                addExercise(0, newExercise, programId); 
                 setNewExercise(""); // Clear input after adding
               }
             }}
             sx={{ mt: 2 }}
           >
-            Add to Beginning
+            Add to Top
           </Button>
 
             <Typography>

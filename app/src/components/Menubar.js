@@ -24,6 +24,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -39,7 +40,7 @@ function Menubar(props) {
     { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
     { text: "About", path: "/about", icon: <InfoIcon /> },
     { text: "Contact", path: "/contact", icon: <EmailIcon /> },
-    {text: "Program", path: "/program", icon: <EmailIcon /> },
+    {text: "Program", path: "/program", icon: <ContentPasteIcon /> },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
