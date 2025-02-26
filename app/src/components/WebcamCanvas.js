@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
-import { Box, Typography, CircularProgress, Button, MenuItem, Select, FormControl, InputLabel, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Box, CircularProgress, Typography, Button } from "@mui/material"; // Import Button here
 
 const webcamStyle =
   process.env.REACT_APP_MODEL === "tasks-vision"
@@ -10,21 +10,9 @@ const webcamStyle =
 const WEBCAM_TIMEOUT = 5000;
 
 const WebcamCanvas = forwardRef((props, ref) => {
+  const { selectedDeviceId, dimensions } = props;
   const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 });
   const [loading, setLoading] = useState(false);
-  const [devices, setDevices] = useState([]);
-  const [selectedDeviceId, setSelectedDeviceId] = useState("");
-  const [openDialog, setOpenDialog] = useState(true);  // For camera selection dialog
-
-  useEffect(() => {
-    navigator.mediaDevices.enumerateDevices().then((deviceList) => {
-      const videoDevices = deviceList.filter((device) => device.kind === "videoinput");
-      setDevices(videoDevices);
-      if (videoDevices.length > 0) {
-        setSelectedDeviceId(videoDevices[0].deviceId);
-      }
-    });
-  }, []);
 
   useEffect(() => {
     const videoElement = ref?.webcamRef?.current?.video;
@@ -36,8 +24,8 @@ const WebcamCanvas = forwardRef((props, ref) => {
         const videoHeight = videoElement.videoHeight;
 
         const aspectRatio = videoWidth / videoHeight;
-        const browserWidth = props.dimensions.width * 0.7;
-        const browserHeight = props.dimensions.height * 0.7;
+        const browserWidth = dimensions.width * 0.7;
+        const browserHeight = dimensions.height * 0.7;
 
         let newWidth, newHeight;
 
@@ -65,39 +53,10 @@ const WebcamCanvas = forwardRef((props, ref) => {
         clearTimeout(timeoutId);
       };
     }
-  }, [ref, props.dimensions.width, props.dimensions.height]);
-
-  const handleCameraSelect = (deviceId) => {
-    setSelectedDeviceId(deviceId);
-    setOpenDialog(false); // Close the dialog once a camera is selected
-  };
+  }, [ref, dimensions.width, dimensions.height]);
 
   return (
     <Box>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>Select Camera</DialogTitle>
-        <DialogContent>
-          <FormControl fullWidth>
-            <InputLabel>Select Camera</InputLabel>
-            <Select
-              value={selectedDeviceId}
-              onChange={(e) => handleCameraSelect(e.target.value)}
-            >
-              {devices.map((device) => (
-                <MenuItem key={device.deviceId} value={device.deviceId}>
-                  {device.label || `Camera ${device.deviceId}`}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} color="primary">
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-
       <div style={webcamStyle}>
         <Webcam
           key={selectedDeviceId}
