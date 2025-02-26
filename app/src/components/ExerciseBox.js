@@ -31,6 +31,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const [availableCameras, setAvailableCameras] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(null);
   const [forceRemountKey, setForceRemountKey] = useState(0); // State for remounting WebcamCanvas
+  const [loading, setLoading] = useState(false); // Loading state for the webcam
 
   useEffect(() => {
     detectPose(webcamRef, canvasRef, processPoseResults);
@@ -85,8 +86,13 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   });
 
   const handleCameraChange = (event) => {
+    setLoading(true); // Start loading state when camera changes
     setSelectedCamera(event.target.value);
     setForceRemountKey((prev) => prev + 1); // Increment the remount key to force a remount
+  };
+
+  const handleUserMediaLoaded = () => {
+    setLoading(false); // Reset loading state once the webcam is loaded
   };
 
   return (
@@ -135,6 +141,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
             ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
             videoDeviceId={selectedCamera} // Pass the selected camera to the WebcamCanvas
             key={forceRemountKey} // Add force remount key to trigger remount
+            onUserMediaLoaded={handleUserMediaLoaded} // Add callback for when webcam is loaded
           />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
