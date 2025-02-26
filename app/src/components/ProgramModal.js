@@ -8,7 +8,7 @@ import { catalogText } from "../assets/content.js";
 function ProgramModal({
     programId,
     programData,
-    setProgramsState
+    setProgramsState,
 }) {
     
 
@@ -103,7 +103,19 @@ function ProgramModal({
             }))}
             sx={{ mt: 2 }}
           />
-
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            if (newExercise.trim() !== "") {
+              addExercise(0, newExercise, programId); 
+              setNewExercise(""); // Clear input after adding
+            }
+          }}
+          sx={{ mb: 1, mt: 1.5, width: "100%" }}
+        >
+          Add to Top
+        </Button>
 
         {programData.list.length > 0 ? (
             programData.list.map((exercise, index) => (
@@ -164,18 +176,7 @@ function ProgramModal({
 
           <Box sx={{ display: "flex", justifyContent: "center", width: "100%", mt: 2, gap: 2 }}>
 
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                if (newExercise.trim() !== "") {
-                  addExercise(0, newExercise, programId); 
-                  setNewExercise(""); // Clear input after adding
-                }
-              }}
-            >
-              Add to Top
-            </Button>
+
 
             <Button variant="contained" onClick={handleCloseModal}>
               Save & Close

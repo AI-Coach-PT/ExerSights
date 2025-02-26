@@ -15,7 +15,7 @@ function Program() {
   const navigate = useNavigate();
 
   const [programsState, setProgramsState] = useState(
-    //JSON.parse(localStorage.getItem("programs")) || 
+    JSON.parse(localStorage.getItem("programs")) || 
     programs
   );
 
@@ -92,6 +92,26 @@ function Program() {
             </Paper>
           </Grid>
         ))}
+
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper
+            elevation={3}
+            sx={{
+              p: 3,
+              borderRadius: 2,
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              minHeight: 150, // Ensures same size as program boxes
+            }}
+          >
+              <IconButton onClick={addProgram} sx={{ fontSize: 50 }}>
+                <AddCircleIcon fontSize="inherit" />
+              </IconButton>
+            </Paper>
+         </Grid>
       </Grid>
 
       {/* Add Program Button */}
