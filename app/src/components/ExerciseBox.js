@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Typography, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
+import { Box, Typography, MenuItem, Select, FormControl, InputLabel, CircularProgress } from "@mui/material";
 import WebcamCanvas from "./WebcamCanvas";
 import VideoCanvas from "./VideoCanvas";
 import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
@@ -136,6 +136,12 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
             position: "relative",
             boxShadow: `0px 0px 65px 0px ${color}`,
           }}>
+          {/* Conditionally render the loading spinner only once */}
+          {loading && (
+            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+              <CircularProgress />
+            </Box>
+          )}
           <WebcamCanvas
             dimensions={dimensions}
             ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
