@@ -153,7 +153,7 @@ function ProgramModal({ programId, programData, setProgramsState }) {
                   borderRadius: "5px",
                 }}
               >
-                <Typography>{exercise}</Typography>
+                <Typography>{exercise.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</Typography>
 
                 {/* Controls to add/remove exercises */}
                 <Box>
@@ -183,7 +183,7 @@ function ProgramModal({ programId, programData, setProgramsState }) {
             </MenuItem>
             {validExercises.map((exercise) => (
               <MenuItem key={exercise} value={exercise}>
-                {exercise}
+                {exercise.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
               </MenuItem>
             ))}
           </Select>

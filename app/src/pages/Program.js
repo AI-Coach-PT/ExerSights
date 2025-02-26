@@ -119,11 +119,6 @@ function Program() {
           </Paper>
         </Grid>
       </Grid>
-
-      {/* Floating Add Program Button */}
-      <IconButton onClick={addProgram} sx={{ mt: 3 }}>
-        <AddCircleIcon fontSize="large" />
-      </IconButton>
     </Box>
   );
 }
