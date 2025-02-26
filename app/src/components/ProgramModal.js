@@ -16,45 +16,51 @@ function ProgramModal({
 
   const [openModal, setOpenModal] = useState(false);
   const [newExercise, setNewExercise] = useState("");
+  const [tempProgramName, setTempProgramName] = useState(programData.name);
+  const [tempExercises, setTempExercises] = useState([...programData.list]);
+
+  useEffect(() => {
+    setTempProgramName(programData.name);
+    setTempExercises([...programData.list]);
+  }, [programData]);
 
   const handleOpenModal = () => {
     setOpenModal(true);
   };
 
   const handleCloseModal = () => {
+    // ✅ Check if there are unsaved changes before closing
+    if (tempProgramName !== programData.name || JSON.stringify(tempExercises) !== JSON.stringify(programData.list)) {
+      const confirmClose = window.confirm("You have unsaved changes. Do you want to discard them?");
+      if (!confirmClose) return; // Stop closing if user cancels
+    }
     setOpenModal(false);
-  }
-
-  const removeExercise = (index, programId) => {
-    setProgramsState((prevPrograms) => {
-      const updatedProgram = prevPrograms[programId].list.filter((_, i) => i !== index); // Remove exercise
-  
-      return {
-        ...prevPrograms,
-        [programId]: {
-          ...prevPrograms[programId], // Keep the name and other data
-          list: updatedProgram, // Update the list correctly
-        },
-      };
-    });
+    setTempProgramName(programData.name); // Reset temporary state
+    setTempExercises([...programData.list]);
   };
 
-  const addExercise = (index, exercise, programId) => {
+  const handleSaveChanges = () => {
+    setProgramsState((prev) => ({
+      ...prev,
+      [programId]: {
+        ...prev[programId],
+        name: tempProgramName,
+        list: tempExercises,
+      },
+    }));
+  };
+
+  const removeExercise = (index) => {
+    setTempExercises((prev) => prev.filter((_, i) => i !== index));
+  };
+
+
+  const addExercise = (index, exercise) => {
     if (!validExercises.includes(exercise)) return;
-    setProgramsState((prevPrograms) => {
-      const updatedProgram = [...prevPrograms[programId].list]; // Copy program
-  
-      // Insert new exercise (it should be an object with {exercise: "name"})
-      updatedProgram.splice(index, 0, exercise);
-  
-      return {
-        ...prevPrograms,
-        [programId]: {
-          ...prevPrograms[programId], // Keep other program properties
-          list: updatedProgram, // Update the list
-        },
-      };
-    });
+    const updatedExercises = [...tempExercises];
+    updatedExercises.splice(index + 1, 0, exercise); // ✅ Adds after current index
+    setTempExercises(updatedExercises);
+    setNewExercise("");
   };
     
 
@@ -87,20 +93,16 @@ function ProgramModal({
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            maxHeight: "70vh", 
+            overflowY: "auto", 
           }}>
 
           <TextField
             fullWidth
             label="Progam Name"
             variant="outlined"
-            value={programData.name}
-            onChange={(e) => setProgramsState((prev) => ({
-              ...prev,
-              [programId]: {
-                ...prev[programId],
-                name: e.target.value,
-              },
-            }))}
+            value={tempProgramName}
+            onChange={(e) => setTempProgramName(e.target.value)}
             sx={{ mt: 2 }}
           />
         <Button
@@ -117,8 +119,8 @@ function ProgramModal({
           Add to Top
         </Button>
 
-        {programData.list.length > 0 ? (
-            programData.list.map((exercise, index) => (
+        {tempExercises.length > 0 ? (
+            tempExercises.map((exercise, index) => (
               <Box
                 key={index}
                 sx={{
@@ -174,12 +176,17 @@ function ProgramModal({
             ))}
           </Select>
 
-          <Box sx={{ display: "flex", justifyContent: "center", width: "100%", mt: 2, gap: 2 }}>
-
-
-
+          {/* <Box sx={{ display: "flex", justifyContent: "center", width: "100%", mt: 2, gap: 2 }}>
             <Button variant="contained" onClick={handleCloseModal}>
               Save & Close
+            </Button>
+          </Box> */}
+          <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%", mt: 2 }}>
+            <Button variant="contained" color="primary" onClick={handleSaveChanges}>
+              Save
+            </Button>
+            <Button variant="contained" onClick={handleCloseModal} color="secondary">
+              Close
             </Button>
           </Box>
         </Box>
