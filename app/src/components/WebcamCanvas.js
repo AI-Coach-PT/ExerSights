@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
-import { Box, CircularProgress, Typography, Button } from "@mui/material"; // Import Button here
+import { Box, Typography, CircularProgress, Button, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 
 const webcamStyle =
   process.env.REACT_APP_MODEL === "tasks-vision"
@@ -10,9 +10,50 @@ const webcamStyle =
 const WEBCAM_TIMEOUT = 5000;
 
 const WebcamCanvas = forwardRef((props, ref) => {
-  const { selectedDeviceId, dimensions } = props;
   const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 });
   const [loading, setLoading] = useState(false);
+  const [devices, setDevices] = useState([]);
+  const [selectedDeviceId, setSelectedDeviceId] = useState("");
+  const [currentStream, setCurrentStream] = useState(null);
+
+  useEffect(() => {
+    const getVideoDevices = async () => {
+      const deviceList = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices = deviceList.filter((device) => device.kind === "videoinput");
+      setDevices(videoDevices);
+      if (videoDevices.length > 0) {
+        setSelectedDeviceId(videoDevices[0].deviceId);  // Default to the first device
+      }
+    };
+
+    getVideoDevices();
+  }, []);
+
+  useEffect(() => {
+    const changeStream = async () => {
+      if (currentStream) {
+        // Stop the previous stream
+        currentStream.getTracks().forEach(track => track.stop());
+      }
+
+      try {
+        // Get the new stream with the selected deviceId
+        const newStream = await navigator.mediaDevices.getUserMedia({
+          video: { deviceId: selectedDeviceId }
+        });
+
+        // Update the webcam with the new stream
+        if (ref?.webcamRef?.current) {
+          ref.webcamRef.current.srcObject = newStream;
+        }
+        setCurrentStream(newStream);
+      } catch (error) {
+        console.error("Error switching camera:", error);
+      }
+    };
+
+    changeStream();
+  }, [selectedDeviceId, currentStream]);
 
   useEffect(() => {
     const videoElement = ref?.webcamRef?.current?.video;
@@ -24,8 +65,8 @@ const WebcamCanvas = forwardRef((props, ref) => {
         const videoHeight = videoElement.videoHeight;
 
         const aspectRatio = videoWidth / videoHeight;
-        const browserWidth = dimensions.width * 0.7;
-        const browserHeight = dimensions.height * 0.7;
+        const browserWidth = props.dimensions.width * 0.7;
+        const browserHeight = props.dimensions.height * 0.7;
 
         let newWidth, newHeight;
 
@@ -53,20 +94,32 @@ const WebcamCanvas = forwardRef((props, ref) => {
         clearTimeout(timeoutId);
       };
     }
-  }, [ref, dimensions.width, dimensions.height]);
+  }, [ref, props.dimensions.width, props.dimensions.height]);
 
   return (
     <Box>
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel>Select Camera</InputLabel>
+        <Select
+          value={selectedDeviceId}
+          onChange={(e) => setSelectedDeviceId(e.target.value)}
+        >
+          {devices.map((device) => (
+            <MenuItem key={device.deviceId} value={device.deviceId}>
+              {device.label || `Camera ${device.deviceId}`}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <div style={webcamStyle}>
         <Webcam
-          key={selectedDeviceId}
+          key={selectedDeviceId}  // Ensures re-render when device changes
           ref={ref.webcamRef}
           className="hidden-webcam"
           disablePictureInPicture={true}
           videoConstraints={{ deviceId: selectedDeviceId }}
         />
       </div>
-      
       <Box
         position="absolute"
         display="flex"
@@ -96,7 +149,6 @@ const WebcamCanvas = forwardRef((props, ref) => {
           </>
         )}
       </Box>
-      
       <canvas
         ref={ref.canvasRef}
         width={canvasSize.width}
