@@ -72,7 +72,7 @@ function ProgramModal({ programId, programData, setProgramsState }) {
   const addExercise = (index, exercise) => {
     if (!validExercises.includes(exercise)) return;
     const updatedExercises = [...tempExercises];
-    updatedExercises.splice(index + 1, 0, exercise);
+    updatedExercises.splice(index, 0, exercise);
     setTempExercises(updatedExercises);
     setNewExercise(""); // Clear selection after adding
   };
