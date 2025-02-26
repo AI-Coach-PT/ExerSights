@@ -6,6 +6,7 @@ import ProgramModal from "../components/ProgramModal";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
+// Default programs data
 const programs = {
   1: { name: "Core", list: ["plank", "deadBug", "bridge"] },
   2: { name: "Back", list: ["pullUp", "muscleUp"] },
@@ -14,15 +15,17 @@ const programs = {
 function Program() {
   const navigate = useNavigate();
 
+  // Initialize programs from localStorage or default data
   const [programsState, setProgramsState] = useState(
-    JSON.parse(localStorage.getItem("programs")) || 
-    programs
+    JSON.parse(localStorage.getItem("programs")) || programs
   );
 
+  // Sync program state with localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("programs", JSON.stringify(programsState));
   }, [programsState]);
 
+  // Navigate to program overlay if exercises exist
   const handleNavigate = (programId) => {
     if (programsState[programId].list.length === 0) {
       window.alert("Empty Program");
@@ -31,6 +34,7 @@ function Program() {
     navigate("/programOverlay", { state: { currentProgram: programsState[programId] } });
   };
 
+  // Remove a program after user confirmation
   const removeProgram = (programId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this program?");
     if (!confirmDelete) return;
@@ -41,6 +45,7 @@ function Program() {
     });
   };
 
+  // Add a new blank program
   const addProgram = () => {
     const newProgramId = Object.keys(programsState).length + 1;
     setProgramsState((prevPrograms) => ({
@@ -58,7 +63,7 @@ function Program() {
         Create an Exercise Program
       </Typography>
 
-      {/* ✅ Grid Layout for Programs */}
+      {/* Grid Layout for Displaying Programs */}
       <Grid container spacing={3} justifyContent="center">
         {Object.entries(programsState).map(([programId, programData]) => (
           <Grid item xs={12} sm={6} md={4} key={programId}>
@@ -68,7 +73,7 @@ function Program() {
                 {programData.name}
               </Typography>
 
-              {/* Modal & Remove Button (Horizontal Alignment) */}
+              {/* Modal & Remove Button */}
               <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 1 }}>
                 <ProgramModal
                   programId={programId}
@@ -80,7 +85,7 @@ function Program() {
                 </IconButton>
               </Box>
 
-              {/* Start Routine Button */}
+              {/* Start Program Button */}
               <Button
                 variant="contained"
                 color="primary"
@@ -93,6 +98,7 @@ function Program() {
           </Grid>
         ))}
 
+        {/* Add Program Button in Grid */}
         <Grid item xs={12} sm={6} md={4}>
           <Paper
             elevation={3}
@@ -104,17 +110,17 @@ function Program() {
               alignItems: "center",
               justifyContent: "center",
               height: "100%",
-              minHeight: 150, // Ensures same size as program boxes
+              minHeight: 150,
             }}
           >
-              <IconButton onClick={addProgram} sx={{ fontSize: 50 }}>
-                <AddCircleIcon fontSize="inherit" />
-              </IconButton>
-            </Paper>
-         </Grid>
+            <IconButton onClick={addProgram} sx={{ fontSize: 50 }}>
+              <AddCircleIcon fontSize="inherit" />
+            </IconButton>
+          </Paper>
+        </Grid>
       </Grid>
 
-      {/* Add Program Button */}
+      {/* Floating Add Program Button */}
       <IconButton onClick={addProgram} sx={{ mt: 3 }}>
         <AddCircleIcon fontSize="large" />
       </IconButton>

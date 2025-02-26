@@ -1,44 +1,57 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Modal, Box, Typography, Button, TextField, MenuItem, Select } from "@mui/material";
+import {
+  IconButton,
+  Modal,
+  Box,
+  Typography,
+  Button,
+  TextField,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { catalogText } from "../assets/content.js";
 
-function ProgramModal({
-    programId,
-    programData,
-    setProgramsState,
-}) {
-    
-
+function ProgramModal({ programId, programData, setProgramsState }) {
+  // List of valid exercises available for selection
   const validExercises = Object.keys(catalogText);
 
+  // State variables for modal and program management
   const [openModal, setOpenModal] = useState(false);
   const [newExercise, setNewExercise] = useState("");
   const [tempProgramName, setTempProgramName] = useState(programData.name);
   const [tempExercises, setTempExercises] = useState([...programData.list]);
 
+  // Sync modal state with updated program data
   useEffect(() => {
     setTempProgramName(programData.name);
     setTempExercises([...programData.list]);
   }, [programData]);
 
+  // Open the modal
   const handleOpenModal = () => {
     setOpenModal(true);
   };
 
+  // Close modal with confirmation for unsaved changes
   const handleCloseModal = () => {
-    // ✅ Check if there are unsaved changes before closing
-    if (tempProgramName !== programData.name || JSON.stringify(tempExercises) !== JSON.stringify(programData.list)) {
-      const confirmClose = window.confirm("You have unsaved changes. Do you want to discard them?");
-      if (!confirmClose) return; // Stop closing if user cancels
+    if (
+      tempProgramName !== programData.name ||
+      JSON.stringify(tempExercises) !== JSON.stringify(programData.list)
+    ) {
+      const confirmClose = window.confirm(
+        "You have unsaved changes. Do you want to discard them?"
+      );
+      if (!confirmClose) return;
     }
     setOpenModal(false);
-    setTempProgramName(programData.name); // Reset temporary state
+    setTempProgramName(programData.name);
     setTempExercises([...programData.list]);
   };
 
+  // Save changes to the program state
   const handleSaveChanges = () => {
     setProgramsState((prev) => ({
       ...prev,
@@ -50,34 +63,36 @@ function ProgramModal({
     }));
   };
 
+  // Remove an exercise from the list
   const removeExercise = (index) => {
     setTempExercises((prev) => prev.filter((_, i) => i !== index));
   };
 
-
+  // Add a new exercise after a given index
   const addExercise = (index, exercise) => {
     if (!validExercises.includes(exercise)) return;
     const updatedExercises = [...tempExercises];
-    updatedExercises.splice(index + 1, 0, exercise); // ✅ Adds after current index
+    updatedExercises.splice(index + 1, 0, exercise);
     setTempExercises(updatedExercises);
-    setNewExercise("");
+    setNewExercise(""); // Clear selection after adding
   };
-    
 
   return (
     <div>
-      <IconButton sx={{ 
-        position: "static",
-        cursor: "pointer",
-        transition: "transform 0.3s",
-        "&:hover": {
-          transform: "scale(1.05)",
-        },
-     }} 
-      onClick={handleOpenModal}>
+      {/* Button to open modal */}
+      <IconButton
+        sx={{
+          position: "static",
+          cursor: "pointer",
+          transition: "transform 0.3s",
+          "&:hover": { transform: "scale(1.05)" },
+        }}
+        onClick={handleOpenModal}
+      >
         <SettingsIcon fontSize="small" />
       </IconButton>
 
+      {/* Modal for program settings */}
       <Modal open={openModal} onClose={handleCloseModal}>
         <Box
           sx={{
@@ -93,33 +108,37 @@ function ProgramModal({
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            maxHeight: "70vh", 
-            overflowY: "auto", 
-          }}>
-
+            maxHeight: "70vh",
+            overflowY: "auto",
+          }}
+        >
+          {/* Editable program name */}
           <TextField
             fullWidth
-            label="Progam Name"
+            label="Program Name"
             variant="outlined"
             value={tempProgramName}
             onChange={(e) => setTempProgramName(e.target.value)}
             sx={{ mt: 2 }}
           />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            if (newExercise.trim() !== "") {
-              addExercise(0, newExercise, programId); 
-              setNewExercise(""); // Clear input after adding
-            }
-          }}
-          sx={{ mb: 1, mt: 1.5, width: "100%" }}
-        >
-          Add to Top
-        </Button>
 
-        {tempExercises.length > 0 ? (
+          {/* Add new exercise to the top */}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              if (newExercise.trim() !== "") {
+                addExercise(0, newExercise);
+                setNewExercise("");
+              }
+            }}
+            sx={{ mb: 1, mt: 1.5, width: "100%" }}
+          >
+            Add to Top
+          </Button>
+
+          {/* List of current exercises */}
+          {tempExercises.length > 0 ? (
             tempExercises.map((exercise, index) => (
               <Box
                 key={index}
@@ -136,19 +155,12 @@ function ProgramModal({
               >
                 <Typography>{exercise}</Typography>
 
+                {/* Controls to add/remove exercises */}
                 <Box>
-                  {/* Add Exercise Button */}
-                  <IconButton
-                    onClick={() =>
-                      addExercise(index + 1, newExercise, programId)
-                    }
-                    color="primary"
-                  >
+                  <IconButton onClick={() => addExercise(index + 1, newExercise)} color="primary">
                     <AddCircleIcon />
                   </IconButton>
-
-                  {/* Remove Exercise Button */}
-                  <IconButton onClick={() => removeExercise(index, programId)} color="error">
+                  <IconButton onClick={() => removeExercise(index)} color="error">
                     <RemoveCircleIcon />
                   </IconButton>
                 </Box>
@@ -158,7 +170,7 @@ function ProgramModal({
             <Typography>No exercises added yet.</Typography>
           )}
 
-          {/* Dropdown to Select New Exercise */}
+          {/* Dropdown menu for selecting new exercises */}
           <Select
             fullWidth
             value={newExercise}
@@ -176,11 +188,7 @@ function ProgramModal({
             ))}
           </Select>
 
-          {/* <Box sx={{ display: "flex", justifyContent: "center", width: "100%", mt: 2, gap: 2 }}>
-            <Button variant="contained" onClick={handleCloseModal}>
-              Save & Close
-            </Button>
-          </Box> */}
+          {/* Action buttons for saving and closing */}
           <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%", mt: 2 }}>
             <Button variant="contained" color="primary" onClick={handleSaveChanges}>
               Save
