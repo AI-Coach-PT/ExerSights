@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, getInitColorSchemeScript, Typography } from "@mui/material";
+import { Box, Typography, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import WebcamCanvas from "./WebcamCanvas";
 import VideoCanvas from "./VideoCanvas";
 import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
@@ -28,8 +28,20 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const videoCanvasRef = useRef(null);
   const [useVideo, setUseVideo] = useState(false);
 
+  const [availableCameras, setAvailableCameras] = useState([]);
+  const [selectedCamera, setSelectedCamera] = useState(null);
+
   useEffect(() => {
     detectPose(webcamRef, canvasRef, processPoseResults);
+
+    // Get available cameras
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      const cameras = devices.filter(device => device.kind === 'videoinput');
+      setAvailableCameras(cameras);
+      if (cameras.length > 0) {
+        setSelectedCamera(cameras[0].deviceId); // Default to the first camera
+      }
+    });
 
     return () => {};
   }, [targetAngles]);
@@ -71,11 +83,31 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     handleVideoUpload: handleVideoUpload, // Spread in the extra props
   });
 
+  const handleCameraChange = (event) => {
+    setSelectedCamera(event.target.value);
+  };
+
   return (
     <Box sx={{ padding: "0.5rem" }}>
       <Typography variant="h2" sx={{ textAlign: "center" }}>
         {title}
       </Typography>
+
+      <FormControl sx={{ marginBottom: "1rem" }}>
+        <InputLabel>Choose Camera</InputLabel>
+        <Select
+          value={selectedCamera || ""}
+          onChange={handleCameraChange}
+          label="Choose Camera"
+        >
+          {availableCameras.map((camera) => (
+            <MenuItem key={camera.deviceId} value={camera.deviceId}>
+              {camera.label || `Camera ${camera.deviceId}`}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
       <Box
         sx={{
           display: "flex",
@@ -99,6 +131,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
           <WebcamCanvas
             dimensions={dimensions}
             ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
+            videoDeviceId={selectedCamera} // Pass the selected camera to the WebcamCanvas
           />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
