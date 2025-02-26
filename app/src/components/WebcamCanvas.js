@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
-import { Box, Typography, CircularProgress, Button, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
+import { Box, Typography, CircularProgress, Button, MenuItem, Select, FormControl, InputLabel, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 
 const webcamStyle =
   process.env.REACT_APP_MODEL === "tasks-vision"
@@ -14,6 +14,7 @@ const WebcamCanvas = forwardRef((props, ref) => {
   const [loading, setLoading] = useState(false);
   const [devices, setDevices] = useState([]);
   const [selectedDeviceId, setSelectedDeviceId] = useState("");
+  const [openDialog, setOpenDialog] = useState(true);  // For camera selection dialog
 
   useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then((deviceList) => {
@@ -66,30 +67,47 @@ const WebcamCanvas = forwardRef((props, ref) => {
     }
   }, [ref, props.dimensions.width, props.dimensions.height]);
 
+  const handleCameraSelect = (deviceId) => {
+    setSelectedDeviceId(deviceId);
+    setOpenDialog(false); // Close the dialog once a camera is selected
+  };
+
   return (
     <Box>
-      <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel>Select Camera</InputLabel>
-        <Select
-          value={selectedDeviceId}
-          onChange={(e) => setSelectedDeviceId(e.target.value)}
-        >
-          {devices.map((device) => (
-            <MenuItem key={device.deviceId} value={device.deviceId}>
-              {device.label || `Camera ${device.deviceId}`}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>Select Camera</DialogTitle>
+        <DialogContent>
+          <FormControl fullWidth>
+            <InputLabel>Select Camera</InputLabel>
+            <Select
+              value={selectedDeviceId}
+              onChange={(e) => handleCameraSelect(e.target.value)}
+            >
+              {devices.map((device) => (
+                <MenuItem key={device.deviceId} value={device.deviceId}>
+                  {device.label || `Camera ${device.deviceId}`}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <div style={webcamStyle}>
         <Webcam
-          key={selectedDeviceId} 
+          key={selectedDeviceId}
           ref={ref.webcamRef}
           className="hidden-webcam"
           disablePictureInPicture={true}
           videoConstraints={{ deviceId: selectedDeviceId }}
         />
       </div>
+      
       <Box
         position="absolute"
         display="flex"
@@ -119,6 +137,7 @@ const WebcamCanvas = forwardRef((props, ref) => {
           </>
         )}
       </Box>
+      
       <canvas
         ref={ref.canvasRef}
         width={canvasSize.width}
