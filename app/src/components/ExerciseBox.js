@@ -50,6 +50,31 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     setLoading(false);
   };
 
+  const handleVideoUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const videoURL = URL.createObjectURL(file);
+      const videoElement = videoRef.current;
+
+      videoElement.src = videoURL;
+      videoElement.onloadeddata = () => {
+        videoElement.pause(); // Pause initially until the user plays it
+      };
+
+      setUseVideo(true);
+    }
+  };
+
+  const handlePlay = () => {
+    const videoElement = videoRef.current;
+    startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
+  };
+
+  // Pass video upload function to feedbackPanel
+  const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
+    handleVideoUpload: handleVideoUpload, 
+  });
+
   return (
     <Box sx={{ padding: "0.5rem" }}>
       <Typography variant="h2" sx={{ textAlign: "center" }}>{title}</Typography>
@@ -62,11 +87,20 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
         </Select>
       </FormControl>
       <Box sx={{ display: "flex", flexWrap: "nowrap", justifyContent: "center", alignItems: "flex-start", width: "100%", height: "fit-content", padding: "2vmin", gap: "2rem" }}>
+        {/* Webcam View */}
         <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "1rem", overflow: "hidden", m: "2rem", display: useVideo ? "none" : "", position: "relative", boxShadow: `0px 0px 65px 0px ${color}` }}>
           <WebcamCanvas dimensions={{ width: window.innerWidth, height: window.innerHeight }} ref={{ webcamRef, canvasRef }} videoDeviceId={selectedCamera} key={forceRemountKey} onUserMediaLoaded={handleUserMediaLoaded} />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
-        {feedbackPanel}
+
+        {/* Video Playback (Shown if a video is uploaded) */}
+        <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "8px", overflow: "hidden", padding: "5px", display: useVideo ? "" : "none", boxShadow: `0px 0px 65px 0px ${color}` }}>
+          <VideoCanvas handlePlay={handlePlay} ref={{ videoRef, canvasRef: videoCanvasRef }} />
+          {showOverlay && <OverlayBox text={repCount} />}
+        </Box>
+
+        {/* Feedback Panel with Upload Button Inside */}
+        {enhancedFeedbackPanel}
       </Box>
     </Box>
   );
