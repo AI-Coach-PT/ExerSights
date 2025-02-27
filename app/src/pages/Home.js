@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box, Card, CardContent, Button, CardMedia } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logos/catalog.png";
+import catalogPreview from "../assets/logos/catalogPreview.png";
 import { disclaimerText } from "../assets/content";
 
 function Home() {
@@ -30,7 +30,10 @@ function Home() {
           AI-powered App for Fitness & Rehab
         </Typography>
 
-        <Typography variant="body1" sx={{ color: "text.secondary", mb: "1rem" }} gutterBottom>
+        <Typography
+          variant="body1"
+          sx={{ color: "text.secondary", mb: "1rem", mx: "1rem" }}
+          gutterBottom>
           Providing real-time feedback on exercise form using state-of-the-art computer vision
           models.
           <br />
@@ -41,7 +44,8 @@ function Home() {
 
       <Card
         sx={{
-          width: { xs: "25rem", md: "40rem" },
+          width: { sm: "37rem" },
+          maxwidth: "80vw",
           cursor: "pointer",
           transition: "transform 0.3s",
           "&:hover": {
@@ -51,7 +55,7 @@ function Home() {
           borderRadius: "2rem",
         }}
         onClick={handleNavigate}>
-        <CardMedia component="img" image={logo} alt="Catalog Preview" sx={{ width: "100%" }} />
+        <CardMedia component="img" image={catalogPreview} sx={{ width: "100%" }} />
         <CardContent>
           <Typography variant="h6" gutterBottom>
             Explore Our Catalog
@@ -71,7 +75,7 @@ function Home() {
       <Typography variant="h3" sx={{ mb: "0.5rem" }}>
         Watch our tutorial below!
       </Typography>
-      <Box sx={{ width: "65vw", aspectRatio: "16/9" }}>
+      <Box sx={{ width: "65vw", aspectRatio: "16/9", maxWidth: "900px" }}>
         <iframe
           width="100%"
           height="100%"

@@ -26,13 +26,13 @@ const OverlayBox = ({ text }) => {
         pointerEvents: "none", // Prevent interactions
       }}>
       <Typography
-        variant="h1"
+        style={{ fontSize: "12em" }}
         sx={{
           color: "green",
           backgroundColor: "rgba(0, 0, 0, 0.7)",
-          padding: "20px 40px",
+          padding: "10px 30px",
           borderRadius: "15px",
-          animation: `${fadeUp} 1s ease-out forwards`,
+          animation: `${fadeUp} 0.5s ease-out forwards`,
         }}>
         {text}
       </Typography>
