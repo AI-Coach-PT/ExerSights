@@ -2,6 +2,24 @@ import React, { useState, useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 import { Box, CircularProgress, Typography, Button } from "@mui/material";
 
+
+/**
+ * WebcamCanvas component provides a webcam interface with responsive dimensions
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {Object} props.dimensions - Browser dimensions
+ * @param {number} props.dimensions.width - Browser window width
+ * @param {number} props.dimensions.height - Browser window height
+ * @param {React.Ref} ref - Forwarded ref for accessing webcam methods
+ *
+ * @example
+ * // Usage
+ * <WebcamCanvas
+ *   dimensions={{ width: window.innerWidth, height: window.innerHeight }}
+ *   ref={webcamRef}
+ * />
+ */
 const WebcamCanvas = React.forwardRef((props, ref) => {
   const { videoDeviceId, dimensions } = props;
   const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 });
