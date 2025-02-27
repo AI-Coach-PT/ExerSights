@@ -10,22 +10,26 @@ import { Box, CircularProgress, Typography, Button } from "@mui/material";
  * @param {Object} props.dimensions - Browser dimensions
  * @param {number} props.dimensions.width - Browser window width
  * @param {number} props.dimensions.height - Browser window height
- * @param {boolean} props.loading - Loading state passed from parent
  * @param {React.Ref} ref - Forwarded ref for accessing webcam methods
  *
  * @example
  * // Usage
  * <WebcamCanvas
  *   dimensions={{ width: window.innerWidth, height: window.innerHeight }}
- *   loading={loading}  // Pass loading state from parent
  *   ref={webcamRef}
  * />
  */
 const WebcamCanvas = React.forwardRef((props, ref) => {
-  const { videoDeviceId, dimensions, loading } = props;  // Use loading prop passed from parent
+  const { videoDeviceId, dimensions } = props;
   const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 });
+  const [loading, setLoading] = useState(true); // Initially loading is true
   const webcamStreamRef = useRef(null);
   const videoElementRef = useRef(null);
+
+  // Log the loading state every time it changes
+  useEffect(() => {
+    console.log("Loading state:", loading);
+  }, [loading]);
 
   useEffect(() => {
     const videoElement = ref?.webcamRef?.current?.video;
@@ -54,13 +58,15 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
     };
 
     if (videoElement) {
-      videoElement.addEventListener("loadedmetadata", updateCanvasSize);
+      videoElement.addEventListener("loadedmetadata", () => {
+        updateCanvasSize();
+        setLoading(false);  // Set loading to false once the metadata is loaded
+      });
       videoElementRef.current = videoElement;
 
       timeoutId = setTimeout(() => {
-        // This timeout is now unnecessary for `loading` state control, as it's passed from parent
-        clearTimeout(timeoutId);
-      }, 1000);
+        setLoading(true);  // If metadata takes too long, keep loading state
+      }, 3000); // Set a timeout of 3 seconds (for demonstration purposes)
 
       return () => {
         videoElement.removeEventListener("loadedmetadata", updateCanvasSize);
