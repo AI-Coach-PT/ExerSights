@@ -30,7 +30,10 @@ function Home() {
           AI-powered App for Fitness & Rehab
         </Typography>
 
-        <Typography variant="body1" sx={{ color: "text.secondary", mb: "1rem" }} gutterBottom>
+        <Typography
+          variant="body1"
+          sx={{ color: "text.secondary", mb: "1rem", mx: "1rem" }}
+          gutterBottom>
           Providing real-time feedback on exercise form using state-of-the-art computer vision
           models.
           <br />
@@ -41,7 +44,7 @@ function Home() {
 
       <Card
         sx={{
-          width: { xs: "25rem", md: "40rem" },
+          width: { xs: "27rem", md: "40rem" },
           cursor: "pointer",
           transition: "transform 0.3s",
           "&:hover": {
@@ -51,7 +54,7 @@ function Home() {
           borderRadius: "2rem",
         }}
         onClick={handleNavigate}>
-        <CardMedia component="img" image={logo} alt="Catalog Preview" sx={{ width: "100%" }} />
+        <CardMedia component="img" image={logo} sx={{ width: "100%" }} />
         <CardContent>
           <Typography variant="h6" gutterBottom>
             Explore Our Catalog
@@ -71,7 +74,7 @@ function Home() {
       <Typography variant="h3" sx={{ mb: "0.5rem" }}>
         Watch our tutorial below!
       </Typography>
-      <Box sx={{ width: "65vw", aspectRatio: "16/9" }}>
+      <Box sx={{ width: "65vw", aspectRatio: "16/9", maxWidth: "900px" }}>
         <iframe
           width="100%"
           height="100%"

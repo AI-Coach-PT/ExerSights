@@ -38,9 +38,9 @@ function Menubar(props) {
   const menuItems = [
     { text: "Home", path: "/home", icon: <HomeIcon /> },
     { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
+    { text: "Program", path: "/program", icon: <ContentPasteIcon /> },
     { text: "About", path: "/about", icon: <InfoIcon /> },
     { text: "Contact", path: "/contact", icon: <EmailIcon /> },
-    { text: "Program", path: "/program", icon: <ContentPasteIcon /> },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
@@ -92,7 +92,6 @@ function Menubar(props) {
               height: "30px",
               width: "200px",
               ml: "0.5vw",
-              display: { xs: "none", md: "flex" },
             }}
           />
         </Box>
@@ -100,7 +99,7 @@ function Menubar(props) {
         {/* desktop navigation */}
         <Box
           sx={{
-            display: { xs: "none", md2: "flex" },
+            display: { xs: "none", lg: "flex" },
             justifyContent: "center",
           }}>
           {menuItems.map((item) => (
@@ -118,7 +117,7 @@ function Menubar(props) {
         {/* toggle dark mode, login/logout button */}
         <Box
           sx={{
-            display: { xs: "none", md2: "flex" },
+            display: { xs: "none", lg: "flex" },
             flexGrow: 1,
             flexBasis: "0%",
             justifyContent: "right",
@@ -132,7 +131,7 @@ function Menubar(props) {
               variant="body1"
               sx={{
                 userSelect: "none",
-                display: { xs: "none", md2: "flex" },
+                display: { xs: "none", lg: "flex" },
               }}>
               Welcome {username}!
             </Typography>
@@ -149,7 +148,7 @@ function Menubar(props) {
         {/* drawer icon */}
         <Box
           sx={{
-            display: { xs: "flex", md2: "none" },
+            display: { xs: "flex", lg: "none" },
             flexGrow: 1,
             justifyContent: "right",
           }}>
@@ -164,7 +163,7 @@ function Menubar(props) {
           open={isDrawerOpen}
           onClose={handleDrawerToggle}
           sx={{
-            display: { xs: "block", md2: "none" },
+            display: { xs: "block", lg: "none" },
             "& .MuiDrawer-paper": { width: "20vw" },
           }}>
           <List>
