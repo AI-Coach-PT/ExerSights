@@ -51,6 +51,14 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     setLoading(!stream);  // Set loading to true if no stream, false otherwise
   }, [stream]);
 
+  // Ensure pose detection reinitializes when the camera changes
+  useEffect(() => {
+    if (webcamRef.current && canvasRef.current) {
+      console.log("Reinitializing pose detection for new camera:", selectedCamera);
+      detectPose(webcamRef, canvasRef, processPoseResults);
+    }
+  }, [selectedCamera, forceRemountKey, targetAngles]); // Add targetAngles to dependencies
+
   const handleCameraChange = (event) => {
     const newCamera = event.target.value;
     setLoading(true);

@@ -85,7 +85,7 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
         clearTimeout(timeoutId);
       };
     }
-  }, [ref, dimensions.width, dimensions.height]);
+  }, [ref, dimensions.width, dimensions.height, videoDeviceId]); // Add videoDeviceId to dependencies
 
   const videoConstraints = {
     deviceId: videoDeviceId ? { exact: videoDeviceId } : undefined,
