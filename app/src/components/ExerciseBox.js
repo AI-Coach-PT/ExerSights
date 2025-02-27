@@ -25,7 +25,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
       setAvailableCameras(cameras);
       if (cameras.length > 0 && !selectedCamera) {
         setSelectedCamera(cameras[0].deviceId);
-        localStorage.setItem("selectedCamera", cameras[0].deviceId);
+        localStorage.setItem("selectedCamera", cameras[0].deviceId); // Save the default camera if no selection
       }
     });
   }, []);
@@ -54,7 +54,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     const newCamera = event.target.value;
     setLoading(true);
     setSelectedCamera(newCamera);
-    localStorage.setItem("selectedCamera", newCamera);
+    localStorage.setItem("selectedCamera", newCamera); // Save the selected camera to localStorage
     setForceRemountKey(prev => prev + 1);
   };
 
