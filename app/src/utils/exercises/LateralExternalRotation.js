@@ -68,7 +68,7 @@ export const lateralExternalRotationInfo = {
 let currState;
 
 /**
- * Determines the type of transition based on pull-up posture and arm movement.
+ * Determines the type of transition based on arm movement.
  *
  * @param {object} jointData Object containing calculated angles for relevant joints.
  * @returns {string|null} The type of transition ("hitTarget", "descending", "finishing") or null if no transition applies.

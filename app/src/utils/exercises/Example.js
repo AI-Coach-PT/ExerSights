@@ -1,3 +1,5 @@
+/* A slightly annotated example exercise built off of MuscleUp.js. */
+
 import { genCheck, getTransitionType } from "../GenFeedback";
 
 export const muscleUpInfo = {

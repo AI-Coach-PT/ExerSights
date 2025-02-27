@@ -119,6 +119,15 @@ export const standingObliqueCrunchInfo = {
 
 let currState;
 
+/**
+ * Checks the standing oblique crunch exercise form and provides feedback.
+ *
+ * @param {Array} landmarks - Body position data points from pose detection
+ * @param {Function} onFeedbackUpdate - Callback to update exercise feedback
+ * @param {Function} setColor - Function to update visual feedback color
+ * @param {Function} setCurrHipAngle - Function to update current hip angle display
+ * @param {Function} setRepCount - Function to update repetition counter
+ */
 export const checkStandingObliqueCrunch = (
   landmarks,
   onFeedbackUpdate,
