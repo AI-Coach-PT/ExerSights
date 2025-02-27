@@ -40,7 +40,7 @@ function Menubar(props) {
     { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
     { text: "About", path: "/about", icon: <InfoIcon /> },
     { text: "Contact", path: "/contact", icon: <EmailIcon /> },
-    {text: "Program", path: "/program", icon: <ContentPasteIcon /> },
+    { text: "Program", path: "/program", icon: <ContentPasteIcon /> },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
@@ -100,7 +100,7 @@ function Menubar(props) {
         {/* desktop navigation */}
         <Box
           sx={{
-            display: { xs: "none", md: "flex" },
+            display: { xs: "none", md2: "flex" },
             justifyContent: "center",
           }}>
           {menuItems.map((item) => (
@@ -118,7 +118,7 @@ function Menubar(props) {
         {/* toggle dark mode, login/logout button */}
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", md2: "flex" },
             flexGrow: 1,
             flexBasis: "0%",
             justifyContent: "right",
@@ -132,7 +132,7 @@ function Menubar(props) {
               variant="body1"
               sx={{
                 userSelect: "none",
-                display: { xs: "none", md: "flex" },
+                display: { xs: "none", md2: "flex" },
               }}>
               Welcome {username}!
             </Typography>
@@ -141,7 +141,7 @@ function Menubar(props) {
             onClick={isAuth ? handleLogout : handleLogin}
             variant="text"
             color="text.primary"
-            sx={{ display: { xs: "none", md: "block" }, ml: "1vw" }}>
+            sx={{ ml: "0.75rem" }}>
             {isAuth ? "Logout" : "Login"}
           </Button>
         </Box>
@@ -149,7 +149,7 @@ function Menubar(props) {
         {/* drawer icon */}
         <Box
           sx={{
-            display: { xs: "flex", md: "none" },
+            display: { xs: "flex", md2: "none" },
             flexGrow: 1,
             justifyContent: "right",
           }}>
@@ -164,22 +164,25 @@ function Menubar(props) {
           open={isDrawerOpen}
           onClose={handleDrawerToggle}
           sx={{
-            display: { xs: "block", md: "none" },
-            "& .MuiDrawer-paper": { width: "25vw" },
+            display: { xs: "block", md2: "none" },
+            "& .MuiDrawer-paper": { width: "20vw" },
           }}>
           <List>
             {menuItems.map((item) => (
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                {item.icon}
-                <ListItem
-                  button
-                  component={Link}
-                  key={item.text}
-                  to={item.path}
-                  onClick={handleDrawerToggle}>
-                  <ListItemText primary={item.text} />
-                </ListItem>
-              </Box>
+              <ListItem
+                button
+                component={Link}
+                key={item.text}
+                to={item.path}
+                onClick={handleDrawerToggle}>
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{
+                    color: "text.primary",
+                    align: "center",
+                  }}
+                />
+              </ListItem>
             ))}
             <ListItem
               button
@@ -187,7 +190,23 @@ function Menubar(props) {
                 isAuth ? handleLogout() : handleLogin();
                 handleDrawerToggle();
               }}>
-              <ListItemText primary={isAuth ? "Logout" : "Login"} />
+              <ListItemText
+                primary={isAuth ? "Logout" : "Login"}
+                primaryTypographyProps={{
+                  color: "text.primary",
+                  align: "center",
+                }}
+              />
+            </ListItem>
+            <ListItem button onClick={props.toggleDarkMode}>
+              <ListItemText
+                primary={props.darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                primaryTypographyProps={{
+                  color: "text.primary",
+                  align: "center",
+                  alignItems: "center",
+                }}
+              />
             </ListItem>
           </List>
         </Drawer>
