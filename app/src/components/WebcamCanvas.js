@@ -25,6 +25,7 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
   const [loading, setLoading] = useState(true); // Initially loading is true
   const webcamStreamRef = useRef(null);
   const videoElementRef = useRef(null);
+  const metadataLoaded = useRef(false); // Track if metadata is loaded
 
   // Log the loading state every time it changes
   useEffect(() => {
@@ -59,14 +60,18 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
 
     if (videoElement) {
       videoElement.addEventListener("loadedmetadata", () => {
+        if (!metadataLoaded.current) {
+          metadataLoaded.current = true; // Set to true once metadata is loaded
+          setLoading(false); // Set loading to false when metadata is loaded
+        }
         updateCanvasSize();
-        setLoading(false);  // Set loading to false once the metadata is loaded
       });
-      videoElementRef.current = videoElement;
 
       timeoutId = setTimeout(() => {
-        setLoading(true);  // If metadata takes too long, keep loading state
-      }, 3000); // Set a timeout of 3 seconds (for demonstration purposes)
+        if (!metadataLoaded.current) {
+          setLoading(true); // Set loading to true if still not loaded
+        }
+      }, 3000); // Timeout set for 3 seconds (for demonstration purposes)
 
       return () => {
         videoElement.removeEventListener("loadedmetadata", updateCanvasSize);
