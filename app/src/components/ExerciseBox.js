@@ -95,7 +95,14 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
       <Box sx={{ display: "flex", flexWrap: "nowrap", justifyContent: "center", alignItems: "flex-start", width: "100%", height: "fit-content", padding: "2vmin", gap: "2rem" }}>
         {/* Webcam View */}
         <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "1rem", overflow: "hidden", m: "2rem", display: useVideo ? "none" : "", position: "relative", boxShadow: `0px 0px 65px 0px ${color}` }}>
-          <WebcamCanvas dimensions={{ width: window.innerWidth, height: window.innerHeight }} ref={{ webcamRef, canvasRef }} videoDeviceId={selectedCamera} key={forceRemountKey} onUserMediaLoaded={handleUserMediaLoaded} />
+          <WebcamCanvas 
+            dimensions={{ width: window.innerWidth, height: window.innerHeight }} 
+            ref={{ webcamRef, canvasRef }} 
+            videoDeviceId={selectedCamera} 
+            key={forceRemountKey} 
+            onUserMediaLoaded={handleUserMediaLoaded} 
+            loading={loading}  // Pass loading state to WebcamCanvas
+          />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
 

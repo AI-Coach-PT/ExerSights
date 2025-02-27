@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { Box, CircularProgress, Typography, Button } from "@mui/material";
-
 
 /**
  * WebcamCanvas component provides a webcam interface with responsive dimensions
@@ -11,19 +10,20 @@ import { Box, CircularProgress, Typography, Button } from "@mui/material";
  * @param {Object} props.dimensions - Browser dimensions
  * @param {number} props.dimensions.width - Browser window width
  * @param {number} props.dimensions.height - Browser window height
+ * @param {boolean} props.loading - Loading state passed from parent
  * @param {React.Ref} ref - Forwarded ref for accessing webcam methods
  *
  * @example
  * // Usage
  * <WebcamCanvas
  *   dimensions={{ width: window.innerWidth, height: window.innerHeight }}
+ *   loading={loading}  // Pass loading state from parent
  *   ref={webcamRef}
  * />
  */
 const WebcamCanvas = React.forwardRef((props, ref) => {
-  const { videoDeviceId, dimensions } = props;
+  const { videoDeviceId, dimensions, loading } = props;  // Use loading prop passed from parent
   const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 });
-  const [loading, setLoading] = useState(false);
   const webcamStreamRef = useRef(null);
   const videoElementRef = useRef(null);
 
@@ -58,7 +58,7 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
       videoElementRef.current = videoElement;
 
       timeoutId = setTimeout(() => {
-        setLoading(true);
+        // This timeout is now unnecessary for `loading` state control, as it's passed from parent
         clearTimeout(timeoutId);
       }, 1000);
 
@@ -113,11 +113,10 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
       </div>
 
       <Box position="absolute" display="flex" flexDirection="column" alignItems="center" justifyContent="center" width="100%" height="100%">
-        <CircularProgress />
-        <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
-
         {loading && (
           <>
+            <CircularProgress />
+            <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
             <Typography variant="body1" mt={1}>Taking too long? Click below to reload the page.</Typography>
             <Button variant="contained" color="primary" sx={{ mt: 1 }} onClick={() => window.location.reload()}>
               Reload
