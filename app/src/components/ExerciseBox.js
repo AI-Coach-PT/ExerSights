@@ -6,16 +6,6 @@ import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
 import detectPose from "../utils/models/PoseDetector";
 import OverlayBox from "./CounterGraphic";
 
-/**
- * A reusable layout component for exercise tracking pages.
- *
- * @component
- * @param {string} title - The title of the exercise page.
- * @param {JSX.Element} webcamCanvas - The WebcamCanvas component displaying the camera feed.
- * @param {JSX.Element} feedbackPanel - The FeedbackPanel component displaying feedback and controls.
- *
- * @returns {JSX.Element} The JSX code for the ExerciseBox layout.
- */
 function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, color, repCount }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -32,6 +22,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const [selectedCamera, setSelectedCamera] = useState(null);
   const [forceRemountKey, setForceRemountKey] = useState(0); // State for remounting WebcamCanvas
   const [loading, setLoading] = useState(false); // Loading state for the webcam
+  const [streamLoaded, setStreamLoaded] = useState(false); // Track if the video stream is loaded
 
   useEffect(() => {
     detectPose(webcamRef, canvasRef, processPoseResults);
@@ -45,7 +36,13 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
       }
     });
 
-    return () => {};
+    return () => {
+      // Cleanup the webcam stream and any associated resources when the component unmounts or remounts
+      if (webcamRef.current && webcamRef.current.srcObject) {
+        const tracks = webcamRef.current.srcObject.getTracks();
+        tracks.forEach(track => track.stop()); // Stop all tracks to release resources
+      }
+    };
   }, [targetAngles]);
 
   const [showOverlay, setShowOverlay] = useState(false);
@@ -87,12 +84,14 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
 
   const handleCameraChange = (event) => {
     setLoading(true); // Start loading state when camera changes
+    setStreamLoaded(false); // Reset stream loaded state
     setSelectedCamera(event.target.value);
     setForceRemountKey((prev) => prev + 1); // Increment the remount key to force a remount
   };
 
   const handleUserMediaLoaded = () => {
     setLoading(false); // Reset loading state once the webcam is loaded
+    setStreamLoaded(true); // Set the stream as loaded
   };
 
   return (
@@ -136,8 +135,8 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
             position: "relative",
             boxShadow: `0px 0px 65px 0px ${color}`,
           }}>
-          {/* Conditionally render the loading spinner only once */}
-          {loading && (
+          {/* Conditionally render the loading spinner only when there's no active video stream */}
+          {loading && !streamLoaded && (
             <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
               <CircularProgress />
             </Box>
