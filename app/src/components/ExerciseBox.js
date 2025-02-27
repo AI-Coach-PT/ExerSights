@@ -39,6 +39,11 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     }
   }, [repCount]);
 
+  // Toggle loading based on stream status
+  useEffect(() => {
+    setLoading(!stream);  // Set loading to true if no stream, false otherwise
+  }, [stream]);
+
   const handleCameraChange = (event) => {
     const newCamera = event.target.value;
     setLoading(true);
@@ -48,7 +53,6 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   };
 
   const handleUserMediaLoaded = (newStream) => {
-    setLoading(false); // Set loading to false once stream is available
     setStream(newStream); // Save the stream to state
   };
 
