@@ -1,3 +1,5 @@
+/* A slightly annotated example exercise built off of MuscleUp.js. */
+
 import { genCheck, getTransitionType } from "../GenFeedback";
 
 export const muscleUpInfo = {
@@ -64,10 +66,12 @@ export const muscleUpInfo = {
   },
 
   targets: {
+    // shown in settings modal
     targetElbowLockOutAngle: 170,
   },
 
   conditions: {
+    // replacement for getTransitionType
     lockedOut: {
       states: ["DIP"],
       req: "elbowAngle > targetElbowLockOutAngle",
@@ -90,22 +94,22 @@ export const muscleUpInfo = {
     },
   },
 
-  angleSetters: ["setElbowAngle"],
+  angleSetters: ["setElbowAngle"], // shown in feedback panel
 
   title: "Muscle-up",
 };
 
-let currState;
+let currState; // state in FSM
 
 /**
- * Checks the muscle-up exercise form and provides feedback
+ * Checks and updates the pull-up posture state, tracks elbow angle, and counts repetitions.
+ * Leverages generalized feedback checking method.
  *
- * @param {Array} landmarks - Body position data points from pose detection
- * @param {Function} onFeedbackUpdate - Callback to update exercise feedback
- * @param {Function} setColor - Function to update visual feedback color
- * @param {Function} setCurrElbowAngle - Function to update current elbow angle display
- * @param {Function} setRepCount - Function to update repetition counter
- * @param {Number} targetElbowLockOutAngle - Target angle for elbow lockout, defaults to 170 degrees
+ * @param {Object} landmarks - The landmarks of the body to evaluate posture.
+ * @param {Function} onFeedbackUpdate - Callback function to handle feedback updates.
+ * @param {Function} setCurrElbowAngle - Function to update the current elbow angle.
+ * @param {Function} setRepCount - Function to update the repetition count.
+ * @param {number} [targetElbowLockOutAngle=170] - The target elbow angle to be used for evaluation.
  */
 export const checkMuscleUp = (
   landmarks,

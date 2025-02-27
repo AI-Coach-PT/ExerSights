@@ -24,6 +24,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -37,6 +38,7 @@ function Menubar(props) {
   const menuItems = [
     { text: "Home", path: "/home", icon: <HomeIcon /> },
     { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
+    { text: "Program", path: "/program", icon: <ContentPasteIcon /> },
     { text: "About", path: "/about", icon: <InfoIcon /> },
     { text: "Contact", path: "/contact", icon: <EmailIcon /> },
   ];
@@ -90,7 +92,6 @@ function Menubar(props) {
               height: "30px",
               width: "200px",
               ml: "0.5vw",
-              display: { xs: "none", md: "flex" },
             }}
           />
         </Box>
@@ -98,7 +99,7 @@ function Menubar(props) {
         {/* desktop navigation */}
         <Box
           sx={{
-            display: { xs: "none", md: "flex" },
+            display: { xs: "none", lg: "flex" },
             justifyContent: "center",
           }}>
           {menuItems.map((item) => (
@@ -116,7 +117,7 @@ function Menubar(props) {
         {/* toggle dark mode, login/logout button */}
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", lg: "flex" },
             flexGrow: 1,
             flexBasis: "0%",
             justifyContent: "right",
@@ -130,7 +131,7 @@ function Menubar(props) {
               variant="body1"
               sx={{
                 userSelect: "none",
-                display: { xs: "none", md: "flex" },
+                display: { xs: "none", lg: "flex" },
               }}>
               Welcome {username}!
             </Typography>
@@ -139,7 +140,7 @@ function Menubar(props) {
             onClick={isAuth ? handleLogout : handleLogin}
             variant="text"
             color="text.primary"
-            sx={{ display: { xs: "none", md: "block" }, ml: "1vw" }}>
+            sx={{ ml: "0.75rem" }}>
             {isAuth ? "Logout" : "Login"}
           </Button>
         </Box>
@@ -147,7 +148,7 @@ function Menubar(props) {
         {/* drawer icon */}
         <Box
           sx={{
-            display: { xs: "flex", md: "none" },
+            display: { xs: "flex", lg: "none" },
             flexGrow: 1,
             justifyContent: "right",
           }}>
@@ -162,22 +163,25 @@ function Menubar(props) {
           open={isDrawerOpen}
           onClose={handleDrawerToggle}
           sx={{
-            display: { xs: "block", md: "none" },
-            "& .MuiDrawer-paper": { width: "25vw" },
+            display: { xs: "block", lg: "none" },
+            "& .MuiDrawer-paper": { maxWidth: "30vw" },
           }}>
           <List>
             {menuItems.map((item) => (
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                {item.icon}
-                <ListItem
-                  button
-                  component={Link}
-                  key={item.text}
-                  to={item.path}
-                  onClick={handleDrawerToggle}>
-                  <ListItemText primary={item.text} />
-                </ListItem>
-              </Box>
+              <ListItem
+                button
+                component={Link}
+                key={item.text}
+                to={item.path}
+                onClick={handleDrawerToggle}>
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{
+                    color: "text.primary",
+                    align: "center",
+                  }}
+                />
+              </ListItem>
             ))}
             <ListItem
               button
@@ -185,7 +189,23 @@ function Menubar(props) {
                 isAuth ? handleLogout() : handleLogin();
                 handleDrawerToggle();
               }}>
-              <ListItemText primary={isAuth ? "Logout" : "Login"} />
+              <ListItemText
+                primary={isAuth ? "Logout" : "Login"}
+                primaryTypographyProps={{
+                  color: "text.primary",
+                  align: "center",
+                }}
+              />
+            </ListItem>
+            <ListItem button onClick={props.toggleDarkMode}>
+              <ListItemText
+                primary={props.darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                primaryTypographyProps={{
+                  color: "text.primary",
+                  align: "center",
+                  alignItems: "center",
+                }}
+              />
             </ListItem>
           </List>
         </Drawer>

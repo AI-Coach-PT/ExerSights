@@ -22,3 +22,37 @@ This project aims to develop a web application to assess physical therapy techni
 -   https://www.yorkvillesportsmed.com/blog/the-dead-bug-exercise-and-how-you-can-do-it-perfectly
 -   https://www.healthline.com/health/exercise-fitness/dead-bug-exercise
 -   [Dead Bug Exercise Image](https://camsportsperformancetrainingblog.com/2016/07/18/dead-bug-anti-rotation-band-press/)
+
+
+### Roadmap
+- [x] Exercise search feature
+- [x] Exercises from Anish
+- [x] Stretched Title on Safari
+- [x] Single page for exercises
+- [x] Move webcam reload prompt to front-end
+- [x] Voice Feedback
+- [x] Repetition Count Bug
+- [x] Clickable Logo
+- [x] General Styling
+- [x] About Page
+- [x] Ticketing system
+- [x] Website tutorial
+- [x] Reload prompt when webcam doesn’t load
+- [x] Setup backend and migrate all non-realtime functionalities from frontend to backend
+- [x] Exercises from Jilin
+- [x] Sargent outreach
+- [x] Outreach Prompt
+- [x] Exercise Playlist
+- [ ] Stop feedback while another window is pulled up (settings or tutorial)
+- [ ] Cannot use external webcam, despite allowing it on the site
+- [ ] Fixing exit bubble animation
+- [ ] Two player push up game
+- [ ] Calorie count
+- [ ] Alt text for buttons/other elements when highlighted
+- [ ] Long-term statistics for users
+- [ ] Integration with Apple Health app
+- [x] Toggleable light/dark mode for web app
+- [ ] Weighted exercises, exercises with moving equipment
+- [ ] Only enable pose drawing if all limbs necessary are visible
+- [x] Fix buggy exercise detection logic
+

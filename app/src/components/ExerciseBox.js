@@ -83,7 +83,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
 
   return (
     <Box sx={{ padding: "0.5rem" }}>
-      <Typography variant="h2" sx={{ textAlign: "center" }}>{title}</Typography>
+      <Typography variant="h1" sx={{ textAlign: "center" }}>{title}</Typography>
       <FormControl sx={{ marginBottom: "1rem" }}>
         <InputLabel>Choose Camera</InputLabel>
         <Select value={selectedCamera || ""} onChange={handleCameraChange} label="Choose Camera">
@@ -92,9 +92,9 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
           ))}
         </Select>
       </FormControl>
-      <Box sx={{ display: "flex", flexWrap: "nowrap", justifyContent: "center", alignItems: "flex-start", width: "100%", height: "fit-content", padding: "2vmin", gap: "2rem" }}>
+      <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", width: "100%", height: "fit-content", padding: "2vmin", gap: "2rem" }}>
         {/* Webcam View */}
-        <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "1rem", overflow: "hidden", m: "2rem", display: useVideo ? "none" : "", position: "relative", boxShadow: `0px 0px 65px 0px ${color}` }}>
+        <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "1rem", overflow: "hidden", m: "1.25rem", display: useVideo ? "none" : "", position: "relative", boxShadow: `0px 0px 65px 0px ${color}` }}>
           <WebcamCanvas dimensions={{ width: window.innerWidth, height: window.innerHeight }} ref={{ webcamRef, canvasRef }} videoDeviceId={selectedCamera} key={forceRemountKey} onUserMediaLoaded={handleUserMediaLoaded} />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>

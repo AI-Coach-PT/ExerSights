@@ -7,10 +7,12 @@ import ExerciseBox from "../../components/ExerciseBox";
 import { resetRepCount } from "../../utils/GenFeedback";
 import { loadExerciseData } from "./ExercisePageData";
 
-function ExercisePage() {
+function ExercisePage({exerciseName: propExerciseName}) {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const exerciseName = queryParams.get("exercise");
+    const queryExerciseName = queryParams.get("exercise");
+
+    const exerciseName = propExerciseName || queryExerciseName;
 
     const [exerciseData, setExerciseData] = useState(null);
     const [loading, setLoading] = useState(true);
