@@ -86,30 +86,40 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
           padding: "2vmin",
           gap: "2rem",
         }}>
-        <Box
-          sx={{
-            border: `6px solid ${color || "white"}`, // Dynamic border color
-            borderRadius: "1rem",
-            overflow: "hidden",
-            m: "1.25rem",
-            display: useVideo ? "none" : "",
-            position: "relative",
-            boxShadow: `0px 0px 65px 0px ${color}`,
-          }}>
-          {useVideo ? (
+        {useVideo ? (
+          <Box
+            sx={{
+              border: `6px solid ${color || "white"}`, // Dynamic border color
+              borderRadius: "8px",
+              overflow: "hidden",
+              padding: "5px",
+              display: useVideo ? "" : "none",
+              boxShadow: `0px 0px 65px 0px ${color}`,
+            }}>
             <VideoCanvas
               handlePlay={handlePlay}
               ref={{ videoRef: videoRef, canvasRef: videoCanvasRef }}
             />
-          ) : (
+            {showOverlay && <OverlayBox text={repCount} />}
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              border: `6px solid ${color || "white"}`, // Dynamic border color
+              borderRadius: "1rem",
+              overflow: "hidden",
+              m: "1.25rem",
+              display: useVideo ? "none" : "",
+              position: "relative",
+              boxShadow: `0px 0px 65px 0px ${color}`,
+            }}>
             <WebcamCanvas
               dimensions={dimensions}
               ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
             />
-          )}
-          {showOverlay && <OverlayBox text={repCount} />}
-        </Box>
-
+            {showOverlay && <OverlayBox text={repCount} />}
+          </Box>
+        )}
         {enhancedFeedbackPanel}
       </Box>
     </Box>
