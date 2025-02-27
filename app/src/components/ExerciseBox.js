@@ -15,12 +15,11 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const [availableCameras, setAvailableCameras] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(localStorage.getItem("selectedCamera") || "");
   const [forceRemountKey, setForceRemountKey] = useState(0);
-  const [loading, setLoading] = useState(true);  // Default loading state is true
+  const [loading, setLoading] = useState(true);
   const [showOverlay, setShowOverlay] = useState(false);
-  const [stream, setStream] = useState(null);  // Track the stream object
+  const [stream, setStream] = useState(null);
 
   useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults);
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const cameras = devices.filter(device => device.kind === 'videoinput');
       setAvailableCameras(cameras);
@@ -29,7 +28,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
         localStorage.setItem("selectedCamera", cameras[0].deviceId);
       }
     });
-  }, [targetAngles]);
+  }, []);
 
   useEffect(() => {
     if (repCount > 0) {
@@ -39,10 +38,17 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     }
   }, [repCount]);
 
-  // Toggle loading based on stream status
   useEffect(() => {
-    setLoading(!stream);  // Set loading to true if no stream, false otherwise
+    setLoading(!stream);
   }, [stream]);
+
+  // Ensure pose detection reinitializes when the camera changes
+  useEffect(() => {
+    if (webcamRef.current && canvasRef.current) {
+      console.log("Reinitializing pose detection for new camera:", selectedCamera);
+      detectPose(webcamRef, canvasRef, processPoseResults);
+    }
+  }, [selectedCamera, forceRemountKey]);
 
   const handleCameraChange = (event) => {
     const newCamera = event.target.value;
@@ -53,7 +59,11 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   };
 
   const handleUserMediaLoaded = (newStream) => {
-    setStream(newStream); // Save the stream to state
+    setStream(newStream);
+    if (webcamRef.current?.video) {
+      console.log("Camera ready, initializing pose detection...");
+      detectPose(webcamRef, canvasRef, processPoseResults);
+    }
   };
 
   const handleVideoUpload = (event) => {
@@ -61,12 +71,10 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     if (file) {
       const videoURL = URL.createObjectURL(file);
       const videoElement = videoRef.current;
-
       videoElement.src = videoURL;
       videoElement.onloadeddata = () => {
-        videoElement.pause(); // Pause initially until the user plays it
+        videoElement.pause();
       };
-
       setUseVideo(true);
     }
   };
@@ -76,10 +84,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
   };
 
-  // Pass video upload function to feedbackPanel
-  const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
-    handleVideoUpload: handleVideoUpload, 
-  });
+  const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, { handleVideoUpload });
 
   return (
     <Box sx={{ padding: "0.5rem" }}>
@@ -101,7 +106,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
             videoDeviceId={selectedCamera} 
             key={forceRemountKey} 
             onUserMediaLoaded={handleUserMediaLoaded} 
-            loading={loading}  // Pass loading state to WebcamCanvas
+            loading={loading}
           />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
@@ -112,7 +117,6 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
 
-        {/* Feedback Panel with Upload Button Inside */}
         {enhancedFeedbackPanel}
       </Box>
     </Box>
