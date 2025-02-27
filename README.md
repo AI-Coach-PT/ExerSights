@@ -25,12 +25,24 @@ This project aims to develop a web application to assess physical therapy techni
 
 
 ### Roadmap
-
-- [*] Setup backend and migrate all non-realtime functionalities from frontend to backend
-- [*] Exercises from Jilin
-- [*] Sargent outreach
-- [*] Outreach Prompt
-- [*] Exercise Playlist
+- [x] Exercise search feature
+- [x] Exercises from Anish
+- [x] Stretched Title on Safari
+- [x] Single page for exercises
+- [x] Move webcam reload prompt to front-end
+- [x] Voice Feedback
+- [x] Repetition Count Bug
+- [x] Clickable Logo
+- [x] General Styling
+- [x] About Page
+- [x] Ticketing system
+- [x] Website tutorial
+- [x] Reload prompt when webcam doesn’t load
+- [x] Setup backend and migrate all non-realtime functionalities from frontend to backend
+- [x] Exercises from Jilin
+- [x] Sargent outreach
+- [x] Outreach Prompt
+- [x] Exercise Playlist
 - [ ] Stop feedback while another window is pulled up (settings or tutorial)
 - [ ] Cannot use external webcam, despite allowing it on the site
 - [ ] Fixing exit bubble animation
@@ -39,8 +51,8 @@ This project aims to develop a web application to assess physical therapy techni
 - [ ] Alt text for buttons/other elements when highlighted
 - [ ] Long-term statistics for users
 - [ ] Integration with Apple Health app
-- [*] Toggleable light/dark mode for web app
+- [x] Toggleable light/dark mode for web app
 - [ ] Weighted exercises, exercises with moving equipment
 - [ ] Only enable pose drawing if all limbs necessary are visible
-- [*] Fix buggy exercise detection logic
+- [x] Fix buggy exercise detection logic
 
