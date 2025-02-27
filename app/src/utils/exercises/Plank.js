@@ -72,7 +72,7 @@ const getTransitionTypePlank = (jointData, closerSide) => {
 };
 
 /**
- * Checks lateral external rotation based on given landmarks and updates feedback.
+ * Checks plank based on given landmarks and updates feedback.
  *
  * @param {Array} landmarks - An array of landmarks used for calculating angles.
  * @param {Function} onFeedbackUpdate - Callback function to update feedback based on the current state.
@@ -147,19 +147,19 @@ const armInfo = {
 };
 
 let currStateArm;
+
 /**
- * Determines the type of transition based on chest posture (hip angles).
+ * Determines the transition type for arm alignment.
  *
- * @param {object} jointAngles Object containing calculated angles for relevant joints.
- * @returns {string|null} The type of transition ("leaningTooFar", "upright") or null if no transition applies.
+ * @param {Object} jointData - Object containing position data for various joints
+ * @param {string} closerSide - Indicates which side ("left" or "right") is closer to the camera
+ * @returns {string} - The transition type: "aligned", "misaligned", or "null" if no transition
  */
 const getTransitionTypeArm = (jointData, closerSide) => {
-  //const { leftShoulderPos, leftElbowPos, rightShoulderPos, rightElbowPos } = jointData;
   const leftShoulderPos = jointData["leftShoulder"];
   const leftElbowPos = jointData["leftElbow"];
   const rightShoulderPos = jointData["rightShoulder"];
   const rightElbowPos = jointData["rightElbow"];
-  //leftElbowPos, rightShoulderPos, rightElbowPos } = jointData;
 
   const shoulderPos = closerSide === "left" ? leftShoulderPos : rightShoulderPos;
   const elbowPos = closerSide === "left" ? leftElbowPos : rightElbowPos;

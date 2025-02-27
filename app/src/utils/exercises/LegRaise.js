@@ -1,94 +1,94 @@
-import { genCheck, getTransitionType } from '../GenFeedback';
+import { genCheck, getTransitionType } from "../GenFeedback";
 
 export const legRaiseInfo = {
-    states: {
-        INIT: { feedback: "Lay down!", audio: true, countRep: false, color: "yellow" },
-        RAISING: { feedback: "Raise legs higher!", audio: true, countRep: false, color: "yellow" },
-        BENT: { feedback: "Don't bend knees!", audio: true, countRep: false, color: "red" },
-        UP: { feedback: "Excellent!", audio: true, countRep: true, color: "green" },
-        LOWERING: { feedback: "Fully lower legs!", audio: false, countRep: false, color: "yellow" },
+  states: {
+    INIT: { feedback: "Lay down!", audio: true, countRep: false, color: "yellow" },
+    RAISING: { feedback: "Raise legs higher!", audio: true, countRep: false, color: "yellow" },
+    BENT: { feedback: "Don't bend knees!", audio: true, countRep: false, color: "red" },
+    UP: { feedback: "Excellent!", audio: true, countRep: true, color: "green" },
+    LOWERING: { feedback: "Fully lower legs!", audio: false, countRep: false, color: "yellow" },
+  },
+
+  transitions: {
+    INIT: {
+      flat: "RAISING",
     },
-
-    transitions: {
-        INIT: {
-            flat: "RAISING"
-        },
-        RAISING: {
-            raised: "UP",
-            kneeBend: "BENT"
-        },
-        BENT: {
-            kneeBend: "BENT",
-            noKneeBend: "RAISING"
-        },
-        UP: {
-            lowering: "LOWERING",
-        },
-        LOWERING: {
-            flat: "RAISING"
-        }
+    RAISING: {
+      raised: "UP",
+      kneeBend: "BENT",
     },
-
-    conditions: {
-        flat: {
-            states: ["INIT", "LOWERING"],
-            req: "hipAngle > thresholdHipAngle",
-            ret: "flat"
-        },
-        raised: {
-            states: ["RAISING"],
-            req: "hipAngle <= targetHipAngle",
-            ret: "raised"
-        },
-        lowering: {
-            states: ["UP"],
-            req: "hipAngle > targetHipAngle",
-            ret: "lowering"
-        },
-        kneeBend: {
-            states: ["RAISING"],
-            req: "kneeAngle < thresholdKneeAngle",
-            ret: "kneeBend"
-        },
-        noKneeBend: {
-            states: ["BENT"],
-            req: "kneeAngle >= thresholdKneeAngle",
-            ret: "noKneeBend"
-        }
+    BENT: {
+      kneeBend: "BENT",
+      noKneeBend: "RAISING",
     },
-
-    jointInfo: {
-        joints: {
-            left: {
-                leftShoulder: 11,
-                leftHip: 23,
-                leftKnee: 25,
-                leftAnkle: 27
-            },
-            right: {
-                rightShoulder: 12,
-                rightHip: 24,
-                rightKnee: 26,
-                rightAnkle: 28
-            }
-        },
-        jointAngles: {
-            leftHipAngle: [11, 23, 25],
-            rightHipAngle: [12, 24, 26],
-            leftKneeAngle: [23, 25, 27],
-            rightKneeAngle: [24, 26, 28]
-        }
+    UP: {
+      lowering: "LOWERING",
     },
-
-    targets: {
-        targetHipAngle: 100,
-        thresholdHipAngle: 130,
-        thresholdKneeAngle: 160
+    LOWERING: {
+      flat: "RAISING",
     },
+  },
 
-    angleSetters: ["setHipAngle"],
+  conditions: {
+    flat: {
+      states: ["INIT", "LOWERING"],
+      req: "hipAngle > thresholdHipAngle",
+      ret: "flat",
+    },
+    raised: {
+      states: ["RAISING"],
+      req: "hipAngle <= targetHipAngle",
+      ret: "raised",
+    },
+    lowering: {
+      states: ["UP"],
+      req: "hipAngle > targetHipAngle",
+      ret: "lowering",
+    },
+    kneeBend: {
+      states: ["RAISING"],
+      req: "kneeAngle < thresholdKneeAngle",
+      ret: "kneeBend",
+    },
+    noKneeBend: {
+      states: ["BENT"],
+      req: "kneeAngle >= thresholdKneeAngle",
+      ret: "noKneeBend",
+    },
+  },
 
-    title: "Leg Raises",
+  jointInfo: {
+    joints: {
+      left: {
+        leftShoulder: 11,
+        leftHip: 23,
+        leftKnee: 25,
+        leftAnkle: 27,
+      },
+      right: {
+        rightShoulder: 12,
+        rightHip: 24,
+        rightKnee: 26,
+        rightAnkle: 28,
+      },
+    },
+    jointAngles: {
+      leftHipAngle: [11, 23, 25],
+      rightHipAngle: [12, 24, 26],
+      leftKneeAngle: [23, 25, 27],
+      rightKneeAngle: [24, 26, 28],
+    },
+  },
+
+  targets: {
+    targetHipAngle: 100,
+    thresholdHipAngle: 130,
+    thresholdKneeAngle: 160,
+  },
+
+  angleSetters: ["setHipAngle"],
+
+  title: "Leg Raises",
 };
 
 let currState;
@@ -103,17 +103,24 @@ let currState;
  * @param {Function} setRepCount - Function to update the repetition count.
  * @param {number} [targetHipAngle=100] - The target elbow angle to be used for evaluation.
  */
-export const checkLegRaise = (landmarks, onFeedbackUpdate, setColor, setHipAngle, setRepCount, targetHipAngle = 100) => {
-    legRaiseInfo.targets["targetHipAngle"] = targetHipAngle;
+export const checkLegRaise = (
+  landmarks,
+  onFeedbackUpdate,
+  setColor,
+  setHipAngle,
+  setRepCount,
+  targetHipAngle = 100
+) => {
+  legRaiseInfo.targets["targetHipAngle"] = targetHipAngle;
 
-    currState = genCheck(
-        legRaiseInfo,
-        (...args) => getTransitionType(...args, legRaiseInfo, currState),
-        currState,
-        landmarks,
-        onFeedbackUpdate,
-        setColor,
-        setRepCount,
-        { HipAngle: setHipAngle }
-    );
+  currState = genCheck(
+    legRaiseInfo,
+    (...args) => getTransitionType(...args, legRaiseInfo, currState),
+    currState,
+    landmarks,
+    onFeedbackUpdate,
+    setColor,
+    setRepCount,
+    { HipAngle: setHipAngle }
+  );
 };
