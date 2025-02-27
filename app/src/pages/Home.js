@@ -44,7 +44,8 @@ function Home() {
 
       <Card
         sx={{
-          width: { xs: "27rem", md: "40rem" },
+          width: { sm: "37rem" },
+          maxwidth: "80vw",
           cursor: "pointer",
           transition: "transform 0.3s",
           "&:hover": {

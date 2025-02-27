@@ -164,7 +164,7 @@ function Menubar(props) {
           onClose={handleDrawerToggle}
           sx={{
             display: { xs: "block", lg: "none" },
-            "& .MuiDrawer-paper": { width: "20vw" },
+            "& .MuiDrawer-paper": { maxWidth: "30vw" },
           }}>
           <List>
             {menuItems.map((item) => (
