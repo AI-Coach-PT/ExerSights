@@ -15,8 +15,9 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const [availableCameras, setAvailableCameras] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(localStorage.getItem("selectedCamera") || "");
   const [forceRemountKey, setForceRemountKey] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);  // Default loading state is true
   const [showOverlay, setShowOverlay] = useState(false);
+  const [stream, setStream] = useState(null);  // Track the stream object
 
   useEffect(() => {
     detectPose(webcamRef, canvasRef, processPoseResults);
@@ -46,8 +47,9 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     setForceRemountKey(prev => prev + 1);
   };
 
-  const handleUserMediaLoaded = () => {
-    setLoading(false);
+  const handleUserMediaLoaded = (newStream) => {
+    setLoading(false); // Set loading to false once stream is available
+    setStream(newStream); // Save the stream to state
   };
 
   const handleVideoUpload = (event) => {
