@@ -32,6 +32,13 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   }, [targetAngles]);
 
   useEffect(() => {
+    const savedCamera = localStorage.getItem("selectedCamera");
+    if (savedCamera) {
+      setSelectedCamera(savedCamera);
+    }
+  }, []);
+
+  useEffect(() => {
     if (repCount > 0) {
       setShowOverlay(false);
       setTimeout(() => setShowOverlay(true), 10);

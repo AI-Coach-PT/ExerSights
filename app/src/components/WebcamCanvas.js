@@ -33,6 +33,13 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
   }, [loading]);
 
   useEffect(() => {
+    const savedCamera = localStorage.getItem("selectedCamera");
+    if (savedCamera) {
+      // setSelectedCamera(savedCamera); // Remove this line
+    }
+  }, []);
+
+  useEffect(() => {
     const videoElement = ref?.webcamRef?.current?.video;
     let timeoutId;
 
