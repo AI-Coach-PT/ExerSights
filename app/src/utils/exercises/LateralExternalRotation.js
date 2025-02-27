@@ -58,8 +58,6 @@ export const lateralExternalRotationInfo = {
     resetSideAngle: 100,
   },
 
-  disableVisibilityCheck: true,
-
   angleSetters: ["setSideAngle"],
 
   title: "Lateral External Rotation",
