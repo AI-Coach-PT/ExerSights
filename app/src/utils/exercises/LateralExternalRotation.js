@@ -1,9 +1,14 @@
 import { genCheck } from "../GenFeedback";
 
-export const latExtRotationInfo = {
+export const lateralExternalRotationInfo = {
   states: {
     INIT: { feedback: "Get ready!", audio: false, countRep: false, color: "yellow" },
-    NOT_PERPENDICULAR: { feedback: "Rotate arm upwards!", audio: true, countRep: false, color: "yellow" },
+    NOT_PERPENDICULAR: {
+      feedback: "Rotate arm upwards!",
+      audio: true,
+      countRep: false,
+      color: "yellow",
+    },
     PERPENDICULAR: { feedback: "Excellent!", audio: true, countRep: true, color: "green" },
   },
 
@@ -50,7 +55,7 @@ export const latExtRotationInfo = {
 
   targets: {
     targetSideAngle: 140,
-    resetSideAngle: 100
+    resetSideAngle: 100,
   },
 
   disableVisibilityCheck: true,
@@ -71,13 +76,14 @@ let currState;
 const getTransitionType = (jointData, closerSide) => {
   const { leftSideAngle, rightSideAngle } = jointData;
 
-  const targetSideAngle = latExtRotationInfo.targets["targetSideAngle"];
-  const resetSideAngle = latExtRotationInfo.targets["resetSideAngle"];
+  const targetSideAngle = lateralExternalRotationInfo.targets["targetSideAngle"];
+  const resetSideAngle = lateralExternalRotationInfo.targets["resetSideAngle"];
 
   const sideAngle = closerSide === "left" ? leftSideAngle : rightSideAngle;
 
   if (currState === "NOT_PERPENDICULAR" && sideAngle >= targetSideAngle) return "perpendicular";
-  if ((currState === "PERPENDICULAR" || currState === "INIT") && sideAngle <= resetSideAngle) return "notPerpendicular";
+  if ((currState === "PERPENDICULAR" || currState === "INIT") && sideAngle <= resetSideAngle)
+    return "notPerpendicular";
 
   return "null";
 };
@@ -91,7 +97,7 @@ const getTransitionType = (jointData, closerSide) => {
  * @param {Function} setRepCount - Function to update the repetition count.
  * @param {number} [targetSideAngle=140] - The target angle for side rotation. Defaults to 140 if not specified.
  */
-export const checkLatExtRotation = (
+export const checkLateralExternalRotation = (
   landmarks,
   onFeedbackUpdate,
   setColor,
@@ -99,10 +105,10 @@ export const checkLatExtRotation = (
   setRepCount,
   targetSideAngle = 140
 ) => {
-  latExtRotationInfo.targets["targetSideAngle"] = targetSideAngle;
+  lateralExternalRotationInfo.targets["targetSideAngle"] = targetSideAngle;
 
   currState = genCheck(
-    latExtRotationInfo,
+    lateralExternalRotationInfo,
     getTransitionType,
     currState,
     landmarks,
