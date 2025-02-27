@@ -58,9 +58,13 @@ function Program() {
   };
 
   return (
-    <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <Typography variant="h5" gutterBottom sx={{ m: 2 }}>
-        Create an Exercise Program
+    <Box
+      sx={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Typography variant="h1" gutterBottom sx={{ padding: "0.5rem" }}>
+        Program
+      </Typography>
+      <Typography variant="h6" sx={{ mb: "1.5rem" }}>
+        Start with a pre-made program, or create your own!
       </Typography>
 
       {/* Grid Layout for Displaying Programs */}
@@ -69,7 +73,7 @@ function Program() {
           <Grid item xs={12} sm={6} md={4} key={programId}>
             {/* Boxed Program Display */}
             <Paper elevation={3} sx={{ p: 3, borderRadius: 2, textAlign: "center" }}>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h5" gutterBottom>
                 {programData.name}
               </Typography>
 
@@ -90,8 +94,7 @@ function Program() {
                 variant="contained"
                 color="primary"
                 sx={{ mt: 2, width: "100%" }}
-                onClick={() => handleNavigate(programId)}
-              >
+                onClick={() => handleNavigate(programId)}>
                 Start Program
               </Button>
             </Paper>
@@ -111,8 +114,7 @@ function Program() {
               justifyContent: "center",
               height: "100%",
               minHeight: 150,
-            }}
-          >
+            }}>
             <IconButton onClick={addProgram} sx={{ fontSize: 50 }}>
               <AddCircleIcon fontSize="inherit" />
             </IconButton>

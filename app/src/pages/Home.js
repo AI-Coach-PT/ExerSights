@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box, Card, CardContent, Button, CardMedia } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logos/catalog.png";
+import catalogPreview from "../assets/logos/catalogPreview.png";
 import { disclaimerText } from "../assets/content";
 
 function Home() {
@@ -55,7 +55,7 @@ function Home() {
           borderRadius: "2rem",
         }}
         onClick={handleNavigate}>
-        <CardMedia component="img" image={logo} sx={{ width: "100%" }} />
+        <CardMedia component="img" image={catalogPreview} sx={{ width: "100%" }} />
         <CardContent>
           <Typography variant="h6" gutterBottom>
             Explore Our Catalog

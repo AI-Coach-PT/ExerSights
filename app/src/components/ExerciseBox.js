@@ -73,7 +73,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
 
   return (
     <Box sx={{ padding: "0.5rem" }}>
-      <Typography variant="h2" sx={{ textAlign: "center" }}>
+      <Typography variant="h1" sx={{ textAlign: "center" }}>
         {title}
       </Typography>
       <Box
@@ -91,7 +91,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
             border: `6px solid ${color || "white"}`, // Dynamic border color
             borderRadius: "1rem",
             overflow: "hidden",
-            m: "2rem",
+            m: "1.25rem",
             display: useVideo ? "none" : "",
             position: "relative",
             boxShadow: `0px 0px 65px 0px ${color}`,

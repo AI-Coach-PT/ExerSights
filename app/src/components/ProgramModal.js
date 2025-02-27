@@ -41,9 +41,7 @@ function ProgramModal({ programId, programData, setProgramsState }) {
       tempProgramName !== programData.name ||
       JSON.stringify(tempExercises) !== JSON.stringify(programData.list)
     ) {
-      const confirmClose = window.confirm(
-        "You have unsaved changes. Do you want to discard them?"
-      );
+      const confirmClose = window.confirm("You have unsaved changes. Do you want to discard them?");
       if (!confirmClose) return;
     }
     setOpenModal(false);
@@ -87,8 +85,7 @@ function ProgramModal({ programId, programData, setProgramsState }) {
           transition: "transform 0.3s",
           "&:hover": { transform: "scale(1.05)" },
         }}
-        onClick={handleOpenModal}
-      >
+        onClick={handleOpenModal}>
         <SettingsIcon fontSize="small" />
       </IconButton>
 
@@ -110,8 +107,7 @@ function ProgramModal({ programId, programData, setProgramsState }) {
             alignItems: "center",
             maxHeight: "70vh",
             overflowY: "auto",
-          }}
-        >
+          }}>
           {/* Editable program name */}
           <TextField
             fullWidth
@@ -119,23 +115,8 @@ function ProgramModal({ programId, programData, setProgramsState }) {
             variant="outlined"
             value={tempProgramName}
             onChange={(e) => setTempProgramName(e.target.value)}
-            sx={{ mt: 2 }}
+            sx={{ mt: "1rem", mb: "1rem" }}
           />
-
-          {/* Add new exercise to the top */}
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              if (newExercise.trim() !== "") {
-                addExercise(0, newExercise);
-                setNewExercise("");
-              }
-            }}
-            sx={{ mb: 1, mt: 1.5, width: "100%" }}
-          >
-            Add to Top
-          </Button>
 
           {/* List of current exercises */}
           {tempExercises.length > 0 ? (
@@ -147,13 +128,14 @@ function ProgramModal({ programId, programData, setProgramsState }) {
                   justifyContent: "space-between",
                   alignItems: "center",
                   width: "100%",
-                  mb: 1,
+                  mb: "0.5rem",
                   p: 1,
                   border: "1px solid lightgray",
                   borderRadius: "5px",
-                }}
-              >
-                <Typography>{exercise.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</Typography>
+                }}>
+                <Typography>
+                  {exercise.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                </Typography>
 
                 {/* Controls to add/remove exercises */}
                 <Box>
@@ -170,26 +152,38 @@ function ProgramModal({ programId, programData, setProgramsState }) {
             <Typography>No exercises added yet.</Typography>
           )}
 
+          {/* Add new exercise to the top */}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              if (newExercise.trim() !== "") {
+                addExercise(0, newExercise);
+                setNewExercise("");
+              }
+            }}
+            sx={{ mb: "1rem", mt: "1rem", width: "100%" }}>
+            Add to Top
+          </Button>
+
           {/* Dropdown menu for selecting new exercises */}
           <Select
             fullWidth
             value={newExercise}
             onChange={(e) => setNewExercise(e.target.value)}
-            displayEmpty
-            sx={{ mt: 2 }}
-          >
+            displayEmpty>
             <MenuItem value="" disabled>
               Select an exercise
             </MenuItem>
             {validExercises.map((exercise) => (
               <MenuItem key={exercise} value={exercise}>
-                {exercise.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                {exercise.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
               </MenuItem>
             ))}
           </Select>
 
           {/* Action buttons for saving and closing */}
-          <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%", mt: 2 }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%", mt: "1rem" }}>
             <Button variant="contained" color="primary" onClick={handleSaveChanges}>
               Save
             </Button>
