@@ -15,20 +15,21 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const [availableCameras, setAvailableCameras] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(localStorage.getItem("selectedCamera") || "");
   const [forceRemountKey, setForceRemountKey] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);  // Default loading state is true
   const [showOverlay, setShowOverlay] = useState(false);
-  const [stream, setStream] = useState(null);
+  const [stream, setStream] = useState(null);  // Track the stream object
 
   useEffect(() => {
+    detectPose(webcamRef, canvasRef, processPoseResults);
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const cameras = devices.filter(device => device.kind === 'videoinput');
       setAvailableCameras(cameras);
       if (cameras.length > 0 && !selectedCamera) {
         setSelectedCamera(cameras[0].deviceId);
-        localStorage.setItem("selectedCamera", cameras[0].deviceId); // Save the default camera if no selection
+        localStorage.setItem("selectedCamera", cameras[0].deviceId);
       }
     });
-  }, []);
+  }, [targetAngles]);
 
   useEffect(() => {
     if (repCount > 0) {
@@ -38,41 +39,21 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     }
   }, [repCount]);
 
+  // Toggle loading based on stream status
   useEffect(() => {
-    setLoading(!stream);
+    setLoading(!stream);  // Set loading to true if no stream, false otherwise
   }, [stream]);
-
-  // Ensure pose detection reinitializes when the camera changes
-  useEffect(() => {
-    if (selectedCamera && webcamRef.current && canvasRef.current) {
-      console.log("Reinitializing pose detection for new camera:", selectedCamera);
-      // Reset the stream to the new camera
-      navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: selectedCamera } } })
-        .then((newStream) => {
-          setStream(newStream);
-          webcamRef.current.srcObject = newStream;
-          detectPose(webcamRef, canvasRef, processPoseResults); // Reinitialize pose detection
-        })
-        .catch((err) => {
-          console.error("Error accessing camera: ", err);
-        });
-    }
-  }, [selectedCamera]);
 
   const handleCameraChange = (event) => {
     const newCamera = event.target.value;
     setLoading(true);
     setSelectedCamera(newCamera);
-    localStorage.setItem("selectedCamera", newCamera); // Save the selected camera to localStorage
-    setForceRemountKey(prev => prev + 1); // Force remount to refresh the webcam component
+    localStorage.setItem("selectedCamera", newCamera);
+    setForceRemountKey(prev => prev + 1);
   };
 
   const handleUserMediaLoaded = (newStream) => {
-    setStream(newStream);
-    if (webcamRef.current?.video) {
-      console.log("Camera ready, initializing pose detection...");
-      detectPose(webcamRef, canvasRef, processPoseResults);
-    }
+    setStream(newStream); // Save the stream to state
   };
 
   const handleVideoUpload = (event) => {
@@ -80,10 +61,12 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     if (file) {
       const videoURL = URL.createObjectURL(file);
       const videoElement = videoRef.current;
+
       videoElement.src = videoURL;
       videoElement.onloadeddata = () => {
-        videoElement.pause();
+        videoElement.pause(); // Pause initially until the user plays it
       };
+
       setUseVideo(true);
     }
   };
@@ -93,7 +76,10 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
   };
 
-  const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, { handleVideoUpload });
+  // Pass video upload function to feedbackPanel
+  const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
+    handleVideoUpload: handleVideoUpload, 
+  });
 
   return (
     <Box sx={{ padding: "0.5rem" }}>
@@ -109,14 +95,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
       <Box sx={{ display: "flex", flexWrap: "nowrap", justifyContent: "center", alignItems: "flex-start", width: "100%", height: "fit-content", padding: "2vmin", gap: "2rem" }}>
         {/* Webcam View */}
         <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "1rem", overflow: "hidden", m: "2rem", display: useVideo ? "none" : "", position: "relative", boxShadow: `0px 0px 65px 0px ${color}` }}>
-          <WebcamCanvas 
-            dimensions={{ width: window.innerWidth, height: window.innerHeight }} 
-            ref={{ webcamRef, canvasRef }} 
-            videoDeviceId={selectedCamera} 
-            key={forceRemountKey} 
-            onUserMediaLoaded={handleUserMediaLoaded} 
-            loading={loading}
-          />
+          <WebcamCanvas dimensions={{ width: window.innerWidth, height: window.innerHeight }} ref={{ webcamRef, canvasRef }} videoDeviceId={selectedCamera} key={forceRemountKey} onUserMediaLoaded={handleUserMediaLoaded} />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
 
@@ -126,6 +105,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
 
+        {/* Feedback Panel with Upload Button Inside */}
         {enhancedFeedbackPanel}
       </Box>
     </Box>
