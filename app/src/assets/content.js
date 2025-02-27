@@ -15,6 +15,7 @@ export const instructionsTextLunge = content.instructions.lunge;
 export const instructionsTextLegRaise = content.instructions.legRaise;
 export const instructionsTextToeTouch = content.instructions.toeTouch;
 export const instructionsTextStandingObliqueCrunch = content.instructions.standingObliqueCrunch;
+export const instructionsTextTreePose = content.instructions.treePose;
 
 export const instructionsVideoSquat = content.instructionVideos.squat;
 export const instructionsVideoPushUp = content.instructionVideos.pushup;
@@ -28,7 +29,9 @@ export const instructionsVideoPlank = content.instructionVideos.plank;
 export const instructionsVideoPilatesHundred = content.instructionVideos.pilatesHundred;
 export const instructionsVideoLunge = content.instructionVideos.lunge;
 export const instructionsVideoLegRaise = content.instructionVideos.legRaise;
+export const instructionsVideoToeTouch = content.instructionVideos.toeTouch;
 export const instructionsVideoStandingObliqueCrunch =
   content.instructionVideos.standingObliqueCrunch;
+export const instructionsVideoTreePose = content.instructionVideos.treePose;
 
 export const disclaimerText = content.legal.disclaimer;
