@@ -92,6 +92,7 @@ export const standingObliqueCrunchInfo = {
     lockedOut: {
       states: ["RETURNING"],
       req: "hipAngle >= thresholdHipAngle",
+      ret: "lockedOut",
     },
     breaking: {
       states: ["CRUNCHING", "CRUNCHED"],
@@ -106,9 +107,8 @@ export const standingObliqueCrunchInfo = {
   },
 
   targets: {
-    targetHipAngle: 75,
-    thresholdHipAngle: 160,
-    thresholdKneeAngle: 160,
+    targetHipAngle: 100,
+    thresholdHipAngle: 150,
     thresholdElbowAngle: 90,
   },
 

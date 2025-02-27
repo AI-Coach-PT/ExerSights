@@ -27,7 +27,7 @@
     "lunge": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body, including both legs, is in frame and the camera is straight and not tilted.",
     "legRaise": "Please lay down and position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
     "toeTouch": "Please position yourself so that your webcam is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
-    "standingObliqueCrunch": "Please position yourself so that your webcam is facing the DIAGONAL of your body, so that the side you aim to train is closer to the webcam. Ensure that your entire body is in frame."
+    "standingObliqueCrunch": "Please position yourself so that your webcam is facing slightly DIAGONAL of your body, so that the side you aim to train is at least slightly closer to the webcam. Ensure that your entire body is in frame."
   },
   "instructionVideos": {
     "squat": "https://www.youtube.com/embed/4KmY44Xsg2w",
