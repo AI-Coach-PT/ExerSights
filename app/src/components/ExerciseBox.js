@@ -44,18 +44,27 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
 
   // Ensure pose detection reinitializes when the camera changes
   useEffect(() => {
-    if (webcamRef.current && canvasRef.current) {
+    if (selectedCamera && webcamRef.current && canvasRef.current) {
       console.log("Reinitializing pose detection for new camera:", selectedCamera);
-      detectPose(webcamRef, canvasRef, processPoseResults);
+      // Reset the stream to the new camera
+      navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: selectedCamera } } })
+        .then((newStream) => {
+          setStream(newStream);
+          webcamRef.current.srcObject = newStream;
+          detectPose(webcamRef, canvasRef, processPoseResults); // Reinitialize pose detection
+        })
+        .catch((err) => {
+          console.error("Error accessing camera: ", err);
+        });
     }
-  }, [selectedCamera, forceRemountKey]);
+  }, [selectedCamera]);
 
   const handleCameraChange = (event) => {
     const newCamera = event.target.value;
     setLoading(true);
     setSelectedCamera(newCamera);
     localStorage.setItem("selectedCamera", newCamera); // Save the selected camera to localStorage
-    setForceRemountKey(prev => prev + 1);
+    setForceRemountKey(prev => prev + 1); // Force remount to refresh the webcam component
   };
 
   const handleUserMediaLoaded = (newStream) => {
