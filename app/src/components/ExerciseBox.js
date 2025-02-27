@@ -20,7 +20,6 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const [stream, setStream] = useState(null);  // Track the stream object
 
   useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults);
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const cameras = devices.filter(device => device.kind === 'videoinput');
       setAvailableCameras(cameras);
@@ -29,7 +28,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
         localStorage.setItem("selectedCamera", cameras[0].deviceId);
       }
     });
-  }, [targetAngles]);
+  }, []);
 
   useEffect(() => {
     const savedCamera = localStorage.getItem("selectedCamera");
@@ -51,10 +50,10 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     setLoading(!stream);  // Set loading to true if no stream, false otherwise
   }, [stream]);
 
-  // Ensure pose detection reinitializes when the camera changes
+  // Consolidated useEffect for pose detection
   useEffect(() => {
     if (webcamRef.current && canvasRef.current) {
-      console.log("Reinitializing pose detection for new camera:", selectedCamera);
+      console.log("Reinitializing pose detection for new camera or target angles:", selectedCamera, targetAngles);
       detectPose(webcamRef, canvasRef, processPoseResults);
     }
   }, [selectedCamera, forceRemountKey, targetAngles]); // Add targetAngles to dependencies
