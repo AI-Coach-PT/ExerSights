@@ -11,23 +11,23 @@ import { Box, CircularProgress, Typography, Button } from "@mui/material";
  * @param {number} props.dimensions.width - Browser window width
  * @param {number} props.dimensions.height - Browser window height
  * @param {React.Ref} ref - Forwarded ref for accessing webcam methods
- * @param {Function} [props.onCameraReady] - Callback when camera is ready
  *
  * @example
+ * // Usage
  * <WebcamCanvas
  *   dimensions={{ width: window.innerWidth, height: window.innerHeight }}
  *   ref={webcamRef}
- *   onCameraReady={(video) => {  Handle pose modal initialization  }}
- *  />
+ * />
  */
 const WebcamCanvas = React.forwardRef((props, ref) => {
-  const { videoDeviceId, dimensions, onCameraReady } = props;
+  const { videoDeviceId, dimensions } = props;
   const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Initially loading is true
   const webcamStreamRef = useRef(null);
   const videoElementRef = useRef(null);
-  const metadataLoaded = useRef(false);
+  const metadataLoaded = useRef(false); // Track if metadata is loaded
 
+  // Log the loading state every time it changes
   useEffect(() => {
     console.log("Loading state:", loading);
   }, [loading]);
@@ -61,27 +61,24 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
     if (videoElement) {
       videoElement.addEventListener("loadedmetadata", () => {
         if (!metadataLoaded.current) {
-          metadataLoaded.current = true;
-          setLoading(false);
-          if (onCameraReady) {
-            onCameraReady(videoElement);
-          }
+          metadataLoaded.current = true; // Set to true once metadata is loaded
+          setLoading(false); // Set loading to false when metadata is loaded
         }
         updateCanvasSize();
       });
 
       timeoutId = setTimeout(() => {
         if (!metadataLoaded.current) {
-          setLoading(true);
+          setLoading(true); // Set loading to true if still not loaded
         }
-      }, 3000);
+      }, 3000); // Timeout set for 3 seconds (for demonstration purposes)
 
       return () => {
         videoElement.removeEventListener("loadedmetadata", updateCanvasSize);
         clearTimeout(timeoutId);
       };
     }
-  }, [ref, dimensions.width, dimensions.height, onCameraReady]);
+  }, [ref, dimensions.width, dimensions.height]);
 
   const videoConstraints = {
     deviceId: videoDeviceId ? { exact: videoDeviceId } : undefined,
@@ -95,18 +92,22 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
     }
   }, [videoDeviceId]);
 
+  // Handle errors and stream resets
   const handleUserMedia = (stream) => {
     if (webcamStreamRef.current) {
       webcamStreamRef.current.getTracks().forEach((track) => track.stop());
     }
     webcamStreamRef.current = stream;
 
-    if (ref?.webcamRef?.current?.video) {
-      videoElementRef.current = ref.webcamRef.current.video;
-      if (onCameraReady) {
-        onCameraReady(videoElementRef.current);
-      }
-    }
+    // Monitor for unexpected errors
+    videoElementRef.current.onerror = () => {
+      console.error("Webcam error detected. Restarting stream...");
+      videoElementRef.current.srcObject = null;
+      navigator.mediaDevices.getUserMedia({ video: videoConstraints }).then((newStream) => {
+        webcamStreamRef.current = newStream;
+        videoElementRef.current.srcObject = newStream;
+      });
+    };
   };
 
   return (
@@ -116,22 +117,24 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
           key={videoDeviceId}
           ref={ref?.webcamRef}
           className="hidden-webcam"
-          disablePictureInPicture
+          disablePictureInPicture={true}
           videoConstraints={videoConstraints}
           onUserMedia={handleUserMedia}
         />
       </div>
 
-      {loading && (
-        <Box position="absolute" display="flex" flexDirection="column" alignItems="center" justifyContent="center" width="100%" height="100%">
-          <CircularProgress />
-          <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
-          <Typography variant="body1" mt={1}>Taking too long? Click below to reload the page.</Typography>
-          <Button variant="contained" color="primary" sx={{ mt: 1 }} onClick={() => window.location.reload()}>
-            Reload
-          </Button>
-        </Box>
-      )}
+      <Box position="absolute" display="flex" flexDirection="column" alignItems="center" justifyContent="center" width="100%" height="100%">
+        {loading && (
+          <>
+            <CircularProgress />
+            <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
+            <Typography variant="body1" mt={1}>Taking too long? Click below to reload the page.</Typography>
+            <Button variant="contained" color="primary" sx={{ mt: 1 }} onClick={() => window.location.reload()}>
+              Reload
+            </Button>
+          </>
+        )}
+      </Box>
 
       <canvas
         ref={ref?.canvasRef}
