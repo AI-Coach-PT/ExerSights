@@ -16,7 +16,6 @@ async function createPoseLandmarker() {
         runningMode: "VIDEO",
         numPoses: 1,
       });
-      // detectPose();
     } catch (e) {
       console.error("ERROR:", e);
     }
@@ -24,31 +23,11 @@ async function createPoseLandmarker() {
   return poseLandmarker;
 }
 
-// const detectPose = async (webcamRef, canvasRef, onResultCallback, stopDetection) => {
 const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
   poseLandmarker = await createPoseLandmarker();
   let animationID;
 
-  // const createPoseLandmarker = async () => {
-  //   try {
-  //     const vision = await FilesetResolver.forVisionTasks(
-  //       "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm"
-  //     );
-  //     poseLandmarker = await PoseLandmarker.createFromOptions(vision, {
-  //       baseOptions: {
-  //         modelAssetPath: poseLandmarkerTask,
-  //       },
-  //       runningMode: "VIDEO",
-  //       numPoses: 1,
-  //     });
-  //     detectPose();
-  //   } catch (e) {
-  //     console.error("ERROR:", e);
-  //   }
-  // };
-
   const detectAndDraw = () => {
-    // console.log(`stopDetection in detectAndDraw = ${stopDetection.current}`);
     if (webcamRef.current && webcamRef.current.video.readyState >= 2) {
       poseLandmarker.detectForVideo(webcamRef.current.video, performance.now(), (result) => {
         const canvas = canvasRef.current;
@@ -75,13 +54,9 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
         }
       });
     }
-    // if (!stopDetection.current) {
-    // console.log("continuing animation!");
     animationID = requestAnimationFrame(detectAndDraw);
-    // }
   };
 
-  // createPoseLandmarker();
   detectAndDraw();
 
   return poseLandmarker;
