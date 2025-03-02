@@ -65,7 +65,7 @@ export function register(config) {
     if (navigator.onLine && navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({ type: "CHECK_FOR_UPDATES" });
     }
-  }, 5 * 60 * 1000); // Check every 5 minutes for updates
+  }, 30 * 1000); // Check every 30 seconds for updates
 }
 
 function registerValidSW(swUrl, config) {
