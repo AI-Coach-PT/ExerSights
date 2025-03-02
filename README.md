@@ -47,7 +47,6 @@ This project aims to develop a web application to assess physical therapy techni
 - [ ] Cannot use external webcam, despite allowing it on the site
 - [ ] Fixing exit bubble animation
 - [ ] Two player push up game
-- [ ] Calorie count
 - [ ] Alt text for buttons/other elements when highlighted
 - [ ] Long-term statistics for users
 - [ ] Integration with Apple Health app
