@@ -60,11 +60,12 @@ export function register(config) {
   });
 
   // Set up periodic checks when online
-  // setInterval(() => {
-  // if (navigator.onLine && navigator.serviceWorker.controller) {
-  //   navigator.serviceWorker.controller.postMessage({ type: "CHECK_FOR_UPDATES" });
-  // }
-  // }, 60 * 60 * 1000); // Check every hour
+  setInterval(() => {
+    console.log("Interval: checking for updates!");
+    if (navigator.onLine && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: "CHECK_FOR_UPDATES" });
+    }
+  }, 5 * 60 * 1000); // Check every 5 minutes for updates
 }
 
 function registerValidSW(swUrl, config) {
@@ -85,6 +86,9 @@ function registerValidSW(swUrl, config) {
               console.log(
                 "New content is available and will be used when all " +
                   "tabs for this page are closed. See https://cra.link/PWA."
+              );
+              alert(
+                "New content is available, close and reopen the app to get the latest updates!"
               );
 
               // Execute callback
