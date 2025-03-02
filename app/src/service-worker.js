@@ -72,7 +72,7 @@ self.addEventListener("message", (event) => {
 // Any other custom service worker logic can go here.
 
 // Version tracking for updates
-const VERSION = "v5"; // Update this when you make changes
+const VERSION = "v6"; // Update this when you make changes
 
 // Activate event - clean up old caches
 self.addEventListener("activate", (event) => {

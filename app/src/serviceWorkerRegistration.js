@@ -61,11 +61,11 @@ export function register(config) {
 
   // Set up periodic checks when online
   setInterval(() => {
-    console.log("Interval: checking for updates!");
+    console.log("Checking for updates!");
     if (navigator.onLine && navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({ type: "CHECK_FOR_UPDATES" });
     }
-  }, 30 * 1000); // Check every 30 seconds for updates
+  }, 60 * 1000); // Check every 60 seconds for updates
 }
 
 function registerValidSW(swUrl, config) {
