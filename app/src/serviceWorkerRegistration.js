@@ -50,6 +50,21 @@ export function register(config) {
       }
     });
   }
+
+  // Check for updates when online
+  window.addEventListener("online", () => {
+    console.log("Device is online, checking for updates");
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: "CHECK_FOR_UPDATES" });
+    }
+  });
+
+  // Set up periodic checks when online
+  // setInterval(() => {
+  // if (navigator.onLine && navigator.serviceWorker.controller) {
+  //   navigator.serviceWorker.controller.postMessage({ type: "CHECK_FOR_UPDATES" });
+  // }
+  // }, 60 * 60 * 1000); // Check every hour
 }
 
 function registerValidSW(swUrl, config) {

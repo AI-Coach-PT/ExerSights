@@ -70,3 +70,28 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+// Version tracking for updates
+const VERSION = "v0"; // Update this when you make changes
+
+// Activate event - clean up old caches
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((cacheNames) => {
+        return Promise.all(
+          cacheNames
+            .filter((cacheName) => {
+              return cacheName.startsWith("workbox-") && cacheName !== VERSION;
+            })
+            .map((cacheName) => {
+              return caches.delete(cacheName);
+            })
+        );
+      })
+      .then(() => {
+        return self.clients.claim();
+      })
+  );
+});
