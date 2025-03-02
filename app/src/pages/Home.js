@@ -23,7 +23,7 @@ function Home() {
       }}>
       <Box>
         <Typography variant="h1" sx={{ mb: ".5rem" }}>
-          Welcome to ExerSights!
+          Welcome to ExerSights! Testing Version 0!!!!!
         </Typography>
 
         <Typography variant="h5" sx={{ mb: ".5rem" }}>
