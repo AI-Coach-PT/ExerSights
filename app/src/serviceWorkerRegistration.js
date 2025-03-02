@@ -30,11 +30,9 @@ export function register(config) {
     }
 
     window.addEventListener("load", () => {
-      const swUrl = `${process.env.PUBLIC_URL}/serviceWorker.js`;
-      console.log(`swUrl is ${swUrl}`);
+      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
-        console.log("Is localhost");
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
 
@@ -48,25 +46,9 @@ export function register(config) {
         });
       } else {
         // Is not localhost. Just register service worker
-        console.log("Not localhost");
         registerValidSW(swUrl, config);
       }
     });
-
-    // Check for updates when online
-    // window.addEventListener("online", () => {
-    //   console.log("Device is online, checking for updates");
-    //   if (navigator.serviceWorker.controller) {
-    //     navigator.serviceWorker.controller.postMessage({ type: "CHECK_FOR_UPDATES" });
-    //   }
-    // });
-
-    // Set up periodic checks when online
-    // setInterval(() => {
-    // if (navigator.onLine && navigator.serviceWorker.controller) {
-    //   navigator.serviceWorker.controller.postMessage({ type: "CHECK_FOR_UPDATES" });
-    // }
-    // }, 60 * 60 * 1000); // Check every hour
   }
 }
 
@@ -74,7 +56,6 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
-      console.log("Service worker successfully registered!");
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
