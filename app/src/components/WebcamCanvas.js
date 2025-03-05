@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { Box, CircularProgress, Typography, Button } from "@mui/material";
 
+const WEBCAM_TIMEOUT = 5000;
+
 /**
  * WebcamCanvas component provides a webcam interface with responsive dimensions
  *
@@ -71,7 +73,7 @@ const WebcamCanvas = React.forwardRef((props, ref) => {
         if (!metadataLoaded.current) {
           setLoading(true); // Set loading to true if still not loaded
         }
-      }, 3000); // Timeout set for 3 seconds (for demonstration purposes)
+      }, WEBCAM_TIMEOUT); 
 
       return () => {
         videoElement.removeEventListener("loadedmetadata", updateCanvasSize);
