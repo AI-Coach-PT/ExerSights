@@ -15,18 +15,20 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const [availableCameras, setAvailableCameras] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(localStorage.getItem("selectedCamera") || "");
   const [forceRemountKey, setForceRemountKey] = useState(0);
-  const [loading, setLoading] = useState(true);  // Default loading state is true
+  const [loading, setLoading] = useState(true);
   const [showOverlay, setShowOverlay] = useState(false);
-  const [stream, setStream] = useState(null);  // Track the stream object
+  const [stream, setStream] = useState(null);
 
   useEffect(() => {
     detectPose(webcamRef, canvasRef, processPoseResults);
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const cameras = devices.filter(device => device.kind === 'videoinput');
       setAvailableCameras(cameras);
-      if (cameras.length > 0 && !selectedCamera) {
-        setSelectedCamera(cameras[0].deviceId);
-        localStorage.setItem("selectedCamera", cameras[0].deviceId);
+      if (cameras.length > 0) {
+        const storedCamera = localStorage.getItem("selectedCamera");
+        const validCamera = cameras.some(cam => cam.deviceId === storedCamera) ? storedCamera : cameras[0].deviceId;
+        setSelectedCamera(validCamera);
+        localStorage.setItem("selectedCamera", validCamera);
       }
     });
   }, [targetAngles]);
@@ -39,9 +41,8 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     }
   }, [repCount]);
 
-  // Toggle loading based on stream status
   useEffect(() => {
-    setLoading(!stream);  // Set loading to true if no stream, false otherwise
+    setLoading(!stream);
   }, [stream]);
 
   const handleCameraChange = (event) => {
@@ -53,7 +54,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   };
 
   const handleUserMediaLoaded = (newStream) => {
-    setStream(newStream); // Save the stream to state
+    setStream(newStream);
   };
 
   const handleVideoUpload = (event) => {
@@ -76,7 +77,6 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
   };
 
-  // Pass video upload function to feedbackPanel
   const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
     handleVideoUpload: handleVideoUpload, 
   });
@@ -84,28 +84,34 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   return (
     <Box sx={{ padding: "0.5rem" }}>
       <Typography variant="h1" sx={{ textAlign: "center" }}>{title}</Typography>
-      <FormControl sx={{ marginBottom: "1rem" }}>
-        <InputLabel>Choose Camera</InputLabel>
-        <Select value={selectedCamera || ""} onChange={handleCameraChange} label="Choose Camera">
-          {availableCameras.map((camera) => (
-            <MenuItem key={camera.deviceId} value={camera.deviceId}>{camera.label || `Camera ${camera.deviceId}`}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Box sx={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+        <FormControl>
+          <InputLabel>Choose Camera</InputLabel>
+          <Select value={selectedCamera || ""} onChange={handleCameraChange} label="Choose Camera">
+            {availableCameras.map((camera) => (
+              <MenuItem key={camera.deviceId} value={camera.deviceId}>{camera.label || `Camera ${camera.deviceId}`}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", width: "100%", height: "fit-content", padding: "2vmin", gap: "2rem" }}>
-        {/* Webcam View */}
         <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "1rem", overflow: "hidden", m: "1.25rem", display: useVideo ? "none" : "", position: "relative", boxShadow: `0px 0px 65px 0px ${color}` }}>
-          <WebcamCanvas dimensions={{ width: window.innerWidth, height: window.innerHeight }} ref={{ webcamRef, canvasRef }} videoDeviceId={selectedCamera} key={forceRemountKey} onUserMediaLoaded={handleUserMediaLoaded} />
+          <WebcamCanvas 
+            dimensions={{ width: window.innerWidth, height: window.innerHeight }} 
+            ref={{ webcamRef, canvasRef }} 
+            videoDeviceId={selectedCamera} 
+            key={forceRemountKey} 
+            onUserMediaLoaded={handleUserMediaLoaded} 
+          />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
-
-        {/* Video Playback (Shown if a video is uploaded) */}
         <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "8px", overflow: "hidden", padding: "5px", display: useVideo ? "" : "none", boxShadow: `0px 0px 65px 0px ${color}` }}>
-          <VideoCanvas handlePlay={handlePlay} ref={{ videoRef, canvasRef: videoCanvasRef }} />
+          <VideoCanvas 
+            handlePlay={handlePlay} 
+            ref={{ videoRef, canvasRef: videoCanvasRef }} 
+          />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
-
-        {/* Feedback Panel with Upload Button Inside */}
         {enhancedFeedbackPanel}
       </Box>
     </Box>
