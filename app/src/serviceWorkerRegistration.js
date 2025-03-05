@@ -62,7 +62,7 @@ export function register(config) {
   // Set up periodic checks when online
   setInterval(() => {
     console.log("Checking for updates!");
-    if (navigator.onLine && navigator.serviceWorker.controller) {
+    if (navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({ type: "CHECK_FOR_UPDATES" });
     }
   }, 60 * 1000); // Check every 60 seconds for updates
