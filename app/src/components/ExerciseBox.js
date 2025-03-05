@@ -6,6 +6,16 @@ import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
 import detectPose from "../utils/models/PoseDetector";
 import OverlayBox from "./CounterGraphic";
 
+/**
+ * A reusable layout component for exercise tracking pages.
+ *
+ * @component
+ * @param {string} title - The title of the exercise page.
+ * @param {JSX.Element} webcamCanvas - The WebcamCanvas component displaying the camera feed.
+ * @param {JSX.Element} feedbackPanel - The FeedbackPanel component displaying feedback and controls.
+ *
+ * @returns {JSX.Element} The JSX code for the ExerciseBox layout.
+ */
 function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, color, repCount }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
