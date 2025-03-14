@@ -31,24 +31,25 @@ function Program() {
 
   useEffect(() => {
     const auth = getAuth();
-    const user = auth.currentUser;
 
-    if (user) {
-      // If user is logged in, fetch programs from Firestore
-      try {
-        getDoc(doc(db, "users", user.email, "programs", "userPrograms"))
-          .then((docSnap) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          const docSnap = await getDoc(doc(db, "users", user.email, "programs", "userPrograms"));
+          if (docSnap.exists()) {
             setProgramsState(docSnap.data());
-          })
-          .catch((e) => console.log(`Error: ${e}`));
-      } catch (e) {
-        console.error(`Error reading document: ${e}`);
+          } else {
+            setProgramsState(programs);
+          }
+        } catch (e) {
+          console.error("Error reading document:", e);
+        }
+      } else {
+        setProgramsState(programs);
       }
-    }
-    else {
-      // If user is not logged in, use default programs
-      setProgramsState(programs);
-    }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const handleNavigate = (programId) => {
