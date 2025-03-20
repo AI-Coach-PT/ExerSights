@@ -27,6 +27,7 @@ function FeedbackPanel({
   SettingsModal,
   handleVideoUpload,
   angleView,
+  color,
 }) {
   useEffect(() => {
     return () => {
@@ -47,6 +48,7 @@ function FeedbackPanel({
         flexDirection: "column",
         gap: "0.25rem",
       }}>
+      
       <Box
         sx={{
           display: "flex",
@@ -63,7 +65,7 @@ function FeedbackPanel({
         <Typography variant="body1">
           Feedback:
           {feedbackList.map((feedback, index) => (
-            <Typography key={`feedback-${index}`} variant="body1" color="red">
+            <Typography key={`feedback-${index}`} variant="body1" color={color}>
               {feedback || index > 0 ? feedback : "Get in frame!"}
             </Typography>
           ))}
