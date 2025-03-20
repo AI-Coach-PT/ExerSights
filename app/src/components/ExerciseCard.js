@@ -64,9 +64,9 @@ function ExerciseCard({ image, title, description, link, isPinned = false, onPin
             top: 12,
             right: 12,
             zIndex: 1,
-            color: isPinned ? "primary.main" : "text.secondary",
+            color: isPinned ? "primary.main" : "#555",
             "&:hover": {
-              color: isPinned ? "text.secondary" : "secondary.main"
+              color: isPinned ? "#999" : "secondary.main"
             },
           }}
         >
