@@ -46,7 +46,7 @@ function FAQ() {
     {
       question: "How do I use ExerSights?",
       answer: [
-        "See our tutorial video below! It will walk you through how to use every part of ExerSights thoroughly, and enable you to improve your exercise performance immediately!",
+        "See our tutorial video on the home page (you may have to scroll down)! It will walk you through how to use every part of ExerSights thoroughly, and enable you to improve your exercise performance immediately!",
       ],
     },
     {
