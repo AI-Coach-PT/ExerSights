@@ -138,10 +138,10 @@ function SettingsModal({
             />
           ))}
           <Button variant="contained" onClick={handleToggleAngleView} sx={{ mb: "1rem" }}>
-            Toggle Angle View
+            {angleView ? "Turn off angle display" : "Turn on angle display"}
           </Button>
           <Button variant="contained" onClick={handleToggleDrawSkeleton} sx={{ mb: "1rem" }}>
-            Toggle Draw Skeleton
+            {drawSkeleton ? "Turn off draw skeleton" : "Turn on draw skeleton"}
           </Button>
           <FormControl sx={{ mb: "1rem", width: "100%" }}>
             <TextField
