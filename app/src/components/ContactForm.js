@@ -41,6 +41,8 @@ export default function ContactForm() {
         justifyContent: "center",
         flexWrap: "wrap",
         textAlign: "center",
+        width: "60rem",
+        maxWidth: "90%",
       }}>
       <form onSubmit={onSubmit}>
         <Box sx={{ mb: "1rem" }}>
@@ -70,7 +72,6 @@ export default function ContactForm() {
             multiline
             autoComplete
             minRows={2}
-            sx={{ width: "80%" }}
           />
         </Box>
         <Button type="submit" variant="contained" sx={{ mb: "1rem" }}>
