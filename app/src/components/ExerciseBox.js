@@ -31,29 +31,10 @@ function ExerciseBox({
     width: window.innerWidth,
     height: window.innerHeight,
   });
-
   const videoRef = useRef(null);
   const videoCanvasRef = useRef(null);
   const [useVideo, setUseVideo] = useState(false);
-
-  useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults, drawSkeleton);
-
-    return () => {};
-  }, [targetAngles]);
-
   const [showOverlay, setShowOverlay] = useState(false);
-  useEffect(() => {
-    if (repCount > 0) {
-      setShowOverlay(false);
-      setTimeout(() => {
-        setShowOverlay(true);
-      }, 10);
-      setTimeout(() => {
-        setShowOverlay(false);
-      }, 1000);
-    }
-  }, [repCount]);
 
   const handleVideoUpload = (event) => {
     const file = event.target.files[0];
@@ -78,6 +59,24 @@ function ExerciseBox({
   const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
     handleVideoUpload: handleVideoUpload, // Spread in the extra props
   });
+
+  useEffect(() => {
+    detectPose(webcamRef, canvasRef, processPoseResults, drawSkeleton);
+
+    return () => {};
+  }, [targetAngles, drawSkeleton]);
+
+  useEffect(() => {
+    if (repCount > 0) {
+      setShowOverlay(false);
+      setTimeout(() => {
+        setShowOverlay(true);
+      }, 10);
+      setTimeout(() => {
+        setShowOverlay(false);
+      }, 1000);
+    }
+  }, [repCount]);
 
   return (
     <Box sx={{ padding: "0.5rem" }}>
