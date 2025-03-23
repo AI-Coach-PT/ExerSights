@@ -2,12 +2,23 @@ import { FilesetResolver, PoseLandmarker, DrawingUtils } from "@mediapipe/tasks-
 import poseLandmarkerTask from "../../shared/models/pose_landmarker_lite.task";
 
 const POSE_CONNECTIONS_NON_FACE = [
-  { start: 11, end: 12 }, { start: 12, end: 14 }, { start: 14, end: 16 },
-  { start: 11, end: 13 }, { start: 13, end: 15 }, { start: 15, end: 17 },
-  { start: 11, end: 23 }, { start: 12, end: 24 }, { start: 23, end: 24 },
-  { start: 23, end: 25 }, { start: 24, end: 26 }, { start: 25, end: 27 },
-  { start: 26, end: 28 }, { start: 27, end: 29 }, { start: 28, end: 30 },
-  { start: 29, end: 31 }, { start: 30, end: 32 }
+  { start: 11, end: 12 },
+  { start: 12, end: 14 },
+  { start: 14, end: 16 },
+  { start: 11, end: 13 },
+  { start: 13, end: 15 },
+  { start: 15, end: 17 },
+  { start: 11, end: 23 },
+  { start: 12, end: 24 },
+  { start: 23, end: 24 },
+  { start: 23, end: 25 },
+  { start: 24, end: 26 },
+  { start: 25, end: 27 },
+  { start: 26, end: 28 },
+  { start: 27, end: 29 },
+  { start: 28, end: 30 },
+  { start: 29, end: 31 },
+  { start: 30, end: 32 },
 ];
 
 let poseLandmarker;
@@ -32,7 +43,7 @@ async function createPoseLandmarker() {
   return poseLandmarker;
 }
 
-const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
+const detectPose = async (webcamRef, canvasRef, onResultCallback, drawSkeleton) => {
   poseLandmarker = await createPoseLandmarker();
   let animationID;
 
@@ -47,7 +58,7 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         canvasCtx.drawImage(webcamRef.current.video, 0, 0, canvas.width, canvas.height);
 
-        if (result.landmarks[0]) {
+        if (result.landmarks[0] && drawSkeleton) {
           const nonFaceLandmarks = result.landmarks[0].filter((_, index) => index > 10);
 
           drawingUtils.drawLandmarks(nonFaceLandmarks, {

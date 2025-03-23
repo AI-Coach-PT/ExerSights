@@ -16,7 +16,15 @@ import OverlayBox from "./CounterGraphic";
  *
  * @returns {JSX.Element} The JSX code for the ExerciseBox layout.
  */
-function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, color, repCount }) {
+function ExerciseBox({
+  title,
+  feedbackPanel,
+  processPoseResults,
+  targetAngles,
+  color,
+  repCount,
+  drawSkeleton,
+}) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [dimensions] = useState({
@@ -29,7 +37,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const [useVideo, setUseVideo] = useState(false);
 
   useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults);
+    detectPose(webcamRef, canvasRef, processPoseResults, drawSkeleton);
 
     return () => {};
   }, [targetAngles]);

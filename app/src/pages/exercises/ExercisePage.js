@@ -11,19 +11,18 @@ function ExercisePage({ exerciseName: propExerciseName }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const queryExerciseName = queryParams.get("exercise");
-
   const exerciseName = propExerciseName || queryExerciseName;
 
   const [exerciseData, setExerciseData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
   const [feedback, setFeedback] = useState("");
   const [repCount, setRepCount] = useState(0);
   const [color, setColor] = useState("white");
+  const [jointAngles, setJointAngles] = useState({});
   const [angleView, setAngleView] = useState(true);
   const [targetAngles, setTargetAngles] = useState({});
-  const [jointAngles, setJointAngles] = useState({});
+  const [drawSkeleton, setDrawSkeleton] = useState(true);
 
   useEffect(() => {
     if (!exerciseName) {
@@ -118,6 +117,8 @@ function ExercisePage({ exerciseName: propExerciseName }) {
           setTargetAnglesArray={setTargetAnglesArray}
           angleView={angleView}
           setAngleView={setAngleView}
+          drawSkeleton={drawSkeleton}
+          setDrawSkeleton={setDrawSkeleton}
         />
       }
       angleView={angleView}
@@ -133,6 +134,7 @@ function ExercisePage({ exerciseName: propExerciseName }) {
       targetAngles={targetAngles}
       color={color}
       repCount={repCount}
+      drawSkeleton={drawSkeleton}
     />
   );
 }
