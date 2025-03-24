@@ -108,3 +108,8 @@ This project aims to develop a web application to assess physical therapy techni
 
 -   https://www.yogajournal.com/poses/tree-pose-2/
 -   https://www.verywellfit.com/tree-pose-vrksasana-3567128
+
+### Shoulder Press
+
+-   https://ericrobertsfitness.com/how-to-do-dumbbell-shoulder-press-the-correct-guide/
+-   https://www.muscleandstrength.com/exercises/seated-dumbbell-press.html
