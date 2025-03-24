@@ -109,7 +109,9 @@ let currState;
  * @param {Function} setCurrSpineAngle - Function to track back position.
  * @param {Function} setRepCount - Function to update the repetition count.
  */
-export const checkToeTouch = (landmarks, onFeedbackUpdate, setColor, setCurrHipAngle, setRepCount) => {
+export const checkToeTouch = (landmarks, onFeedbackUpdate, setColor, setCurrHipAngle, setRepCount, targetHipAngle = 75) => {
+    toeTouchInfo.targets["targetHipAngle"] = targetHipAngle;
+
     currState = genCheck(
         toeTouchInfo,
         (...args) => getTransitionType(...args, toeTouchInfo, currState),

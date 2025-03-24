@@ -104,8 +104,13 @@ export const checkTreePose = (
   setColor,
   setCurrHipAngle,
   setCurrKneeAngle,
-  setRepCount
+  setRepCount,
+  targetHipAngle = 150,
+  targetKneeAngle = 65
 ) => {
+  treePoseInfo.targets["targetHipAngle"] = targetHipAngle;
+  treePoseInfo.targets["targetKneeAngle"] = targetKneeAngle
+
   currState = genCheck(
     treePoseInfo,
     (...args) => getTransitionType(...args, treePoseInfo, currState),
