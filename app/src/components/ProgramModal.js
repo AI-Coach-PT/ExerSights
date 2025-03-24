@@ -17,6 +17,7 @@ import { catalogText } from "../assets/content.js";
 import { getAuth } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import toast from "react-hot-toast";
 
 const saveProgramsToDatabase = async (userEmail, programsState) => {
   try {
@@ -68,7 +69,7 @@ function ProgramModal({ programId, programData, programsState, setProgramsState 
     const user = auth.currentUser;
 
     if (!user) {
-      alert("You must be logged in to edit a program.");
+      toast.error("You must be logged in to edit a program.");
       return;
     }
 
@@ -82,7 +83,8 @@ function ProgramModal({ programId, programData, programsState, setProgramsState 
     }));
 
     saveProgramsToDatabase(user.email, {
-      ...programsState, [programId]: {
+      ...programsState,
+      [programId]: {
         ...programsState[programId],
         name: tempProgramName,
         list: tempExercises,

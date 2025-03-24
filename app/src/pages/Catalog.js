@@ -6,6 +6,7 @@ import { catalogText } from "../assets/content.js";
 import { getAuth } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import toast from "react-hot-toast";
 
 const exerciseImages = Object.fromEntries(
   Object.keys(catalogText).map((key) => [key, require(`../assets/exercise-cards/${key}.png`)])
@@ -24,7 +25,7 @@ function Catalog() {
 
   const filteredExercises = Object.keys(catalogText)
     .filter((exerciseKey) =>
-      exerciseKey.toLowerCase().includes(searchTerm.toLowerCase().replace(/\s/g, ''))
+      exerciseKey.toLowerCase().includes(searchTerm.toLowerCase().replace(/\s/g, ""))
     )
     .sort((a, b) => {
       const aPinned = pinnedExercises.includes(a);
@@ -39,7 +40,7 @@ function Catalog() {
     const user = auth.currentUser;
 
     if (!user) {
-      alert("You must be logged in to pin an exercise.");
+      toast.error("You must be logged in to pin an exercise.");
       return;
     }
 
@@ -78,7 +79,9 @@ function Catalog() {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         try {
-          const docSnap = await getDoc(doc(db, "users", user.email, "pinnedExercises", "pinnedExercises"));
+          const docSnap = await getDoc(
+            doc(db, "users", user.email, "pinnedExercises", "pinnedExercises")
+          );
           if (docSnap.exists()) {
             setPinnedExercises(docSnap.get("pinnedExercises"));
           }
@@ -106,7 +109,9 @@ function Catalog() {
           filteredExercises.map((exerciseKey) => (
             <ExerciseCard
               key={exerciseKey}
-              title={exerciseKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+              title={exerciseKey
+                .replace(/([A-Z])/g, " $1")
+                .replace(/^./, (str) => str.toUpperCase())}
               description={catalogText[exerciseKey]}
               link={`/exercise?exercise=${exerciseKey}`}
               image={exerciseImages[exerciseKey]}
