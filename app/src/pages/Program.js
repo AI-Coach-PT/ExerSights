@@ -9,6 +9,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { getAuth } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc, deleteField } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import toast from "react-hot-toast";
 
 // Default programs data
 const programs = {
@@ -54,7 +55,7 @@ function Program() {
 
   const handleNavigate = (programId) => {
     if (programsState[programId].list.length === 0) {
-      window.alert("Empty Program");
+      toast.error("Empty Program");
       return;
     }
     navigate("/programOverlay", { state: { currentProgram: programsState[programId] } });
@@ -65,7 +66,7 @@ function Program() {
     const user = auth.currentUser;
 
     if (!user) {
-      alert("You must be logged in to add a program.");
+      toast.error("You must be logged in to add a program.");
       return;
     }
 
@@ -90,7 +91,7 @@ function Program() {
     const user = auth.currentUser;
 
     if (!user) {
-      alert("You must be logged in to remove a program.");
+      toast.error("You must be logged in to remove a program.");
       return;
     }
 
@@ -99,7 +100,7 @@ function Program() {
 
     const programRef = doc(db, "users", user.email, "programs", "userPrograms");
     await updateDoc(programRef, {
-      [programId]: deleteField()
+      [programId]: deleteField(),
     });
 
     setProgramsState((prevPrograms) => {
@@ -110,7 +111,8 @@ function Program() {
   };
 
   return (
-    <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <Box
+      sx={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Typography variant="h1" gutterBottom sx={{ padding: "0.5rem" }}>
         Program
       </Typography>
