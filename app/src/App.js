@@ -209,7 +209,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Toaster />
+      <Toaster
+        position="top-right"
+        containerStyle={{
+          top: 80,
+        }}
+      />
       <Router>
         <Menubar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <Routes>
