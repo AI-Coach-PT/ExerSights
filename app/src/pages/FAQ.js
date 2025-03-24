@@ -81,6 +81,14 @@ function FAQ() {
         "Exercise feedback and stats provided may not always be accurate. We are not liable for inaccurate feedback or any resulting injuries. Always consult a professional trainer before performing exercises. Use at your own risk.",
       ],
     },
+    {
+      question: "A particular feature is not working! What do I do?",
+      answer: [
+        "We are sorry to hear our feature is not working for you! We recommend using Google Chrome as your browser, so ensure you are using that if a feature is not working.",
+        "If you are already on Chrome, please also try to perform a hard refresh on the ExerSights page so that you are not using any stale, cached content.",
+        "If nothing is working, leave us a message below! We would love to help you out!",
+      ],
+    },
   ];
 
   return (
