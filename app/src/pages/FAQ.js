@@ -7,6 +7,7 @@ import {
   ListItemText,
   Collapse,
   Divider,
+  Link,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -16,7 +17,7 @@ const FAQItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <Box sx={{}}>
+    <Box>
       <ListItemButton onClick={() => setOpen(!open)} sx={{ px: 0 }}>
         <ListItemText primary={<Typography variant="h5">{question}</Typography>} />
         {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -37,12 +38,12 @@ const FAQItem = ({ question, answer }) => {
 
 function FAQ() {
   const faqData = [
-    {
-      question: "Is ExerSights free to use?",
-      answer: [
-        "Yes! ExerSights is 100% free to use! ExerSights is also 100% open source, and you can find the source code at: https://github.com/AI-Coach-PT/ExerSights ",
-      ],
-    },
+    // {
+    //   question: "",
+    //   answer: [
+    //     "Yes! ExerSights is 100% free to use! ExerSights is also 100% open source, and you can find the source code at: https://github.com/AI-Coach-PT/ExerSights",
+    //   ],
+    // },
     {
       question: "How do I use ExerSights?",
       answer: [
@@ -91,6 +92,8 @@ function FAQ() {
     },
   ];
 
+  const [q1Open, setQ1Open] = useState(false);
+
   return (
     <Box
       sx={{
@@ -106,6 +109,33 @@ function FAQ() {
       </Typography>
       <Box sx={{ width: "60rem", maxWidth: "90%", mb: "1.5rem" }}>
         <List disablePadding>
+          {/* Explicitly write out the first question since it has a hyperlink */}
+          <Box>
+            <ListItemButton onClick={() => setQ1Open(!q1Open)} sx={{ px: 0 }}>
+              <ListItemText
+                primary={<Typography variant="h5">{"Is ExerSights free to use?"}</Typography>}
+              />
+              {q1Open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </ListItemButton>
+            <Collapse in={q1Open} timeout="auto" unmountOnExit>
+              <Typography
+                variant="body1"
+                sx={{ textAlign: "left", mb: "0.5rem", color: "text.secondary" }}>
+                {
+                  "Yes! ExerSights is 100% free to use! ExerSights is also 100% open source, and you can find the source code at: "
+                }
+                <Link
+                  href="https://github.com/AI-Coach-PT/ExerSights"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="text.secondary">
+                  https://github.com/AI-Coach-PT/ExerSights
+                </Link>
+              </Typography>
+            </Collapse>
+            <Divider />
+          </Box>
+
           {faqData.map((faq) => (
             <FAQItem question={faq.question} answer={faq.answer} />
           ))}
