@@ -4,8 +4,8 @@ export const shoulderPressInfo = {
     states: {
         INIT: { feedback: "Start with elbows tucked at 45°!", audio: false, countRep: false, color: "yellow" },
         PRESSING: { feedback: "Press Overhead!", audio: true, countRep: false, color: "yellow" },
-        LOCKED_OUT: { feedback: "Excellent!!", audio: true, countRep: true, color: "green" },
-        LOWERING: { feedback: "Lower Down to 45°!", audio: false, countRep: false, color: "yellow" },
+        LOCKED_OUT: { feedback: "Excellent!", audio: true, countRep: true, color: "green" },
+        LOWERING: { feedback: "Lower down to initial position!", audio: false, countRep: false, color: "yellow" },
         FLARED: { feedback: "Don't flare elbows too wide!", audio: true, countRep: false, color: "red" },
         OVERLOCKED: { feedback: "Don't lock out elbows!", audio: true, countRep: false, color: "red" },
     },
