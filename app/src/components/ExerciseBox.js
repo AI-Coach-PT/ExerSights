@@ -46,7 +46,7 @@ function ExerciseBox({
 
 
   useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults);
+    detectPose(webcamRef, canvasRef, processPoseResults, drawSkeleton);
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const cameras = devices.filter(device => device.kind === 'videoinput');
       setAvailableCameras(cameras);
@@ -57,7 +57,7 @@ function ExerciseBox({
         localStorage.setItem("selectedCamera", validCamera);
       }
     });
-  }, [targetAngles]);
+  }, [targetAngles, drawSkeleton]);
 
   useEffect(() => {
     if (repCount > 0) {
