@@ -133,8 +133,11 @@ export const checkStandingObliqueCrunch = (
   onFeedbackUpdate,
   setColor,
   setCurrHipAngle,
-  setRepCount
+  setRepCount,
+  targetHipAngle = 100
 ) => {
+  standingObliqueCrunchInfo.targets["targetHipAngle"] = targetHipAngle;
+
   currState = genCheck(
     standingObliqueCrunchInfo,
     (...args) => getTransitionType(...args, standingObliqueCrunchInfo, currState),

@@ -19,9 +19,21 @@ import { db } from "../firebaseConfig";
  *
  * @returns {JSX.Element} The JSX code for the ExerciseBox layout.
  */
-function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, color, repCount }) {
+function ExerciseBox({
+  title,
+  feedbackPanel,
+  processPoseResults,
+  targetAngles,
+  color,
+  repCount,
+  drawSkeleton,
+}) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  const [dimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
   const videoRef = useRef(null);
   const videoCanvasRef = useRef(null);
   const [useVideo, setUseVideo] = useState(false);
