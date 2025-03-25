@@ -68,6 +68,18 @@ function FAQ() {
       ],
     },
     {
+      question: "What are the ideal conditions for using ExerSights?",
+      answer: [
+        "As a software-only AI coach/physical therapist, ExerSights is limited in its capabilities. To best use our app, we recommend using the app under the following conditions:",
+        "- You are fully in frame, such that the webcam display shows your entire body.",
+        "- You are the only person in frame. See the previous FAQ for details!",
+        "- You are wearing colors that do not match your background; that is, your clothing is in high contrast with your background.",
+        "- You are in a well-lit environment.",
+        "- You followed the camera setup instructions in the 'Help' tab located on the feedback panel in every page.",
+        "- You have customized the target angle(s) of the exercise(s) you are performing via the 'Settings' tab located on the feedback panel in every page, to best fit your individual needs.",
+      ],
+    },
+    {
       question: "What is ExerSights not capable of?",
       answer: [
         "As a software-only AI coach/physical therapist, ExerSights is limited in its capabilities. To understand its limitations, it is appropriate to understand how ExerSights provides real-time feedback.",
