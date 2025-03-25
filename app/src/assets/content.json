@@ -13,7 +13,8 @@
     "legRaise": "Strengthens the lower abs, hip flexors, and core, improving stability and control.",
     "toeTouch": "Enhances hamstring flexibility and core engagement while promoting lower back mobility.",
     "standingObliqueCrunch": " Targets obliques and abs, improves core stability, posture, and balance while burning calories.",
-    "treePose": "Balances body, strengthens legs, improves focus, stretches hips and inner thighs."
+    "treePose": "Balances body, strengthens legs, improves focus, stretches hips and inner thighs.",
+    "shoulderPress": "Targets deltoids, strengthens shoulders and triceps, enhances overhead stability."
   },
   "instructions": {
     "squat": "Please position yourself so that your camera is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
@@ -29,7 +30,8 @@
     "legRaise": "Please lay down and position yourself so that your camera is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
     "toeTouch": "Please position yourself so that your camera is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
     "standingObliqueCrunch": "Please position yourself so that your camera is facing slightly DIAGONAL of your body, so that the side you aim to train is at least slightly closer to the camera, without obstructing the camera's view of the front of your body. Ensure that your entire body is in frame.",
-    "treePose": "Please position yourself so that your camera is facing slightly DIAGONAL of your body, so that the leg you bend is at least slightly closer to the camera, without obstructing the camera's view of the front of your body. Ensure that your entire body is in frame."
+    "treePose": "Please position yourself so that your camera is facing slightly DIAGONAL of your body, so that the leg you bend is at least slightly closer to the camera, without obstructing the camera's view of the front of your body. Ensure that your entire body is in frame.",
+    "shoulderPress": "Please position yourself so that your camera is facing the FRONT of your body."
   },
   "instructionVideos": {
     "squat": "https://www.youtube.com/embed/4KmY44Xsg2w",
@@ -45,7 +47,8 @@
     "legRaise": "https://www.youtube.com/embed/l4kQd9eWclE",
     "toeTouch": "https://www.youtube.com/embed/Xvr5N_Xf6QM",
     "standingObliqueCrunch": "https://www.youtube.com/embed/yZmq_xSkhI0?si=xnrUzTUZjG3w3jaF",
-    "treePose": "https://www.youtube.com/embed/Fr5kiIygm0c?si=1q9LT_jzV1A_dYTI"
+    "treePose": "https://www.youtube.com/embed/Fr5kiIygm0c?si=1q9LT_jzV1A_dYTI",
+    "shoulderPress": "https://www.youtube.com/embed/qEwKCR5JCog"
   },
   "legal": {
     "disclaimer": "Disclaimer: Exercise feedback and stats provided may not always be accurate. We are not liable for inaccurate feedback or any resulting injuries. Always consult a professional trainer before performing exercises. Use at your own risk."
