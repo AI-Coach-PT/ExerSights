@@ -41,10 +41,14 @@ export default function ContactForm() {
         justifyContent: "center",
         flexWrap: "wrap",
         textAlign: "center",
+        width: "50rem",
+        maxWidth: "90%",
+        padding: "0 16px",
       }}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} style={{ width: "100%" }}>
         <Box sx={{ mb: "1rem" }}>
           <TextField
+            fullWidth
             type="text"
             name="name"
             placeholder="Your Name"
@@ -55,6 +59,7 @@ export default function ContactForm() {
         </Box>
         <Box sx={{ mb: "1rem" }}>
           <TextField
+            fullWidth
             type="email"
             name="email"
             placeholder="your_email@gmail.com"
@@ -64,16 +69,16 @@ export default function ContactForm() {
         </Box>
         <Box sx={{ mb: "1rem" }}>
           <TextField
+            fullWidth
             name="message"
             placeholder="Your feedback helps us improve! Feel free to also let us know what you would like to see. Now, what would you like to tell us?"
             required
             multiline
             autoComplete
             minRows={2}
-            sx={{ width: "80%" }}
           />
         </Box>
-        <Button type="submit" variant="contained" sx={{ mb: "1rem" }}>
+        <Button type="submit" variant="contained" sx={{ mb: "1rem", width: "100%" }}>
           Submit Form
         </Button>
       </form>

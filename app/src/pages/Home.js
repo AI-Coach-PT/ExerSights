@@ -27,7 +27,7 @@ function Home() {
         </Typography>
 
         <Typography variant="h5" sx={{ mb: ".5rem" }}>
-          AI-powered App for Fitness & Rehab
+          AI-powered App for Fitness & Rehabilitation
         </Typography>
 
         <Typography
@@ -72,7 +72,7 @@ function Home() {
       <Typography variant="h2" sx={{ mb: "0.5rem" }}>
         Not sure how to get started?
       </Typography>
-      <Typography variant="h3" sx={{ mb: "0.5rem" }}>
+      <Typography variant="h4" sx={{ mb: "0.5rem", color: "text.secondary" }}>
         Watch our tutorial below!
       </Typography>
       <Box sx={{ width: "65vw", aspectRatio: "16/9", maxWidth: "900px" }}>

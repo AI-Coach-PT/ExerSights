@@ -39,8 +39,8 @@ function Menubar(props) {
     { text: "Home", path: "/home", icon: <HomeIcon /> },
     { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
     { text: "Program", path: "/program", icon: <ContentPasteIcon /> },
+    { text: "FAQ", path: "/faq", icon: <EmailIcon /> },
     { text: "About", path: "/about", icon: <InfoIcon /> },
-    { text: "Contact", path: "/contact", icon: <EmailIcon /> },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
@@ -103,11 +103,16 @@ function Menubar(props) {
             justifyContent: "center",
           }}>
           {menuItems.map((item) => (
-            <Box>
-              <IconButton component={Link} to={item.path}>
+            <Box sx={{ mx: "8px" }}>
+              <IconButton component={Link} to={item.path} sx={{ p: 0, m: 0 }}>
                 {item.icon}
               </IconButton>
-              <Button component={Link} to={item.path} variant="text" color="text.primary">
+              <Button
+                component={Link}
+                to={item.path}
+                variant="text"
+                color="text.primary"
+                sx={{ m: 0 }}>
                 {item.text}
               </Button>
             </Box>
