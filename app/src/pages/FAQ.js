@@ -149,9 +149,9 @@ function FAQ() {
         <Typography variant="h6" sx={{ mb: "1rem", color: "text.secondary" }}>
           We always want to hear from you! Contact us using the form below!
         </Typography>
-
-        <ContactForm />
       </Box>
+
+      <ContactForm />
     </Box>
   );
 }
