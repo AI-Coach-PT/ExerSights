@@ -95,18 +95,49 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
     handleVideoUpload: handleVideoUpload, 
   });
 
+  useEffect(() => {
+    const fetchCameras = async () => {
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const cameras = devices.filter(device => device.kind === "videoinput");
+        setAvailableCameras(cameras);
+  
+        if (cameras.length > 0) {
+          const storedCamera = localStorage.getItem("selectedCamera");
+          const validCamera = cameras.some(cam => cam.deviceId === storedCamera)
+            ? storedCamera
+            : cameras[0].deviceId;
+  
+          setSelectedCamera(validCamera);
+          localStorage.setItem("selectedCamera", validCamera);
+        }
+      } catch (error) {
+        console.error("Error fetching cameras:", error);
+      }
+    };
+  
+    fetchCameras(); // Fetch on mount
+  
+    const interval = setInterval(fetchCameras, 2000); // Refresh every 2s
+  
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);  
+
+
   return (
     <Box sx={{ padding: "0.5rem" }}>
       <Typography variant="h1" sx={{ textAlign: "center" }}>{title}</Typography>
       <Box sx={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
         <FormControl>
-          <InputLabel>Choose Camera</InputLabel>
-          <Select value={selectedCamera || ""} onChange={handleCameraChange} label="Choose Camera">
-            {availableCameras.map((camera) => (
-              <MenuItem key={camera.deviceId} value={camera.deviceId}>{camera.label || `Camera ${camera.deviceId}`}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+      <InputLabel>Choose Camera</InputLabel>
+      <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">
+        {availableCameras.map((camera) => (
+          <MenuItem key={camera.deviceId} value={camera.deviceId}>
+            {camera.label || `Camera ${camera.deviceId}`}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
       </Box>
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", width: "100%", height: "fit-content", padding: "2vmin", gap: "2rem" }}>
         <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "1rem", overflow: "hidden", m: "1.25rem", display: useVideo ? "none" : "", position: "relative", boxShadow: `0px 0px 65px 0px ${color}` }}>
