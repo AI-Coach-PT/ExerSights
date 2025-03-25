@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { IconButton, Modal, Box, Typography, Button, TextField, FormControl, MenuItem } from "@mui/material";
+import {
+  IconButton,
+  Modal,
+  Box,
+  Typography,
+  Button,
+  TextField,
+  FormControl,
+  MenuItem,
+} from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { loadExerciseSettings, storeExerciseSettings } from "../utils/helpers/ExerciseSettings";
 import { onAuthStateChanged } from "firebase/auth";
@@ -25,6 +34,8 @@ function SettingsModal({
   setTargetAnglesArray,
   angleView,
   setAngleView,
+  drawSkeleton,
+  setDrawSkeleton,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const [userEmail, setUsername] = useState("");
@@ -52,7 +63,10 @@ function SettingsModal({
 
   const handleToggleAngleView = () => {
     setAngleView(!angleView);
-    console.log(angleView);
+  };
+
+  const handleToggleDrawSkeleton = () => {
+    setDrawSkeleton(!drawSkeleton);
   };
 
   const handleVoiceChange = (event) => {
@@ -65,7 +79,7 @@ function SettingsModal({
   useEffect(() => {
     const fetchVoices = () => {
       const availableVoices = window.speechSynthesis.getVoices();
-      setVoicesList(["None", ...availableVoices.map(voice => voice.name)]);
+      setVoicesList(["None", ...availableVoices.map((voice) => voice.name)]);
     };
 
     fetchVoices();
@@ -124,12 +138,22 @@ function SettingsModal({
             />
           ))}
           <Button variant="contained" onClick={handleToggleAngleView} sx={{ mb: "1rem" }}>
-            Toggle Angle View
+            {angleView ? "Turn off angle display" : "Turn on angle display"}
+          </Button>
+          <Button variant="contained" onClick={handleToggleDrawSkeleton} sx={{ mb: "1rem" }}>
+            {drawSkeleton ? "Turn off draw skeleton" : "Turn on draw skeleton"}
           </Button>
           <FormControl sx={{ mb: "1rem", width: "100%" }}>
-            <TextField select label="Select Voice" value={selectedVoice} onChange={handleVoiceChange} helperText="⚠ WARNING: Not all voices have been tested." >
+            <TextField
+              select
+              label="Select Voice"
+              value={selectedVoice}
+              onChange={handleVoiceChange}
+              helperText="⚠ WARNING: Not all voices have been tested.">
               {voicesList.map((voice, index) => (
-                <MenuItem key={index} value={voice}>{voice}</MenuItem>
+                <MenuItem key={index} value={voice}>
+                  {voice}
+                </MenuItem>
               ))}
             </TextField>
           </FormControl>
