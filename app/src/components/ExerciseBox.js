@@ -5,6 +5,9 @@ import VideoCanvas from "./VideoCanvas";
 import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
 import detectPose from "../utils/models/PoseDetector";
 import OverlayBox from "./CounterGraphic";
+import { getAuth } from "firebase/auth";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 /**
  * A reusable layout component for exercise tracking pages.
@@ -28,6 +31,7 @@ function ExerciseBox({ title, feedbackPanel, processPoseResults, targetAngles, c
   const [loading, setLoading] = useState(true);
   const [showOverlay, setShowOverlay] = useState(false);
   const [stream, setStream] = useState(null);
+
 
   useEffect(() => {
     detectPose(webcamRef, canvasRef, processPoseResults);
