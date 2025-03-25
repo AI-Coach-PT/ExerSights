@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import HelpModal from "../../components/HelpModal";
 import SettingsModal from "../../components/SettingsModal";
@@ -24,6 +24,12 @@ function ExercisePage({ exerciseName: propExerciseName }) {
   const [angleView, setAngleView] = useState(true);
   const [targetAngles, setTargetAngles] = useState({});
   const [jointAngles, setJointAngles] = useState({});
+
+  const targetAnglesRef = useRef({});
+
+  useEffect(() => {
+    targetAnglesRef.current = targetAngles;
+  }, [targetAngles]);
 
   useEffect(() => {
     if (!exerciseName) {
@@ -90,7 +96,7 @@ function ExercisePage({ exerciseName: propExerciseName }) {
       setColor,
       ...Object.values(setAngleFunctions),
       setRepCount,
-      ...Object.values(targetAngles)
+      ...Object.values(targetAnglesRef.current)
     );
   };
 
