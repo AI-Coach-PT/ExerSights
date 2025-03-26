@@ -57,7 +57,7 @@ function ExerciseBox({
         localStorage.setItem("selectedCamera", validCamera);
       }
     });
-  }, [targetAngles, drawSkeleton]);
+  }, [drawSkeleton]);
 
   useEffect(() => {
     if (repCount > 0) {
@@ -104,7 +104,7 @@ function ExerciseBox({
   };
 
   const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
-    handleVideoUpload: handleVideoUpload, 
+    handleVideoUpload: handleVideoUpload,
   });
 
   useEffect(() => {
@@ -113,13 +113,13 @@ function ExerciseBox({
         const devices = await navigator.mediaDevices.enumerateDevices();
         const cameras = devices.filter(device => device.kind === "videoinput");
         setAvailableCameras(cameras);
-  
+
         if (cameras.length > 0) {
           const storedCamera = localStorage.getItem("selectedCamera");
           const validCamera = cameras.some(cam => cam.deviceId === storedCamera)
             ? storedCamera
             : cameras[0].deviceId;
-  
+
           setSelectedCamera(validCamera);
           localStorage.setItem("selectedCamera", validCamera);
         }
@@ -127,13 +127,13 @@ function ExerciseBox({
         console.error("Error fetching cameras:", error);
       }
     };
-  
+
     fetchCameras(); // Fetch on mount
-  
+
     const interval = setInterval(fetchCameras, 2000); // Refresh every 2s
-  
+
     return () => clearInterval(interval); // Cleanup on unmount
-  }, []);  
+  }, []);
 
 
   return (
@@ -141,31 +141,31 @@ function ExerciseBox({
       <Typography variant="h1" sx={{ textAlign: "center" }}>{title}</Typography>
       <Box sx={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
         <FormControl>
-      <InputLabel>Choose Camera</InputLabel>
-      <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">
-        {availableCameras.map((camera) => (
-          <MenuItem key={camera.deviceId} value={camera.deviceId}>
-            {camera.label || `Camera ${camera.deviceId}`}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+          <InputLabel>Choose Camera</InputLabel>
+          <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">
+            {availableCameras.map((camera) => (
+              <MenuItem key={camera.deviceId} value={camera.deviceId}>
+                {camera.label || `Camera ${camera.deviceId}`}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Box>
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", width: "100%", height: "fit-content", padding: "2vmin", gap: "2rem" }}>
         <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "1rem", overflow: "hidden", m: "1.25rem", display: useVideo ? "none" : "", position: "relative", boxShadow: `0px 0px 65px 0px ${color}` }}>
-          <WebcamCanvas 
-            dimensions={{ width: window.innerWidth, height: window.innerHeight }} 
-            ref={{ webcamRef, canvasRef }} 
-            videoDeviceId={selectedCamera} 
-            key={forceRemountKey} 
-            onUserMediaLoaded={handleUserMediaLoaded} 
+          <WebcamCanvas
+            dimensions={{ width: window.innerWidth, height: window.innerHeight }}
+            ref={{ webcamRef, canvasRef }}
+            videoDeviceId={selectedCamera}
+            key={forceRemountKey}
+            onUserMediaLoaded={handleUserMediaLoaded}
           />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
         <Box sx={{ border: `6px solid ${color || "white"}`, borderRadius: "8px", overflow: "hidden", padding: "5px", display: useVideo ? "" : "none", boxShadow: `0px 0px 65px 0px ${color}` }}>
-          <VideoCanvas 
-            handlePlay={handlePlay} 
-            ref={{ videoRef, canvasRef: videoCanvasRef }} 
+          <VideoCanvas
+            handlePlay={handlePlay}
+            ref={{ videoRef, canvasRef: videoCanvasRef }}
           />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
