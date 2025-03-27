@@ -36,11 +36,11 @@ import ContentPasteIcon from "@mui/icons-material/ContentPaste";
  */
 function Menubar(props) {
   const menuItems = [
-    { text: "Home", path: "/home", icon: <HomeIcon /> },
-    { text: "Catalog", path: "/catalog", icon: <ListIcon /> },
-    { text: "Program", path: "/program", icon: <ContentPasteIcon /> },
+    { text: "HOME", path: "/home", icon: <HomeIcon /> },
+    { text: "CATALOG", path: "/catalog", icon: <ListIcon /> },
+    { text: "PROGRAM", path: "/program", icon: <ContentPasteIcon /> },
     { text: "FAQ", path: "/faq", icon: <EmailIcon /> },
-    { text: "About", path: "/about", icon: <InfoIcon /> },
+    { text: "ABOUT", path: "/about", icon: <InfoIcon /> },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
@@ -104,17 +104,10 @@ function Menubar(props) {
           }}>
           {menuItems.map((item) => (
             <Box sx={{ mx: "8px" }}>
-              <IconButton component={Link} to={item.path} sx={{ p: 0, m: 0 }}>
+              <IconButton component={Link} to={item.path} sx={{ gap: "3px" }}>
                 {item.icon}
+                <Typography fontWeight={500}>{item.text}</Typography>
               </IconButton>
-              <Button
-                component={Link}
-                to={item.path}
-                variant="text"
-                color="text.primary"
-                sx={{ m: 0 }}>
-                {item.text}
-              </Button>
             </Box>
           ))}
         </Box>

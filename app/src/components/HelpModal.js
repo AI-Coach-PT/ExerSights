@@ -27,9 +27,10 @@ function HelpModal({ image, description, video }) {
   };
 
   return (
-    <>
-      <IconButton sx={{ position: "static" }} onClick={handleOpenModal}>
+    <Box>
+      <IconButton onClick={handleOpenModal} sx={{ position: "relative", gap: "3px" }}>
         <QuestionMarkIcon fontSize="small" />
+        <Typography>Help</Typography>
       </IconButton>
 
       <Modal open={openModal} onClose={handleCloseModal}>
@@ -88,7 +89,7 @@ function HelpModal({ image, description, video }) {
           </Button>
         </Box>
       </Modal>
-    </>
+    </Box>
   );
 }
 

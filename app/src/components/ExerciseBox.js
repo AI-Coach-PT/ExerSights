@@ -134,16 +134,14 @@ function ExerciseBox({
     fetchCameras(); // Fetch on mount
 
     const interval = setInterval(fetchCameras, 2000); // Refresh every 2s
-
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
   return (
     <Box sx={{ padding: "0.5rem" }}>
-      <Typography variant="h1" sx={{ textAlign: "center" }}>
+      <Typography variant="h1" sx={{ textAlign: "center", mb: "1.5rem" }}>
         {title}
       </Typography>
-
       <Box
         sx={{
           display: "flex",
@@ -151,7 +149,6 @@ function ExerciseBox({
           justifyContent: "center",
           width: "100%",
           height: "fit-content",
-          padding: "2vmin",
           gap: "2rem",
         }}>
         <Box
@@ -173,7 +170,6 @@ function ExerciseBox({
           />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
-
         <Box
           sx={{
             border: `6px solid ${color || "white"}`,
@@ -186,10 +182,9 @@ function ExerciseBox({
           <VideoCanvas handlePlay={handlePlay} ref={{ videoRef, canvasRef: videoCanvasRef }} />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
-
         <Box>
           {enhancedFeedbackPanel}
-          <Box sx={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: "1.5rem" }}>
             <FormControl>
               <InputLabel>Choose Camera</InputLabel>
               <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">

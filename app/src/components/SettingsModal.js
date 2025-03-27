@@ -103,9 +103,10 @@ function SettingsModal({
   }, [userEmail]);
 
   return (
-    <div>
-      <IconButton sx={{ position: "static" }} onClick={handleOpenModal}>
+    <Box>
+      <IconButton onClick={handleOpenModal} sx={{ position: "relative", gap: "3px" }}>
         <SettingsIcon fontSize="small" />
+        <Typography>Settings</Typography>
       </IconButton>
 
       <Modal open={openModal} onClose={handleCloseModal}>
@@ -162,7 +163,7 @@ function SettingsModal({
           </Button>
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 }
 
