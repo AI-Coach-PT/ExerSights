@@ -61,7 +61,8 @@ function App() {
         paper: darkMode ? "#0d0d0d" : "#eeeeee",
       },
       text: {
-        primary: darkMode ? grey[50] : grey[900],
+        // primary: darkMode ? grey[50] : grey[900],
+        primary: darkMode ? grey[50] : "#000000",
         secondary: darkMode ? blueGrey[100] : blueGrey[900],
       },
     },
