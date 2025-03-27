@@ -35,6 +35,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 import { useState } from "react";
 import ExercisePage from "./pages/exercises/ExercisePage";
 import toast, { Toaster } from "react-hot-toast";
+import PageViewTracker from "./components/PageViewTracker";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -216,6 +217,7 @@ function App() {
         }}
       />
       <Router>
+        <PageViewTracker />
         <Menubar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />

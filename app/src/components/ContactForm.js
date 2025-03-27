@@ -54,7 +54,7 @@ export default function ContactForm() {
             placeholder="Your Name"
             required
             autoComplete
-            autoFocus
+            //autoFocus
           />
         </Box>
         <Box sx={{ mb: "1rem" }}>
