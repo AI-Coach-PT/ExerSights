@@ -60,7 +60,7 @@ function ExerciseBox({
         localStorage.setItem("selectedCamera", validCamera);
       }
     });
-  }, [targetAngles, drawSkeleton]);
+  }, [drawSkeleton]);
 
   useEffect(() => {
     if (repCount > 0) {
@@ -134,7 +134,6 @@ function ExerciseBox({
     fetchCameras(); // Fetch on mount
 
     const interval = setInterval(fetchCameras, 2000); // Refresh every 2s
-
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
@@ -156,7 +155,6 @@ function ExerciseBox({
           </Select>
         </FormControl>
       </Box>
-
       <Box
         sx={{
           display: "flex",
@@ -186,7 +184,6 @@ function ExerciseBox({
           />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
-
         <Box
           sx={{
             border: `6px solid ${color || "white"}`,
