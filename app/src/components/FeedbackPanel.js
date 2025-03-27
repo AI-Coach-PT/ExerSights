@@ -48,15 +48,16 @@ function FeedbackPanel({
         flexDirection: "column",
         gap: "0.25rem",
       }}>
-      
       <Box
         sx={{
           display: "flex",
-          justifyContent: "right",
+          justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
         }}>
-        <Typography variant="body1">Real-Time Feedback Panel</Typography>
+        <Typography variant="h6">Real-Time Feedback Panel</Typography>
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: "2rem" }}>
         {HelpModal}
         {SettingsModal}
       </Box>
