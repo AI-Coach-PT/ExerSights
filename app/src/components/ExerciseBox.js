@@ -139,22 +139,9 @@ function ExerciseBox({
 
   return (
     <Box sx={{ padding: "0.5rem" }}>
-      <Typography variant="h1" sx={{ textAlign: "center", mb: "1rem" }}>
+      <Typography variant="h1" sx={{ textAlign: "center", mb: "1.5rem" }}>
         {title}
       </Typography>
-
-      <Box sx={{ display: "flex", justifyContent: "center", mb: "1rem" }}>
-        <FormControl>
-          <InputLabel>Choose Camera</InputLabel>
-          <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">
-            {availableCameras.map((camera) => (
-              <MenuItem key={camera.deviceId} value={camera.deviceId}>
-                {camera.label || `Camera ${camera.deviceId}`}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
       <Box
         sx={{
           display: "flex",
@@ -162,7 +149,6 @@ function ExerciseBox({
           justifyContent: "center",
           width: "100%",
           height: "fit-content",
-          padding: "2vmin",
           gap: "2rem",
         }}>
         <Box
@@ -196,7 +182,21 @@ function ExerciseBox({
           <VideoCanvas handlePlay={handlePlay} ref={{ videoRef, canvasRef: videoCanvasRef }} />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
-        {enhancedFeedbackPanel}
+        <Box>
+          {enhancedFeedbackPanel}
+          <Box sx={{ display: "flex", justifyContent: "center", mt: "1.5rem" }}>
+            <FormControl>
+              <InputLabel>Choose Camera</InputLabel>
+              <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">
+                {availableCameras.map((camera) => (
+                  <MenuItem key={camera.deviceId} value={camera.deviceId}>
+                    {camera.label || `Camera ${camera.deviceId}`}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
