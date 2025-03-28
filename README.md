@@ -8,7 +8,7 @@ This project aims to develop a web application to assess physical therapy techni
 
 ### Current Features
 
-- Real-time text, customizable audio, and customizable visual feedback for over 10+ exercises
+- Real-time text, customizable audio, and customizable visual feedback for 10+ exercises
 - Individual exercise personalization and exercise favoriting/pinning on Catalog
 - Customizable programs to chain several exercises together into a Program
 - Mobile-responsive site and Progressive Web App effective across all devices
