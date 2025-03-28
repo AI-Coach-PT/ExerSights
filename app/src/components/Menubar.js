@@ -104,9 +104,14 @@ function Menubar(props) {
           }}>
           {menuItems.map((item) => (
             <Box sx={{ mx: "8px" }}>
-              <IconButton component={Link} to={item.path} sx={{ gap: "3px" }}>
+              <IconButton
+                component={Link}
+                to={item.path}
+                sx={{ gap: "3px", color: "text.primary" }}>
                 {item.icon}
-                <Typography fontWeight={500}>{item.text}</Typography>
+                <Typography fontWeight={500} color="text.primary">
+                  {item.text}
+                </Typography>
               </IconButton>
             </Box>
           ))}
@@ -121,7 +126,7 @@ function Menubar(props) {
             justifyContent: "right",
             alignItems: "center",
           }}>
-          <IconButton onClick={props.toggleDarkMode}>
+          <IconButton onClick={props.toggleDarkMode} sx={{ color: "text.primary" }}>
             {props.darkMode ? <LightModeIcon /> : <DarkModeIcon />}
           </IconButton>
           {isAuth && (
