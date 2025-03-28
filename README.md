@@ -13,7 +13,11 @@ This project aims to develop a web application to assess physical therapy techni
 - Customizable programs to chain several exercises together into a Program
 - Mobile-responsive site and Progressive Web App effective across all devices
 
-## Tutorial
+## Video Tutorial
+
+Check out the video tutorial below on using ExerSights!
+
+[![ExerSights Tutorial/Getting Started](https://img.youtube.com/vi/MyhWLZnW5Hc/0.jpg)](https://www.youtube.com/watch?v=MyhWLZnW5Hc)
 
 ## Roadmap
 
