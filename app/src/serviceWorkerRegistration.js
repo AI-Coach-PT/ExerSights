@@ -9,6 +9,7 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
+import { toast } from "react-hot-toast";
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -87,7 +88,7 @@ function registerValidSW(swUrl, config) {
                 "New content is available and will be used when all " +
                   "tabs for this page are closed. See https://cra.link/PWA."
               );
-              alert(
+              toast(
                 "New content is available, close and reopen the app to get the latest updates!"
               );
 
@@ -100,6 +101,7 @@ function registerValidSW(swUrl, config) {
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
               console.log("Content is cached for offline use.");
+              toast.success("Content successfully cached for offline use.");
 
               // Execute callback
               if (config && config.onSuccess) {
@@ -140,6 +142,7 @@ function checkValidServiceWorker(swUrl, config) {
     })
     .catch(() => {
       console.log("No internet connection found. App is running in offline mode.");
+      toast("No internet connection found. App is running in offline mode.");
     });
 }
 
