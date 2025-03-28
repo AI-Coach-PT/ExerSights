@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
@@ -10,32 +10,13 @@ import Program from "./pages/Program";
 import ProgramOverlay from "./pages/ProgramOverlay";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import {
-  red,
-  pink,
-  purple,
-  deepPurple,
-  indigo,
-  blue,
-  lightblue,
-  cyan,
-  teal,
-  green,
-  lightgreen,
-  lime,
-  yellow,
-  amber,
-  orange,
-  deeporange,
-  brown,
-  grey,
-  blueGrey,
-} from "@mui/material/colors";
+import { indigo, orange, grey, blueGrey } from "@mui/material/colors";
 import { createTheme, responsiveFontSizes } from "@mui/material";
 import { useState } from "react";
 import ExercisePage from "./pages/exercises/ExercisePage";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import PageViewTracker from "./components/PageViewTracker";
+import LoginPrompt from "./components/LoginPrompt";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -46,7 +27,16 @@ import PageViewTracker from "./components/PageViewTracker";
  * @returns {JSX.Element} The main app component with routing and navigation.
  */
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode"));
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", `${darkMode}`);
+  }, [darkMode]);
+
   let theme = createTheme({
     palette: {
       mode: darkMode ? "dark" : "light",
@@ -203,10 +193,6 @@ function App() {
 
   theme = responsiveFontSizes(theme);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -218,6 +204,7 @@ function App() {
       />
       <Router>
         <PageViewTracker />
+        <LoginPrompt />
         <Menubar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
