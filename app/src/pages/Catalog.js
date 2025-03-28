@@ -7,6 +7,8 @@ import { getAuth } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import toast from "react-hot-toast";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../firebaseConfig";
 
 const exerciseImages = Object.fromEntries(
   Object.keys(catalogText).map((key) => [key, require(`../assets/exercise-cards/${key}.png`)])
@@ -41,6 +43,7 @@ function Catalog() {
 
     if (!user) {
       toast.error("You must be logged in to pin an exercise.");
+      logEvent(analytics, "notification_received");
       return;
     }
 

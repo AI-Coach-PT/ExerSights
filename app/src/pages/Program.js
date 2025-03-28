@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import ProgramModal from "../components/ProgramModal";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
 import { getAuth } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc, deleteField } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import toast from "react-hot-toast";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../firebaseConfig";
 
 // Default programs data
 const programs = {
@@ -56,6 +57,7 @@ function Program() {
   const handleNavigate = (programId) => {
     if (programsState[programId].list.length === 0) {
       toast.error("Empty Program");
+      logEvent(analytics, "notification_received");
       return;
     }
     navigate("/programOverlay", { state: { currentProgram: programsState[programId] } });
@@ -67,6 +69,7 @@ function Program() {
 
     if (!user) {
       toast.error("You must be logged in to add a program.");
+      logEvent(analytics, "notification_received");
       return;
     }
 
@@ -92,6 +95,7 @@ function Program() {
 
     if (!user) {
       toast.error("You must be logged in to remove a program.");
+      logEvent(analytics, "notification_received");
       return;
     }
 
