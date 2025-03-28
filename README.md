@@ -1,41 +1,34 @@
 # ExerSights
+
 AI-powered application for fitness & rehab, providing real-time feedback on exercise form using state of the art computer vision models. Track, correct, and improve your exercise form for safer, smarter, and more effective workouts.
 
 ## Summary
+
 This project aims to develop a web application to assess physical therapy techniques and athletic movements with computer vision. Key concepts of this project are integrating human pose detection models with video data that can accurately, efficiently, and constantly identify the user's current body position, as well as provide real-time feedback and guidance for the user to maintain the correct form during different physical activities, based on physiological literature. Our application will feature a catalog of exercises that users can quickly navigate to select their desired exercise and immediately start making improvements simply by activating their device camera. With a successful implementation of the application, it will positively impact fitness, physical therapy, and rehabilitation by improving exercise safety and effectiveness.
 
+### Current Features
 
-### Roadmap
-- [x] Exercise search feature
-- [x] Exercises from Anish
-- [x] Stretched Title on Safari
-- [x] Single page for exercises
-- [x] Move webcam reload prompt to front-end
-- [x] Voice Feedback
-- [x] Repetition Count Bug
-- [x] Clickable Logo
-- [x] General Styling
-- [x] About Page
-- [x] Ticketing system
-- [x] Website tutorial
-- [x] Reload prompt when webcam doesn’t load
-- [x] Setup backend and migrate all non-realtime functionalities from frontend to backend
-- [x] Exercises from Jilin
-- [x] Sargent outreach
-- [x] Outreach Prompt
-- [x] Exercise Playlist
-- [ ] Stop feedback while another window is pulled up (settings or tutorial)
-- [ ] Cannot use external webcam, despite allowing it on the site
-- [ ] Fixing exit bubble animation
-- [ ] Two player push up game
-- [ ] Alt text for buttons/other elements when highlighted
-- [ ] Long-term statistics for users
-- [ ] Integration with Apple Health app
-- [x] Toggleable light/dark mode for web app
-- [ ] Weighted exercises, exercises with moving equipment
-- [ ] Only enable pose drawing if all limbs necessary are visible
-- [x] Fix buggy exercise detection logic
+- Real-time text, customizable audio, and customizable visual feedback for over 10+ exercises
+- Individual exercise personalization and exercise favoriting/pinning on Catalog
+- Customizable programs to chain several exercises together into a Program
+- Mobile-responsive site and Progressive Web App effective across all devices
 
+## Tutorial
+
+## Roadmap
+
+### Future Features
+
+- Always more exercises!
+- Two-player push up game
+- Alt text for buttons/other elements when highlighted
+
+### Non-critical Bug Fixes
+
+- Only enable pose drawing if all limbs necessary are visible
+- Fixing exit bubble animation
+- Stop feedback while another window is pulled up (settings or tutorial)
+- Allow PWA to update upon internet access
 
 ## References
 
