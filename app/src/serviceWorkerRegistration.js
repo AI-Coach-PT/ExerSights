@@ -89,7 +89,8 @@ function registerValidSW(swUrl, config) {
                   "tabs for this page are closed. See https://cra.link/PWA."
               );
               toast(
-                "New content is available, close and reopen the app to get the latest updates!"
+                "New content is available, close and reopen the app to get the latest updates!",
+                { duration: 7000 }
               );
 
               // Execute callback
