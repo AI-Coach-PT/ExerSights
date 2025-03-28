@@ -27,14 +27,16 @@ import LoginPrompt from "./components/LoginPrompt";
  * @returns {JSX.Element} The main app component with routing and navigation.
  */
 function App() {
-  const [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode"));
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("darkMode") === "true";
+  });
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
 
   useEffect(() => {
-    localStorage.setItem("darkMode", `${darkMode}`);
+    localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
   let theme = createTheme({
