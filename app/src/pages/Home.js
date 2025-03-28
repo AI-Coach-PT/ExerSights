@@ -75,7 +75,7 @@ function Home() {
       <Typography variant="h4" sx={{ mb: "0.5rem", color: "text.secondary" }}>
         Watch our tutorial below!
       </Typography>
-      <Box sx={{ width: "65vw", aspectRatio: "16/9", maxWidth: "900px" }}>
+      <Box sx={{ width: "90%", maxWidth: "65vw", aspectRatio: "16/9", maxWidth: "900px" }}>
         <iframe
           width="100%"
           height="100%"
