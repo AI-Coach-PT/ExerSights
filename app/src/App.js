@@ -28,7 +28,7 @@ import LoginPrompt from "./components/LoginPrompt";
  */
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("darkMode") === "true";
+    return localStorage.getItem("darkMode") === "true" || localStorage.getItem("darkMode") === null;
   });
 
   const toggleDarkMode = () => {
