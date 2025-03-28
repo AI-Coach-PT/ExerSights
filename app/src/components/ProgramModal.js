@@ -14,7 +14,21 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { catalogText } from "../assets/content.js";
 
-function ProgramModal({ programId, programData, setProgramsState }) {
+import { getAuth } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import toast from "react-hot-toast";
+
+const saveProgramsToDatabase = async (userEmail, programsState) => {
+  try {
+    const userRef = doc(db, "users", userEmail, "programs", "userPrograms");
+    await setDoc(userRef, programsState, { merge: true });
+  } catch (e) {
+    console.log("Error saving programs to Firestore:", e);
+  }
+};
+
+function ProgramModal({ programId, programData, programsState, setProgramsState }) {
   // List of valid exercises available for selection
   const validExercises = Object.keys(catalogText);
 
@@ -51,6 +65,14 @@ function ProgramModal({ programId, programData, setProgramsState }) {
 
   // Save changes to the program state
   const handleSaveChanges = () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      toast.error("You must be logged in to edit a program.");
+      return;
+    }
+
     setProgramsState((prev) => ({
       ...prev,
       [programId]: {
@@ -59,6 +81,15 @@ function ProgramModal({ programId, programData, setProgramsState }) {
         list: tempExercises,
       },
     }));
+
+    saveProgramsToDatabase(user.email, {
+      ...programsState,
+      [programId]: {
+        ...programsState[programId],
+        name: tempProgramName,
+        list: tempExercises,
+      },
+    });
   };
 
   // Remove an exercise from the list

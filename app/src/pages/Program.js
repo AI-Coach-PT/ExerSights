@@ -6,55 +6,108 @@ import ProgramModal from "../components/ProgramModal";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
+import { getAuth } from "firebase/auth";
+import { doc, getDoc, setDoc, updateDoc, deleteField } from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import toast from "react-hot-toast";
+
 // Default programs data
 const programs = {
   1: { name: "Core", list: ["plank", "deadBug", "bridge"] },
   2: { name: "Back", list: ["pullUp", "muscleUp"] },
 };
 
+const saveProgramsToDatabase = async (userEmail, programsState) => {
+  try {
+    const userRef = doc(db, "users", userEmail, "programs", "userPrograms");
+    await setDoc(userRef, programsState, { merge: true });
+  } catch (e) {
+    console.log("Error saving programs to Firestore:", e);
+  }
+};
+
 function Program() {
   const navigate = useNavigate();
+  const [programsState, setProgramsState] = useState(programs);
 
-  // Initialize programs from localStorage or default data
-  const [programsState, setProgramsState] = useState(
-    JSON.parse(localStorage.getItem("programs")) || programs
-  );
-
-  // Sync program state with localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("programs", JSON.stringify(programsState));
-  }, [programsState]);
+    const auth = getAuth();
 
-  // Navigate to program overlay if exercises exist
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          const docSnap = await getDoc(doc(db, "users", user.email, "programs", "userPrograms"));
+          if (docSnap.exists()) {
+            setProgramsState(docSnap.data());
+          } else {
+            setProgramsState(programs);
+          }
+        } catch (e) {
+          console.error("Error reading document:", e);
+        }
+      } else {
+        setProgramsState(programs);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const handleNavigate = (programId) => {
     if (programsState[programId].list.length === 0) {
-      window.alert("Empty Program");
+      toast.error("Empty Program");
       return;
     }
     navigate("/programOverlay", { state: { currentProgram: programsState[programId] } });
   };
 
-  // Remove a program after user confirmation
-  const removeProgram = (programId) => {
+  const addProgram = () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      toast.error("You must be logged in to add a program.");
+      return;
+    }
+
+    const newProgramId = Object.keys(programsState).length + 1;
+    const newProgram = {
+      [newProgramId]: {
+        name: `New Program ${newProgramId}`,
+        list: [],
+      },
+    };
+
+    setProgramsState((prevPrograms) => ({
+      ...prevPrograms,
+      ...newProgram,
+    }));
+
+    saveProgramsToDatabase(user.email, { ...programsState, ...newProgram });
+  };
+
+  const removeProgram = async (programId) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      toast.error("You must be logged in to remove a program.");
+      return;
+    }
+
     const confirmDelete = window.confirm("Are you sure you want to delete this program?");
     if (!confirmDelete) return;
+
+    const programRef = doc(db, "users", user.email, "programs", "userPrograms");
+    await updateDoc(programRef, {
+      [programId]: deleteField(),
+    });
+
     setProgramsState((prevPrograms) => {
       const updatedPrograms = { ...prevPrograms };
       delete updatedPrograms[programId];
       return updatedPrograms;
     });
-  };
-
-  // Add a new blank program
-  const addProgram = () => {
-    const newProgramId = Object.keys(programsState).length + 1;
-    setProgramsState((prevPrograms) => ({
-      ...prevPrograms,
-      [newProgramId]: {
-        name: `New Program ${newProgramId}`,
-        list: [],
-      },
-    }));
   };
 
   return (
@@ -67,21 +120,19 @@ function Program() {
         Start with a pre-made program, or create your own!
       </Typography>
 
-      {/* Grid Layout for Displaying Programs */}
       <Grid container spacing={3} justifyContent="center">
         {Object.entries(programsState).map(([programId, programData]) => (
           <Grid item xs={12} sm={6} md={4} key={programId}>
-            {/* Boxed Program Display */}
             <Paper elevation={3} sx={{ p: 3, borderRadius: 2, textAlign: "center" }}>
               <Typography variant="h5" gutterBottom>
                 {programData.name}
               </Typography>
 
-              {/* Modal & Remove Button */}
               <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 1 }}>
                 <ProgramModal
                   programId={programId}
                   programData={programData}
+                  programsState={programsState}
                   setProgramsState={setProgramsState}
                 />
                 <IconButton onClick={() => removeProgram(programId)} color="error">
@@ -89,7 +140,6 @@ function Program() {
                 </IconButton>
               </Box>
 
-              {/* Start Program Button */}
               <Button
                 variant="contained"
                 color="primary"
@@ -101,7 +151,6 @@ function Program() {
           </Grid>
         ))}
 
-        {/* Add Program Button in Grid */}
         <Grid item xs={12} sm={6} md={4}>
           <Paper
             elevation={3}
