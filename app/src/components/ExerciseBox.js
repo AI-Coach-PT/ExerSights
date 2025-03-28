@@ -186,6 +186,13 @@ function ExerciseBox({
             padding: "5px",
             display: useVideo ? "" : "none",
             boxShadow: `0px 0px 65px 0px ${color}`,
+            width: "100%",
+            maxWidth: "900px",
+            "@media (orientation: landscape)": {
+              width: "auto",
+              height: "fit-content",
+              maxWidth: "100vh", // Makes width equal to height in landscape
+            },
           }}>
           <VideoCanvas handlePlay={handlePlay} ref={{ videoRef, canvasRef: videoCanvasRef }} />
           {showOverlay && <OverlayBox text={repCount} />}
