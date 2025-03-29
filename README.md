@@ -26,6 +26,8 @@ Check out the video tutorial below on using ExerSights!
 - Always more exercises!
 - Two-player push up game
 - Alt text for buttons/other elements when highlighted
+- Add start/stop button so that users can choose when feedback/detection will begin
+- More intuitive button to enable/disable voice feedback (rather than selecting "None" in settings)
 
 ### Non-critical Bug Fixes
 
