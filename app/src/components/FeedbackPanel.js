@@ -43,7 +43,8 @@ function FeedbackPanel({
         textAlign: "left",
         height: "fit-content",
         width: "28rem",
-        margin: "10px",
+        maxWidth: "95vw",
+        my: "0.25rem",
         display: "flex",
         flexDirection: "column",
         gap: "0.25rem",
@@ -85,18 +86,22 @@ function FeedbackPanel({
 
       <Typography variant="body1">Current Rep Count: {repCount}</Typography>
 
-      <Box sx={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: "1rem", textAlign: "center" }}>
         <Button
           variant="contained"
           onClick={handleReset}
           color="secondary"
           sx={{
-            width: "45%",
+            width: "48%",
           }}>
           Reset Rep Count
         </Button>
 
-        <Button variant="contained" component="label" color="secondary" sx={{ width: "45%" }}>
+        <Button
+          variant="contained"
+          component="label"
+          color="secondary"
+          sx={{ width: "48%", textAlign: "center" }}>
           Upload Video
           <input type="file" accept="video/*" onChange={handleVideoUpload} hidden />
         </Button>

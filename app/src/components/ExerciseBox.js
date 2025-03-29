@@ -156,10 +156,17 @@ function ExerciseBox({
             border: `6px solid ${color || "white"}`,
             borderRadius: "1rem",
             overflow: "hidden",
-            m: "1.25rem",
+            my: "1.25rem",
             display: useVideo ? "none" : "",
             position: "relative",
             boxShadow: `0px 0px 65px 0px ${color}`,
+            width: "100%",
+            maxWidth: "900px",
+            "@media (orientation: landscape)": {
+              width: "auto",
+              height: "fit-content",
+              maxWidth: "100vh", // Makes width equal to height in landscape
+            },
           }}>
           <WebcamCanvas
             dimensions={{ width: window.innerWidth, height: window.innerHeight }}
@@ -170,6 +177,7 @@ function ExerciseBox({
           />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
+
         <Box
           sx={{
             border: `6px solid ${color || "white"}`,
@@ -178,10 +186,18 @@ function ExerciseBox({
             padding: "5px",
             display: useVideo ? "" : "none",
             boxShadow: `0px 0px 65px 0px ${color}`,
+            width: "100%",
+            maxWidth: "900px",
+            "@media (orientation: landscape)": {
+              width: "auto",
+              height: "fit-content",
+              maxWidth: "100vh", // Makes width equal to height in landscape
+            },
           }}>
           <VideoCanvas handlePlay={handlePlay} ref={{ videoRef, canvasRef: videoCanvasRef }} />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
+
         <Box>
           {enhancedFeedbackPanel}
           <Box sx={{ display: "flex", justifyContent: "center", mt: "1.5rem" }}>
