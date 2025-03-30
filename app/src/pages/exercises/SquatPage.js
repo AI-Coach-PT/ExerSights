@@ -1,10 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
-import detectPose from "../../utils/PoseDetector";
-import { checkChestUp, checkSquats } from "../../utils/Squat";
+import React, { useEffect, useState } from "react";
+import { checkChestUp, checkSquat } from "../../utils/exercises/Squat";
 import HelpModal from "../../components/HelpModal";
-import squatHelpImg from "../../assets/squatHelp.png";
-import { instructionsTextSquat } from "../../assets/content";
-import WebcamCanvas from "../../components/WebcamCanvas";
+import squatHelpImg from "../../assets/instructions/squatHelp.png";
+import { instructionsTextSquat, instructionsVideoSquat } from "../../assets/content";
 import { resetRepCount } from "../../utils/GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
@@ -22,18 +20,14 @@ import ExerciseBox from "../../components/ExerciseBox";
  *                        squat count, knee angle display, and a reset button.
  */
 function SquatPage() {
-  const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [dimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
   const [targetKneeAngle, setTargetKneeAngle] = useState(90);
   const [feedback, setFeedback] = useState("");
   const [targetHipAngle, setTargetHipAngle] = useState(45);
   const [hipAngleFeedback, setHipAngleFeedback] = useState("");
   const [currKneeAngle, setCurrKneeAngle] = useState(0);
   const [repCount, setRepCount] = useState(0);
+  const [color, setColor] = useState("white");
+  const [angleView, setAngleView] = useState(true);
 
   // Object containing key-value pair of target angle label(s) and corresponding value(s);
   // used to store angles into Firebase Cloud Firestore
@@ -57,9 +51,10 @@ function SquatPage() {
    *
    * @param {Array} landmarks - The array of pose landmarks.
    */
+
   const processPoseResults = (landmarks) => {
-    checkSquats(landmarks, setFeedback, setCurrKneeAngle, setRepCount, targetKneeAngle);
-    checkChestUp(landmarks, setHipAngleFeedback, targetHipAngle);
+    checkSquat(landmarks, setFeedback, setColor, setCurrKneeAngle, setRepCount, targetKneeAngle);
+    checkChestUp(landmarks, setHipAngleFeedback, setColor, targetHipAngle);
   };
 
   /**
@@ -75,38 +70,37 @@ function SquatPage() {
     setTargetAngles({ targetKneeAngle: targetKneeAngle, targetHipAngle: targetHipAngle });
   }, [targetKneeAngle, targetHipAngle]);
 
-  useEffect(() => {
-    detectPose(webcamRef, canvasRef, processPoseResults);
-
-    return () => { };
-  }, [targetAngles]);
-
-  const webcamCanvas = (
-    <WebcamCanvas
-      dimensions={dimensions}
-      ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
-    />
-  );
-
   const feedbackPanel = (
     <FeedbackPanel
       feedbackList={[feedback, hipAngleFeedback]}
-      valuesList={[
-        { label: "Knee Angle", value: currKneeAngle },
-      ]}
+      valuesList={[{ label: "Knee Angle", value: currKneeAngle }]}
       repCount={repCount}
       handleReset={handleReset}
       HelpModal={
-        <HelpModal image={squatHelpImg} description={instructionsTextSquat} />
+        <HelpModal image={squatHelpImg} description={instructionsTextSquat} video={instructionsVideoSquat} />
       }
       SettingsModal={
-        <SettingsModal exerciseName="squat" targetAngles={targetAngles} setTargetAnglesArray={setTargetAnglesArray} />
+        <SettingsModal
+          exerciseName="squat"
+          targetAngles={targetAngles}
+          setTargetAnglesArray={setTargetAnglesArray}
+          angleView={angleView}
+          setAngleView={setAngleView}
+        />
       }
+      angleView={angleView}
     />
-  )
+  );
 
   return (
-    <ExerciseBox title="Squat" webcamCanvas={webcamCanvas} feedbackPanel={feedbackPanel} />
+    <ExerciseBox
+      title="Squat"
+      feedbackPanel={feedbackPanel}
+      processPoseResults={processPoseResults}
+      targetAngles={targetAngles}
+      color={color}
+      repCount={repCount}
+    />
   );
 }
 

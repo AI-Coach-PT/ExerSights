@@ -1,68 +1,135 @@
-import React from "react";
-import { Typography, Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Typography, Box, TextField } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import ExerciseCard from "../components/ExerciseCard.js";
-import squatImg from "../assets/squat.jpg";
-import bridgeImg from "../assets/bridge.jpg";
-import deadBugImage from "../assets/deadbug.png";
-import pushUpImage from "../assets/pushUp.png";
-import pushUpGameImage from "../assets/pushupGame.jpg";
 import { catalogText } from "../assets/content.js";
+import { getAuth } from "firebase/auth";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import toast from "react-hot-toast";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../firebaseConfig";
+
+const exerciseImages = Object.fromEntries(
+  Object.keys(catalogText).map((key) => [key, require(`../assets/exercise-cards/${key}.png`)])
+);
 
 /**
  * Catalog is a React functional component that displays a list of exercise cards.
- * Each card represents an exercise with a title, description, image, and link to a detailed page for that exercise.
- *
- * @component
- *
- * The cards inside the catalog are displayed in a 2-column grid. Each card is created using the `ExerciseCard` component,
- * and they provide a title, description, image, and link to the exercise's feedback page.
+ * It dynamically iterates through the catalogText object to generate the exercise cards.
+ * Includes a search bar to filter exercises by name or key.
  *
  * @returns {JSX.Element} A catalog page displaying exercises.
  */
 function Catalog() {
-    return (
-        <Box sx={{ padding: "20px", textAlign: "center" }}>
-            <Typography variant="h1" gutterBottom>
-                Catalog
-            </Typography>
+  const [searchTerm, setSearchTerm] = useState("");
+  const [pinnedExercises, setPinnedExercises] = useState([]);
 
-            <Grid container spacing={2} sx={{ justifyContent: "center" }}>
-                <ExerciseCard
-                    title="Squat"
-                    description={catalogText.squat}
-                    link="/squat"
-                    image={squatImg}
-                />
+  const filteredExercises = Object.keys(catalogText)
+    .filter((exerciseKey) =>
+      exerciseKey.toLowerCase().includes(searchTerm.toLowerCase().replace(/\s/g, ""))
+    )
+    .sort((a, b) => {
+      const aPinned = pinnedExercises.includes(a);
+      const bPinned = pinnedExercises.includes(b);
+      if (aPinned && !bPinned) return -1;
+      if (!aPinned && bPinned) return 1;
+      return 0;
+    });
 
-                <ExerciseCard
-                    title="Bridge"
-                    description={catalogText.bridge}
-                    link="/bridge"
-                    image={bridgeImg}
-                />
-                <ExerciseCard
-                    title="Dead Bug"
-                    description={catalogText.deadbug}
-                    link="/deadbug"
-                    image={deadBugImage}
-                />
-                <ExerciseCard
-                    title="Push-up"
-                    description={catalogText.pushup}
-                    link="/pushup"
-                    image={pushUpImage}
-                />
+  const togglePin = async (exerciseKey) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
 
-                <ExerciseCard
-                    title="Two Player Push-up Game"
-                    description={catalogText.pushupGame}
-                    link="/pushupGame"
-                    image={pushUpGameImage}
-                />  
-            </Grid>
-        </Box>
-    );
+    if (!user) {
+      toast.error("You must be logged in to pin an exercise.");
+      logEvent(analytics, "notification_received");
+      return;
+    }
+
+    const docRef = doc(db, "users", user.email, "pinnedExercises", "pinnedExercises");
+
+    try {
+      const docSnap = await getDoc(docRef);
+
+      let updatedPins = [];
+
+      if (!docSnap.exists()) {
+        updatedPins = [exerciseKey];
+        await setDoc(docRef, { pinnedExercises: updatedPins });
+      } else {
+        const currentPins = docSnap.get("pinnedExercises") || [];
+        const isAlreadyPinned = currentPins.includes(exerciseKey);
+
+        updatedPins = isAlreadyPinned
+          ? currentPins.filter((key) => key !== exerciseKey)
+          : [...currentPins, exerciseKey];
+
+        await updateDoc(docRef, {
+          pinnedExercises: updatedPins,
+        });
+      }
+
+      setPinnedExercises(updatedPins);
+    } catch (e) {
+      console.error("Failed to toggle pin:", e);
+    }
+  };
+
+  useEffect(() => {
+    const auth = getAuth();
+
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          const docSnap = await getDoc(
+            doc(db, "users", user.email, "pinnedExercises", "pinnedExercises")
+          );
+          if (docSnap.exists()) {
+            setPinnedExercises(docSnap.get("pinnedExercises"));
+          }
+        } catch (e) {
+          console.error("Error reading document:", e);
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <Box sx={{ textAlign: "center", padding: "0.5rem" }}>
+      <Typography variant="h1">Catalog</Typography>
+      <TextField
+        label="Search Exercises"
+        variant="outlined"
+        fullWidth
+        sx={{ margin: "1rem auto", maxWidth: "400px" }}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <Grid container spacing={2} sx={{ justifyContent: "center", padding: "1rem" }}>
+        {filteredExercises.length > 0 ? (
+          filteredExercises.map((exerciseKey) => (
+            <ExerciseCard
+              key={exerciseKey}
+              title={exerciseKey
+                .replace(/([A-Z])/g, " $1")
+                .replace(/^./, (str) => str.toUpperCase())}
+              description={catalogText[exerciseKey]}
+              link={`/exercise?exercise=${exerciseKey}`}
+              image={exerciseImages[exerciseKey]}
+              isPinned={pinnedExercises.includes(exerciseKey)}
+              onPinToggle={() => togglePin(exerciseKey)}
+            />
+          ))
+        ) : (
+          <Typography variant="h6" sx={{ width: "100%", textAlign: "center", marginTop: "1rem" }}>
+            No exercises fit your search criteria.
+          </Typography>
+        )}
+      </Grid>
+    </Box>
+  );
 }
 
 export default Catalog;

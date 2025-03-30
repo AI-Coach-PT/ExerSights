@@ -1,12 +1,8 @@
-import React, { forwardRef, useState, useEffect } from "react";
+import React, { useEffect, useRef, useState, useEffect, forwardRef } from "react";
 import Webcam from "react-webcam";
-import { Box } from "@mui/material";
+import { Box, CircularProgress, Typography, Button } from "@mui/material";
 
-// Webcam style based on environment variable
-const webcamStyle =
-    process.env.REACT_APP_MODEL === "tasks-vision"
-        ? { visibility: "hidden", position: "absolute" }
-        : { display: "none" };
+const WEBCAM_TIMEOUT = 5000;
 
 /**
  * WebcamCanvas component provides a webcam interface with responsive dimensions
@@ -25,76 +21,146 @@ const webcamStyle =
  *   ref={webcamRef}
  * />
  */
-const WebcamCanvas = forwardRef((props, ref) => {
-    const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 }); // Default 16:9 ratio
+const WebcamCanvas = React.forwardRef((props, ref) => {
+  const { videoDeviceId, dimensions } = props;
+  const [canvasSize, setCanvasSize] = useState({ width: 640, height: 360 });
+  const [loading, setLoading] = useState(true); // Initially loading is true
+  const webcamStreamRef = useRef(null);
+  const videoElementRef = useRef(null);
+  const metadataLoaded = useRef(false); // Track if metadata is loaded
 
-    useEffect(() => {
-        const videoElement = ref?.webcamRef?.current?.video;
+  // Log the loading state every time it changes
+  useEffect(() => {
+    console.log("Loading state:", loading);
+  }, [loading]);
 
-        const updateCanvasSize = () => {
-            if (videoElement) {
-                const videoWidth = videoElement.videoWidth ; // Default width
-                const videoHeight = videoElement.videoHeight ;
+  useEffect(() => {
+    const videoElement = ref?.webcamRef?.current?.video;
+    let timeoutId;
 
-                const aspectRatio = videoWidth / videoHeight;
+    const updateCanvasSize = () => {
+      if (videoElement) {
+        const videoWidth = videoElement.videoWidth;
+        const videoHeight = videoElement.videoHeight;
+        const aspectRatio = videoWidth / videoHeight;
 
-                const browserWidth = props.dimensions.width * 0.7;
-                const browserHeight = props.dimensions.height * 0.7;
+        const browserWidth = dimensions.width * 0.7;
+        const browserHeight = dimensions.height * 0.7;
 
-                let newWidth, newHeight;
-
-                if (browserWidth / browserHeight > aspectRatio) {
-                    newHeight = browserHeight;
-                    newWidth = newHeight * aspectRatio;
-                } else {
-                    newWidth = browserWidth;
-                    newHeight = newWidth / aspectRatio;
-                }
-
-                setCanvasSize({ width: newWidth, height: newHeight });
-            }
-        };
-
-        if (videoElement) {
-            // Update size when metadata is loaded
-            videoElement.addEventListener("loadedmetadata", updateCanvasSize);
-
-            // Cleanup listener on unmount
-            return () => {
-                videoElement.removeEventListener("loadedmetadata", updateCanvasSize);
-            };
+        let newWidth, newHeight;
+        if (browserWidth / browserHeight > aspectRatio) {
+          newHeight = browserHeight;
+          newWidth = newHeight * aspectRatio;
+        } else {
+          newWidth = browserWidth;
+          newHeight = newWidth / aspectRatio;
         }
-    }, [ref, props.dimensions.width, props.dimensions.height]);
 
-    /**
-     * Video constraints for webcam
-     * @type {Object}
-     */
-    const videoContraints = {
-        facingMode: "user", // or 'environment' for rear camera on mobile
+        setCanvasSize({ width: newWidth, height: newHeight });
+      }
     };
 
-    return (
-        <Box>
-            <div style={webcamStyle}>
-                <Webcam
-                    ref={ref.webcamRef}
-                    className="hidden-webcam"
-                    disablePictureInPicture={true}
-                    videoConstraints={videoContraints}
-                />
-            </div>
-            <canvas
-                ref={ref.canvasRef}
-                width={canvasSize.width}
-                height={canvasSize.height}
-                style={{
-                    width: "100%",
-                    height: "100%",
-                }}
-            />
-        </Box>
-    );
+    if (videoElement) {
+      videoElement.addEventListener("loadedmetadata", () => {
+        if (!metadataLoaded.current) {
+          metadataLoaded.current = true; // Set to true once metadata is loaded
+          setLoading(false); // Set loading to false when metadata is loaded
+        }
+        updateCanvasSize();
+      });
+
+      timeoutId = setTimeout(() => {
+        if (!metadataLoaded.current) {
+          setLoading(true); // Set loading to true if still not loaded
+        }
+      }, WEBCAM_TIMEOUT); 
+
+      return () => {
+        videoElement.removeEventListener("loadedmetadata", updateCanvasSize);
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [ref, dimensions.width, dimensions.height]);
+
+  const videoConstraints = {
+    deviceId: videoDeviceId ? { exact: videoDeviceId } : undefined,
+    facingMode: "user",
+  };
+
+  useEffect(() => {
+    if (webcamStreamRef.current) {
+      webcamStreamRef.current.getTracks().forEach((track) => track.stop());
+      webcamStreamRef.current = null;
+    }
+  }, [videoDeviceId]);
+
+  // Handle errors and stream resets
+  const handleUserMedia = (stream) => {
+    if (webcamStreamRef.current) {
+      webcamStreamRef.current.getTracks().forEach((track) => track.stop());
+    }
+    webcamStreamRef.current = stream;
+
+    // Monitor for unexpected errors
+    videoElementRef.current.onerror = () => {
+      console.error("Webcam error detected. Restarting stream...");
+      videoElementRef.current.srcObject = null;
+      navigator.mediaDevices.getUserMedia({ video: videoConstraints }).then((newStream) => {
+        webcamStreamRef.current = newStream;
+        videoElementRef.current.srcObject = newStream;
+      });
+    };
+  };
+
+  return (
+    <Box sx={{ position: "relative" }}>
+      <div style={webcamStyle}>
+        <Webcam
+          key={videoDeviceId}
+          ref={ref?.webcamRef}
+          className="hidden-webcam"
+          disablePictureInPicture={true}
+          videoConstraints={videoConstraints}
+          onUserMedia={handleUserMedia}
+        />
+      </div>
+
+      <Box position="absolute" display="flex" flexDirection="column" alignItems="center" justifyContent="center" width="100%" height="100%">
+        {loading && (
+          <>
+            <CircularProgress />
+            <Typography variant="body1" mt={1}>Loading Webcam...</Typography>
+            <Typography variant="body1" mt={1}>Taking too long? Click below to reload the page.</Typography>
+            <Button variant="contained" color="primary" sx={{ mt: 1 }} onClick={() => window.location.reload()}>
+              Reload
+            </Button>
+          </>
+        )}
+      </Box>
+
+      <canvas
+        ref={ref?.canvasRef}
+        width={canvasSize.width}
+        height={canvasSize.height}
+        style={{
+          width: "100%",
+          height: "100%",
+          transform: "scaleX(-1)",
+          pointerEvents: "none",
+        }}
+      />
+    </Box>
+  );
 });
+
+const webcamStyle = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  zIndex: -1,
+};
 
 export default WebcamCanvas;

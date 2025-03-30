@@ -12,11 +12,19 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { handleLogin, handleLogout } from "../utils/HandleLogin";
+import { handleLogin, handleLogout } from "../utils/helpers/HandleLogin";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import logo from "../assets/logoNoName.png";
-import name from "../assets/productNameWhite.png";
+import exerSightsLogo from "../assets/logos/logoNoName.png";
+import exerSightsNameWhite from "../assets/logos/productNameWhite.png";
+import exerSightsNameBlack from "../assets/logos/productNameBlack.png";
+import HomeIcon from "@mui/icons-material/Home";
+import ListIcon from "@mui/icons-material/List";
+import InfoIcon from "@mui/icons-material/Info";
+import EmailIcon from "@mui/icons-material/Email";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -26,11 +34,13 @@ import name from "../assets/productNameWhite.png";
  * @component
  * @returns {JSX.Element} A Material UI AppBar with navigation links.
  */
-function Menubar() {
+function Menubar(props) {
   const menuItems = [
-    { text: "Home", path: "/home" },
-    { text: "Catalog", path: "/catalog" },
-    { text: "About", path: "/about" },
+    { text: "HOME", path: "/home", icon: <HomeIcon /> },
+    { text: "CATALOG", path: "/catalog", icon: <ListIcon /> },
+    { text: "PROGRAM", path: "/program", icon: <ContentPasteIcon /> },
+    { text: "FAQ", path: "/faq", icon: <EmailIcon /> },
+    { text: "ABOUT", path: "/about", icon: <InfoIcon /> },
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
@@ -57,77 +67,91 @@ function Menubar() {
   }, [auth]);
 
   return (
-    <AppBar position="static" elevation={8}>
+    <AppBar
+      position="static"
+      elevation={8}
+      sx={{ mt: "0.25rem", mb: "1rem", borderRadius: "3rem" }}>
       <Toolbar>
         {/* logo */}
-        <Box sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
+        <Box
+          component={Link}
+          to="/"
+          sx={{ display: "flex", flexGrow: 1, flexBasis: "0%", alignItems: "center" }}>
           <Box
             component="img"
-            src={logo}
+            src={exerSightsLogo}
             sx={{
-              height: 60,
-              width: 60,
+              height: "60px",
+              width: "60px",
             }}
           />
           <Box
             component="img"
-            src={name}
+            src={props.darkMode ? exerSightsNameWhite : exerSightsNameBlack}
             sx={{
-              height: 30,
-              width: "fit-content",
-              ml: "1vw",
-              display: { xs: "none", md: "flex" },
+              height: "30px",
+              width: "200px",
+              ml: "0.5vw",
             }}
           />
         </Box>
+
         {/* desktop navigation */}
         <Box
           sx={{
-            display: { xs: "none", md: "flex" },
+            display: { xs: "none", lg: "flex" },
             justifyContent: "center",
-            flexGrow: 1,
-            flexBasis: "0%",
           }}>
           {menuItems.map((item) => (
-            <Button key={item.text} component={Link} to={item.path}>
-              <Typography
-                variant="button"
-                // textTransform={"none"}
-                sx={{ color: "white" }}>
-                {item.text}
-              </Typography>
-            </Button>
+            <Box sx={{ mx: "8px" }}>
+              <IconButton
+                component={Link}
+                to={item.path}
+                sx={{ gap: "3px", color: "text.primary" }}>
+                {item.icon}
+                <Typography fontWeight={500} color="text.primary">
+                  {item.text}
+                </Typography>
+              </IconButton>
+            </Box>
           ))}
         </Box>
-        {/* login/logout button */}
+
+        {/* toggle dark mode, login/logout button */}
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", lg: "flex" },
             flexGrow: 1,
             flexBasis: "0%",
             justifyContent: "right",
             alignItems: "center",
           }}>
+          <IconButton onClick={props.toggleDarkMode} sx={{ color: "text.primary" }}>
+            {props.darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          </IconButton>
           {isAuth && (
             <Typography
               variant="body1"
               sx={{
                 userSelect: "none",
-                display: { xs: "none", md: "flex" },
+                display: { xs: "none", lg: "flex" },
               }}>
               Welcome {username}!
             </Typography>
           )}
           <Button
             onClick={isAuth ? handleLogout : handleLogin}
-            sx={{ display: { xs: "none", md: "block" }, color: "white", ml: "1vw" }}>
+            variant="text"
+            color="text.primary"
+            sx={{ ml: "0.75rem" }}>
             {isAuth ? "Logout" : "Login"}
           </Button>
         </Box>
+
         {/* drawer icon */}
         <Box
           sx={{
-            display: { xs: "flex", md: "none" },
+            display: { xs: "flex", lg: "none" },
             flexGrow: 1,
             justifyContent: "right",
           }}>
@@ -135,14 +159,15 @@ function Menubar() {
             <MenuIcon />
           </IconButton>
         </Box>
+
         {/* mobile drawer */}
         <Drawer
           anchor="right"
           open={isDrawerOpen}
           onClose={handleDrawerToggle}
           sx={{
-            display: { xs: "block", md: "none" },
-            "& .MuiDrawer-paper": { width: "25vw" },
+            display: { xs: "block", lg: "none" },
+            "& .MuiDrawer-paper": { maxWidth: "30vw" },
           }}>
           <List>
             {menuItems.map((item) => (
@@ -152,7 +177,13 @@ function Menubar() {
                 key={item.text}
                 to={item.path}
                 onClick={handleDrawerToggle}>
-                <ListItemText primary={item.text} sx={{ color: "white" }} />
+                <ListItemText
+                  primary={item.text}
+                  primaryTypographyProps={{
+                    color: "text.primary",
+                    align: "center",
+                  }}
+                />
               </ListItem>
             ))}
             <ListItem
@@ -161,7 +192,23 @@ function Menubar() {
                 isAuth ? handleLogout() : handleLogin();
                 handleDrawerToggle();
               }}>
-              <ListItemText primary={isAuth ? "Logout" : "Login"} sx={{ color: "white" }} />
+              <ListItemText
+                primary={isAuth ? "Logout" : "Login"}
+                primaryTypographyProps={{
+                  color: "text.primary",
+                  align: "center",
+                }}
+              />
+            </ListItem>
+            <ListItem button onClick={props.toggleDarkMode}>
+              <ListItemText
+                primary={props.darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                primaryTypographyProps={{
+                  color: "text.primary",
+                  align: "center",
+                  alignItems: "center",
+                }}
+              />
             </ListItem>
           </List>
         </Drawer>

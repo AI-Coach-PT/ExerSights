@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Box, Paper, Button } from "@mui/material";
+import Timer from "./Timer";
 
 /**
- * A React functional component for rendering a feedback panel that displays real-time 
- * feedback, exercise-specific angle values, and repetition count. It also includes options 
+ * A React functional component for rendering a feedback panel that displays real-time
+ * feedback, exercise-specific angle values, and repetition count. It also includes options
  * for resetting the count and dynamically inserting modal components for help and settings.
  *
  * @component
@@ -18,52 +19,97 @@ import { Typography, Box, Paper, Button } from "@mui/material";
  * @returns {JSX.Element} The rendered FeedbackPanel component.
  */
 function FeedbackPanel({
-    feedbackList,
-    valuesList,
-    repCount,
-    handleReset,
-    HelpModal,
-    SettingsModal,
+  feedbackList,
+  valuesList,
+  repCount,
+  handleReset,
+  HelpModal,
+  SettingsModal,
+  handleVideoUpload,
+  angleView,
+  color,
 }) {
-    return (
-        <Paper
-            elevation={3}
-            sx={{
-                padding: "20px",
-                textAlign: "left",
-                height: "fit-content",
-                margin: "10px",
-            }}
-        >
-            <Box sx={{ display: "flex", justifyContent: "right", alignItems: "center" }}>
-                <Typography variant="body1">Real-Time Feedback Panel</Typography>
-                {HelpModal}
-                {SettingsModal}
-            </Box>
-            <Typography variant="body1">{"Feedback: "}</Typography>
-            {feedbackList.map((feedback, index) => (
-                <Typography
-                    key={`feedback-${index}`}
-                    variant="body1"
-                    style={{ color: "red" }}
-                >
-                    {feedback}
-                </Typography>
-            ))}
-            {valuesList.map((angle, index) => (
-                <Typography
-                    key={`angle-${index}`}
-                    variant="body1"
-                >
-                    {`${angle.label}: ${angle.value.toFixed(0)}°`}
-                </Typography>
-            ))}
-            <Typography variant="body1">Current Rep Count: {repCount}</Typography>
-            <Button variant="contained" color="primary" onClick={handleReset}>
-                Reset Rep Count
-            </Button>
-        </Paper>
-    );
+  useEffect(() => {
+    return () => {
+      handleReset();
+    };
+  }, []);
+
+  return (
+    <Paper
+      elevation={3}
+      sx={{
+        padding: "20px",
+        textAlign: "left",
+        height: "fit-content",
+        width: "28rem",
+        maxWidth: "95vw",
+        my: "0.25rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.25rem",
+      }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+        }}>
+        <Typography variant="h6">Real-Time Feedback Panel</Typography>
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: "2rem" }}>
+        {HelpModal}
+        {SettingsModal}
+      </Box>
+
+      <Box sx={{ width: "90%" }}>
+        <Typography variant="body1">
+          Feedback:
+          {feedbackList.map((feedback, index) => (
+            <Typography key={`feedback-${index}`} variant="body1" color={color}>
+              {feedback || index > 0 ? feedback : "Get in frame!"}
+            </Typography>
+          ))}
+        </Typography>
+      </Box>
+
+      {valuesList.map((angle, index) =>
+        angleView ? (
+          <Typography key={`angle-${index}`} variant="body1">
+            {`${angle.label}: ${angle.value.toFixed(0)}°`}
+          </Typography>
+        ) : (
+          ""
+        )
+      )}
+
+      <Typography variant="body1">Current Rep Count: {repCount}</Typography>
+
+      <Box sx={{ display: "flex", justifyContent: "center", gap: "1rem", textAlign: "center" }}>
+        <Button
+          variant="contained"
+          onClick={handleReset}
+          color="secondary"
+          sx={{
+            width: "48%",
+          }}>
+          Reset Rep Count
+        </Button>
+
+        <Button
+          variant="contained"
+          component="label"
+          color="secondary"
+          sx={{ width: "48%", textAlign: "center" }}>
+          Upload Video
+          <input type="file" accept="video/*" onChange={handleVideoUpload} hidden />
+        </Button>
+      </Box>
+
+      <Timer />
+    </Paper>
+  );
 }
 
 export default FeedbackPanel;
