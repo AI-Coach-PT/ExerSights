@@ -5,8 +5,8 @@ import VideoCanvas from "./VideoCanvas";
 import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
 import detectPose from "../utils/models/PoseDetector";
 import OverlayBox from "./CounterGraphic";
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PauseIcon from '@mui/icons-material/Pause';
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
 
 /**
  * A reusable layout component for exercise tracking pages.
@@ -27,7 +27,7 @@ function ExerciseBox({
   repCount,
   drawSkeleton,
   playFeedback,
-  setPlayFeedback
+  setPlayFeedback,
 }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -140,32 +140,19 @@ function ExerciseBox({
 
   return (
     <Box sx={{ padding: "0.5rem" }}>
-      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb: "1.5rem", gap: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          mb: "1.5rem",
+          gap: 2,
+        }}>
         <Typography variant="h1" sx={{ textAlign: "center" }}>
           {title}
         </Typography>
-        <Button
-          variant="contained"
-          onClick={() => setPlayFeedback((prev) => !prev)}
-          sx={{
-            color: "white",
-            minWidth: "40px",
-            padding: "8px"
-          }}
-        >
-          {playFeedback ? (
-            <>
-              <PauseIcon />
-              <Typography>Pause</Typography>
-            </>
-          ) : (
-            <>
-              <PlayArrowIcon />
-              <Typography>Play</Typography>
-            </>
-          )}
-        </Button>
       </Box>
+
       <Box
         sx={{
           display: "flex",
@@ -223,8 +210,28 @@ function ExerciseBox({
         </Box>
 
         <Box>
-          {enhancedFeedbackPanel}
-          <Box sx={{ display: "flex", justifyContent: "center", mt: "1.5rem" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mt: "1rem",
+              gap: "1rem",
+              mb: "1rem",
+            }}>
+            <Button variant="contained" onClick={() => setPlayFeedback((prev) => !prev)}>
+              {playFeedback ? (
+                <>
+                  <PauseIcon />
+                  <Typography sx={{ mx: "5px" }}>Pause Feedback</Typography>
+                </>
+              ) : (
+                <>
+                  <PlayArrowIcon />
+                  <Typography sx={{ mx: "5px" }}>Start Feedback</Typography>
+                </>
+              )}
+            </Button>
+
             <FormControl>
               <InputLabel>Choose Camera</InputLabel>
               <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">
@@ -236,6 +243,8 @@ function ExerciseBox({
               </Select>
             </FormControl>
           </Box>
+
+          {enhancedFeedbackPanel}
         </Box>
       </Box>
     </Box>
