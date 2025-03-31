@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Typography, Box, Paper, Button } from "@mui/material";
 import Timer from "./Timer";
+import VoiceFeedbackButton from "./VoiceButton";
 
 /**
  * A React functional component for rendering a feedback panel that displays real-time
@@ -61,6 +62,7 @@ function FeedbackPanel({
       <Box sx={{ display: "flex", justifyContent: "center", gap: "2rem" }}>
         {HelpModal}
         {SettingsModal}
+        <VoiceFeedbackButton />
       </Box>
 
       <Box sx={{ width: "90%" }}>
