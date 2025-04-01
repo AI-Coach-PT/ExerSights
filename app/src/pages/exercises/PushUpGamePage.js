@@ -34,8 +34,7 @@ function PushUpGamePage() {
   const [rightTargetElbowAngle, setRightTargetElbowAngle] = useState(100);
 
   // Memoized processPoseResults to avoid triggering useEffect on every render
-  const processPoseResults = useCallback(
-    (landmarks0, landmarks1) => {
+  const processPoseResults = (landmarks0, landmarks1) => {
       // Process both poses from the same landmarks
 
       checkPushup(
@@ -53,9 +52,8 @@ function PushUpGamePage() {
         setRightRepCount,
         rightTargetElbowAngle
       );
-    },
-    [leftTargetElbowAngle, rightTargetElbowAngle]
-  );
+    };
+
 
   const handleLeftReset = () => {
     resetRepCount(0);
@@ -78,7 +76,7 @@ function PushUpGamePage() {
       setEnableTwoPoses(false); // Disable two poses when the component unmounts
       setEnableTwoPosesState(false);
     };
-  }, [processPoseResults, setEnableTwoPosesState]);
+  }, [leftTargetElbowAngle, rightTargetElbowAngle, processPoseResults, setEnableTwoPosesState]);
 
   const webcamCanvas = (
     <WebcamCanvas
