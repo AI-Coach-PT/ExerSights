@@ -18,6 +18,9 @@ export const instructionsTextStandingObliqueCrunch = content.instructions.standi
 export const instructionsTextTreePose = content.instructions.treePose;
 export const instructionsTextShoulderPress = content.instructions.shoulderPress;
 
+//game
+export const instructionsTextPushupGame = content.instructions.pushupGame;
+
 export const instructionsVideoSquat = content.instructionVideos.squat;
 export const instructionsVideoPushUp = content.instructionVideos.pushup;
 export const instructionsVideoDeadBug = content.instructionVideos.deadbug;
@@ -36,4 +39,9 @@ export const instructionsVideoStandingObliqueCrunch =
 export const instructionsVideoTreePose = content.instructionVideos.treePose;
 export const instructionsVideoShoulderPress = content.instructionVideos.shoulderPress;
 
+//game
+export const instructionsVideoPushupGame = content.instructionVideos.pushupGame;
+
 export const disclaimerText = content.legal.disclaimer;
+
+
