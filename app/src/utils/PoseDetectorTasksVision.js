@@ -20,7 +20,7 @@ async function createPoseLandmarker() {
   if (!poseLandmarker) {
     try {
       const vision = await FilesetResolver.forVisionTasks(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm"
+        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.21/wasm"
       );
       poseLandmarker = await PoseLandmarker.createFromOptions(vision, {
         baseOptions: {
