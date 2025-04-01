@@ -7,7 +7,6 @@ const POSE_CONNECTIONS_NON_FACE = [
   { start: 14, end: 16 },
   { start: 11, end: 13 },
   { start: 13, end: 15 },
-  { start: 15, end: 17 },
   { start: 11, end: 23 },
   { start: 12, end: 24 },
   { start: 23, end: 24 },
