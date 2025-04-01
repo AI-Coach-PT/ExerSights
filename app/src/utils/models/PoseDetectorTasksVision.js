@@ -7,7 +7,6 @@ const POSE_CONNECTIONS_NON_FACE = [
   { start: 14, end: 16 },
   { start: 11, end: 13 },
   { start: 13, end: 15 },
-  { start: 15, end: 17 },
   { start: 11, end: 23 },
   { start: 12, end: 24 },
   { start: 23, end: 24 },
@@ -59,7 +58,7 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback, drawSkeleton) 
         canvasCtx.drawImage(webcamRef.current.video, 0, 0, canvas.width, canvas.height);
 
         if (result.landmarks[0] && drawSkeleton) {
-          const nonFaceLandmarks = result.landmarks[0].filter((_, index) => index > 10);
+          const nonFaceLandmarks = result.landmarks[0].filter((_, index) => index > 10 && (index < 17 || index > 22));
 
           drawingUtils.drawLandmarks(nonFaceLandmarks, {
             color: "red",
