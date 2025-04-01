@@ -214,6 +214,7 @@ function ExerciseBox({
             sx={{
               display: "flex",
               justifyContent: "center",
+              flexWrap: "wrap",
               mt: "1rem",
               gap: "1rem",
               mb: "1rem",
