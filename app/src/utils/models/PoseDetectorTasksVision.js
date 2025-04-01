@@ -59,7 +59,7 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback, drawSkeleton) 
         canvasCtx.drawImage(webcamRef.current.video, 0, 0, canvas.width, canvas.height);
 
         if (result.landmarks[0] && drawSkeleton) {
-          const nonFaceLandmarks = result.landmarks[0].filter((_, index) => index > 10);
+          const nonFaceLandmarks = result.landmarks[0].filter((_, index) => index > 10 && (index < 17 || index > 22));
 
           drawingUtils.drawLandmarks(nonFaceLandmarks, {
             color: "red",
