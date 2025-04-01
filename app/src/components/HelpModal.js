@@ -28,7 +28,9 @@ function HelpModal({ image, description, video }) {
 
   return (
     <Box>
-      <IconButton onClick={handleOpenModal} sx={{ position: "relative", gap: "3px" }}>
+      <IconButton
+        onClick={handleOpenModal}
+        sx={{ position: "relative", gap: "3px", color: "text.primary" }}>
         <QuestionMarkIcon fontSize="small" />
         <Typography>Help</Typography>
       </IconButton>

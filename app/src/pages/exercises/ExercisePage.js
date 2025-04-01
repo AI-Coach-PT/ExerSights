@@ -23,12 +23,18 @@ function ExercisePage({ exerciseName: propExerciseName }) {
   const [angleView, setAngleView] = useState(true);
   const [targetAngles, setTargetAngles] = useState({});
   const [drawSkeleton, setDrawSkeleton] = useState(true);
+  const [playFeedback, setPlayFeedback] = useState(false);
 
   const targetAnglesRef = useRef({});
+  const playFeedbackRef = useRef(playFeedback);
 
   useEffect(() => {
     targetAnglesRef.current = targetAngles;
   }, [targetAngles]);
+
+  useEffect(() => {
+    playFeedbackRef.current = playFeedback;
+  }, [playFeedback]);
 
   useEffect(() => {
     if (!exerciseName) {
@@ -89,6 +95,9 @@ function ExercisePage({ exerciseName: propExerciseName }) {
   ]);
 
   const processPoseResults = (landmarks) => {
+    if (!playFeedbackRef.current)
+      return;
+
     checkFunction(
       landmarks,
       setFeedback,
@@ -141,6 +150,8 @@ function ExercisePage({ exerciseName: propExerciseName }) {
       color={color}
       repCount={repCount}
       drawSkeleton={drawSkeleton}
+      playFeedback={playFeedback}
+      setPlayFeedback={setPlayFeedback}
     />
   );
 }
