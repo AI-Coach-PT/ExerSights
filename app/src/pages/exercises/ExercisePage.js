@@ -24,6 +24,8 @@ function ExercisePage({ exerciseName: propExerciseName }) {
   const [targetAngles, setTargetAngles] = useState({});
   const [drawSkeleton, setDrawSkeleton] = useState(true);
   const [playFeedback, setPlayFeedback] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
+  const [firstPlayFeedback, setFirstPlayFeedback] = useState(true);
 
   const targetAnglesRef = useRef({});
   const playFeedbackRef = useRef(playFeedback);
@@ -33,7 +35,13 @@ function ExercisePage({ exerciseName: propExerciseName }) {
   }, [targetAngles]);
 
   useEffect(() => {
+    // update playFeedbackRef whenever playFeedback changes
+    // playFeedback changed in ExerciseBox (user toggle)
     playFeedbackRef.current = playFeedback;
+
+    // for the summary, do not show before the first play feedback
+    if (firstPlayFeedback) setFirstPlayFeedback(false);
+    setShowSummary(!playFeedback && !firstPlayFeedback);
   }, [playFeedback]);
 
   useEffect(() => {
@@ -95,8 +103,8 @@ function ExercisePage({ exerciseName: propExerciseName }) {
   ]);
 
   const processPoseResults = (landmarks) => {
-    if (!playFeedbackRef.current)
-      return;
+    // skip processing if playFeedback is false
+    if (!playFeedbackRef.current) return;
 
     checkFunction(
       landmarks,
@@ -152,6 +160,8 @@ function ExercisePage({ exerciseName: propExerciseName }) {
       drawSkeleton={drawSkeleton}
       playFeedback={playFeedback}
       setPlayFeedback={setPlayFeedback}
+      showSummary={showSummary}
+      setShowSummary={setShowSummary}
     />
   );
 }

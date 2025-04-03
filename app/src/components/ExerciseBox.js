@@ -7,6 +7,8 @@ import detectPose from "../utils/models/PoseDetector";
 import OverlayBox from "./CounterGraphic";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
+import { toast } from "react-hot-toast";
+import { Modal } from "@mui/material";
 
 /**
  * A reusable layout component for exercise tracking pages.
@@ -28,6 +30,8 @@ function ExerciseBox({
   drawSkeleton,
   playFeedback,
   setPlayFeedback,
+  showSummary,
+  setShowSummary,
 }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -138,8 +142,36 @@ function ExerciseBox({
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
+  const handleSummaryClose = () => {
+    toast("Exited Exercise Summary!");
+    setShowSummary(!showSummary);
+  };
+
   return (
     <Box sx={{ padding: "0.5rem" }}>
+      <Modal open={showSummary} onClose={handleSummaryClose}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "30rem",
+            maxWidth: "90%",
+            bgcolor: "background.paper",
+            borderRadius: 6,
+            boxShadow: "0px 0px 20px 0px rgba(255,255,255,1)",
+            p: 4,
+          }}>
+          <Typography variant="h2" sx={{ textAlign: "center", mb: "0.5rem" }}>
+            Exercise Summary
+          </Typography>
+        </Box>
+      </Modal>
+
       <Box
         sx={{
           display: "flex",
