@@ -218,6 +218,8 @@ function ExerciseBox({
               mt: "1rem",
               gap: "1rem",
               mb: "1rem",
+              width: "28rem",
+              maxWidth: "95vw",
             }}>
             <Button variant="contained" onClick={() => setPlayFeedback((prev) => !prev)}>
               {playFeedback ? (
@@ -232,8 +234,7 @@ function ExerciseBox({
                 </>
               )}
             </Button>
-
-            <FormControl>
+            <FormControl sx={{ width: "50%" }}>
               <InputLabel>Choose Camera</InputLabel>
               <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">
                 {availableCameras.map((camera) => (
