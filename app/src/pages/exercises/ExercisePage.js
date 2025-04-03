@@ -13,7 +13,6 @@ import { loadExerciseData } from "./ExercisePageData";
  * This component coordinates the exercise experience, loading exercise data,
  * managing state for feedback, repetition counting, and visualization settings.
  * It integrates with pose detection and provides real-time feedback to users.
- * Focuses on backend.
  *
  * @component
  * @param {string} exerciseName - Name of the exercise to load (can be provided as prop or URL parameter)

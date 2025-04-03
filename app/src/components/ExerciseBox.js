@@ -7,6 +7,7 @@ import detectPose from "../utils/models/PoseDetector";
 import OverlayBox from "./CounterGraphic";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
+import StopIcon from "@mui/icons-material/Stop";
 import { toast } from "react-hot-toast";
 import { Modal } from "@mui/material";
 
@@ -15,7 +16,6 @@ import { Modal } from "@mui/material";
  *
  * This component handles camera/video selection, pose detection, and exercise feedback.
  * It manages webcam streams, video uploads, and integrates with pose detection utilities.
- * Focuses on frontend.
  *
  * @component
  * @param {string} title - The title of the exercise page
@@ -44,14 +44,10 @@ function ExerciseBox({
   showSummary,
   setShowSummary,
 }) {
-  const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
   const [dimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const videoRef = useRef(null);
-  const videoCanvasRef = useRef(null);
   const [useVideo, setUseVideo] = useState(false);
   const [availableCameras, setAvailableCameras] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(
@@ -61,6 +57,59 @@ function ExerciseBox({
   const [loading, setLoading] = useState(true);
   const [showOverlay, setShowOverlay] = useState(false);
   const [stream, setStream] = useState(null);
+  const [startTime, setStartTime] = useState(Date.now());
+  const [endTime, setEndTime] = useState(Date.now());
+
+  const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
+  const videoRef = useRef(null);
+  const videoCanvasRef = useRef(null);
+
+  const handleCameraChange = (event) => {
+    const newCamera = event.target.value;
+    setLoading(true);
+    setSelectedCamera(newCamera);
+    localStorage.setItem("selectedCamera", newCamera);
+    setForceRemountKey((prev) => prev + 1);
+  };
+
+  const handleUserMediaLoaded = (newStream) => {
+    setStream(newStream);
+  };
+
+  const handleVideoUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const videoURL = URL.createObjectURL(file);
+      const videoElement = videoRef.current;
+
+      videoElement.src = videoURL;
+      videoElement.onloadeddata = () => {
+        videoElement.pause(); // Pause initially until the user plays it
+      };
+
+      setUseVideo(true);
+    }
+  };
+
+  const handleUploadPlay = () => {
+    const videoElement = videoRef.current;
+    startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
+  };
+
+  const handlePlayFeedback = () => {
+    setPlayFeedback(!playFeedback);
+    if (!playFeedback) setStartTime(Date.now());
+    else setEndTime(Date.now());
+  };
+
+  const handleSummaryClose = () => {
+    setShowSummary(!showSummary);
+  };
+
+  const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
+    handleVideoUpload: handleVideoUpload,
+  });
 
   useEffect(() => {
     detectPose(webcamRef, canvasRef, processPoseResults, drawSkeleton);
@@ -90,42 +139,6 @@ function ExerciseBox({
     setLoading(!stream);
   }, [stream]);
 
-  const handleCameraChange = (event) => {
-    const newCamera = event.target.value;
-    setLoading(true);
-    setSelectedCamera(newCamera);
-    localStorage.setItem("selectedCamera", newCamera);
-    setForceRemountKey((prev) => prev + 1);
-  };
-
-  const handleUserMediaLoaded = (newStream) => {
-    setStream(newStream);
-  };
-
-  const handleVideoUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const videoURL = URL.createObjectURL(file);
-      const videoElement = videoRef.current;
-
-      videoElement.src = videoURL;
-      videoElement.onloadeddata = () => {
-        videoElement.pause(); // Pause initially until the user plays it
-      };
-
-      setUseVideo(true);
-    }
-  };
-
-  const handlePlay = () => {
-    const videoElement = videoRef.current;
-    startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
-  };
-
-  const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
-    handleVideoUpload: handleVideoUpload,
-  });
-
   useEffect(() => {
     const fetchCameras = async () => {
       try {
@@ -153,11 +166,6 @@ function ExerciseBox({
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
-  const handleSummaryClose = () => {
-    toast("Exited Exercise Summary!");
-    setShowSummary(!showSummary);
-  };
-
   return (
     <Box sx={{ padding: "0.5rem" }}>
       <Modal open={showSummary} onClose={handleSummaryClose}>
@@ -165,21 +173,35 @@ function ExerciseBox({
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "30rem",
+            width: "25rem",
             maxWidth: "90%",
             bgcolor: "background.paper",
             borderRadius: 6,
             boxShadow: "0px 0px 20px 0px rgba(255,255,255,1)",
             p: 4,
           }}>
-          <Typography variant="h2" sx={{ textAlign: "center", mb: "0.5rem" }}>
+          <Typography variant="h3" sx={{ textAlign: "center", mb: "0.5rem" }}>
             Exercise Summary
           </Typography>
+          <Typography variant="body1" sx={{ textAlign: "left", mb: "0.5rem" }}>
+            Exercise: {title}
+          </Typography>
+          <Typography variant="body1" sx={{ textAlign: "left", mb: "0.5rem" }}>
+            Repetitions: {repCount}
+          </Typography>
+          <Typography variant="body1" sx={{ textAlign: "left", mb: "0.5rem" }}>
+            Duration: {(endTime - startTime) / 1000} seconds
+          </Typography>
+          <Typography variant="h4" sx={{ textAlign: "center", mb: "0.5rem" }}>
+            {repCount ? "Great work!" : "Hmm... try again..."}
+          </Typography>
+          <Button variant="contained" onClick={handleSummaryClose}>
+            Take me back!
+          </Button>
         </Box>
       </Modal>
 
@@ -248,7 +270,10 @@ function ExerciseBox({
               maxWidth: "100vh", // Makes width equal to height in landscape
             },
           }}>
-          <VideoCanvas handlePlay={handlePlay} ref={{ videoRef, canvasRef: videoCanvasRef }} />
+          <VideoCanvas
+            handleUploadPlay={handleUploadPlay}
+            ref={{ videoRef, canvasRef: videoCanvasRef }}
+          />
           {showOverlay && <OverlayBox text={repCount} />}
         </Box>
 
@@ -264,11 +289,11 @@ function ExerciseBox({
               width: "28rem",
               maxWidth: "95vw",
             }}>
-            <Button variant="contained" onClick={() => setPlayFeedback((prev) => !prev)}>
+            <Button variant="contained" onClick={handlePlayFeedback}>
               {playFeedback ? (
                 <>
-                  <PauseIcon />
-                  <Typography sx={{ mx: "5px" }}>Pause Feedback</Typography>
+                  <StopIcon />
+                  <Typography sx={{ mx: "5px" }}>Stop Feedback</Typography>
                 </>
               ) : (
                 <>
