@@ -1,15 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Typography, MenuItem, Select, FormControl, InputLabel, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  Button,
+  Modal,
+} from "@mui/material";
 import WebcamCanvas from "./WebcamCanvas";
 import VideoCanvas from "./VideoCanvas";
 import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
 import detectPose from "../utils/models/PoseDetector";
 import OverlayBox from "./CounterGraphic";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import PauseIcon from "@mui/icons-material/Pause";
 import StopIcon from "@mui/icons-material/Stop";
-import { toast } from "react-hot-toast";
-import { Modal } from "@mui/material";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 /**
  * ExerciseBox component - A reusable layout component for exercise tracking pages.
@@ -21,7 +29,6 @@ import { Modal } from "@mui/material";
  * @param {string} title - The title of the exercise page
  * @param {JSX.Element} feedbackPanel - Component for displaying exercise feedback and controls
  * @param {Function} processPoseResults - Function to process pose detection results
- * @param {Object} targetAngles - Target joint angles for the exercise
  * @param {string} color - Color theme for visual feedback
  * @param {number} repCount - Current repetition count
  * @param {boolean} drawSkeleton - Whether to draw skeleton overlay on video
@@ -35,7 +42,6 @@ function ExerciseBox({
   title,
   feedbackPanel,
   processPoseResults,
-  targetAngles,
   color,
   repCount,
   drawSkeleton,
@@ -44,11 +50,9 @@ function ExerciseBox({
   showSummary,
   setShowSummary,
   handleReset,
+  auth,
+  isAuth,
 }) {
-  const [dimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
   const [useVideo, setUseVideo] = useState(false);
   const [availableCameras, setAvailableCameras] = useState([]);
   const [selectedCamera, setSelectedCamera] = useState(
@@ -104,9 +108,29 @@ function ExerciseBox({
     else setEndTime(Date.now());
   };
 
+  const saveExerciseSummary = async (userEmail, exerciseSummary) => {
+    try {
+      const userRef = doc(db, "users", userEmail);
+      await setDoc(userRef, { exerciseHistory: exerciseSummary }, { merge: true });
+    } catch (e) {
+      console.log("Error saving programs to Firestore:", e);
+    }
+  };
+
   const handleSummaryClose = () => {
     setShowSummary(!showSummary);
     handleReset();
+
+    // add functionality to save result to firebase
+    if (isAuth) {
+      let exerciseSummary = {};
+      exerciseSummary[Date.now().toString()] = {
+        exercise: title,
+        repCount: repCount,
+        duration: (endTime - startTime) / 1000,
+      };
+      saveExerciseSummary(auth.currentUser.email, exerciseSummary);
+    }
   };
 
   const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {

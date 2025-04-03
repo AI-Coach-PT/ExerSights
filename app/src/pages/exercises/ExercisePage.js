@@ -6,6 +6,8 @@ import FeedbackPanel from "../../components/FeedbackPanel";
 import ExerciseBox from "../../components/ExerciseBox";
 import { resetRepCount } from "../../utils/GenFeedback";
 import { loadExerciseData } from "./ExercisePageData";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import toast from "react-hot-toast";
 
 /**
  * ExercisePage component - Main page for exercise tracking functionality.
@@ -57,6 +59,24 @@ function ExercisePage({ exerciseName: propExerciseName }) {
 
   const targetAnglesRef = useRef({});
   const playFeedbackRef = useRef(playFeedback);
+
+  const auth = getAuth();
+  const [isAuth, setIsAuth] = useState(false);
+
+  // call this method whenever authentication changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuth(true); // signed in
+        toast("User signed in!");
+      } else {
+        setIsAuth(false); // signed out
+        toast("User signed out!");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
 
   useEffect(() => {
     targetAnglesRef.current = targetAngles;
@@ -191,6 +211,8 @@ function ExercisePage({ exerciseName: propExerciseName }) {
       showSummary={showSummary}
       setShowSummary={setShowSummary}
       handleReset={handleReset}
+      auth={auth}
+      isAuth={isAuth}
     />
   );
 }
