@@ -43,6 +43,7 @@ function ExerciseBox({
   setPlayFeedback,
   showSummary,
   setShowSummary,
+  handleReset,
 }) {
   const [dimensions] = useState({
     width: window.innerWidth,
@@ -105,6 +106,7 @@ function ExerciseBox({
 
   const handleSummaryClose = () => {
     setShowSummary(!showSummary);
+    handleReset();
   };
 
   const enhancedFeedbackPanel = React.cloneElement(feedbackPanel, {
@@ -182,7 +184,7 @@ function ExerciseBox({
             bgcolor: "background.paper",
             borderRadius: 6,
             boxShadow: "0px 0px 20px 0px rgba(255,255,255,1)",
-            p: 4,
+            p: "2rem",
           }}>
           <Typography variant="h3" sx={{ textAlign: "center", mb: "0.5rem" }}>
             Exercise Summary
@@ -196,7 +198,7 @@ function ExerciseBox({
           <Typography variant="body1" sx={{ textAlign: "left", mb: "0.5rem" }}>
             Duration: {(endTime - startTime) / 1000} seconds
           </Typography>
-          <Typography variant="h4" sx={{ textAlign: "center", mb: "0.5rem" }}>
+          <Typography variant="h5" sx={{ textAlign: "center", mb: "0.5rem" }}>
             {repCount ? "Great work!" : "Hmm... try again..."}
           </Typography>
           <Button variant="contained" onClick={handleSummaryClose}>

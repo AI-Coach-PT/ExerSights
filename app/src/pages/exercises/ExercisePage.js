@@ -190,6 +190,7 @@ function ExercisePage({ exerciseName: propExerciseName }) {
       setPlayFeedback={setPlayFeedback}
       showSummary={showSummary}
       setShowSummary={setShowSummary}
+      handleReset={handleReset}
     />
   );
 }
