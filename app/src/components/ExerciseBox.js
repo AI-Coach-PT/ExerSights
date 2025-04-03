@@ -11,14 +11,25 @@ import { toast } from "react-hot-toast";
 import { Modal } from "@mui/material";
 
 /**
- * A reusable layout component for exercise tracking pages.
+ * ExerciseBox component - A reusable layout component for exercise tracking pages.
+ *
+ * This component handles camera/video selection, pose detection, and exercise feedback.
+ * It manages webcam streams, video uploads, and integrates with pose detection utilities.
+ * Focuses on frontend.
  *
  * @component
- * @param {string} title - The title of the exercise page.
- * @param {JSX.Element} webcamCanvas - The WebcamCanvas component displaying the camera feed.
- * @param {JSX.Element} feedbackPanel - The FeedbackPanel component displaying feedback and controls.
- *
- * @returns {JSX.Element} The JSX code for the ExerciseBox layout.
+ * @param {string} title - The title of the exercise page
+ * @param {JSX.Element} feedbackPanel - Component for displaying exercise feedback and controls
+ * @param {Function} processPoseResults - Function to process pose detection results
+ * @param {Object} targetAngles - Target joint angles for the exercise
+ * @param {string} color - Color theme for visual feedback
+ * @param {number} repCount - Current repetition count
+ * @param {boolean} drawSkeleton - Whether to draw skeleton overlay on video
+ * @param {boolean} playFeedback - Whether feedback is currently active
+ * @param {Function} setPlayFeedback - Function to toggle feedback state
+ * @param {boolean} showSummary - Whether to show exercise summary
+ * @param {Function} setShowSummary - Function to toggle summary display
+ * @returns {JSX.Element} The exercise interface with video feed and controls
  */
 function ExerciseBox({
   title,

@@ -7,6 +7,35 @@ import ExerciseBox from "../../components/ExerciseBox";
 import { resetRepCount } from "../../utils/GenFeedback";
 import { loadExerciseData } from "./ExercisePageData";
 
+/**
+ * ExercisePage component - Main page for exercise tracking functionality.
+ *
+ * This component coordinates the exercise experience, loading exercise data,
+ * managing state for feedback, repetition counting, and visualization settings.
+ * It integrates with pose detection and provides real-time feedback to users.
+ * Focuses on backend.
+ *
+ * @component
+ * @param {string} exerciseName - Name of the exercise to load (can be provided as prop or URL parameter)
+ * @returns {JSX.Element} Complete exercise tracking interface with video feed and feedback panel
+ */
+
+/**
+ * State management:
+ * - exerciseData: Loaded configuration for the specific exercise
+ * - loading: Indicates if exercise data is being loaded
+ * - error: Indicates if there was an error loading exercise data
+ * - feedback: Current feedback message to display to the user
+ * - repCount: Number of completed exercise repetitions
+ * - color: Visual feedback color indicator
+ * - jointAngles: Current angles of user's joints from pose detection
+ * - angleView: Whether to display joint angle visualization
+ * - targetAngles: Target joint angles for correct exercise form
+ * - drawSkeleton: Whether to draw skeleton overlay on video
+ * - playFeedback: Whether feedback is currently active
+ * - showSummary: Whether to show exercise summary
+ * - firstPlayFeedback: Tracks if feedback has been started at least once
+ */
 function ExercisePage({ exerciseName: propExerciseName }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
