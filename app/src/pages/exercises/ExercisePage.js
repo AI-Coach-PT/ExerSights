@@ -68,10 +68,8 @@ function ExercisePage({ exerciseName: propExerciseName }) {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsAuth(true); // signed in
-        toast("User signed in!");
       } else {
         setIsAuth(false); // signed out
-        toast("User signed out!");
       }
     });
 

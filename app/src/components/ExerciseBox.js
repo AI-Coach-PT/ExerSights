@@ -117,12 +117,13 @@ function ExerciseBox({
     }
   };
 
-  const handleSummaryClose = () => {
+  const handleSummaryCloseWithSave = () => {
     setShowSummary(!showSummary);
     handleReset();
 
-    // add functionality to save result to firebase
+    // if user is logged in, ask if they want to save the exercise summary
     if (isAuth) {
+      // add functionality to OPTIONALLY save reuslt to firebase
       let exerciseSummary = {};
       exerciseSummary[Date.now().toString()] = {
         exercise: title,
@@ -194,7 +195,7 @@ function ExerciseBox({
 
   return (
     <Box sx={{ padding: "0.5rem" }}>
-      <Modal open={showSummary} onClose={handleSummaryClose}>
+      <Modal open={showSummary} onClose={handleSummaryCloseWithSave}>
         <Box
           sx={{
             display: "flex",
@@ -203,14 +204,15 @@ function ExerciseBox({
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "25rem",
+            width: "35rem",
             maxWidth: "90%",
             bgcolor: "background.paper",
             borderRadius: 6,
             boxShadow: "0px 0px 20px 0px rgba(255,255,255,1)",
             p: "2rem",
+            textAlign: "center",
           }}>
-          <Typography variant="h3" sx={{ textAlign: "center", mb: "0.5rem" }}>
+          <Typography variant="h3" sx={{ mb: "0.5rem" }}>
             Exercise Summary
           </Typography>
           <Typography variant="body1" sx={{ textAlign: "left", mb: "0.5rem" }}>
@@ -222,12 +224,48 @@ function ExerciseBox({
           <Typography variant="body1" sx={{ textAlign: "left", mb: "0.5rem" }}>
             Duration: {(endTime - startTime) / 1000} seconds
           </Typography>
-          <Typography variant="h5" sx={{ textAlign: "center", mb: "0.5rem" }}>
+          <Typography variant="h5" sx={{ mb: "0.5rem" }}>
             {repCount ? "Great work!" : "Hmm... try again..."}
           </Typography>
-          <Button variant="contained" onClick={handleSummaryClose}>
-            Take me back!
-          </Button>
+          {isAuth ? (
+            <Box>
+              <Typography variant="body1" sx={{ mb: "0.5rem" }}>
+                Would you like to save this summary to your exercise history?
+              </Typography>
+              <Typography variant="body2" sx={{ mb: "0.5rem" }}>
+                You can view your saved summaries in the "My ExerSights" tab!
+              </Typography>
+              <Box sx={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+                <Button
+                  variant="contained"
+                  onClick={handleSummaryCloseWithSave}
+                  sx={{ width: "45%" }}>
+                  YES
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setShowSummary(!showSummary);
+                    handleReset();
+                  }}
+                  sx={{ width: "45%" }}>
+                  NO
+                </Button>
+              </Box>
+            </Box>
+          ) : (
+            <Box>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setShowSummary(!showSummary);
+                  handleReset();
+                }}
+                sx={{ width: "60%" }}>
+                TAKE ME BACK
+              </Button>
+            </Box>
+          )}
         </Box>
       </Modal>
 
