@@ -25,6 +25,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -44,7 +45,6 @@ function Menubar(props) {
   ];
   const auth = getAuth();
   const [isAuth, setIsAuth] = useState(false);
-  const [username, setUsername] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -56,10 +56,8 @@ function Menubar(props) {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsAuth(true); // signed in
-        setUsername(user.displayName);
       } else {
         setIsAuth(false); // signed out
-        setUsername(""); // reset the username upon signing out
       }
     });
 
@@ -126,18 +124,21 @@ function Menubar(props) {
             justifyContent: "right",
             alignItems: "center",
           }}>
-          <IconButton onClick={props.toggleDarkMode} sx={{ color: "text.primary" }}>
+          <IconButton onClick={props.toggleDarkMode} sx={{ color: "text.primary", mr: "1rem" }}>
             {props.darkMode ? <LightModeIcon /> : <DarkModeIcon />}
           </IconButton>
           {isAuth && (
-            <Typography
-              variant="body1"
-              sx={{
-                userSelect: "none",
-                display: { xs: "none", lg: "flex" },
-              }}>
-              Welcome {username}!
-            </Typography>
+            <Box sx={{ mx: "8px" }}>
+              <IconButton
+                component={Link}
+                to="/myExerSights"
+                sx={{ gap: "3px", color: "text.primary" }}>
+                <AccountCircleIcon />
+                <Typography fontWeight={500} color="text.primary">
+                  MY EXERSIGHTS
+                </Typography>
+              </IconButton>
+            </Box>
           )}
           <Button
             onClick={isAuth ? handleLogout : handleLogin}
