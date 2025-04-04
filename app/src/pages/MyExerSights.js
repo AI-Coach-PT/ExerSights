@@ -3,7 +3,6 @@ import { Typography, Box } from "@mui/material";
 import { doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../firebaseConfig";
-import toast from "react-hot-toast";
 import ExerciseHistoryTable from "../components/ExerciseHistoryTable";
 
 const MyExerSights = () => {
@@ -30,10 +29,7 @@ const MyExerSights = () => {
           .sort((a, b) => b.timestamp - a.timestamp);
 
         // Log the sorted history
-        console.log("Exercise History:", sortedHistory);
         setExerciseHistory(sortedHistory);
-
-        return sortedHistory;
       } else {
         console.log("No such user document!");
         return [];
@@ -50,10 +46,8 @@ const MyExerSights = () => {
       if (user) {
         setIsAuth(true); // signed in
         fetchExerciseHistory(auth.currentUser.email);
-        toast("User signed in!");
       } else {
         setIsAuth(false); // signed out
-        toast("User signed out!");
       }
     });
 
@@ -61,7 +55,17 @@ const MyExerSights = () => {
   }, [auth]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        textAlign: "center",
+        padding: "0.5rem",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}>
+      <Typography variant="h1" sx={{ mb: "1.5rem" }}>
+        Your ExerSights History
+      </Typography>
       <ExerciseHistoryTable exerciseHistory={exerciseHistory} />
     </Box>
   );

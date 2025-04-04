@@ -12,7 +12,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { handleLogin, handleLogout } from "../utils/helpers/HandleLogin";
 import MenuIcon from "@mui/icons-material/Menu";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import exerSightsLogo from "../assets/logos/logoNoName.png";
@@ -26,6 +25,9 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { auth, provider } from "../firebaseConfig";
+import { signInWithPopup, signOut } from "firebase/auth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 /**
  * Menubar is a component that displays a navigation bar with links for all of the main pages.
@@ -44,11 +46,36 @@ function Menubar(props) {
     { text: "ABOUT", path: "/about", icon: <InfoIcon /> },
   ];
   const auth = getAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [isAuth, setIsAuth] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setIsDrawerOpen(!isDrawerOpen);
+  };
+
+  const handleLogin = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+      console.log("User logged in successfully!");
+    } catch (error) {
+      console.error("Login Error: ", error);
+    }
+  };
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("User logged out successfully!");
+        if (location.pathname === "/myExerSights") {
+          navigate("/home");
+        }
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
   };
 
   // call this method whenever authentication changes
@@ -101,7 +128,7 @@ function Menubar(props) {
             justifyContent: "center",
           }}>
           {menuItems.map((item) => (
-            <Box sx={{ mx: "8px" }}>
+            <Box sx={{ mx: "6px" }}>
               <IconButton
                 component={Link}
                 to={item.path}
@@ -124,27 +151,25 @@ function Menubar(props) {
             justifyContent: "right",
             alignItems: "center",
           }}>
-          <IconButton onClick={props.toggleDarkMode} sx={{ color: "text.primary", mr: "1rem" }}>
+          <IconButton onClick={props.toggleDarkMode} sx={{ color: "text.primary" }}>
             {props.darkMode ? <LightModeIcon /> : <DarkModeIcon />}
           </IconButton>
           {isAuth && (
-            <Box sx={{ mx: "8px" }}>
-              <IconButton
-                component={Link}
-                to="/myExerSights"
-                sx={{ gap: "3px", color: "text.primary" }}>
-                <AccountCircleIcon />
-                <Typography fontWeight={500} color="text.primary">
-                  MY EXERSIGHTS
-                </Typography>
-              </IconButton>
-            </Box>
+            <IconButton
+              component={Link}
+              to="/myExerSights"
+              sx={{ gap: "2px", color: "text.primary" }}>
+              <AccountCircleIcon />
+              <Typography fontWeight={500} color="text.primary" sx={{ overflow: "none" }}>
+                MY EXERSIGHTS
+              </Typography>
+            </IconButton>
           )}
           <Button
             onClick={isAuth ? handleLogout : handleLogin}
             variant="text"
             color="text.primary"
-            sx={{ ml: "0.75rem" }}>
+            sx={{}}>
             {isAuth ? "Logout" : "Login"}
           </Button>
         </Box>
@@ -187,6 +212,17 @@ function Menubar(props) {
                 />
               </ListItem>
             ))}
+            {isAuth && (
+              <ListItem button component={Link} to="/myExerSights" onClick={handleDrawerToggle}>
+                <ListItemText
+                  primary={"MY EXERSIGHTS"}
+                  primaryTypographyProps={{
+                    color: "text.primary",
+                    align: "center",
+                  }}
+                />
+              </ListItem>
+            )}
             <ListItem
               button
               onClick={() => {
@@ -194,7 +230,7 @@ function Menubar(props) {
                 handleDrawerToggle();
               }}>
               <ListItemText
-                primary={isAuth ? "Logout" : "Login"}
+                primary={isAuth ? "LOGOUT" : "LOGIN"}
                 primaryTypographyProps={{
                   color: "text.primary",
                   align: "center",
