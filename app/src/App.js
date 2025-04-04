@@ -17,6 +17,7 @@ import ExercisePage from "./pages/exercises/ExercisePage";
 import { Toaster } from "react-hot-toast";
 import PageViewTracker from "./components/PageViewTracker";
 import LoginPrompt from "./components/LoginPrompt";
+import MyExerSights from "./pages/MyExerSights";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -218,6 +219,7 @@ function App() {
           <Route path="/exercise" element={<ExercisePage />} />
           <Route path="/program" element={<Program />} />
           <Route path="/programOverlay" element={<ProgramOverlay />} />
+          <Route path="/myExerSights" element={<MyExerSights />} />
         </Routes>
       </Router>
     </ThemeProvider>
