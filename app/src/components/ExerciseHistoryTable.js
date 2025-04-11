@@ -26,10 +26,10 @@ const ExerciseHistoryTable = ({ exerciseHistory, setExerciseHistory }) => {
 
   const sortedData = React.useMemo(() => {
     const comparator = (a, b) => {
-      if (order === "desc") {
-        return b[orderBy] - a[orderBy];
+      if (orderBy === "exercise") {
+        return order === "asc" ? a.exercise.localeCompare(b.exercise) : b.exercise.localeCompare(a.exercise);
       } else {
-        return a[orderBy] - b[orderBy];
+        return order === "desc" ? b[orderBy] - a[orderBy] : a[orderBy] - b[orderBy];
       }
     };
 
