@@ -66,7 +66,7 @@ const MyExerSights = () => {
       <Typography variant="h1" sx={{ mb: "1.5rem" }}>
         Your ExerSights History
       </Typography>
-      <ExerciseHistoryTable exerciseHistory={exerciseHistory} />
+      <ExerciseHistoryTable exerciseHistory={exerciseHistory} setExerciseHistory={setExerciseHistory} />
       <Typography variant="body2" sx={{ color: "text.secondary", m: "2rem" }}>
         Note: Mobile users or users with limited screenwidth may have to scroll horizontally to see
         the entire table.
