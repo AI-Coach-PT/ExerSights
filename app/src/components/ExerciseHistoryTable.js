@@ -8,9 +8,13 @@ import {
   TableRow,
   TableSortLabel,
   Paper,
+  IconButton,
 } from "@mui/material";
+import Delete from "@mui/icons-material/DeleteForever";
+import { doc, updateDoc, deleteField } from "firebase/firestore";
+import { auth, db } from "../firebaseConfig";
 
-const ExerciseHistoryTable = ({ exerciseHistory }) => {
+const ExerciseHistoryTable = ({ exerciseHistory, setExerciseHistory }) => {
   const [orderBy, setOrderBy] = useState("timestamp");
   const [order, setOrder] = useState("desc");
 
@@ -22,15 +26,39 @@ const ExerciseHistoryTable = ({ exerciseHistory }) => {
 
   const sortedData = React.useMemo(() => {
     const comparator = (a, b) => {
-      if (order === "desc") {
-        return b[orderBy] - a[orderBy];
+      if (orderBy === "exercise") {
+        return order === "asc" ? a.exercise.localeCompare(b.exercise) : b.exercise.localeCompare(a.exercise);
       } else {
-        return a[orderBy] - b[orderBy];
+        return order === "desc" ? b[orderBy] - a[orderBy] : a[orderBy] - b[orderBy];
       }
     };
 
     return [...exerciseHistory].sort(comparator);
   }, [exerciseHistory, order, orderBy]);
+
+  const deleteExerciseEntry = async (timestamp) => {
+    const user = auth.currentUser;
+
+    if (!user || !user.email) {
+      console.error("User is not logged in.");
+      return;
+    }
+
+    try {
+      const userRef = doc(db, "users", user.email);
+      await updateDoc(userRef, {
+        [`exerciseHistory.${timestamp}`]: deleteField(),
+      });
+
+      setExerciseHistory((prevHistory) =>
+        prevHistory.filter((entry) => entry.timestamp !== timestamp)
+      );
+
+      console.log("Exercise deleted:", timestamp);
+    } catch (e) {
+      console.error("Error deleting exercise:", e);
+    }
+  };
 
   return (
     <TableContainer component={Paper} sx={{ p: "0.5rem" }}>
@@ -69,6 +97,9 @@ const ExerciseHistoryTable = ({ exerciseHistory }) => {
                 Rep Count
               </TableSortLabel>
             </TableCell>
+            <TableCell align="right" sx={{ fontSize: "1.1rem", fontWeight: "bold" }}>
+              Delete?
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -88,6 +119,13 @@ const ExerciseHistoryTable = ({ exerciseHistory }) => {
               </TableCell>
               <TableCell align="right" sx={{ fontSize: "1.05rem" }}>
                 {row.repCount}
+              </TableCell>
+              <TableCell align="right">
+                <IconButton
+                  onClick={() => deleteExerciseEntry(row.timestamp)}
+                  sx={{ color: "red" }}>
+                  <Delete />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}
