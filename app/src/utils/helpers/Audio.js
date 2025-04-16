@@ -1,15 +1,57 @@
-import rep from '../../assets/correct.wav'
+import rep from '../../assets/correct.wav';
 
 let voiceName = "Google US English";
 let selectedVoice = null;
+
+let unlocked = false;
+let speechUnlocked = false;
+let sharedAudio = new Audio(rep);
+
+/**
+ * Unlocks audio playback (needed for mobile browsers).
+ */
+const unlockAudio = () => {
+    if (!unlocked) {
+        try {
+            const context = new window.AudioContext();
+            const buffer = context.createBuffer(1, 1, 22050);
+            const source = context.createBufferSource();
+            source.buffer = buffer;
+            source.connect(context.destination);
+            source.start(0);
+            unlocked = true;
+        } catch (err) {
+            console.warn("Failed to unlock audio", err);
+        };
+    }
+
+    if (!speechUnlocked) {
+        const utterance = new SpeechSynthesisUtterance("unlock");
+        utterance.volume = 0;
+        utterance.onend = () => {
+            speechUnlocked = true;
+        };
+        try {
+            window.speechSynthesis.speak(utterance);
+        } catch (err) {
+            console.warn("Failed to unlock speech", err);
+        }
+    }
+};
 
 /**
  * Plays an audio file for correct repetition feedback.
  */
 const playSoundCorrectRep = () => {
-    const audio = new Audio(rep);
-    audio.play();
-}
+    if (!unlocked) {
+        console.warn("Audio not unlocked yet");
+        return;
+    }
+    sharedAudio.currentTime = 0;
+    sharedAudio.play().catch((err) => {
+        console.warn("Audio playback failed", err);
+    });
+};
 
 /**
  * Sets voiceName string to parameter name.
@@ -49,8 +91,9 @@ window.speechSynthesis.onvoiceschanged = setVoice;
  * @param {string} text - The text to be converted to audio.
  */
 const playText = (text) => {
-    if (voiceName === "None")
+    if (!speechUnlocked || voiceName === "None") {
         return;
+    }
 
     window.speechSynthesis.cancel();
 
@@ -60,4 +103,11 @@ const playText = (text) => {
     window.speechSynthesis.speak(utterance);
 }
 
-export { playSoundCorrectRep, playText, setVoiceName, getVoiceName, setVoice };
+export {
+    playSoundCorrectRep,
+    playText,
+    setVoiceName,
+    getVoiceName,
+    setVoice,
+    unlockAudio
+};
