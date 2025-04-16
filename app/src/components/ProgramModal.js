@@ -8,11 +8,9 @@ import {
   TextField,
   MenuItem,
   Select,
-  FormControl, // Import FormControl for better Select layout/labeling if needed
-  InputLabel, // Import InputLabel if needed
+  FormControl,
 } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { catalogText } from "../assets/content.js";
 
@@ -271,7 +269,6 @@ function ProgramModal({ programId, programData, programsState, setProgramsState 
 
           {/* --- Section for Adding New Exercises --- */}
           <Box sx={{ borderTop: '1px solid lightgray', pt: 2, mt: 2, display: 'flex', alignItems: 'center', gap: 1}}>
-             {/* Wrap Select in FormControl for layout, but no InputLabel */}
              <FormControl fullWidth sx={{ flexGrow: 1 }}>
                 <Select
                     value={newExerciseToAdd}
