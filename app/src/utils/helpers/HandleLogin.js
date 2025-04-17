@@ -1,5 +1,6 @@
 import { auth, provider } from "../../firebaseConfig";
 import { signInWithPopup, signOut } from "firebase/auth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 /**
  * Handles user login using Firebase Google Single Sign-On.
@@ -11,12 +12,12 @@ import { signInWithPopup, signOut } from "firebase/auth";
  * @throws Logs an error message in the console if login fails.
  */
 export const handleLogin = async () => {
-    try {
-        await signInWithPopup(auth, provider);
-        console.log("User logged in successfully!");
-    } catch (error) {
-        console.error("Login Error: ", error);
-    }
+  try {
+    await signInWithPopup(auth, provider);
+    console.log("User logged in successfully!");
+  } catch (error) {
+    console.error("Login Error: ", error);
+  }
 };
 
 /**
@@ -27,11 +28,11 @@ export const handleLogin = async () => {
  * @throws Logs error message in the console if logout fails.
  */
 export const handleLogout = () => {
-    signOut(auth)
-        .then(() => {
-            console.log("User logged out successfully!");
-        })
-        .catch((error) => {
-            console.error("Error logging out:", error);
-        });
+  signOut(auth)
+    .then(() => {
+      console.log("User logged out successfully!");
+    })
+    .catch((error) => {
+      console.error("Error logging out:", error);
+    });
 };

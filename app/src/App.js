@@ -17,6 +17,7 @@ import ExercisePage from "./pages/exercises/ExercisePage";
 import { Toaster } from "react-hot-toast";
 import PageViewTracker from "./components/PageViewTracker";
 import LoginPrompt from "./components/LoginPrompt";
+import MyExerSights from "./pages/MyExerSights";
 import PushUpGamePage from "./utils/exercises/pushUpGame";
 
 /**
@@ -219,6 +220,7 @@ function App() {
           <Route path="/exercise" element={<ExercisePage />} />
           <Route path="/program" element={<Program />} />
           <Route path="/programOverlay" element={<ProgramOverlay />} />
+          <Route path="/myExerSights" element={<MyExerSights />} />
           <Route path="/pushUpGame" element={<PushUpGamePage />} />
         </Routes>
       </Router>

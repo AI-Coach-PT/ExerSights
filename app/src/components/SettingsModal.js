@@ -104,7 +104,9 @@ function SettingsModal({
 
   return (
     <Box>
-      <IconButton onClick={handleOpenModal} sx={{ position: "relative", gap: "3px" }}>
+      <IconButton
+        onClick={handleOpenModal}
+        sx={{ position: "relative", gap: "3px", color: "text.primary" }}>
         <SettingsIcon fontSize="small" />
         <Typography>Settings</Typography>
       </IconButton>

@@ -6,7 +6,37 @@ import FeedbackPanel from "../../components/FeedbackPanel";
 import ExerciseBox from "../../components/ExerciseBox";
 import { resetRepCount } from "../../utils/GenFeedback";
 import { loadExerciseData } from "./ExercisePageData";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import toast from "react-hot-toast";
 
+/**
+ * ExercisePage component - Main page for exercise tracking functionality.
+ *
+ * This component coordinates the exercise experience, loading exercise data,
+ * managing state for feedback, repetition counting, and visualization settings.
+ * It integrates with pose detection and provides real-time feedback to users.
+ *
+ * @component
+ * @param {string} exerciseName - Name of the exercise to load (can be provided as prop or URL parameter)
+ * @returns {JSX.Element} Complete exercise tracking interface with video feed and feedback panel
+ */
+
+/**
+ * State management:
+ * - exerciseData: Loaded configuration for the specific exercise
+ * - loading: Indicates if exercise data is being loaded
+ * - error: Indicates if there was an error loading exercise data
+ * - feedback: Current feedback message to display to the user
+ * - repCount: Number of completed exercise repetitions
+ * - color: Visual feedback color indicator
+ * - jointAngles: Current angles of user's joints from pose detection
+ * - angleView: Whether to display joint angle visualization
+ * - targetAngles: Target joint angles for correct exercise form
+ * - drawSkeleton: Whether to draw skeleton overlay on video
+ * - playFeedback: Whether feedback is currently active
+ * - showSummary: Whether to show exercise summary
+ * - firstPlayFeedback: Tracks if feedback has been started at least once
+ */
 function ExercisePage({ exerciseName: propExerciseName }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -23,12 +53,42 @@ function ExercisePage({ exerciseName: propExerciseName }) {
   const [angleView, setAngleView] = useState(true);
   const [targetAngles, setTargetAngles] = useState({});
   const [drawSkeleton, setDrawSkeleton] = useState(true);
+  const [playFeedback, setPlayFeedback] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
+  const [firstPlayFeedback, setFirstPlayFeedback] = useState(true);
 
   const targetAnglesRef = useRef({});
+  const playFeedbackRef = useRef(playFeedback);
+
+  const auth = getAuth();
+  const [isAuth, setIsAuth] = useState(false);
+
+  // call this method whenever authentication changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuth(true); // signed in
+      } else {
+        setIsAuth(false); // signed out
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
 
   useEffect(() => {
     targetAnglesRef.current = targetAngles;
   }, [targetAngles]);
+
+  useEffect(() => {
+    // update playFeedbackRef whenever playFeedback changes
+    // playFeedback changed in ExerciseBox (user toggle)
+    playFeedbackRef.current = playFeedback;
+
+    // for the summary, do not show before the first play feedback
+    if (firstPlayFeedback) setFirstPlayFeedback(false);
+    setShowSummary(!playFeedback && !firstPlayFeedback);
+  }, [playFeedback]);
 
   useEffect(() => {
     if (!exerciseName) {
@@ -89,6 +149,9 @@ function ExercisePage({ exerciseName: propExerciseName }) {
   ]);
 
   const processPoseResults = (landmarks) => {
+    // skip processing if playFeedback is false
+    if (!playFeedbackRef.current) return;
+
     checkFunction(
       landmarks,
       setFeedback,
@@ -141,6 +204,13 @@ function ExercisePage({ exerciseName: propExerciseName }) {
       color={color}
       repCount={repCount}
       drawSkeleton={drawSkeleton}
+      playFeedback={playFeedback}
+      setPlayFeedback={setPlayFeedback}
+      showSummary={showSummary}
+      setShowSummary={setShowSummary}
+      handleReset={handleReset}
+      auth={auth}
+      isAuth={isAuth}
     />
   );
 }
