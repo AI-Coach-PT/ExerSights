@@ -15,7 +15,7 @@ function VoiceButton() {
     <Tooltip title={`${voiceFeedbackEnabled ? "Disable" : "Enable"} Voice Feedback`}>
       <IconButton onClick={toggleVoiceFeedback}>
         <Box sx={{ display: "flex", alignItems: "center", gap: "3px", color: "text.primary" }}>
-          <RecordVoiceOverIcon sx={{ color: voiceFeedbackEnabled ? "red" : "" }} />
+          <RecordVoiceOverIcon sx={{ color: voiceFeedbackEnabled ? "green" : "" }} />
           <Typography>AI Voice</Typography>
         </Box>
       </IconButton>

@@ -18,6 +18,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import StopIcon from "@mui/icons-material/Stop";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { unlockAudio } from "../utils/helpers/Audio";
 
 /**
  * ExerciseBox component - A reusable layout component for exercise tracking pages.
@@ -103,6 +104,8 @@ function ExerciseBox({
   };
 
   const handlePlayFeedback = () => {
+    if (!playFeedback) unlockAudio();
+
     setPlayFeedback(!playFeedback);
     if (!playFeedback) setStartTime(Date.now());
     else setEndTime(Date.now());
