@@ -1,11 +1,15 @@
 import rep from "../../assets/correct.wav";
+import louder_rep from "../../assets/correct_louder.wav";
+import even_louder_rep from "../../assets/correct_even_louder.wav";
 
 let voiceName = "Google US English";
 let selectedVoice = null;
 
 let unlocked = false;
 let speechUnlocked = false;
-let sharedAudio = new Audio(rep);
+// let sharedAudio = new Audio(rep);
+// let sharedAudio = new Audio(louder_reprep);
+let sharedAudio = new Audio(even_louder_reprep);
 
 /**
  * Unlocks audio playback (needed for mobile browsers).
