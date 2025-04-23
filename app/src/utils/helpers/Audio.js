@@ -8,8 +8,8 @@ let selectedVoice = null;
 let unlocked = false;
 let speechUnlocked = false;
 // let sharedAudio = new Audio(rep);
-// let sharedAudio = new Audio(louder_reprep);
-let sharedAudio = new Audio(even_louder_reprep);
+// let sharedAudio = new Audio(louder_rep);
+let sharedAudio = new Audio(even_louder_rep);
 
 /**
  * Unlocks audio playback (needed for mobile browsers).
