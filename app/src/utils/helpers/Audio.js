@@ -1,6 +1,5 @@
 import rep from "../../assets/correct.wav";
 import louder_rep from "../../assets/correct_louder.wav";
-import even_louder_rep from "../../assets/correct_even_louder.wav";
 
 let voiceName = "Google US English";
 let selectedVoice = null;
@@ -8,8 +7,7 @@ let selectedVoice = null;
 let unlocked = false;
 let speechUnlocked = false;
 // let sharedAudio = new Audio(rep);
-// let sharedAudio = new Audio(louder_rep);
-let sharedAudio = new Audio(even_louder_rep);
+let sharedAudio = new Audio(louder_rep);
 
 /**
  * Unlocks audio playback (needed for mobile browsers).
@@ -109,4 +107,11 @@ const playText = (text) => {
   window.speechSynthesis.speak(utterance);
 };
 
-export { playSoundCorrectRep, playText, setVoiceName, getVoiceName, setVoice, unlockAudio };
+export {
+  playSoundCorrectRep,
+  playText,
+  setVoiceName,
+  getVoiceName,
+  setVoice,
+  unlockAudio,
+};

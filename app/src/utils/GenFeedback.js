@@ -25,7 +25,7 @@ export const genCheck = (
   onFeedbackUpdate,
   setColor,
   setRepCount,
-  angleHandlers = {}
+  angleHandlers = {},
 ) => {
   if (!landmarks) {
     if (!exerInfo.disableVisibilityCheck) {
@@ -44,18 +44,22 @@ export const genCheck = (
 
   // Dynamically calculate angles for all joints defined in jointInfo.jointAngles
   if (exerInfo.jointInfo.jointAngles) {
-    for (const [jointName, jointIndices] of Object.entries(exerInfo.jointInfo.jointAngles)) {
+    for (const [jointName, jointIndices] of Object.entries(
+      exerInfo.jointInfo.jointAngles,
+    )) {
       jointData[jointName] = calculateAngle(
         landmarks[jointIndices[0]],
         landmarks[jointIndices[1]],
-        landmarks[jointIndices[2]]
+        landmarks[jointIndices[2]],
       );
     }
   }
 
   // Dynamically pass positions for all joints defined in jointInfo.jointPositions
   if (exerInfo.jointInfo.jointPos) {
-    for (const [jointName, jointIndex] of Object.entries(exerInfo.jointInfo.jointPos)) {
+    for (const [jointName, jointIndex] of Object.entries(
+      exerInfo.jointInfo.jointPos,
+    )) {
       jointData[jointName] = {
         x: landmarks[jointIndex].x,
         y: landmarks[jointIndex].y,
@@ -117,7 +121,7 @@ export const genCheck = (
 
     if (exerInfo.states[currState].audio) {
       const playWithDelay = async () => {
-        await delay(1000);
+        await delay(500);
         playText(exerInfo.states[currState].feedback);
       };
       playWithDelay();
@@ -189,7 +193,12 @@ export const resetRepCount = (val) => {
  * @returns {string|null} - The determined transition type or null if no transition applies.
  */
 
-export const getTransitionType = (jointData, closerSide, exerciseFSM, currState) => {
+export const getTransitionType = (
+  jointData,
+  closerSide,
+  exerciseFSM,
+  currState,
+) => {
   const targets = exerciseFSM.targets;
   const jointPos = exerciseFSM.jointInfo.jointPos;
   const jointAngles = exerciseFSM.jointInfo.jointAngles;
@@ -219,12 +228,21 @@ export const getTransitionType = (jointData, closerSide, exerciseFSM, currState)
     for (const [key, index] of Object.entries(jointPos)) {
       if (key.startsWith(closerSide)) {
         // Match only relevant side
-        const genericKey = key.replace(closerSide, "").replace(/Pos$/, "").toLowerCase();
+        const genericKey = key
+          .replace(closerSide, "")
+          .replace(/Pos$/, "")
+          .toLowerCase();
 
-        if (jointData[key] && typeof jointData[key] === "object" && "y" in jointData[key]) {
+        if (
+          jointData[key] &&
+          typeof jointData[key] === "object" &&
+          "y" in jointData[key]
+        ) {
           jointDataMap[genericKey + "Pos"] = jointData[key];
         } else {
-          console.warn(`WARNING: Missing or invalid jointData for index ${key}`);
+          console.warn(
+            `WARNING: Missing or invalid jointData for index ${key}`,
+          );
           jointDataMap[genericKey + "Pos"] = { x: 0, y: 0 };
         }
       }
@@ -238,9 +256,15 @@ export const getTransitionType = (jointData, closerSide, exerciseFSM, currState)
 
       // Replace generic placeholders with actual values from jointDataMap
       Object.keys(jointDataMap).forEach((key) => {
-        if (typeof jointDataMap[key] === "object" && jointDataMap[key] !== null) {
+        if (
+          typeof jointDataMap[key] === "object" &&
+          jointDataMap[key] !== null
+        ) {
           // If the key represents a position object ({x, y}), replace properly
-          req = req.replace(new RegExp(`\\b${key}\\.y\\b`, "g"), jointDataMap[key].y);
+          req = req.replace(
+            new RegExp(`\\b${key}\\.y\\b`, "g"),
+            jointDataMap[key].y,
+          );
         } else {
           req = req.replace(new RegExp(`\\b${key}\\b`, "g"), jointDataMap[key]);
         }
