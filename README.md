@@ -39,19 +39,6 @@ Users also have the ability to create personalized workouts by performing the fo
 - **Visibility of Joints/Limbs**: In order to receive the most accurate feedback, please ensure that your entire body is visible to the camera. It is possible for the computer vision model to guess the position of non-visible joints, but this is often inaccurate and jittery. If your entire body is not in frame, the feedback panel will display the “Make sure all limbs are visible” error message as a warning.
 - **Cheating the Model**: It is possible to cheat while doing many of the exercises, as our system takes into account a limited number of joint angles/positions to calculate feedback. For example, you can cheat the squat exercise by simply lifting your knee up to bend it beyond the target angle. We assume that all users are acting in good faith when using the app. Cheating the app is not advised as it disrupts your own workout efficacy. 
 
-
-### Project Architecture
-
-ExerSights is a web application built with three main technologies: React.js (React), MediaPipe Solutions, and Firebase. The web app can be accessed via a standard web browser or downloaded as a Progressive Web App (PWA) to use offline if desired.
-
-- The entire frontend user interface of ExerSights is built with React, a popular JavaScript library known for its component-based architecture and efficient Virtual DOM rendering, which updates only necessary UI elements for improved responsiveness. We leverage the Material UI (MUI) component library, implementing Google’s Material Design with production-ready components like Button, Typography, and Card.
-
-- ExerSights uses the WebRTC `getUserMedia` API for camera access or a file API for uploaded videos, feeding these to Google’s MediaPipe Solutions for real-time human pose detection with limb and joint landmarks. We employ MediaPipe's lightweight tasks-vision landmark detection model (which uses OpenCV, an open-source computer vision model) to minimize client-side compute and latency, receiving X-Y coordinates of detected landmarks for angle calculations to track user posture.
-
-- ExerSights does not have a dedicated backend. Instead, ExerSights is a frontend-focused application with pose processing and exercise logic handled client-side in JavaScript to reduce latency. For user cloud features and hosting, we utilize Firebase, Google’s BaaS. Specifically, we use App Hosting for streamlined deployment via GitHub CI/CD, Authentication for easy Google sign-on, Cloud Firestore as our NoSQL database for intuitive user data storage and customization, and Analytics to monitor user activity and app performance.
-
-![Architecture Image](docs/images/Architecture.png)
-
 ### Development Advice
 
 - Ensure you have configured a streamlined development environment sooner rather than later, especially when you have multiple contributors. This enables much faster and less frustrating development. We have already set-up a realtively smooth workflow and CI/CD for this project and repository. 
