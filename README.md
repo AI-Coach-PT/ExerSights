@@ -54,6 +54,7 @@ ExerSights is a web application built with three main technologies: React.js (Re
 
 ### Development Advice
 
+- Ensure you have configured a streamlined development environment sooner rather than later, especially when you have multiple contributors. This enables much faster and less frustrating development. We have already set-up a realtively smooth workflow and CI/CD for this project and repository. 
 - When developing larger more complex features, we highly recommend developing a working prototype of the feature as quickly as possible. Especially for features that require API calls, getting those working can be complex and tedious in their own right (i.e. MediaPipe).
 - We also recommend keeping the core architecture and code relatively simple when possible. We intentionally did not create a seperate backend, which streamlined not only development, but also the usage. 
 - When it comes to software, clean and well-generalized code is always the ideal. However, this is not necessarliy always feasible so it is important to chose when and where you generalize your code. Specifically, components and pages that repeat several times should be generalized (exercise pages, feedback panel component, exercise settings pages)
