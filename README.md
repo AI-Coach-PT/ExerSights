@@ -33,11 +33,11 @@ Users also have the ability to create personalized workouts by performing the fo
 
 #### Operating Environment
 
-- Crowded Environment: We do not advise using ExerSights in a crowded environment. While it is possible for the Mediapipe computer vision model to detect more than one person in the frame, we have limited control over the model and cannot guarantee that it will always detect the correct person performing the exercise. By default, ExerSights is programmed to assume only one person is in the frame. To avoid the model switching to another person, ensure that you are the only one in frame.
-- Lighting/Background: To ensure the highest feedback accuracy, please perform exercises in a well-lit area where your body joints/limbs are discernible and visible to the camera. Also, make sure that there is a degree of contrast between you and the background. If you are wearing all blue clothes and your background is a blue wall, the model may have difficulty identifying your joint positions.
-- Camera Placement: Each exercise has its own ideal camera placement, which ensures the highest accuracy of its feedback. For example, the squat exercise recommends users to position themselves so that the side of their body is facing the camera. Although it is possible to perform the exercise with the front of your body facing the camera, it will not be as accurate.
-- Visibility of Joints/Limbs: In order to receive the most accurate feedback, please ensure that your entire body is visible to the camera. It is possible for the computer vision model to guess the position of non-visible joints, but this is often inaccurate and jittery. If your entire body is not in frame, the feedback panel will display the “Make sure all limbs are visible” error message as a warning.
-- Cheating the Model: It is possible to cheat while doing many of the exercises, as our system takes into account a limited number of joint angles/positions to calculate feedback. For example, you can cheat the squat exercise by simply lifting your knee up to bend it beyond the target angle. We assume that all users are acting in good faith when using the app. Cheating the app is not advised as it disrupts your own workout efficacy. 
+- **Crowded Environment**: We do not advise using ExerSights in a crowded environment. While it is possible for the Mediapipe computer vision model to detect more than one person in the frame, we have limited control over the model and cannot guarantee that it will always detect the correct person performing the exercise. By default, ExerSights is programmed to assume only one person is in the frame. To avoid the model switching to another person, ensure that you are the only one in frame.
+- **Lighting/Background**: To ensure the highest feedback accuracy, please perform exercises in a well-lit area where your body joints/limbs are discernible and visible to the camera. Also, make sure that there is a degree of contrast between you and the background. If you are wearing all blue clothes and your background is a blue wall, the model may have difficulty identifying your joint positions.
+- **Camera Placement**: Each exercise has its own ideal camera placement, which ensures the highest accuracy of its feedback. For example, the squat exercise recommends users to position themselves so that the side of their body is facing the camera. Although it is possible to perform the exercise with the front of your body facing the camera, it will not be as accurate.
+- **Visibility of Joints/Limbs**: In order to receive the most accurate feedback, please ensure that your entire body is visible to the camera. It is possible for the computer vision model to guess the position of non-visible joints, but this is often inaccurate and jittery. If your entire body is not in frame, the feedback panel will display the “Make sure all limbs are visible” error message as a warning.
+- **Cheating the Model**: It is possible to cheat while doing many of the exercises, as our system takes into account a limited number of joint angles/positions to calculate feedback. For example, you can cheat the squat exercise by simply lifting your knee up to bend it beyond the target angle. We assume that all users are acting in good faith when using the app. Cheating the app is not advised as it disrupts your own workout efficacy. 
 
 
 ### Project Architecture
@@ -52,76 +52,16 @@ ExerSights is a web application built with three main technologies: React.js (Re
 
 ![Architecture Image](docs/images/Architecture.png)
 
-### Development
-
-When it comes to development, we work in this GitHub repository. The main branch is directly deployed to our URL. To maintain the integrity of our deployment, we established a CI/CD pipeline. Every new feature starts as a GitHub issue and is developed on a separate branch from main. Once the feature was ready, the developer submits a pull request (PR) and assigned reviewers. Each PR triggered the following automated GitHub Actions: a GitHub CodeQL scan for potential security vulnerabilities, and a Firebase preview deployment so reviewers could test the update without pulling or checking out the branch locally. Only once a PR passes all checks and reviews, do we then merge the branch into main. 
-
-#### Set-up Instructions
-1. Clone the repository
-2. Set-up a `.gitignore` file. We provide an example [here](docs/gitignore-example.txt).
-3. Create a `.env` file with necessary keys. We provide an example [here](docs/env-example.txt).
-4. Run `npm install` to install necessary packages.
-5. Run `npm start` to run a local deployment
-6. Happy developing! 
-
-#### Exercise Logic
-
-With landmarks and location data of the user limbs provided by MediaPipe, our main challenge was to translate these different exercises into code. To do so, we decided to represent exercises as an finite state machine (FSM), where each exercise is broken down into different states and the triggers for transitions between states. The defined transitions often require a specific sequence of movements and reaching certain angular thresholds to progress through the different phases of the exercise and complete a valid repetition. We realized that most exercises can be reasonably defined with this FSM and would allow us to generalize pages to add many exercises easily.
-
-![Toe Touch FSM Image](docs/images/toe-touch-fsm.png)
-
-Let's consider the Standing Toe Touch exercise, which, as illustrated, uses states like ‘DESCENDING,’ ‘FOLDING,’ ‘TOUCHING,’ and ‘RETURNING.’ A full repetition typically involves moving from the initial ‘STANDING’ state to the ‘DESCENDING’ state as the user begins to bend. To progress towards the toe touch, the user transitions to the ‘FOLDING’ state, bending further at the hips. The ‘TOUCHING’ state is reached when the user extends downwards to touch their toes or reach a target point. To complete the repetition, the user must then move through the ‘RETURNING’ state, gradually straightening back up until they reach the initial ‘STANDING’ state. This completes one full cycle. For instance, if a user has reached the ‘FOLDING’ state but doesn't extend downwards sufficiently to meet the criteria for the ‘TOUCHING’ state, they will not be able to transition directly back to the ‘RETURNING’ state. 
-
-To represent this FSM, we use a JSON data structure. Our current exercise can be found in [this directory](/app/src/utils/exercises/). 
-
-To add an exercise, developers can follow these steps:
-
-1. Create a new exercise file in the [exercise directory](./path/to/exercises).
-2. Define the FSM JSON for your exercise. Your FSM should include:
-
-   | Field        | Purpose                                                              | Example                                |
-   |--------------|----------------------------------------------------------------------|----------------------------------------|
-   | `states`     | Defines feedback, color, and repetition behavior for each posture state | INIT, FOLDING, TOUCHING, etc.          |
-   | `transitions`| Defines allowed state changes based on events                        | INIT ➔ FOLDING on `"folding"`          |
-   | `jointInfo`  | Lists key joints and angles to monitor (based on landmark indices)   | hipAngle, kneeAngle, etc.              |
-   | `conditions` | Describes what angle thresholds trigger which transitions            | hipAngle ≤ targetHipAngle ➔ `"hitTarget"` |
-   | `targets`    | Sets the default angles you want the user to hit                     | e.g., `targetHipAngle = 75` degrees    |
-   | `angleSetters` | Names of joint angles you want to continuously update during tracking | `setHipAngle`, `setKneeAngle`, etc.    |
-   | `title`      | Display name for the exercise                                        | "Standing Toe Touch"                   |
-   
-   Try to use clear and reasonable names for the states, transitions, and angles.
-
-3. Write a check function like the one shown below. This should be fairly straightforward once the exercise FSM JSON has been defined.
-    ```
-    export const checkYourExercise = (landmarks, onFeedbackUpdate, setColor, setCurrAngle1, setRepCount, yourTarget = 75) => {
-        yourExerciseInfo.targets["targetAngleName"] = yourTarget;
-
-        currState = genCheck(
-            yourExerciseInfo,
-            (...args) => getTransitionType(...args, yourExerciseInfo, currState),
-            currState,
-            landmarks,
-            onFeedbackUpdate,
-            setColor,
-            setRepCount,
-            { AngleName: setCurrAngle1 }
-        );
-    };
-    ```
-
-4. Find a suitable exercise image for the display and put in in [exercise-cards](/app/src/assets/exercise-cards/). Put a demonstration image for the ideal camera angle in [instructions](/app/src/assets/instructions/).
-
-5. Register your exercise in [content.json](/app/src/assets/content.json) and [content.js](/app/src/assets/content.js). 
-
-
-#### Development Advice
+### Development Advice
 
 - When developing larger more complex features, we highly recommend developing a working prototype of the feature as quickly as possible. Especially for features that require API calls, getting those working can be complex and tedious in their own right (i.e. MediaPipe).
 - We also recommend keeping the core architecture and code relatively simple when possible. We intentionally did not create a seperate backend, which streamlined not only development, but also the usage. 
 - When it comes to software, clean and well-generalized code is always the ideal. However, this is not necessarliy always feasible so it is important to chose when and where you generalize your code. Specifically, components and pages that repeat several times should be generalized (exercise pages, feedback panel component, exercise settings pages)
-- Beyond generalizing code, we also needed to generalize data for this project. It's important to standarize data you plan to parse often or save to the cloud. As an example, the distinction between the different exercise pages is the exercise JSON FSM described in the previous section. Similarly, our programs are also stored as a JSON.
+- Beyond generalizing code, we also needed to generalize data for this project. It's important to standarize data you plan to parse often or save to the cloud. As an example, the distinction between the different exercise pages is the exercise data. The actual pages themselves share the same code. Similarly, our programs are also stored as a JSON.
 - Thorough testing is always a must. Use `console.log` and your browser developer tools to detect and debug issues. Most previous can provide a heap snapshot to detect memory leaks as an example.
 - As developers constantly working in trenches of a project, it can be hard to think outside the box to come up with new features, especially in regards to usability. We found that getting external feedback from Professor, friends, family, or even strangers is a great remedy to this issue.
+- Exercise science is a very nuanced and complex topic in its own right. Translating this into software is not straightforward, so we advice starting with simple and ideal examples before tackling more complex exercises with many edge-cases.
+- It's okay to make assumptions. ExerSights is built on the faith that users are genuinely attempting these exercises, meaning certain exercises can be simplified. As an example, the push-up only checks the upper body. It presumes that the user's lower body is set in the push-up position and it does not affect the exercise lofic, so we do not check for it.
 
 ### Project State
 
