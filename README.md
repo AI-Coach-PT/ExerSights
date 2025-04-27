@@ -76,3 +76,11 @@ ExerSights is currently in a stable and functional state, with the core features
 - Stop feedback while another window is pulled up (settings or tutorial)
 - Allow PWA to update upon internet access
 - On mobile devices, audio feedback overrides the audio ding for a completed rep 
+
+## Software Report
+
+Our software report can be found in our Wiki at the following link: [https://github.com/AI-Coach-PT/ExerSights/wiki/Software-Report](/https://github.com/AI-Coach-PT/ExerSights/wiki/Software-Report)
+
+## Exercise References
+
+References for each exercise implementation can be found in our Wiki at the following link: [https://github.com/AI-Coach-PT/ExerSights/wiki/Exercise-References](/https://github.com/AI-Coach-PT/ExerSights/wiki/Exercise-References)
