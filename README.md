@@ -79,8 +79,8 @@ ExerSights is currently in a stable and functional state, with the core features
 
 ## Software Report
 
-Our software report can be found in our Wiki at the following link: [https://github.com/AI-Coach-PT/ExerSights/wiki/Software-Report](/https://github.com/AI-Coach-PT/ExerSights/wiki/Software-Report)
+Our software report can be found in our Wiki at the following link: [https://github.com/AI-Coach-PT/ExerSights/wiki/Software-Report](https://github.com/AI-Coach-PT/ExerSights/wiki/Software-Report)
 
 ## Exercise References
 
-References for each exercise implementation can be found in our Wiki at the following link: [https://github.com/AI-Coach-PT/ExerSights/wiki/Exercise-References](/https://github.com/AI-Coach-PT/ExerSights/wiki/Exercise-References)
+References for each exercise implementation can be found in our Wiki at the following link: [https://github.com/AI-Coach-PT/ExerSights/wiki/Exercise-References](https://github.com/AI-Coach-PT/ExerSights/wiki/Exercise-References)
