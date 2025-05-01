@@ -75,7 +75,7 @@ const detectPose = async (webcamRef, canvasRef, onResultCallback) => {
         canvasCtx.drawImage(webcamRef.current.video, 0, 0, canvas.width, canvas.height);
 
         if(result.landmarks.length === 2) {
-          sortedLandmarks = result.landmarks.sort((a, b) => a[11].x - b[11].x); //sort based on left shoulder x-coordinate
+          sortedLandmarks = result.landmarks.sort((a, b) => b[11].x - a[11].x); //sort based on left shoulder x-coordinate
         }
 
         for (let i = 0; i < sortedLandmarks.length; i++) {
