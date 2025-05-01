@@ -4,7 +4,6 @@ import createPushUpChecker from "./pushUpGameCheck";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/instructions/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
-import WebcamCanvas from "../../components/WebcamCanvas";
 import SettingsModal from "../../components/SettingsModal";
 import GameFeedbackPanel from "../../components/GameFeedbackPanel";
 import ExerciseBox from "../../components/ExerciseBoxGame";
@@ -66,6 +65,12 @@ function PushUpGamePage() {
       );
   };
 
+  
+  const updateTargetElbowAngle = (value) => {
+    setLeftTargetElbowAngle(value);
+    setRightTargetElbowAngle(value);
+  };
+
   useEffect(() => {
     setEnableTwoPoses(true);
     setEnableTwoPosesState(true);
@@ -89,7 +94,7 @@ function PushUpGamePage() {
             <SettingsModal
               exerciseName="pushup"
               targetAngles={{ targetElbowAngle: leftTargetElbowAngle }}
-              setTargetAnglesArray={[[setLeftTargetElbowAngle, "targetElbowAngle"]]}
+              setTargetAnglesArray={[[updateTargetElbowAngle, "targetElbowAngle"]]}
             />
           }
           onStartExercise={() => setPlayFeedback(true)}
@@ -114,3 +119,4 @@ function PushUpGamePage() {
 }
 
 export default PushUpGamePage;
+   
