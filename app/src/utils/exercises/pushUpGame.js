@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import detectPose from "../models/PoseDetector";
-import { checkPushUp } from "./PushUp";
+import createPushUpChecker from "./pushUpGameCheck";
 import HelpModal from "../../components/HelpModal";
 import squatHelpImg from "../../assets/instructions/squatHelp.png";
 import { instructionsTextSquat } from "../../assets/content";
@@ -8,8 +8,9 @@ import WebcamCanvas from "../../components/WebcamCanvas";
 import { resetRepCount } from "../GenFeedback";
 import SettingsModal from "../../components/SettingsModal";
 import FeedbackPanel from "../../components/FeedbackPanel";
-import ExerciseBoxWithDualFeedback from "../../components/ExerciseBoxWithDualFeedback";
+import ExerciseBox from "../../components/ExerciseBox";
 import { setEnableTwoPoses } from "../models/PoseDetectorTasksVision";
+import { Box } from "@mui/material";
 
 function PushUpGamePage() {
   const webcamRef = useRef(null);
@@ -20,6 +21,23 @@ function PushUpGamePage() {
   });
 
   const setEnableTwoPosesState = useState(false)[1];
+
+  // Shared state
+  const [audioEnabled, setAudioEnabled] = useState(true);
+  const [angleView, setAngleView] = useState(true);
+  const [playFeedback, setPlayFeedback] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
+
+  const toggleAudio = () => setAudioEnabled((prev) => !prev);
+  const toggleAngleView = () => setAngleView((prev) => !prev);
+
+  const handleVideoUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      console.log("Shared video uploaded:", file.name);
+      // Extend logic as needed
+    }
+  };
 
   // State for the left pose
   const [leftFeedback, setLeftFeedback] = useState("");
@@ -33,47 +51,47 @@ function PushUpGamePage() {
   const [rightRepCount, setRightRepCount] = useState(0);
   const [rightTargetElbowAngle, setRightTargetElbowAngle] = useState(100);
 
-  // Memoized processPoseResults to avoid triggering useEffect on every render
+  // Create independent push-up checkers
+  const leftPushUpChecker = useRef(createPushUpChecker());
+  const rightPushUpChecker = useRef(createPushUpChecker());
+
   const processPoseResults = (landmarks0, landmarks1) => {
-      // Process both poses from the same landmarks
+    leftPushUpChecker.current(
+      landmarks0,
+      setLeftFeedback,
+      setLeftElbowAngle,
+      setLeftRepCount,
+      leftTargetElbowAngle
+    );
 
-      checkPushUp(
-        landmarks0,
-        setLeftFeedback,
-        setLeftElbowAngle,
-        setLeftRepCount,
-        leftTargetElbowAngle
-      );
-
-      checkPushUp(
-        landmarks1,
-        setRightFeedback,
-        setRightElbowAngle,
-        setRightRepCount,
-        rightTargetElbowAngle
-      );
-    };
-
+    rightPushUpChecker.current(
+      landmarks1,
+      setRightFeedback,
+      setRightElbowAngle,
+      setRightRepCount,
+      rightTargetElbowAngle
+    );
+  };
 
   const handleLeftReset = () => {
     resetRepCount(0);
     setLeftRepCount(0);
+    leftPushUpChecker.current = createPushUpChecker(); // Reset logic
   };
 
   const handleRightReset = () => {
     resetRepCount(0);
     setRightRepCount(0);
+    rightPushUpChecker.current = createPushUpChecker(); // Reset logic
   };
 
   useEffect(() => {
-    setEnableTwoPoses(true); // Enable two poses when the component mounts
+    setEnableTwoPoses(true);
     setEnableTwoPosesState(true);
-
-    // Shared pose detection for both feedback panels
     detectPose(webcamRef, canvasRef, processPoseResults);
 
     return () => {
-      setEnableTwoPoses(false); // Disable two poses when the component unmounts
+      setEnableTwoPoses(false);
       setEnableTwoPosesState(false);
     };
   }, [setEnableTwoPosesState]);
@@ -99,6 +117,11 @@ function PushUpGamePage() {
           setTargetAnglesArray={[[setLeftTargetElbowAngle, "targetElbowAngle"]]}
         />
       }
+      handleVideoUpload={handleVideoUpload}
+      angleView={angleView}
+      color="primary"
+      audioEnabled={audioEnabled}
+      toggleAudio={toggleAudio}
     />
   );
 
@@ -116,15 +139,35 @@ function PushUpGamePage() {
           setTargetAnglesArray={[[setRightTargetElbowAngle, "targetElbowAngle"]]}
         />
       }
+      handleVideoUpload={handleVideoUpload}
+      angleView={angleView}
+      color="secondary"
+      audioEnabled={audioEnabled}
+      toggleAudio={toggleAudio}
     />
   );
 
   return (
-    <ExerciseBoxWithDualFeedback
+    <ExerciseBox
       title="Pushup Game"
-      webcamCanvas={webcamCanvas}
-      leftFeedbackPanel={leftFeedbackPanel}
-      rightFeedbackPanel={rightFeedbackPanel}
+      feedbackPanel={
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", justifyContent: "center" }}>
+          {leftFeedbackPanel}
+          {rightFeedbackPanel}
+        </Box>
+      }
+      processPoseResults={processPoseResults}
+      color="transparent"
+      repCount={leftRepCount + rightRepCount}
+      drawSkeleton={true}
+      playFeedback={playFeedback}
+      setPlayFeedback={setPlayFeedback}
+      showSummary={showSummary}
+      setShowSummary={setShowSummary}
+      handleReset={() => {
+        handleLeftReset();
+        handleRightReset();
+      }}
     />
   );
 }
