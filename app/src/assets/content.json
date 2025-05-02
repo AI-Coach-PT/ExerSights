@@ -15,7 +15,8 @@
     "standingObliqueCrunch": " Targets obliques and abs, improves core stability, posture, and balance while burning calories.",
     "treePose": "Balances body, strengthens legs, improves focus, stretches hips and inner thighs.",
     "shoulderPress": "Targets deltoids, strengthens shoulders and triceps, enhances overhead stability.",
-    "pushUpGame": "A fun game that motivates you to do push-ups and improve your strength."
+    "pushUpGame": "A fun game that motivates you to do push-ups against a friend and improve your strength.",
+    "squatGame": "A fun game that motivates you to do squats against a friend and improve your strength."
   },
   "instructions": {
     "squat": "Please position yourself so that your camera is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
@@ -33,7 +34,8 @@
     "standingObliqueCrunch": "Please position yourself so that your camera is facing slightly DIAGONAL of your body, so that the side you aim to train is at least slightly closer to the camera, without obstructing the camera's view of the front of your body. Ensure that your entire body is in frame.",
     "treePose": "Please position yourself so that your camera is facing slightly DIAGONAL of your body, so that the leg you bend is at least slightly closer to the camera, without obstructing the camera's view of the front of your body. Ensure that your entire body is in frame.",
     "shoulderPress": "Please position yourself so that your camera is facing the FRONT of your body.",
-    "pushUpGame": "Please position yourself so that your camera is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted."
+    "pushUpGame": "Please position yourself so that your camera is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted.",
+    "squatGame": "Please position yourself so that your camera is facing the SIDE of your body. Ensure that your entire body is in frame and the camera is straight and not tilted."
   },
   "instructionVideos": {
     "squat": "https://www.youtube.com/embed/4KmY44Xsg2w",
@@ -51,7 +53,9 @@
     "standingObliqueCrunch": "https://www.youtube.com/embed/yZmq_xSkhI0?si=xnrUzTUZjG3w3jaF",
     "treePose": "https://www.youtube.com/embed/Fr5kiIygm0c?si=1q9LT_jzV1A_dYTI",
     "shoulderPress": "https://www.youtube.com/embed/qEwKCR5JCog",
-    "pushUpGame": "https://www.youtube.com/embed/qEwKCR5JCog"
+    "pushUpGame": "https://www.youtube.com/embed/qEwKCR5JCog",
+    "squatGame": "https://www.youtube.com/embed/4KmY44Xsg2w"
+
   },
   "legal": {
     "disclaimer": "Disclaimer: Exercise feedback and stats provided may not always be accurate. We are not liable for inaccurate feedback or any resulting injuries. Always consult a professional trainer before performing exercises. Use at your own risk."

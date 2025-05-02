@@ -19,6 +19,7 @@ import PageViewTracker from "./components/PageViewTracker";
 import LoginPrompt from "./components/LoginPrompt";
 import MyExerSights from "./pages/MyExerSights";
 import PushUpGamePage from "./utils/exercises/pushUpGame";
+import SquatGamePage from "./utils/exercises/squatGame";
 
 /**
  * The root component of the application, managing routing between different pages.
@@ -222,6 +223,7 @@ function App() {
           <Route path="/programOverlay" element={<ProgramOverlay />} />
           <Route path="/myExerSights" element={<MyExerSights />} />
           <Route path="/pushUpGame" element={<PushUpGamePage />} />
+          <Route path="/squatGame" element={<SquatGamePage />} />
         </Routes>
       </Router>
     </ThemeProvider>
