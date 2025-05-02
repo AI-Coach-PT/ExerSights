@@ -51,7 +51,6 @@ function Catalog() {
 
     try {
       const docSnap = await getDoc(docRef);
-
       let updatedPins = [];
 
       if (!docSnap.exists()) {
@@ -78,7 +77,6 @@ function Catalog() {
 
   useEffect(() => {
     const auth = getAuth();
-
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         try {
@@ -116,7 +114,7 @@ function Catalog() {
                 .replace(/([A-Z])/g, " $1")
                 .replace(/^./, (str) => str.toUpperCase())}
               description={catalogText[exerciseKey]}
-              link={`/exercise?exercise=${exerciseKey}`}
+              link={exerciseKey === "pushUpGame" ? "/pushUpGame" : `/exercise?exercise=${exerciseKey}`}
               image={exerciseImages[exerciseKey]}
               isPinned={pinnedExercises.includes(exerciseKey)}
               onPinToggle={() => togglePin(exerciseKey)}
