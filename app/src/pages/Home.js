@@ -1,5 +1,12 @@
 import React from "react";
-import { Typography, Box, Card, CardContent, Button, CardMedia } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Card,
+  CardContent,
+  Button,
+  CardMedia,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import catalogPreview from "../assets/logos/catalogPreview.png";
 import { disclaimerText } from "../assets/content";
@@ -20,7 +27,8 @@ function Home() {
         justifyContent: "center",
         alignItems: "center",
         padding: "0.5rem",
-      }}>
+      }}
+    >
       <Box>
         <Typography variant="h1" sx={{ mb: "0.25rem" }}>
           Welcome to ExerSights!
@@ -28,9 +36,12 @@ function Home() {
         <Typography variant="h5" sx={{ mb: "0.5rem" }}>
           AI-powered App for Fitness & Rehabilitation
         </Typography>
-        <Typography variant="body1" sx={{ mb: "1.25rem", color: "text.secondary" }}>
-          Providing real-time feedback on exercise form using state-of-the-art computer vision
-          models.
+        <Typography
+          variant="body1"
+          sx={{ mb: "1.25rem", color: "text.secondary" }}
+        >
+          Providing real-time feedback on exercise form using state-of-the-art
+          computer vision models.
         </Typography>
       </Box>
 
@@ -45,7 +56,8 @@ function Home() {
           alignContent: "center",
           flexDirection: "row",
           maxWidth: "90%",
-        }}>
+        }}
+      >
         <Card
           sx={{
             width: "36rem",
@@ -56,14 +68,16 @@ function Home() {
             },
             borderRadius: "2rem",
           }}
-          onClick={handleNavigate}>
+          onClick={handleNavigate}
+        >
           <CardMedia component="img" image={catalogPreview} />
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Explore Our Catalog
             </Typography>
             <Typography variant="body2" color="text.secondary" gutterBottom>
-              Discover a variety of exercises tailored to your fitness and rehab needs.
+              Discover a variety of exercises tailored to your fitness and rehab
+              needs.
             </Typography>
             <Button variant="contained" color="secondary" sx={{ mt: "0.5rem" }}>
               Go to Catalog
@@ -79,7 +93,8 @@ function Home() {
             "&:hover": {
               transform: "scale(1.05)",
             },
-          }}>
+          }}
+        >
           <CardMedia
             component="iframe"
             src="https://www.youtube.com/embed/a-16RUDbfmk?si=B4F6Q1K2--eXx2Ke"

@@ -154,15 +154,12 @@ function FAQ() {
         </List>
       </Box>
 
-      <Box sx={{ width: "60rem", maxWidth: "90%" }}>
-        <Typography variant="h5" sx={{ width: "60rem", maxWidth: "90%" }}>
-          Another concern we did not address, or have additional feedback?
-        </Typography>
-        <Typography variant="h6" sx={{ mb: "1rem", color: "text.secondary" }}>
-          We always want to hear from you! Contact us using the form below!
-        </Typography>
-      </Box>
-
+      <Typography variant="h5" sx={{ width: "60rem", maxWidth: "90%", alignItems: "center" }}>
+        Another concern we did not address, or have additional feedback?
+      </Typography>
+      <Typography variant="h6" sx={{ mb: "1rem", maxWidth: "90%", color: "text.secondary" }}>
+        We always want to hear from you! Contact us using the form below!
+      </Typography>
       <ContactForm />
     </Box>
   );
