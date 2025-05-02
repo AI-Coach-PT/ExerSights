@@ -20,6 +20,7 @@ export const instructionsTextShoulderPress = content.instructions.shoulderPress;
 
 //game
 export const instructionsTextPushupGame = content.instructions.pushupGame;
+export const instructionsTextSquatGame = content.instructions.squatGame;
 
 export const instructionsVideoSquat = content.instructionVideos.squat;
 export const instructionsVideoPushUp = content.instructionVideos.pushup;
@@ -40,7 +41,7 @@ export const instructionsVideoTreePose = content.instructionVideos.treePose;
 export const instructionsVideoShoulderPress = content.instructionVideos.shoulderPress;
 
 //game
-export const instructionsVideoPushupGame = content.instructionVideos.pushupGame;
+export const instructionsVideoSquatGame = content.instructionVideos.squatGame;
 
 export const disclaimerText = content.legal.disclaimer;
 

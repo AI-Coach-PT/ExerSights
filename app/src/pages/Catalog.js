@@ -114,7 +114,13 @@ function Catalog() {
                 .replace(/([A-Z])/g, " $1")
                 .replace(/^./, (str) => str.toUpperCase())}
               description={catalogText[exerciseKey]}
-              link={exerciseKey === "pushUpGame" ? "/pushUpGame" : `/exercise?exercise=${exerciseKey}`}
+              link={
+                exerciseKey === "pushUpGame"
+                  ? "/pushUpGame"
+                  : exerciseKey === "squatGame"
+                  ? "/squatGame"
+                  : `/exercise?exercise=${exerciseKey}`
+              }
               image={exerciseImages[exerciseKey]}
               isPinned={pinnedExercises.includes(exerciseKey)}
               onPinToggle={() => togglePin(exerciseKey)}
