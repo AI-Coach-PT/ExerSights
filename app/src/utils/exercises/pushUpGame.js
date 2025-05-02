@@ -45,6 +45,11 @@ function PushUpGamePage() {
     rightPushUpChecker.current = createPushUpChecker();
   };
 
+  const handleResetAll = () => {
+    handleLeftReset();
+    handleRightReset();
+  };
+
   const processPoseResults = (landmarks0, landmarks1) => {
     // Rightmost person (landmarks0) = right, Leftmost = left
     if (landmarks0)
@@ -65,7 +70,6 @@ function PushUpGamePage() {
       );
   };
 
-  
   const updateTargetElbowAngle = (value) => {
     setLeftTargetElbowAngle(value);
     setRightTargetElbowAngle(value);
@@ -89,6 +93,7 @@ function PushUpGamePage() {
         <GameFeedbackPanel
           leftRepCount={leftRepCount}
           rightRepCount={rightRepCount}
+          handleReset={handleResetAll}
           HelpModal={<HelpModal image={squatHelpImg} description={instructionsTextSquat} />}
           SettingsModal={
             <SettingsModal
@@ -97,7 +102,6 @@ function PushUpGamePage() {
               setTargetAnglesArray={[[updateTargetElbowAngle, "targetElbowAngle"]]}
             />
           }
-          onStartExercise={() => setPlayFeedback(true)}
         />
       }
       processPoseResults={processPoseResults}
@@ -108,10 +112,7 @@ function PushUpGamePage() {
       setPlayFeedback={setPlayFeedback}
       showSummary={showSummary}
       setShowSummary={setShowSummary}
-      handleReset={() => {
-        handleLeftReset();
-        handleRightReset();
-      }}
+      handleReset={handleResetAll}
       dimensions={{ width: 640, height: 480 }}
       ref={{ webcamRef: webcamRef, canvasRef: canvasRef }}
     />
@@ -119,4 +120,3 @@ function PushUpGamePage() {
 }
 
 export default PushUpGamePage;
-   

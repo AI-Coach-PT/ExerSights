@@ -14,6 +14,13 @@ const exerciseImages = Object.fromEntries(
   Object.keys(catalogText).map((key) => [key, require(`../assets/exercise-cards/${key}.png`)])
 );
 
+/**
+ * Catalog is a React functional component that displays a list of exercise cards.
+ * It dynamically iterates through the catalogText object to generate the exercise cards.
+ * Includes a search bar to filter exercises by name or key.
+ *
+ * @returns {JSX.Element} A catalog page displaying exercises.
+ */
 function Catalog() {
   const [searchTerm, setSearchTerm] = useState("");
   const [pinnedExercises, setPinnedExercises] = useState([]);

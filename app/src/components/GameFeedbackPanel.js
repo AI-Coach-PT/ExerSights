@@ -1,21 +1,17 @@
 import React from "react";
-import { Box, Typography, Paper, Button, LinearProgress } from "@mui/material";
+import { Box, Typography, Paper, Button } from "@mui/material";
 import Timer from "./Timer";
-import VoiceFeedbackButton from "./VoiceButton";
 
 function GameFeedbackPanel({
   leftRepCount,
   rightRepCount,
   HelpModal,
   SettingsModal,
-  onStartExercise,
+  handleReset,
 }) {
-  const leftWins = leftRepCount > rightRepCount;
-  const rightWins = rightRepCount > leftRepCount;
-
-  const leftProgress = leftRepCount + rightRepCount > 0
-    ? (leftRepCount / (leftRepCount + rightRepCount)) * 100
-    : 50;
+  const total = leftRepCount + rightRepCount;
+  const leftPercent = total > 0 ? (leftRepCount / total) * 100 : 50;
+  const rightPercent = 100 - leftPercent;
 
   return (
     <Paper
@@ -30,41 +26,47 @@ function GameFeedbackPanel({
         display: "flex",
         flexDirection: "column",
         gap: 2,
+        backgroundColor: "#121212", // optional: dark theme for contrast
       }}
     >
-      {/* Top row: scores and progress bar */}
+      {/* Top row: scores */}
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <Box sx={{ flex: 1 }}>
-          <Typography variant="h6" color={leftWins ? "primary" : "textSecondary"}>
+          <Typography variant="h6" color="white">
             Left Score: {leftRepCount}
           </Typography>
         </Box>
         <Box sx={{ flex: 1 }}>
-          <Typography variant="h6" color={rightWins ? "primary" : "textSecondary"}>
+          <Typography variant="h6" color="white">
             Right Score: {rightRepCount}
           </Typography>
         </Box>
       </Box>
 
-      <LinearProgress
-        variant="determinate"
-        value={leftProgress}
+      {/* Dual-colored bar */}
+      <Box
         sx={{
+          display: "flex",
           height: 10,
+          width: "100%",
           borderRadius: 5,
-          backgroundColor: "#e0e0e0",
-          "& .MuiLinearProgress-bar": {
-            backgroundColor: leftWins ? "primary.main" : rightWins ? "secondary.main" : "grey",
-          },
+          overflow: "hidden",
         }}
-      />
+      >
+        <Box sx={{ width: `${leftPercent}%`, backgroundColor: "orange" }} />
+        <Box sx={{ width: `${rightPercent}%`, backgroundColor: "blue" }} />
+      </Box>
 
-      {/* Timer & controls */}
-      <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
-        <Button variant="contained" color="success" onClick={onStartExercise}>
-          Start Exercise
+      {/* Controls: Reset + Modals */}
+      <Box sx={{ display: "flex", justifyContent: "center", gap: "1rem", textAlign: "center" }}>
+        <Button
+          variant="contained"
+          onClick={handleReset}
+          color="secondary"
+          sx={{ width: "48%" }}
+        >
+          Reset Rep Count
         </Button>
-        <VoiceFeedbackButton />
         {HelpModal}
         {SettingsModal}
       </Box>

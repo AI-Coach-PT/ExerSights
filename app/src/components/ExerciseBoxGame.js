@@ -13,12 +13,8 @@ import WebcamCanvas from "./WebcamCanvas";
 import VideoCanvas from "./VideoCanvas";
 import startPoseDetection from "../utils/models/PoseDetectorPoseVideo";
 import detectPose from "../utils/models/PoseDetector";
-import OverlayBox from "./CounterGraphic";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import StopIcon from "@mui/icons-material/Stop";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import { unlockAudio } from "../utils/helpers/Audio";
 
 function ExerciseBoxGame({
   title,
@@ -42,7 +38,6 @@ function ExerciseBoxGame({
   );
   const [forceRemountKey, setForceRemountKey] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [showOverlay, setShowOverlay] = useState(false);
   const [stream, setStream] = useState(null);
   const [startTime, setStartTime] = useState(Date.now());
   const [endTime, setEndTime] = useState(Date.now());
@@ -69,12 +64,10 @@ function ExerciseBoxGame({
     if (file) {
       const videoURL = URL.createObjectURL(file);
       const videoElement = videoRef.current;
-
       videoElement.src = videoURL;
       videoElement.onloadeddata = () => {
         videoElement.pause();
       };
-
       setUseVideo(true);
     }
   };
@@ -82,14 +75,6 @@ function ExerciseBoxGame({
   const handleUploadPlay = () => {
     const videoElement = videoRef.current;
     startPoseDetection(videoElement, videoCanvasRef, processPoseResults);
-  };
-
-  const handlePlayFeedback = () => {
-    if (!playFeedback) unlockAudio();
-
-    setPlayFeedback(!playFeedback);
-    if (!playFeedback) setStartTime(Date.now());
-    else setEndTime(Date.now());
   };
 
   const saveExerciseSummary = async (userEmail, exerciseSummary) => {
@@ -138,14 +123,6 @@ function ExerciseBoxGame({
   }, [drawSkeleton]);
 
   useEffect(() => {
-    if (repCount > 0) {
-      setShowOverlay(false);
-      setTimeout(() => setShowOverlay(true), 10);
-      setTimeout(() => setShowOverlay(false), 1000);
-    }
-  }, [repCount]);
-
-  useEffect(() => {
     setLoading(!stream);
   }, [stream]);
 
@@ -155,7 +132,6 @@ function ExerciseBoxGame({
         const devices = await navigator.mediaDevices.enumerateDevices();
         const cameras = devices.filter((d) => d.kind === "videoinput");
         setAvailableCameras(cameras);
-
         if (cameras.length > 0) {
           const stored = localStorage.getItem("selectedCamera");
           const valid = cameras.some((cam) => cam.deviceId === stored)
@@ -224,17 +200,31 @@ function ExerciseBoxGame({
         </Box>
       </Modal>
 
-      <Typography variant="h2" sx={{ textAlign: "center", my: 3 }}>
+      <Typography variant="h2" sx={{ textAlign: "center", my: 2 }}>
         {title}
       </Typography>
+
+      <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+        <FormControl sx={{ minWidth: 180 }}>
+          <InputLabel>Choose Camera</InputLabel>
+          <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">
+            {availableCameras.map((camera) => (
+              <MenuItem key={camera.deviceId} value={camera.deviceId}>
+                {camera.label || `Camera ${camera.deviceId}`}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 3,
+          gap: 0,
         }}>
+        {/* Video/Webcam */}
         <Box
           sx={{
             border: `6px solid ${color || "white"}`,
@@ -263,25 +253,9 @@ function ExerciseBoxGame({
               onUserMediaLoaded={handleUserMediaLoaded}
             />
           )}
-          {showOverlay && <OverlayBox text={repCount} />}
         </Box>
 
-        <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: "center" }}>
-          <Button variant="contained" onClick={handlePlayFeedback}>
-            {playFeedback ? <><StopIcon /> Stop</> : <><PlayArrowIcon /> Start</>}
-          </Button>
-          <FormControl sx={{ minWidth: 180 }}>
-            <InputLabel>Choose Camera</InputLabel>
-            <Select value={selectedCamera} onChange={handleCameraChange} label="Choose Camera">
-              {availableCameras.map((camera) => (
-                <MenuItem key={camera.deviceId} value={camera.deviceId}>
-                  {camera.label || `Camera ${camera.deviceId}`}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-
+        {/* Feedback panel below */}
         <Box sx={{ width: "100%", maxWidth: "900px" }}>{enhancedFeedbackPanel}</Box>
       </Box>
     </Box>
